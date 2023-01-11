@@ -1,0 +1,80 @@
+ManifestFileVersion: 0
+CRC: 175547465
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e7807be14c158992578bf6ca9af9766e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5bb82cfec3cbe81c3cdbd0f5f18a059f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: e0b41084593d1ee488469b5158706892, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Art/NPC/aersitai/ani/rx1_ss@skill3.FBX
+- Assets/ParticleResources/ParticleTextures/T_ShinningPoint_Yellow.psd
+- Assets/Art/NPC/aersitai/ani/rx1_ss@xiuxi.FBX
+- Assets/ParticleResources/ParticleMaterials/M_CharacterShadow.mat
+- Assets/Art/NPC/aersitai/aersitai/Materials/T_taitan0.psd
+- Assets/Art/NPC/aersitai/aersitai/Materials/T_taitan0.mat
+- Assets/Art/NPC/aersitai/ani/rx1_ss@idle1.FBX
+- Assets/Weapons/WeaponMeshes/sheild01.FBX
+- Assets/ParticleResources/ParticleMaterials/M_Aoshushandian2.mat
+- Assets/Resources/WeaponPrefab/TitanL01.prefab
+- Assets/Art/NPCPrefab/aersitai.prefab
+- Assets/Weapons/Materials/T_Titan03_shield03.mat
+- Assets/Weapons/Materials/T_dun3.mat
+- Assets/ParticleResources/ParticleMeshes/SM_Plane.FBX
+- Assets/Art/NPC/aersitai/aersitaiController.controller
+- Assets/Weapons/WeaponMeshes/Materials/T_chui1.mat
+- Assets/RealToon/RealToon Shaders/Version 5/Default/D_Default.shader
+- Assets/ParticleResources/ParticleMaterials/M_ShinningPoint_Yellow.mat
+- Assets/Art/NPC/aersitai/ani/rx1_ss@idle2.FBX
+- Assets/Art/NPC/aersitai/ani/rx1_ss@die.FBX
+- Assets/Weapons/WeaponTextures/T_sheild01.psd
+- Assets/ParticleResources/ParticleTextures/T_Aoshushandian02.psd
+- Assets/ParticleResources/ParticleTextures/T_CharacterShadow.psd
+- Assets/Weapons/WeaponTextures/T_Hammer01.psd
+- Assets/Art/NPC/aersitai/ani/rx1_ss@skill2.FBX
+- Assets/Weapons/WeaponMeshes/Hammer01.FBX
+- Assets/Art/NPC/aersitai/aersitai/aersitai.FBX
+- Assets/Resources/WeaponPrefab/TitanR01.prefab
+- Assets/Art/NPC/aersitai/ani/rx1_ss@skill1.FBX
+- Assets/Art/NPC/aersitai/ani/rx1_ss@move.FBX
+Dependencies: []

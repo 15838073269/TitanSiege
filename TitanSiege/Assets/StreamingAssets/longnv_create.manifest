@@ -1,0 +1,51 @@
+ManifestFileVersion: 0
+CRC: 2584951523
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2290fff57045a0cefb9e65fb6e735c34
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d759cd55f648d178de536769d778957e
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 63df4e6298121c749ac49c5dd6a5e16d, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 221
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Art/NPC/longnv/longnv_create.overrideController
+- Assets/Art/NPCPrefab/longnv_create.prefab
+Dependencies:
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/jianshi
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/jianshi_create
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/longnv

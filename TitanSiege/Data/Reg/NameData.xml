@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding = "utf-8"?>
+<data name="NameData" from="角色名称表.xlsx" to="NameData.xml">
+<variable name= "AllNames" type = "list">
+    <list name="NameDataBase" sheetname="角色名称表" mainKey = "id">
+        <variable name = "id" col="ID" type = "ushort"/>
+        <variable name = "Cname" col="中文姓名" type = "string"/>
+        <variable name = "Ename" col="英文姓名" type = "string"/>
+    </list>
+</variable> 
+</data>

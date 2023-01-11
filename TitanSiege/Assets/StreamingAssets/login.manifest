@@ -1,0 +1,61 @@
+ManifestFileVersion: 0
+CRC: 2070036221
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1562163a98d40bb156fe6f6320a5f27a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 172cd7a3c33944e2c55599ee2fc3e28c
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Compond/Common/Item/007_long/long.FBX
+- Assets/Compond/06_Town/Materials/10002_cloud01.mat
+- Assets/Compond/Common/SceneParticles/Source/Textures/lightshaft.tif
+- Assets/Compond/02_Desert/Textures/10102_wind.tga
+- Assets/ParticleResources/ParticleMaterials/Normal_Firepoint02.mat
+- Assets/Art/BuildPrefab/Login.prefab
+- Assets/Compond/06_Town/Anim/10002_cloud02.anim
+- Assets/ParticleResources/ParticleTextures/T_ShinningPoint_2.psd
+- Assets/Compond/06_Town/Models/10002_cloud02.FBX
+- Assets/Compond/Common/Item/007_long/Materials/long_01.png
+- Assets/Compond/06_Town/Models/10002_cloud01.FBX
+- Assets/Compond/06_Town/Materials/10002_light.mat
+- Assets/Compond/Common/Item/007_long/Materials/long_01.mat
+- Assets/Compond/06_Town/Anim/10002_cloud03.anim
+Dependencies:
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/uires

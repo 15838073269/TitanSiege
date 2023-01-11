@@ -1,0 +1,56 @@
+ManifestFileVersion: 0
+CRC: 3938123660
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b9439911e93b86081d77fbce66fc43ec
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a1cf923d1c160e63844cef8259e513c8
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: e0b41084593d1ee488469b5158706892, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Art/NPC/lang2/Materials/SK_lang2.mat
+- Assets/Art/NPC/lang2/lang2.controller
+- Assets/Art/NPC/lang2/sz_lang2/idle1.anim
+- Assets/Art/NPC/lang2/sz_lang2/move.anim
+- Assets/Art/NPC/lang2/sz_lang2/skill2.anim
+- Assets/Art/NPC/lang2/sz_lang2/skill1.anim
+- Assets/Art/NPCPrefab/lang2.prefab
+- Assets/Art/NPC/lang2/lang3.FBX
+- Assets/Art/NPC/lang2/SK_lang2.psd
+Dependencies:
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/aersitai

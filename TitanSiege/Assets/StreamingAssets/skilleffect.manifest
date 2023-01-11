@@ -1,0 +1,33 @@
+ManifestFileVersion: 0
+CRC: 4280255886
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b84a8caa803514718338d796934fc039
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7472f7cd387e2baf76cb844dd4c1a2bb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: f2a9afa242b5cfe409fcb6b81b0e92df, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Art/NPCPrefab/skilleffect.prefab
+Dependencies:
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/jianshi
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/jingling

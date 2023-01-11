@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3329115844874593637
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3329115844874593658}
+  - component: {fileID: 3329115844874593659}
+  - component: {fileID: 3329115844874593636}
+  m_Layer: 0
+  m_Name: ClientScene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3329115844874593658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3329115844874593637}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.8362336, y: -6.272072, z: 10.2634945}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3329115844874593659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3329115844874593637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41891f3d35225c547941574b83b44634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanSentTime: 0.033333335
+--- !u!114 &3329115844874593636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3329115844874593637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419ae840eb59f7548bce9e45fd5b48c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  registerObjects:
+  - {fileID: -3409757061214354983, guid: 6cf4b4f77d166f04ab516f56ba86db34, type: 3}
+  - {fileID: 266317919319279106, guid: ae17654fa4a4e3d47911d9d6d62066cd, type: 3}
+  - {fileID: 6915668610306464295, guid: 70c432ab727a7df4f91e5ae82d5a1910, type: 3}
+  onExitDelectAll: 1

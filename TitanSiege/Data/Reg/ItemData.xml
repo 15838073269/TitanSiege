@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data name="ItemData" from="道具配置表.xlsx" to="ItemData.xml">
+	<variable name= "AllItems" type = "list">
+		<list name="ItemBase" sheetname="道具配置表" mainKey = "id">
+			<variable name="id" col="ID" type="int" />
+			<variable name="name" col="物品名" type="string" />
+			<variable name="desc" col="描述" type="string" />
+			<variable name="pic" col="图片" type="string" />
+			<variable name="itemtype" col="类型" type="ushort" />
+			<variable name="level" col="物品等级" type="ushort" defaultValue="1"/>
+			<variable name="price" col="贩卖价格" type="int" defaultValue="0"/>
+			<variable name="drop" col="是否掉落" type="bool" defaultValue="false"/>
+			<variable name="cd" col="冷却" type="ushort" defaultValue="0"/>
+			<variable name="talent" col="天赋" type="string" defaultValue="0"/>
+			<variable name="xiaoguo1" col="效果1" type="ushort" defaultValue="0"/>
+			<variable name="xiaoguo1zhi" col="效果值1" type="string" split="," defaultValue="0"/>
+			<variable name="xiaoguo2" col="效果2" type="ushort" defaultValue="0"/>
+			<variable name="xiaoguo2zhi" col="效果值2" type="string" split="," defaultValue="0"/>
+			<variable name="xiaoguo3" col="效果3" type="ushort" defaultValue="0"/>
+			<variable name="xiaoguo3zhi" col="效果值3" type="string" split="," defaultValue="0"/>
+			<variable name="xuqiu1" col="需求1" type="string" defaultValue="0"/>
+			<variable name="xuqiu1zhi" col="需求值1" type="ushort" defaultValue="0"/>		
+			<variable name="xuqiu2" col="需求2" type="string" defaultValue="0"/>
+			<variable name="xuqiu2zhi" col="需求值2" type="ushort" defaultValue="0"/>	
+			<variable name="xuqiu3" col="需求3" type="string" defaultValue="0"/>
+			<variable name="xuqiu3zhi" col="需求值3" type="ushort" defaultValue="0"/>	
+		</list>
+	</variable>      
+</data>
+	
+
+	
+	

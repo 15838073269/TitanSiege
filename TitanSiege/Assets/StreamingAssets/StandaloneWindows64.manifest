@@ -1,0 +1,134 @@
+ManifestFileVersion: 0
+CRC: 1794371917
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: data
+      Dependencies: {}
+    Info_1:
+      Name: materials
+      Dependencies: {}
+    Info_2:
+      Name: audio
+      Dependencies: {}
+    Info_3:
+      Name: uires
+      Dependencies: {}
+    Info_4:
+      Name: createplayerpage
+      Dependencies:
+        Dependency_0: uires
+    Info_5:
+      Name: loadinguipage
+      Dependencies:
+        Dependency_0: uires
+    Info_6:
+      Name: loginuipage
+      Dependencies:
+        Dependency_0: uires
+    Info_7:
+      Name: mainuipage
+      Dependencies:
+        Dependency_0: uires
+    Info_8:
+      Name: mapuipage
+      Dependencies:
+        Dependency_0: uires
+    Info_9:
+      Name: roleinfo
+      Dependencies:
+        Dependency_0: uires
+        Dependency_1: createplayerpage
+    Info_10:
+      Name: selectplayerpage
+      Dependencies:
+        Dependency_0: uires
+        Dependency_1: createplayerpage
+    Info_11:
+      Name: uimsgbox
+      Dependencies:
+        Dependency_0: uires
+    Info_12:
+      Name: uimsgtips
+      Dependencies:
+        Dependency_0: uires
+    Info_13:
+      Name: videouipage
+      Dependencies: {}
+    Info_14:
+      Name: aersitai
+      Dependencies: {}
+    Info_15:
+      Name: jianshi
+      Dependencies:
+        Dependency_0: audio
+    Info_16:
+      Name: jianshi_create
+      Dependencies:
+        Dependency_0: jianshi
+    Info_17:
+      Name: jingling
+      Dependencies:
+        Dependency_0: jianshi
+    Info_18:
+      Name: jingling_create
+      Dependencies:
+        Dependency_0: jianshi
+        Dependency_1: jianshi_create
+        Dependency_2: jingling
+    Info_19:
+      Name: longnv
+      Dependencies:
+        Dependency_0: audio
+        Dependency_1: jianshi
+        Dependency_2: jingling
+    Info_20:
+      Name: longnv_create
+      Dependencies:
+        Dependency_0: jianshi
+        Dependency_1: jianshi_create
+        Dependency_2: longnv
+    Info_21:
+      Name: skilleffect
+      Dependencies:
+        Dependency_0: jianshi
+        Dependency_1: jingling
+    Info_22:
+      Name: wenlaini
+      Dependencies:
+        Dependency_0: aersitai
+    Info_23:
+      Name: xiongmao
+      Dependencies:
+        Dependency_0: jianshi
+    Info_24:
+      Name: chuansongsmall
+      Dependencies:
+        Dependency_0: jianshi
+        Dependency_1: jingling
+        Dependency_2: longnv
+    Info_25:
+      Name: chuansongsmall1
+      Dependencies:
+        Dependency_0: chuansongsmall
+    Info_26:
+      Name: clientscene
+      Dependencies:
+        Dependency_0: jianshi
+        Dependency_1: jingling
+        Dependency_2: longnv
+    Info_27:
+      Name: juese
+      Dependencies:
+        Dependency_0: aersitai
+        Dependency_1: wenlaini
+    Info_28:
+      Name: login
+      Dependencies:
+        Dependency_0: uires
+    Info_29:
+      Name: selectmain
+      Dependencies:
+        Dependency_0: aersitai
+        Dependency_1: chuansongsmall1
+        Dependency_2: login

@@ -1,0 +1,244 @@
+ManifestFileVersion: 0
+CRC: 3253272303
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ca95a3b9ea57fd6231aceb0fefdb6052
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: aee5fb78f2c022db9d2137bf179e9c9a
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 67831daf4b503384b919a7e159fe3add, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f2a9afa242b5cfe409fcb6b81b0e92df, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e02a4f248c6ca424ca988983ce717e6f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d9af66fec3bba494f8321e80ed131b0c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 92d0dba4615c71d45bdbfd7c49b539ca, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5fe76539fc27351459975a07a7b060fd, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1359aeb37551d8a49b82c3d932442b18, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: ff9179c503677dd44b3cb46aa0b81b35, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fc5563ecb7e29ea4bb42a6266df0e390, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4c30c5ba201d3254a8a5d9027c487023, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 04a1754bcad980849929c345cbb8c9f0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 42179e1bd7a1c814e9e2b89839ae63d8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: ca5ae29af0f231040bf35a29af57fac9, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1311eae07c5b35e4a9aa5523a71af992, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1dc59152019ae8a48a989eb38aec3384, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 143
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/Sound/playerSound/fashiSound/skill_shanxian.wav
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Materials/Fire_003.mat
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Ring/_MaterialsTool/halfring01_04.mat
+- Assets/IGSoft_Resources/Projects/C_Effects/AcidEffects/materials/FireArrowspark2.png
+- Assets/Art/NPC/jingling/jingling/hurt.anim
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Texture/Ring_002.tga
+- Assets/Art/NPC/jingling/jingling/attack6.anim
+- Assets/Resources/Sound/playerSound/fashiSound/mofashi_attack2.wav
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Ring/_MaterialsTool/shockwave03_04.mat
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/ParticleMaterials/Smokes/simpleSmoke3.png
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Materials/Glow_004.mat
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Ring/shockwave03_04.png
+- Assets/Resources/Effect/Effect_Prefab/Role/Skill/fashi_binghuan.prefab
+- Assets/IGSoft_Resources/aFX_Bao/FT_MagicEffect_vol3/FBX/Materials/01___Default.mat
+- Assets/Resources/Effect/Tex/1015.png
+- Assets/IGSoft_Resources/aFX_Bao/FT_MagicEffect_vol3/FBX/CircleEffectGround.FBX
+- Assets/Resources/Effect/Texture/Trail_fire.png
+- Assets/Resources/Sound/playerSound/fashiSound/mofashi_attack1.wav
+- Assets/Resources/Picture/Clothes/jingling_01.png
+- Assets/Resources/Effect/Effect_Prefab/Role/Skill/fashi_huanxiang.prefab
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Texture/Lightning_003.tga
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Texture/Lightning_001.tga
+- Assets/Resources/Model/JLweapon/staff4/fazhang_04.FBX
+- Assets/Resources/Effect/Texture/bing.png
+- Assets/Art/NPC/jingling/jingling/skill_binghuan.anim
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/Models/sphere.FBX
+- Assets/Art/NPC/jingling/jingling/attack1.anim
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/Za/Texture/IceSmoke04.png
+- Assets/Art/NPC/jingling/jingling/wait.anim
+- Assets/IGSoft_Resources/aFX_Bao/GameFX/Mesh/Lightning_002.FBX
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Materials/Flash_002.mat
+- Assets/Resources/Sound/playerSound/fashiSound/skill_huanxiang2.wav
+- Assets/Art/NPC/jingling/Materials/6.mat
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/ParticleMaterials/Smokes/simpleSmoke3Add.mat
+- Assets/Art/NPC/jingling/jingling/attack5.anim
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Texture/Flash_002.png
+- Assets/Art/NPC/jingling/jingling/die2a.anim
+- Assets/Art/NPC/jingling/jingling.controller
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/Za/Material/Dust_A.mat
+- Assets/IGSoft_Resources/Projects/1 Project/FaShi/HuanXiang_baozha.prefab
+- Assets/Resources/Sound/playerSound/fashiSound/skill_leiyun.wav
+- Assets/IGSoft_Resources/Projects/1 Project/FaShi/BinBao.prefab
+- Assets/IGSoft_Resources/Projects/1 Project/FaShi/BinJin_big.prefab
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/ParticleMaterials/Lights/simpleFlashAdd.mat
+- Assets/Art/NPC/jingling/skin_2.FBX
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/Za/Material/IceSmoke_BinBao.mat
+- Assets/Art/NPC/jingling/jingling/attack4.anim
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/Shaders/forceField.mat
+- Assets/Resources/Sound/playerSound/fashiSound/skill_huanxiang.wav
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Texture/Gradient_001.png
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/ParticleMaterials/Lights/falloffLightbeamAdd.mat
+- Assets/Resources/Effect/Texture/HuDie.png
+- Assets/IGSoft_Resources/aFX_Bao/FT_MagicEffect_vol3/FBX/Materials/No Name.mat
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/Za/Material/FireRain.mat
+- Assets/Art/NPC/jingling/jingling/skill_huangxiang1.anim
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/ParticleMaterials/Lights/thinRing.png
+- Assets/Art/NPC/jingling/jingling/attack2.anim
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/ParticleMaterials/Lights/smokyRing.png
+- Assets/FBX/Materials/Long.mat
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Materials/Fire_005_fire
+  1.mat
+- Assets/Resources/Sound/playerSound/fashiSound/mofashi_death.wav
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Texture/Noise_006.tga
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Materials/Ring_008.mat
+- Assets/IGSoft_Resources/Projects/1 Project/FaShi/long_baozha.prefab
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Materials/Ice_001.mat
+- Assets/Art/NPCPrefab/jingling.prefab
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/Za/Texture/Dust_A.png
+- Assets/IGSoft_Resources/aFX_Bao/FT_MagicEffect_vol3/FBX/Ice_Emitter01.FBX
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Texture/Ring_003.tga
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/Za/Texture/Flare_Line01.png
+- Assets/Art/NPC/jingling/jingling/skill_huangxiang2.anim
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Ring/halfring01_04.png
+- Assets/Art/NPC/jingling/jingling/idle.anim
+- Assets/IGSoft_Resources/aFX_Bao/FT_MagicEffect_vol3/FBX/Ice.FBX
+- Assets/Resources/Effect/Materials/SuoEr_xuqi.mat
+- Assets/Art/effect/jianshiskill/jianshi_xuanfengzhan.prefab
+- Assets/Resources/Model/JLweapon/staff4/Materials/fazhang_04.mat
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/ParticleMaterials/Lightning/lightning2.mat
+- Assets/Resources/Effect/Texture/Material/Long03.mat
+- Assets/Art/NPC/jingling/jingling/skill_longyan3.anim
+- Assets/Resources/Effect/Effect_modle/aaplane_1.fbx
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Texture/Fire_003.png
+- Assets/IGSoft_Resources/aFX_Bao/Xffect_free/EffectLibrary/Textures/Mask/noise04.png
+- Assets/Resources/Effect/Texture/Material/HuDie.mat
+- Assets/Resources/Model/JLweapon/staff4/fazhang_04.fbm/fazhang_04.png
+- Assets/Art/NPC/jingling/jingling/pose.anim
+- Assets/IGSoft_Resources/aFX_Bao/FT_ImpactEffects_volume01/Emitter/HitEmitter_B_v01.fbx
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/Shaders/SM_TransparentRim.shader
+- Assets/Resources/Sound/playerSound/fashiSound/skill_longyan.wav
+- Assets/FBX/Materials/6.mat
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/ParticleMaterials/Lights/simpleFlash.png
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/Za/Texture/FireRain.png
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/Za/Texture/LightingMain.png
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Trail/trail10_red2.tga
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Texture/Ice_001.png
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/Models/Materials/No Name.mat
+- Assets/Art/NPC/jingling/jingling/skill_longyan1.anim
+- Assets/Resources/Effect/Texture/Trail_fire2.png
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/Za/Material/Flare_Line01.mat
+- Assets/Art/effect/jianshiskill/jianshi_chongzhuang1.prefab
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/ParticleMaterials/Lights/falloffLightbeamAdd
+  1.mat
+- Assets/FBX/Long_fire.FBX
+- Assets/Art/NPC/jingling/jingling/run.anim
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Texture/Sparkle_003.tga
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Trail/_MaterialsTool/trail10_long2.mat
+- Assets/FBX/BinJin_big.FBX
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Materials/Sparkle_002.mat
+- Assets/Art/NPC/jingling/jingling/attack8.anim
+- Assets/Art/NPC/jingling/jingling/skill_leiyun.anim
+- Assets/Art/effect/jianshiskill/jianshi_chongjibo.prefab
+- Assets/Art/NPC/jingling/jingling/attack9.anim
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/ParticleMaterials/Lights/thinRingAdd.mat
+- Assets/Resources/Sound/playerSound/fashiSound/mofashi_hurt.wav
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/Za/Texture/Impact06_02.png
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Texture/Sparkle_002.png
+- Assets/FBX/JingLing_HuanXiang.FBX
+- Assets/FBX/Materials/bing.mat
+- Assets/Art/NPC/jingling/jingling/skill_huangxiang3.anim
+- Assets/Resources/Effect/Effect_Prefab/Monster/Act/ShunYi.prefab
+- Assets/Resources/Sound/playerSound/fashiSound/skill_binghuan.wav
+- Assets/Resources/Effect/Materials/1028.mat
+- Assets/Art/NPC/jingling/jingling/attack7.anim
+- Assets/IGSoft_Resources/aFX_Bao/GameFX/Mesh/Lightning_001.FBX
+- Assets/IGSoft_Resources/aFX_Bao/FT_ImpactEffects_volume01/Emitter/GuardSphere02.fbx
+- Assets/Resources/Effect/Texture/Material/DiMian_fire.mat
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/Za/Texture/Wind02.png
+- Assets/Art/effect/jianshiskill/jianshi_tiaozhan.prefab
+- Assets/IGSoft_Resources/Projects/1 Project/FaShi/Long_fire 1.prefab
+- Assets/Art/NPC/jingling/jingling/attack3.anim
+- Assets/IGSoft_Resources/aFX_Bao/FT_ImpactEffects_volume01/Emitter/Materials/GuardSphere02-sphere.mat
+- Assets/Resources/Effect/Texture/fire_long_a.png
+- Assets/Art/NPC/jingling/jingling/tumble.anim
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Texture/Lightning_002.tga
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Trail/trail10_red.tga
+- Assets/Resources/Effect/Effect_Prefab/Role/Skill/fashi_longyan1.prefab
+- Assets/Resources/Effect/Effect_modle/aaplane_2.fbx
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/Za/Material/LightningSub_JingLing.mat
+- Assets/Art/NPC/jingling/jingling/stand.anim
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Materials/Ring_006.mat
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Materials/Lightning_001.mat
+- Assets/Resources/Effect/Tex/1028.png
+- Assets/Art/NPC/jingling/jingling/skill_pet_01.anim
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/ParticleMaterials/Lights/smokyRingAdd.mat
+- Assets/Resources/Effect/Texture/Material/Long02.mat
+- Assets/FBX/Materials/HuanXiang.mat
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Trail/_MaterialsTool/trail10_long.mat
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Texture/Noise_005.tga
+- Assets/Resources/Effect/Effect_Prefab/Role/Skill/fashi_leiyun1.prefab
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Texture/Glow_002.png
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Trail/_MaterialsTool/trail10_long_blend.mat
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/Za/Material/Impact06-03.mat
+- Assets/Resources/Effect/Materials/1015.mat
+- Assets/Art/NPC/jingling/jingling/skill_longyan2.anim
+- Assets/IGSoft_Resources/aFX_Bao/FT_ImpactEffects_volume01/Emitter/Materials/HitEmitter_B_v01-No
+  Name.mat
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/GameFX/Materials/Sparkle_003.mat
+Dependencies:
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/aersitai
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/jianshi

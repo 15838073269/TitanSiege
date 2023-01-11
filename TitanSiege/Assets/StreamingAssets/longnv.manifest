@@ -1,0 +1,168 @@
+ManifestFileVersion: 0
+CRC: 3999465732
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4475b1db1a44dd6bab37106c42cee4c6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b00ffaa14d1de54f5af0c8257decbf89
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 67831daf4b503384b919a7e159fe3add, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e02a4f248c6ca424ca988983ce717e6f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d9af66fec3bba494f8321e80ed131b0c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 47b734d6cf544e946a6217f77fe9aa3d, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 92d0dba4615c71d45bdbfd7c49b539ca, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5fe76539fc27351459975a07a7b060fd, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: bb95dc6afbde28843ae81885ad30c839, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1359aeb37551d8a49b82c3d932442b18, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fc5563ecb7e29ea4bb42a6266df0e390, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 42179e1bd7a1c814e9e2b89839ae63d8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: ca5ae29af0f231040bf35a29af57fac9, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 143
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/FBX/Materials/FH_01.mat
+- Assets/Resources/Effect/Texture/ice_fz.png
+- Assets/Resources/Sound/playerSound/gongjianSound/gongjian_death.wav
+- Assets/Resources/Effect/Texture/FH_02.png
+- Assets/FBX/FengHuang_ice.FBX
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Ring/_MaterialsTool/halfring01_03.mat
+- Assets/Art/NPC/longnv/longnv_skin.fbm/longnv_05.png
+- Assets/Resources/Effect/Materials/1131.mat
+- Assets/Art/NPC/longnv/longnv/rebound.anim
+- Assets/IGSoft_Resources/aFX_Bao/Xffect_free/EffectLibrary/Textures/ShockWave/shockwave10.png
+- Assets/Resources/Effect/Effect_Prefab/Role/Other/paobuyan.prefab
+- Assets/FBX/Materials/FH_02.mat
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/DaoGuang/Material/Slash_YueXiang.mat
+- Assets/Resources/Model/JLweapon/bow4/Materials/bow_04.mat
+- Assets/Resources/Effect/Texture/YanQi_01.png
+- Assets/Art/NPC/longnv/longnv/run2.anim
+- Assets/IGSoft_Resources/aFX_Bao/FT_MagicEffect_vol3/FBX/CircleEffectGround02.FBX
+- Assets/Art/NPC/longnv/longnv/attack4.anim
+- Assets/Art/NPC/longnv/longnv/pose.anim
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/Za/Material/MagicCircle/MagicCircle_fh.mat
+- Assets/Art/NPC/longnv/longnv/attack1.anim
+- Assets/Art/NPC/longnv/longnv.controller
+- Assets/IGSoft_Resources/Projects/1 Project/GongJianSHou/La.prefab
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Ring/_MaterialsTool/ice_buff.mat
+- Assets/Resources/Effect/Tex/glow_02_p.png
+- Assets/Art/NPC/longnv/longnv_skin.FBX
+- Assets/Art/NPC/longnv/longnv/die2a.anim
+- Assets/Resources/Effect/Effect_Prefab/Role/Skill/gongjian_chuanci1.prefab
+- Assets/Art/NPCPrefab/longnv.prefab
+- Assets/Resources/Sound/playerSound/gongjianSound/skill_jianyu1.wav
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Ring/_MaterialsTool/halfring02_01_1.mat
+- Assets/IGSoft_Resources/ToolResources/DefaultMesh/aaplane_stand.fbx
+- Assets/Resources/Effect/Materials/glow_02_p.mat
+- Assets/Art/NPC/longnv/longnv/wait.anim
+- Assets/Art/NPC/longnv/longnv/skill_bingshuang.anim
+- Assets/Resources/Effect/Effect_Prefab/Role/Skill/gongjian_fengkuangshalu1.prefab
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/ParticleMaterials/Lights/spikyFalloffLightbeam.png
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Ring/halfring01_02.png
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/BaoZha/Material/Smoke10_YanQi.mat
+- Assets/IGSoft_Resources/Projects/FT_MagicEffects/BaoZha/Material/wakka09.mat
+- Assets/IGSoft_Resources/ToolResources/DefaultMesh/circle02_2m.fbx
+- Assets/Resources/Effect/Effect_Prefab/Role/Skill/GongJianShou_KongFan.prefab
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Flare/flare02_blue.png
+- Assets/IGSoft_Resources/aFX_Bao/Ian's Fire Pack/Shaders/Add_Layer.shader
+- Assets/Art/NPC/longnv/longnv/hurt.anim
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Flare/ShunYi_J.png
+- Assets/Art/NPC/longnv/Materials/longnv_05.mat
+- Assets/Resources/Effect/Tex/1131.png
+- Assets/Art/NPC/longnv/longnv/attack3.anim
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/ParticleMaterials/Lights/SpFLbAdd
+  2.mat
+- Assets/Art/NPC/longnv/longnv/tumble.anim
+- Assets/Art/NPC/longnv/longnv/skill1_1.anim
+- Assets/Art/NPC/longnv/longnv/skill_shalu02.anim
+- Assets/IGSoft_Resources/aFX_Bao/ShurikenMagic/ParticleMaterials/Lights/SpFLbAdd_b.mat
+- Assets/Resources/Sound/playerSound/gongjianSound/skill_bingshuang.wav
+- Assets/IGSoft_Resources/aFX_Bao/FT_Slasher_volume01/Texture/slash09_anim.png
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Light/_MaterialsTool/gjs.mat
+- Assets/Resources/Sound/playerSound/gongjianSound/gongjian_attack1.wav
+- Assets/Art/NPC/longnv/longnv/skill_shalu01.anim
+- Assets/IGSoft_Resources/aFX_Bao/FT_ImpactEffects_volume01/Texture/wakka07.png
+- Assets/IGSoft_Resources/aFX_Bao/FT_MagicEffects_volume01/Texture/Flame02.psd
+- Assets/Art/NPC/longnv/longnv/skill_pet_01.anim
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Light/lightning02_02.png
+- Assets/Art/NPC/longnv/longnv/skill_shalu03.anim
+- Assets/Art/NPC/longnv/longnv/attack5.anim
+- Assets/Resources/Picture/Clothes/longnv_06.png
+- Assets/Art/NPC/longnv/longnv/run.anim
+- Assets/Resources/Sound/playerSound/gongjianSound/skill_jianyu2.wav
+- Assets/Resources/Model/JLweapon/bow4/bow_04.fbm/bow_04.PNG
+- Assets/Resources/Effect/Texture/FH_01.png
+- Assets/Resources/Effect/Tex/012.png
+- Assets/Resources/Effect/Effect_Prefab/Role/Skill/gongjian_bingshuang.prefab
+- Assets/Art/NPC/longnv/longnv/attack2.anim
+- Assets/Resources/Sound/playerSound/gongjianSound/skill_chuanci.wav
+- Assets/IGSoft_Resources/Projects/[Resources]/[Texture]/Flare/_MaterialsTool/flare02_blue_GJS.mat
+- Assets/Resources/Model/JLweapon/bow4/bow_04.FBX
+- Assets/Art/NPC/longnv/longnv/idle.anim
+- Assets/Resources/Effect/Materials/1003.mat
+- Assets/IGSoft_Resources/Projects/1 Project/GongJianSHou/FengHuang_ice76.prefab
+- Assets/Art/NPC/longnv/longnv/skill_chuanci.anim
+- Assets/Resources/Sound/playerSound/gongjianSound/gongjian_attack2.wav
+- Assets/Art/NPC/longnv/Materials/longnv_pose.mat
+- Assets/Resources/Sound/playerSound/gongjianSound/gongjian_hurt.wav
+- Assets/Art/NPC/longnv/longnv/stand.anim
+- Assets/Resources/Sound/playerSound/gongjianSound/skill_shalu.wav
+- Assets/Resources/Effect/Materials/012.mat
+- Assets/Art/NPC/longnv/longnv/skill1_2.anim
+Dependencies:
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/aersitai
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/audio
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/jianshi
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/jingling

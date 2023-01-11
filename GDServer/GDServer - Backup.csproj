@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <StartupObject>GDServer.GameServer</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>$(DefineConstants)TRACE;SERVER</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>$(DefineConstants)TRACE;SERVER</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.31" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameDesigner\GameDesigner.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="D:\project\TitanSiege\TitanSiege\Assets\Scripts\SqlData\CharactersData.cs">
+      <Link>SqlData\CharactersData.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\TitanSiege\TitanSiege\Assets\Scripts\SqlData\TitansiegeDB.cs">
+      <Link>SqlData\TitansiegeDB.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\TitanSiege\TitanSiege\Assets\Scripts\SqlData\TitansiegeHashProto.cs">
+      <Link>SqlData\TitansiegeHashProto.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\TitanSiege\TitanSiege\Assets\Scripts\SqlData\UsersData.cs">
+      <Link>SqlData\UsersData.cs</Link>
+    </Compile>
+  </ItemGroup>
+</Project>

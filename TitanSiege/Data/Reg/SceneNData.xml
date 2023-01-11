@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data name="SceneNData" from="场景角色配置表.xlsx" to="SceneNData.xml">
+	<variable name= "AllNDatas" type = "list">
+		<list name = "NData" sheetname="场景角色配置表" mainKey = "ndid">
+			<variable  name="ndid" col = "NDID" type="int"/>
+			<variable  name="prepath" col = "预制体路径" type="string"/>
+			<variable  name="posx" col = "PosX" type="float" defaultValue="-9999"/>
+			<variable  name="posy" col = "PosY" type="float" defaultValue="-9999"/>
+			<variable  name="posz" col = "PosZ" type="float" defaultValue="-9999"/>
+			<variable  name="rotax" col = "RotaX" type="float" defaultValue="-9999"/>
+			<variable  name="rotay" col = "RotaY" type="float" defaultValue="-9999"/>
+			<variable  name="rotaz" col = "RotaZ" type="float" defaultValue="-9999"/>
+			<variable  name="scalx" col = "ScalX" type="float" defaultValue="-9999"/>
+			<variable  name="scaly" col = "ScalY" type="float" defaultValue="-9999"/>
+			<variable  name="scalz" col = "ScalZ" type="float" defaultValue="-9999"/>
+			<variable  name="renwulist" col = "绑定任务" type="listInt" split = ","/>
+		</list>
+	</variable>      
+</data>
+	
+
+	
+	

@@ -1,0 +1,29 @@
+ManifestFileVersion: 0
+CRC: 20344209
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: de9e3ce411adab32b932a6b314d1189c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Art/data/binary/SkillData.bytes
+- Assets/Art/data/AssetBundleConfig.bytes
+- Assets/Art/data/binary/BuffDataTest.bytes
+- Assets/Art/data/xml/BuffDataTest.xml
+- Assets/Art/data/xml/NPCData.xml
+- Assets/Art/data/xml/ItemData.xml
+- Assets/Art/data/xml/SceneData.xml
+- Assets/Art/data/xml/SceneNData.xml
+- Assets/Art/data/binary/NameData.bytes
+- Assets/Art/data/binary/NPCData.bytes
+- Assets/Art/data/xml/SkillData.xml
+- Assets/Art/data/binary/ItemData.bytes
+- Assets/Art/data/xml/NameData.xml
+Dependencies: []

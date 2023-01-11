@@ -1,0 +1,30 @@
+ManifestFileVersion: 0
+CRC: 567243476
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 54ba01ebbd4b9e4c83dcbb87e709edc1
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 98277b1e2bcc0df319e0f428f8c766b7
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 419ae840eb59f7548bce9e45fd5b48c8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 41891f3d35225c547941574b83b44634, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d9af66fec3bba494f8321e80ed131b0c, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Art/BuildPrefab/ClientScene.prefab
+Dependencies:
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/jianshi
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/jingling
+- D:/project/TitanSiege/TitanSiege/Assets/../AssetBundle/Android/longnv

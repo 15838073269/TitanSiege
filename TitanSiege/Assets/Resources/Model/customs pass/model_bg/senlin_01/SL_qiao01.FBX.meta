@@ -1,0 +1,90 @@
+fileFormatVersion: 2
+guid: 6837331dacd8e5c4a80c416c9653c983
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: ______310
+    100002: ______311
+    100004: Box02
+    100006: Line04
+    100008: Line05
+    100010: Line06
+    100012: //RootNode
+    400000: ______310
+    400002: ______311
+    400004: Box02
+    400006: Line04
+    400008: Line05
+    400010: Line06
+    400012: //RootNode
+    2300000: ______310
+    2300002: ______311
+    2300004: Box02
+    2300006: Line04
+    2300008: Line05
+    2300010: Line06
+    3300000: ______310
+    3300002: ______311
+    3300004: Box02
+    3300006: Line04
+    3300008: Line05
+    3300010: Line06
+    4300000: ______310
+    4300002: ______311
+    4300004: Line04
+    4300006: Line05
+    4300008: Line06
+    4300010: Box02
+    9500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 0
+  userData: 

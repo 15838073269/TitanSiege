@@ -1,0 +1,205 @@
+ManifestFileVersion: 0
+CRC: 1898092433
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f653645ac8aaeaec85ccd211f23731f3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f267fd2d8bcb1179236b6179ac5313bc
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_32.PNG
+- Assets/Art/UIRes/function/Function Atlas_22.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_33.PNG
+- Assets/Art/UIRes/Skill/skill3.png
+- Assets/Art/UIRes/public/Common Atlas_34.PNG
+- Assets/Art/UIRes/public/role_bg.jpg
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_2.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_24.PNG
+- Assets/Art/UIRes/public/Common Atlas/fgBlue.png
+- Assets/Art/UIRes/login/option_bt_no.png
+- Assets/Art/UIRes/head/jianshi.png
+- Assets/Art/UIRes/public/Common Atlas/fgRed.png
+- Assets/Art/UIRes/public/light.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_8.PNG
+- Assets/Art/UIRes/public/Common Atlas/strongbg.png
+- Assets/Art/UIRes/function/Function Atlas_37.PNG
+- Assets/Art/UIRes/function/Function Atlas_18.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_29.PNG
+- Assets/Art/UIRes/Skill/xuanfengzhan.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_60.PNG
+- Assets/Art/UIRes/Skill/chongjibo.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_10.PNG
+- Assets/Art/UIRes/function/Function Atlas_1.PNG
+- Assets/Art/UIRes/function/Function Atlas_3.PNG
+- Assets/Art/UIRes/public/guide_di.png
+- Assets/Art/UIRes/login/bizActivity_+.png
+- Assets/Art/UIRes/public/fight Atlas_27.PNG
+- Assets/Art/UIRes/public/btntype1.png
+- Assets/Art/UIRes/function/Function Atlas_14.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_37.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_15.PNG
+- Assets/Art/UIRes/login/jianshidi.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_39.PNG
+- Assets/Art/UIRes/public/bgline.png
+- Assets/Art/UIRes/Skill/Petpicture/fashi_huanying.png
+- Assets/Art/UIRes/function/Function Atlas_11.PNG
+- Assets/Art/UIRes/function/Function Atlas_0.PNG
+- Assets/Art/UIRes/public/loading.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_21.PNG
+- Assets/Art/UIRes/function/Function Atlas_20.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_46.PNG
+- Assets/Art/UIRes/public/Main Atlas_23.PNG
+- Assets/Art/UIRes/login/close_bt_di.png
+- Assets/Art/UIRes/Skill/jsattack.png
+- Assets/Art/UIRes/function/Function Atlas_8.PNG
+- Assets/Art/UIRes/public/Common Atlas/bgSkill.png
+- Assets/Art/UIRes/Skill/fashi_longyan.png
+- Assets/Art/UIRes/public/Common Atlas_44.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_64.PNG
+- Assets/Art/UIRes/public/Main Atlas_22.PNG
+- Assets/Art/UIRes/Skill/fight Atlas_32.PNG
+- Assets/Art/UIRes/login/close_bt_pu.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_28.PNG
+- Assets/Art/UIRes/function/Function Atlas_2.PNG
+- Assets/Art/UIRes/public/logo1.png
+- Assets/Art/UIRes/Skill/skill1.png
+- Assets/Art/UIRes/public/13.jpg
+- Assets/Art/UIRes/Skill/gongjian_jianyu.png
+- Assets/Art/UIRes/function/Function Atlas_34.PNG
+- Assets/Art/UIRes/function/Function Atlas_28.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_18.PNG
+- Assets/Art/UIRes/Skill/fashi_leiyun.png
+- Assets/Art/UIRes/function/Function Atlas_16.PNG
+- Assets/Art/UIRes/function/Function Atlas_7.PNG
+- Assets/Art/UIRes/login/back_bt_no.png
+- Assets/Art/UIRes/login/btnsazi1.png
+- Assets/Art/UIRes/public/loading_bg_first.jpg
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_67.PNG
+- Assets/Art/UIRes/public/Common Atlas/skill_lock.png
+- Assets/Art/UIRes/login/Back_bt_pu.png
+- Assets/Art/UIRes/public/Common Atlas_40.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_35.PNG
+- Assets/Art/UIRes/public/fight Atlas_21.PNG
+- Assets/Art/UIRes/Skill/gongjian_bingshuang.png
+- Assets/Art/UIRes/public/joystick_area.png
+- Assets/Art/UIRes/public/Common Atlas_48.PNG
+- Assets/Art/UIRes/head/jingling.png
+- Assets/Art/UIRes/public/hallow_frame_bg.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_42.PNG
+- Assets/Art/UIRes/function/Function Atlas_15.PNG
+- Assets/Art/UIRes/function/Function Atlas_17.PNG
+- Assets/Art/UIRes/public/add2.png
+- Assets/Art/UIRes/Skill/Petpicture/fashi_leiyun.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_68.PNG
+- Assets/Art/UIRes/function/Function Atlas_26.PNG
+- Assets/Art/UIRes/login/chat_red_packet_close.png
+- Assets/Art/UIRes/public/Common Atlas/bgLevel.png
+- Assets/Art/UIRes/Skill/Petpicture/gongjian_jianyu.png
+- Assets/Art/UIRes/function/Function Atlas_35.PNG
+- Assets/Art/UIRes/function/Function Atlas_29.PNG
+- Assets/Art/UIRes/login/close_bt_no.png
+- Assets/Art/UIRes/Skill/gongjian_attack.png
+- Assets/Art/UIRes/Skill/Petpicture/fashi_binghuan.png
+- Assets/Art/UIRes/function/Function Atlas_25.PNG
+- Assets/Art/UIRes/public/Main Atlas_17.PNG
+- Assets/Art/UIRes/public/Common Atlas/fight Atlas_29.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_50.PNG
+- Assets/Art/UIRes/Skill/fight Atlas_30.PNG
+- Assets/Art/UIRes/public/mainUI_task_di1.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_43.PNG
+- Assets/Art/UIRes/Skill/gongjian_chuanci.png
+- Assets/Art/UIRes/public/login_bg.jpg
+- Assets/Art/UIRes/function/Function Atlas_36.PNG
+- Assets/Art/UIRes/function/Function Atlas_12.PNG
+- Assets/Art/UIRes/function/Function Atlas_9.PNG
+- Assets/Art/UIRes/public/Common Atlas_12.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_27.PNG
+- Assets/Art/UIRes/login/Back_bt_di.png
+- Assets/Art/UIRes/login/btnPop.png
+- Assets/Art/UIRes/function/Function Atlas_27.PNG
+- Assets/Art/UIRes/public/btntype2.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_13.PNG
+- Assets/Art/UIRes/function/Function Atlas_23.PNG
+- Assets/Art/UIRes/login/option_bt_pu.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_16.PNG
+- Assets/Art/UIRes/login/knapsack_guangbi.png
+- Assets/Art/UIRes/function/Function Atlas_6.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_41.PNG
+- Assets/Art/UIRes/public/Common Atlas_4.PNG
+- Assets/Art/UIRes/function/Function Atlas_5.PNG
+- Assets/Art/UIRes/Skill/zhongzhan.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_11.PNG
+- Assets/Art/UIRes/Skill/Petpicture/zhanshi_chongjibo.png
+- Assets/Art/UIRes/login/longnvdi.jpg
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_0.PNG
+- Assets/Art/UIRes/login/option_bt_di.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_25.PNG
+- Assets/Art/UIRes/function/Function Atlas_13.PNG
+- Assets/Art/UIRes/login/p32.png
+- Assets/Art/UIRes/login/jinglingdi.png
+- Assets/Art/UIRes/Skill/skill2.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_17.PNG
+- Assets/Art/UIRes/Skill/Petpicture/gongjian_shalu.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_45.PNG
+- Assets/Art/UIRes/public/map.jpg
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_38.PNG
+- Assets/Art/UIRes/Skill/chongzhuang.png
+- Assets/Art/UIRes/Skill/gongjian_shalu.png
+- Assets/Art/UIRes/Skill/Petpicture/zhanshi_xuanfengzhan.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_7.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_66.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_59.PNG
+- Assets/Art/UIRes/public/lock.png
+- Assets/Art/UIRes/public/mars_193.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_62.PNG
+- Assets/Art/UIRes/Skill/cd.png
+- Assets/Art/UIRes/public/joystick.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_19.PNG
+- Assets/Art/UIRes/public/bgDir.png
+- Assets/Art/UIRes/function/Function Atlas_33.PNG
+- Assets/Art/UIRes/Skill/fashi_binghuan.png
+- Assets/Art/UIRes/function/Function Atlas_31.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_54.PNG
+- Assets/Art/UIRes/function/Function Atlas_10.PNG
+- Assets/Art/UIRes/function/Function Atlas_24.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_47.PNG
+- Assets/Art/UIRes/Skill/fight Atlas_31.PNG
+- Assets/Art/UIRes/function/Function Atlas_4.PNG
+- Assets/Art/UIRes/function/Function Atlas_38.PNG
+- Assets/Art/UIRes/public/Common Atlas/bgNor.png
+- Assets/Art/UIRes/public/Common Atlas_58.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_36.PNG
+- Assets/Art/UIRes/head/longnv.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_20.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_31.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_63.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_65.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_14.PNG
+- Assets/Art/UIRes/Skill/skill0.png
+- Assets/Art/UIRes/public/exp.png
+- Assets/Art/UIRes/function/Function Atlas_19.PNG
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_6.PNG
+- Assets/Art/UIRes/Skill/Petpicture/fashi_longyan.png
+- Assets/Art/UIRes/Skill/fashi_huanying.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_23.PNG
+- Assets/Art/UIRes/function/Function Atlas_32.PNG
+- Assets/Art/UIRes/Skill/Petpicture/fashi_attack.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_30.PNG
+- Assets/Art/UIRes/public/loading_progress.png
+- Assets/Art/UIRes/public/Common Atlas/Common Atlas_9.PNG
+- Assets/Art/UIRes/Skill/Petpicture/gongjian_chuanci.png
+- Assets/Art/UIRes/public/itemexp.png
+- Assets/Art/UIRes/public/loadingpoint.png
+- Assets/Art/UIRes/login/btnsazi2.png
+- Assets/Art/UIRes/function/Function Atlas_30.PNG
+- Assets/Art/UIRes/Skill/fashi_attack.png
+- Assets/Art/UIRes/function/Function Atlas_21.PNG
+Dependencies: []

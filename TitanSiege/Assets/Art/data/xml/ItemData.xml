@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ItemData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <AllItems ID="1" 物品名="止血草" 描述="止血药品！" 图片="33/33/33" 类型="1" 物品等级="1" 贩卖价格="200" 是否掉落="true" 冷却="0" 天赋="0" 效果1="0" 效果值1="hp,100" 效果2="0" 效果值2="0" 效果3="0" 效果值3="0" 需求1="0" 需求值1="0" 需求2="0" 需求值2="0" 需求3="0" 需求值3="0" />
+</ItemData>
