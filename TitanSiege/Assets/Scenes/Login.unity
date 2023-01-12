@@ -185,8 +185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   protocol: 0
-  ip: 121.89.205.252
-  port: 16888
+  ip: 127.0.0.1
+  port: 8000
   logMode: 1
   debugRpc: 1
   frameRate: 60

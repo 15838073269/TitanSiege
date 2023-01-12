@@ -1,1 +1,1 @@
-{"csprojPaths":["D:/project/TitanSiege/GDServer/GDServer.csproj"],"paths":["D:/project/TitanSiege/TitanSiege/Assets/Scripts/SqlData"]}
+{"csprojPaths":["E:/Titansiege/GDServer/GDServer.csproj"],"paths":["E:/Titansiege/TitanSiege/Assets/SceneData"]}
