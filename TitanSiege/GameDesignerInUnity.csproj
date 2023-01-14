@@ -56,452 +56,59 @@
     <Analyzer Include="D:\Program Files\IDE\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\NetworkObject.cs">
-      <Link>Component\UnityComponent\NetworkObject.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\NetworkTime.cs">
-      <Link>Component\Client\NetworkTime.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\ClientManager.cs">
-      <Link>Component\Client\ClientManager.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\SerializeAdapter.cs">
-      <Link>Component\Client\SerializeAdapter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonTextReader.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonTextReader.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonContainerType.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonContainerType.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Server\NetPlayer.cs">
-      <Link>Network\core\Server\NetPlayer.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\MergeNullValueHandling.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\MergeNullValueHandling.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\StateMachineWindow.cs">
-      <Link>Editor\StateMachineWindow.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\VersionConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\Converters\VersionConverter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Vector2.cs">
-      <Link>Network\core\Unity\Vector2.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JRaw.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JRaw.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonWriter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\SerializationErrorCallback.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\SerializationErrorCallback.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JTokenEqualityComparer.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JTokenEqualityComparer.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\TransportMode.cs">
-      <Link>Network\core\Share\TransportMode.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JObject.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JObject.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\DataModel.cs">
-      <Link>Network\core\Share\DataModel.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\HashHelpers.cs">
-      <Link>Network\core\System\HashHelpers.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\InvokeHelperBuild.cs">
-      <Link>Network\core\Helper\InvokeHelperBuild.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\ThreadManager.cs">
-      <Link>Network\core\System\ThreadManager.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ErrorEventArgs.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\ErrorEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonFormatterConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonFormatterConverter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\ReadType.cs">
-      <Link>Serialize\Newtonsoft.Json\ReadType.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RuntimeInitializeOnLoadMethod.cs">
       <Link>Network\core\Share\RuntimeInitializeOnLoadMethod.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringReference.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\StringReference.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Generate\NetworkAnimation.cs">
-      <Link>Component\UnityComponent\Generate\NetworkAnimation.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\MetadataPropertyHandling.cs">
       <Link>Serialize\Newtonsoft.Json\MetadataPropertyHandling.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonToken.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonToken.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\ExceptionResource.cs">
-      <Link>Network\core\System\ExceptionResource.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonContractType.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonContractType.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Server\UdpServer.cs">
-      <Link>Network\gudp\Server\UdpServer.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\IBehaviour.cs">
-      <Link>StateMachine\IBehaviour.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\OtherExt\SystemBaseExt.cs">
-      <Link>Component\OtherExt\SystemBaseExt.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Editor\InvokeHelperTools.cs">
-      <Link>Network\Editor\InvokeHelperTools.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\DateFormatHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\DateFormatHandling.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonPropertyAttribute.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonPropertyAttribute.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\StateMachine.cs">
       <Link>StateMachine\StateMachine.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\FileData.cs">
-      <Link>Network\core\Share\FileData.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JConstructor.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JConstructor.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\Creator.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\Creator.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\TypeNameHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\TypeNameHandling.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\FastListSafe.cs">
-      <Link>Network\core\System\FastListSafe.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Adapter\CallSiteRpcAdapter.cs">
-      <Link>Network\Adapter\CallSiteRpcAdapter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\DateTimeZoneHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\DateTimeZoneHandling.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerProxy.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerProxy.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector3Bind.cs">
-      <Link>Network\Binding\UnityEngineVector3Bind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\StateBehaviourInspector.cs">
-      <Link>Editor\StateBehaviourInspector.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Editor\NetworkTransformEdit.cs">
-      <Link>Component\UnityComponent\Editor\NetworkTransformEdit.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\StateBehaviour.cs">
-      <Link>StateMachine\StateBehaviour.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\StringEscapeHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\StringEscapeHandling.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JProperty.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JProperty.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IDebugHandle.cs">
-      <Link>Network\core\Share\IDebugHandle.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\BlueprintSetting.cs">
-      <Link>Editor\BlueprintSetting.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Editor\NetworkSceneManagerEdit.cs">
-      <Link>Component\UnityComponent\Editor\NetworkSceneManagerEdit.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\Win32KernelAPI.cs">
-      <Link>Network\core\Share\Win32KernelAPI.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\MySqlHelper.cs">
       <Link>Component\MySqlHelper.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\InspectorAttribute.cs">
-      <Link>Component\InspectorAttribute.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Generate\NetworkGameObject.cs">
-      <Link>Component\UnityComponent\Generate\NetworkGameObject.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultContractResolverState.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\DefaultContractResolverState.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ConnectState.cs">
-      <Link>Network\core\Share\ConnectState.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\IJEnumerable.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\IJEnumerable.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\Loop.cs">
-      <Link>Network\core\Tools\Loop.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonValue.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonValue.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\HashSetSafe.cs">
-      <Link>Network\core\System\HashSetSafe.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\AotHelper.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\AotHelper.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Adapter\ListenerAdapter.cs">
-      <Link>Network\Adapter\ListenerAdapter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineQuaternionBind.cs">
-      <Link>Network\Binding\UnityEngineQuaternionBind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ParseResult.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\ParseResult.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\RandomSafe.cs">
-      <Link>Network\core\System\RandomSafe.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IValueProvider.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\IValueProvider.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Generate\NetworkLight.cs">
-      <Link>Component\UnityComponent\Generate\NetworkLight.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JTokenType.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JTokenType.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\NTransform.cs">
-      <Link>Component\NTransform.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetState.cs">
-      <Link>Network\core\Share\NetState.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\ECS\GSystem.cs">
-      <Link>ECS\GSystem.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\EnumValue.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\EnumValue.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonToken.cs">
       <Link>Serialize\Newtonsoft.Json\Bson\BsonToken.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\CustomBind.cs">
-      <Link>Network\Binding\CustomBind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ExtensionDataSetter.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\ExtensionDataSetter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\PropertyNameTable.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\PropertyNameTable.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonReader.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonReader.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetworkDataTraffic.cs">
-      <Link>Network\core\Share\NetworkDataTraffic.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetColor32Bind.cs">
-      <Link>Network\Binding\NetColor32Bind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonLinqContract.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonLinqContract.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\ECS\UpdateComponent.cs">
-      <Link>ECS\UpdateComponent.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ReceiveBuffer.cs">
-      <Link>Network\core\Share\ReceiveBuffer.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\StateAction.cs">
-      <Link>StateMachine\StateAction.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Generate\NetworkImage.cs">
-      <Link>Component\UnityComponent\Generate\NetworkImage.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\Extensions.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\Extensions.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\TransitionBehaviour.cs">
       <Link>StateMachine\TransitionBehaviour.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonTextWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonTextWriter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\BsonObjectIdConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\Converters\BsonObjectIdConverter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ReflectionAttributeProvider.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\ReflectionAttributeProvider.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\DateTimeParser.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\DateTimeParser.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\DateTimeUtils.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\DateTimeUtils.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\ObjectCreationHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\ObjectCreationHandling.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Event\EventSystem.cs">
       <Link>Network\core\Event\EventSystem.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonContract.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonContract.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\Segment.cs">
-      <Link>Network\core\System\Segment.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Server\NetPort.cs">
-      <Link>Network\core\Server\NetPort.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\CollectionWrapper.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\CollectionWrapper.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonArrayAttribute.cs">
       <Link>Serialize\Newtonsoft.Json\JsonArrayAttribute.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\StateSystem.cs">
-      <Link>StateMachine\StateSystem.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\IState.cs">
-      <Link>StateMachine\IState.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonLoadSettings.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonLoadSettings.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\DictionaryWrapper.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\DictionaryWrapper.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Editor\Fast2BuildTool.cs">
-      <Link>Network\Editor\Fast2BuildTool.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IAttributeProvider.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\IAttributeProvider.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonBinary.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonBinary.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineColor32Bind.cs">
-      <Link>Network\Binding\UnityEngineColor32Bind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\INetConvert.cs">
-      <Link>Network\core\Share\INetConvert.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\SyncVarHelper.cs">
       <Link>Network\core\Helper\SyncVarHelper.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\WriteState.cs">
-      <Link>Serialize\Newtonsoft.Json\WriteState.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JValue.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JValue.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\EncryptHelper.cs">
       <Link>Network\core\Helper\EncryptHelper.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\StateMachineSetting.cs">
-      <Link>Editor\StateMachineSetting.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JTokenReader.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JTokenReader.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ThreadGroup.cs">
-      <Link>Network\core\Share\ThreadGroup.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\AckQueue.cs">
       <Link>Network\core\Share\AckQueue.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringUtils.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\StringUtils.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\State.cs">
-      <Link>StateMachine\State.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IContractResolver.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\IContractResolver.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Config\App.cs">
-      <Link>Network\core\Config\App.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\MVC\View\Editor\FieldCollectionEdit.cs">
-      <Link>MVC\View\Editor\FieldCollectionEdit.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Command.cs">
-      <Link>Component\Command.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonReader.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonReader.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\MiscellaneousUtils.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\MiscellaneousUtils.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\AOI\Grid.cs">
       <Link>Component\AOI\Grid.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetVector2Bind.cs">
-      <Link>Network\Binding\NetVector2Bind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\kcp\Server\KcpServer.cs">
-      <Link>Network\kcp\Server\KcpServer.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineRectBind.cs">
-      <Link>Network\Binding\UnityEngineRectBind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\CRCHelper.cs">
-      <Link>Network\core\Helper\CRCHelper.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\CamelCaseNamingStrategy.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\CamelCaseNamingStrategy.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineRectOffsetBind.cs">
-      <Link>Network\Binding\UnityEngineRectOffsetBind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\ARPGcamera.cs">
-      <Link>Component\Client\ARPGcamera.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetVector4Bind.cs">
-      <Link>Network\Binding\NetVector4Bind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Matrix4Utils.cs">
-      <Link>Network\core\Unity\Matrix4Utils.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector2Bind.cs">
-      <Link>Network\Binding\UnityEngineVector2Bind.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\INetworkSceneHandle.cs">
       <Link>Network\core\Share\INetworkSceneHandle.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonWriterException.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonWriterException.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConvert.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonConvert.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonRegex.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonRegex.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\JPath.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\JPath.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\SingleCasePanel.cs">
       <Link>Component\Client\SingleCasePanel.cs</Link>
@@ -509,41 +116,155 @@
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\JsonTokenUtils.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\JsonTokenUtils.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\SendBuffer.cs">
-      <Link>Network\core\Share\SendBuffer.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetShareOperationListBind.cs">
-      <Link>Network\Binding\NetShareOperationListBind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Server\TcpServer.cs">
-      <Link>Network\gudp\Server\TcpServer.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertBase.cs">
-      <Link>Network\core\Serialize\NetConvertBase.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Editor\NetworkObjectEdit.cs">
-      <Link>Component\UnityComponent\Editor\NetworkObjectEdit.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\StringEnumConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\Converters\StringEnumConverter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetRectBind.cs">
-      <Link>Network\Binding\NetRectBind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\BufferStream.cs">
-      <Link>Network\core\System\BufferStream.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\Transition.cs">
       <Link>StateMachine\Transition.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonString.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonString.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\CustomCreationConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\Converters\CustomCreationConverter.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\MergeArrayHandling.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\MergeArrayHandling.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\CustomCreationConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\Converters\CustomCreationConverter.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ConvertUtils.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\ConvertUtils.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\TraceJsonWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\TraceJsonWriter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\StateManagerEditor.cs">
+      <Link>Editor\StateManagerEditor.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ErrorContext.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\ErrorContext.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IAdapter.cs">
+      <Link>Network\core\Share\IAdapter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ReflectionValueProvider.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\ReflectionValueProvider.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ReflectionMember.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\ReflectionMember.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringReferenceExtensions.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\StringReferenceExtensions.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\BinaryConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\Converters\BinaryConverter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RevdRTBuffer.cs">
+      <Link>Network\core\Share\RevdRTBuffer.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\IJsonLineInfo.cs">
+      <Link>Serialize\Newtonsoft.Json\IJsonLineInfo.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\AOI\GridManager.cs">
+      <Link>Component\AOI\GridManager.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonIgnoreAttribute.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonIgnoreAttribute.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\Dictionary.cs">
+      <Link>Network\core\System\Dictionary.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonSerializerSettings.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonSerializerSettings.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonObjectAttribute.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonObjectAttribute.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\IWrappedDictionary.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\IWrappedDictionary.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\ByteHelper.cs">
+      <Link>Network\core\Tools\ByteHelper.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\RoomData.cs">
+      <Link>Component\RoomData.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\DataTableExt.cs">
+      <Link>Component\DataTableExt.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\BufferPool.cs">
+      <Link>Network\core\System\BufferPool.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\PluginSettings.cs">
+      <Link>Editor\PluginSettings.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonObjectId.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonObjectId.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonPropertyCollection.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonPropertyCollection.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Plugins\GcpKernel.cs">
+      <Link>Network\gudp\Plugins\GcpKernel.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonTypeReflector.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonTypeReflector.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ReflectionUtils.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\ReflectionUtils.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonTextReader.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonTextReader.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\ReadType.cs">
+      <Link>Serialize\Newtonsoft.Json\ReadType.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringReference.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\StringReference.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\OtherExt\SystemBaseExt.cs">
+      <Link>Component\OtherExt\SystemBaseExt.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Editor\InvokeHelperTools.cs">
+      <Link>Network\Editor\InvokeHelperTools.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\FileData.cs">
+      <Link>Network\core\Share\FileData.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\FastListSafe.cs">
+      <Link>Network\core\System\FastListSafe.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Editor\NetworkTransformEdit.cs">
+      <Link>Component\UnityComponent\Editor\NetworkTransformEdit.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\StateBehaviour.cs">
+      <Link>StateMachine\StateBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Generate\NetworkGameObject.cs">
+      <Link>Component\UnityComponent\Generate\NetworkGameObject.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ExtensionDataSetter.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\ExtensionDataSetter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Generate\NetworkImage.cs">
+      <Link>Component\UnityComponent\Generate\NetworkImage.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Editor\Fast2BuildTool.cs">
+      <Link>Network\Editor\Fast2BuildTool.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\State.cs">
+      <Link>StateMachine\State.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Command.cs">
+      <Link>Component\Command.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetVector2Bind.cs">
+      <Link>Network\Binding\NetVector2Bind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector2Bind.cs">
+      <Link>Network\Binding\UnityEngineVector2Bind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConvert.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonConvert.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\BufferStream.cs">
+      <Link>Network\core\System\BufferStream.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\PreserveReferencesHandling.cs">
       <Link>Serialize\Newtonsoft.Json\PreserveReferencesHandling.cs</Link>
@@ -554,236 +275,20 @@
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineColorBind.cs">
       <Link>Network\Binding\UnityEngineColorBind.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\Base64Encoder.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\Base64Encoder.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Server\ServerBase.cs">
-      <Link>Network\core\Server\ServerBase.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonObjectContract.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonObjectContract.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\UnZipHelper.cs">
-      <Link>Network\core\Share\UnZipHelper.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\HelpEdit.cs">
-      <Link>Editor\HelpEdit.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConverterCollection.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonConverterCollection.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\OperationList.cs">
-      <Link>Network\core\Share\OperationList.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetQuaternionBind.cs">
-      <Link>Network\Binding\NetQuaternionBind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\DateParseHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\DateParseHandling.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\NetworkManager.cs">
-      <Link>Component\Client\NetworkManager.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ResolverContractKey.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\ResolverContractKey.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ConvertUtils.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\ConvertUtils.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\ListSafe.cs">
-      <Link>Network\core\System\ListSafe.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\RpcHelper.cs">
-      <Link>Network\core\Helper\RpcHelper.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\KeyValuePairConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\Converters\KeyValuePairConverter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Client\ClientBase.cs">
-      <Link>Network\core\Client\ClientBase.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonSerializationException.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonSerializationException.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IServerSendHandle.cs">
-      <Link>Network\core\Share\IServerSendHandle.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringBuffer.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\StringBuffer.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\FPExtend.cs">
       <Link>Network\core\Tools\FPExtend.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\TraceJsonWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\TraceJsonWriter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\SyncVarInfo.cs">
-      <Link>Network\core\Share\SyncVarInfo.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\Segment2.cs">
-      <Link>Network\core\System\Segment2.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\LineInfoHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\LineInfoHandling.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\StateManagerEditor.cs">
-      <Link>Editor\StateManagerEditor.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ITraceWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\ITraceWriter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IServerHandle.cs">
-      <Link>Network\core\Share\IServerHandle.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\MathUtils.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\MathUtils.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ErrorContext.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\ErrorContext.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Clone.cs">
-      <Link>Component\Clone.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\ActionBehaviour.cs">
-      <Link>StateMachine\ActionBehaviour.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ThreadSafeStore.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\ThreadSafeStore.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonBinaryWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonBinaryWriter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertFast2.cs">
-      <Link>Network\core\Serialize\NetConvertFast2.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\ExceptionArgument.cs">
-      <Link>Network\core\System\ExceptionArgument.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonPosition.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonPosition.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector2IntBind.cs">
-      <Link>Network\Binding\UnityEngineVector2IntBind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IAdapter.cs">
-      <Link>Network\core\Share\IAdapter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertOld.cs">
-      <Link>Network\core\Serialize\NetConvertOld.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\NetworkBehaviour.cs">
-      <Link>Component\UnityComponent\NetworkBehaviour.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\StateManager.cs">
-      <Link>StateMachine\StateManager.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConstructorAttribute.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonConstructorAttribute.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultContractResolver.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\DefaultContractResolver.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ReflectionObject.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\ReflectionObject.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\ECS\Component.cs">
-      <Link>ECS\Component.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\EventHandle.cs">
-      <Link>Network\core\Share\EventHandle.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Event\NDebug.cs">
       <Link>Network\core\Event\NDebug.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\MemberData.cs">
-      <Link>Network\core\Share\MemberData.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\QueueSafe.cs">
-      <Link>Network\core\System\QueueSafe.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\SerializationCallback.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\SerializationCallback.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonISerializableContract.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonISerializableContract.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Config\InvokeHelperConfigObject.cs">
-      <Link>Network\core\Config\InvokeHelperConfigObject.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\MessageModel.cs">
-      <Link>Network\core\Share\MessageModel.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ReflectionValueProvider.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\ReflectionValueProvider.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\UnityThread.cs">
-      <Link>Component\Client\UnityThread.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\kcp\Kcp\KcpLib.cs">
-      <Link>Network\kcp\Kcp\KcpLib.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\MissingMemberHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\MissingMemberHandling.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\CompositeExpression.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\CompositeExpression.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JPropertyDescriptor.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JPropertyDescriptor.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineRectIntBind.cs">
-      <Link>Network\Binding\UnityEngineRectIntBind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\CamelCasePropertyNamesContractResolver.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\CamelCasePropertyNamesContractResolver.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\TypeExtensions.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\TypeExtensions.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\MethodCall.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\MethodCall.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalReader.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalReader.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\RectExt.cs">
       <Link>Network\core\Tools\RectExt.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Server\TcpServerEPoll.cs">
-      <Link>Network\gudp\Server\TcpServerEPoll.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Editor\NetworkTransformMultiEdit.cs">
-      <Link>Component\UnityComponent\Editor\NetworkTransformMultiEdit.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\SyncVarAttribute.cs">
-      <Link>Network\core\Share\SyncVarAttribute.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Generate\NetworkCamera.cs">
-      <Link>Component\UnityComponent\Generate\NetworkCamera.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\QueryOperator.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\QueryOperator.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonMergeSettings.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JsonMergeSettings.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\ObjectIDGenerator.cs">
-      <Link>Network\core\System\ObjectIDGenerator.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonStringContract.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonStringContract.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JArray.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JArray.cs</Link>
@@ -791,29 +296,8 @@
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ParserTimeZone.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\ParserTimeZone.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector4Bind.cs">
-      <Link>Network\Binding\UnityEngineVector4Bind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\PrimitiveTypeCode.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\PrimitiveTypeCode.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\NamingStrategy.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\NamingStrategy.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\StateMachineEditor.cs">
-      <Link>Editor\StateMachineEditor.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonProperty.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonProperty.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ReflectionMember.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\ReflectionMember.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonWriter.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\ObjectIDGenerator.cs">
+      <Link>Network\core\System\ObjectIDGenerator.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\CachedAttributeGetter.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\CachedAttributeGetter.cs</Link>
@@ -821,332 +305,35 @@
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JEnumerable.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JEnumerable.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonExtensionDataAttribute.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonExtensionDataAttribute.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\BooleanQueryExpression.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\BooleanQueryExpression.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IServerEventHandle.cs">
-      <Link>Network\core\Share\IServerEventHandle.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonArrayContract.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonArrayContract.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonConverter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringReferenceExtensions.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\StringReferenceExtensions.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvert.cs">
-      <Link>Network\core\Serialize\NetConvert.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetVector3Bind.cs">
-      <Link>Network\Binding\NetVector3Bind.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\TransitionModel.cs">
+      <Link>StateMachine\TransitionModel.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\SingleCase.cs">
       <Link>Component\Client\SingleCase.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\TypeInformation.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\TypeInformation.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\BinaryConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\Converters\BinaryConverter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\Constituency.cs">
-      <Link>Network\core\Share\Constituency.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\TransitionModel.cs">
-      <Link>StateMachine\TransitionModel.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\ArraySegment.cs">
-      <Link>Network\core\System\ArraySegment.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Client\TcpClient.cs">
-      <Link>Network\gudp\Client\TcpClient.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\AOI\GridData.cs">
-      <Link>Component\AOI\GridData.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\SqlServerHelper.cs">
       <Link>Component\SqlServerHelper.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RevdRTBuffer.cs">
-      <Link>Network\core\Share\RevdRTBuffer.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\IJsonLineInfo.cs">
-      <Link>Serialize\Newtonsoft.Json\IJsonLineInfo.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\FloatParseHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\FloatParseHandling.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Vector3.cs">
-      <Link>Network\core\Unity\Vector3.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ObjectConstructor.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\ObjectConstructor.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\MemoryTraceWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\MemoryTraceWriter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Editor\DebugTools.cs">
-      <Link>Network\Editor\DebugTools.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\MVC\View\PanelBase.cs">
-      <Link>MVC\View\PanelBase.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\FieldMultipleFilter.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\FieldMultipleFilter.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\NetworkTransformMulti.cs">
-      <Link>Component\UnityComponent\NetworkTransformMulti.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\AOI\AOIComponent.cs">
-      <Link>Component\AOI\AOIComponent.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Event\TimerEvent.cs">
       <Link>Network\core\Event\TimerEvent.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\NetworkTransformBase.cs">
-      <Link>Component\UnityComponent\NetworkTransformBase.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\AudioManager.cs">
-      <Link>StateMachine\AudioManager.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Formatting.cs">
-      <Link>Serialize\Newtonsoft.Json\Formatting.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonException.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonException.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\ECS\Entity.cs">
-      <Link>ECS\Entity.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\OtherExtend.cs">
-      <Link>Network\core\Tools\OtherExtend.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\CollectionUtils.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\CollectionUtils.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\OnErrorAttribute.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\OnErrorAttribute.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\AOI\GridManager.cs">
-      <Link>Component\AOI\GridManager.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\ECS\ArrayPool.cs">
-      <Link>ECS\ArrayPool.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonIgnoreAttribute.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonIgnoreAttribute.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\ScriptTools.cs">
-      <Link>Editor\ScriptTools.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\ThrowHelper.cs">
-      <Link>Network\core\System\ThrowHelper.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RPCModel.cs">
-      <Link>Network\core\Share\RPCModel.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\Dictionary.cs">
-      <Link>Network\core\System\Dictionary.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonDictionaryAttribute.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonDictionaryAttribute.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\MVC\View\FieldCollection.cs">
-      <Link>MVC\View\FieldCollection.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\INetClient.cs">
-      <Link>Network\core\Share\INetClient.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\UIPanelInit.cs">
-      <Link>Component\Client\UIPanelInit.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\LateBoundReflectionDelegateFactory.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\LateBoundReflectionDelegateFactory.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonBinaryType.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonBinaryType.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonObject.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonObject.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\ObjectNameTools.cs">
       <Link>Editor\ObjectNameTools.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\DateTimeConverterBase.cs">
-      <Link>Serialize\Newtonsoft.Json\Converters\DateTimeConverterBase.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\DefaultValueHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\DefaultValueHandling.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\IWrappedCollection.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\IWrappedCollection.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonContainerContract.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonContainerContract.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\BlueprintGUILayout.cs">
-      <Link>Editor\BlueprintGUILayout.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ReliableTemp.cs">
-      <Link>Network\core\Share\ReliableTemp.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RPCModelTask.cs">
-      <Link>Network\core\Share\RPCModelTask.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonSerializerSettings.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonSerializerSettings.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetSystem.cs">
       <Link>Network\core\Share\NetSystem.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IReferenceResolver.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\IReferenceResolver.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonObjectAttribute.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonObjectAttribute.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\BidirectionalDictionary.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\BidirectionalDictionary.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Server\UdpServerIOCP.cs">
-      <Link>Network\gudp\Server\UdpServerIOCP.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertBinary.cs">
-      <Link>Network\core\Serialize\NetConvertBinary.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\StackSafe.cs">
-      <Link>Network\core\System\StackSafe.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\Operation.cs">
-      <Link>Network\core\Share\Operation.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\AOI\IGridBody.cs">
-      <Link>Component\AOI\IGridBody.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RevdDataBuffer.cs">
-      <Link>Network\core\Share\RevdDataBuffer.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\BufferUtils.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\BufferUtils.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Rect.cs">
-      <Link>Network\core\Unity\Rect.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonArray.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonArray.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\kcp\Client\KcpClient.cs">
-      <Link>Network\kcp\Client\KcpClient.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Vector4.cs">
-      <Link>Network\core\Unity\Vector4.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\NetworkSceneManager.cs">
       <Link>Component\UnityComponent\NetworkSceneManager.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetShareOperationBind.cs">
-      <Link>Network\Binding\NetShareOperationBind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\BindingEntry.cs">
-      <Link>Network\Binding\BindingEntry.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\ConstructorHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\ConstructorHandling.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Generate\NetworkAnimator.cs">
-      <Link>Component\UnityComponent\Generate\NetworkAnimator.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonDictionaryContract.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\JsonDictionaryContract.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JContainer.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JContainer.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\EnumUtils.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\EnumUtils.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RPCData.cs">
-      <Link>Network\core\Share\RPCData.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\FloatFormatHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\FloatFormatHandling.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\IWrappedDictionary.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\IWrappedDictionary.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\ByteHelper.cs">
-      <Link>Network\core\Tools\ByteHelper.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetColorBind.cs">
-      <Link>Network\Binding\NetColorBind.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RPCFun.cs">
-      <Link>Network\core\Share\RPCFun.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\DataTableExt.cs">
-      <Link>Component\DataTableExt.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\RoomData.cs">
-      <Link>Component\RoomData.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\IArrayPool.cs">
-      <Link>Serialize\Newtonsoft.Json\IArrayPool.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\BufferPool.cs">
-      <Link>Network\core\System\BufferPool.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\GraphEditor.cs">
-      <Link>Editor\GraphEditor.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Color32.cs">
       <Link>Network\core\Unity\Color32.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Server\NetScene.cs">
-      <Link>Network\core\Server\NetScene.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetCmd.cs">
-      <Link>Network\core\Share\NetCmd.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\kcp\Server\KcpPlayer.cs">
-      <Link>Network\kcp\Server\KcpPlayer.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConverterAttribute.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonConverterAttribute.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\CommentHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\CommentHandling.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\PluginSettings.cs">
-      <Link>Editor\PluginSettings.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Matrix4x4.cs">
-      <Link>Network\core\Unity\Matrix4x4.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonObjectId.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonObjectId.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\TraceJsonReader.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\TraceJsonReader.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NonSerialized.cs">
-      <Link>Network\core\Serialize\NonSerialized.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Editor\ExternalReferenceTool.cs">
       <Link>Network\Editor\ExternalReferenceTool.cs</Link>
@@ -1154,17 +341,182 @@
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IRpcHandler.cs">
       <Link>Network\core\Share\IRpcHandler.cs</Link>
     </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Config\NetConfig.cs">
+      <Link>Network\core\Config\NetConfig.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\ReferenceLoopHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\ReferenceLoopHandling.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\StateEvent.cs">
+      <Link>StateMachine\StateEvent.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\MVC\View\Editor\AssetBundleWindow.cs">
+      <Link>MVC\View\Editor\AssetBundleWindow.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonContainerType.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonContainerType.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JRaw.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JRaw.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JObject.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JObject.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\TypeNameHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\TypeNameHandling.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Adapter\CallSiteRpcAdapter.cs">
+      <Link>Network\Adapter\CallSiteRpcAdapter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\BlueprintSetting.cs">
+      <Link>Editor\BlueprintSetting.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultContractResolverState.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\DefaultContractResolverState.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\InspectorAttribute.cs">
+      <Link>Component\InspectorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\Loop.cs">
+      <Link>Network\core\Tools\Loop.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\ECS\GSystem.cs">
+      <Link>ECS\GSystem.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\CustomBind.cs">
+      <Link>Network\Binding\CustomBind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonReader.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonReader.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetColor32Bind.cs">
+      <Link>Network\Binding\NetColor32Bind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonLinqContract.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonLinqContract.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\CollectionWrapper.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\CollectionWrapper.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringUtils.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\StringUtils.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonWriterException.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonWriterException.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Matrix4Utils.cs">
+      <Link>Network\core\Unity\Matrix4Utils.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonRegex.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonRegex.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonString.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonString.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\UnZipHelper.cs">
+      <Link>Network\core\Share\UnZipHelper.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonSerializationException.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonSerializationException.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Client\ClientBase.cs">
+      <Link>Network\core\Client\ClientBase.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\NetworkManager.cs">
+      <Link>Component\Client\NetworkManager.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\RpcHelper.cs">
+      <Link>Network\core\Helper\RpcHelper.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringBuffer.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\StringBuffer.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ThreadSafeStore.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\ThreadSafeStore.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\EventHandle.cs">
+      <Link>Network\core\Share\EventHandle.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\MessageModel.cs">
+      <Link>Network\core\Share\MessageModel.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\MethodCall.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\MethodCall.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Server\TcpServerEPoll.cs">
+      <Link>Network\gudp\Server\TcpServerEPoll.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonStringContract.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonStringContract.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\NamingStrategy.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\NamingStrategy.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonArrayContract.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonArrayContract.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\TypeInformation.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\TypeInformation.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\AOI\AOIComponent.cs">
+      <Link>Component\AOI\AOIComponent.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\ECS\Entity.cs">
+      <Link>ECS\Entity.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonObject.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonObject.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\DateTimeConverterBase.cs">
+      <Link>Serialize\Newtonsoft.Json\Converters\DateTimeConverterBase.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonContainerContract.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonContainerContract.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ReliableTemp.cs">
+      <Link>Network\core\Share\ReliableTemp.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RPCModelTask.cs">
+      <Link>Network\core\Share\RPCModelTask.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\BidirectionalDictionary.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\BidirectionalDictionary.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\StackSafe.cs">
+      <Link>Network\core\System\StackSafe.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\AOI\IGridBody.cs">
+      <Link>Component\AOI\IGridBody.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\BufferUtils.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\BufferUtils.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\ConstructorHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\ConstructorHandling.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetColorBind.cs">
+      <Link>Network\Binding\NetColorBind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Server\NetScene.cs">
+      <Link>Network\core\Server\NetScene.cs</Link>
+    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetDelegate.cs">
       <Link>Network\core\Share\NetDelegate.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JTokenWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JTokenWriter.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Matrix3x3.cs">
       <Link>Network\core\Unity\Matrix3x3.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Config\NetConfig.cs">
-      <Link>Network\core\Config\NetConfig.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\Random.cs">
       <Link>Network\core\Share\Random.cs</Link>
@@ -1172,11 +524,491 @@
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\RandomizedObjectEqualityComparer.cs">
       <Link>Network\core\System\RandomizedObjectEqualityComparer.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\ReferenceLoopHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\ReferenceLoopHandling.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonType.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonType.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Quaternion.cs">
+      <Link>Network\core\Unity\Quaternion.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\MemberSerialization.cs">
+      <Link>Serialize\Newtonsoft.Json\MemberSerialization.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ExtensionDataGetter.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\ExtensionDataGetter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertFast.cs">
+      <Link>Network\core\Serialize\NetConvertFast.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JTokenEqualityComparer.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JTokenEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\TransportMode.cs">
+      <Link>Network\core\Share\TransportMode.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonWriter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\ThreadManager.cs">
+      <Link>Network\core\System\ThreadManager.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Generate\NetworkAnimation.cs">
+      <Link>Component\UnityComponent\Generate\NetworkAnimation.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JConstructor.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JConstructor.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\Creator.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\Creator.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector3Bind.cs">
+      <Link>Network\Binding\UnityEngineVector3Bind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\StateBehaviourInspector.cs">
+      <Link>Editor\StateBehaviourInspector.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IDebugHandle.cs">
+      <Link>Network\core\Share\IDebugHandle.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\RandomSafe.cs">
+      <Link>Network\core\System\RandomSafe.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\NTransform.cs">
+      <Link>Component\NTransform.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetworkDataTraffic.cs">
+      <Link>Network\core\Share\NetworkDataTraffic.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\Extensions.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonTextWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonTextWriter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\Segment.cs">
+      <Link>Network\core\System\Segment.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\WriteState.cs">
+      <Link>Serialize\Newtonsoft.Json\WriteState.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IAttributeProvider.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\IAttributeProvider.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Config\App.cs">
+      <Link>Network\core\Config\App.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\MiscellaneousUtils.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\MiscellaneousUtils.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineRectBind.cs">
+      <Link>Network\Binding\UnityEngineRectBind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\CRCHelper.cs">
+      <Link>Network\core\Helper\CRCHelper.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineRectOffsetBind.cs">
+      <Link>Network\Binding\UnityEngineRectOffsetBind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Server\TcpServer.cs">
+      <Link>Network\gudp\Server\TcpServer.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetQuaternionBind.cs">
+      <Link>Network\Binding\NetQuaternionBind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IServerSendHandle.cs">
+      <Link>Network\core\Share\IServerSendHandle.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\ActionBehaviour.cs">
+      <Link>StateMachine\ActionBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonBinaryWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonBinaryWriter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector2IntBind.cs">
+      <Link>Network\Binding\UnityEngineVector2IntBind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonISerializableContract.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonISerializableContract.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\CompositeExpression.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\CompositeExpression.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JPropertyDescriptor.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JPropertyDescriptor.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Generate\NetworkCamera.cs">
+      <Link>Component\UnityComponent\Generate\NetworkCamera.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonConverter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvert.cs">
+      <Link>Network\core\Serialize\NetConvert.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetVector3Bind.cs">
+      <Link>Network\Binding\NetVector3Bind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ObjectConstructor.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\ObjectConstructor.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Formatting.cs">
+      <Link>Serialize\Newtonsoft.Json\Formatting.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\OtherExtend.cs">
+      <Link>Network\core\Tools\OtherExtend.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\OnErrorAttribute.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\OnErrorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\IWrappedCollection.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\IWrappedCollection.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\BlueprintGUILayout.cs">
+      <Link>Editor\BlueprintGUILayout.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IReferenceResolver.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\IReferenceResolver.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Server\UdpServerIOCP.cs">
+      <Link>Network\gudp\Server\UdpServerIOCP.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertBinary.cs">
+      <Link>Network\core\Serialize\NetConvertBinary.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Vector4.cs">
+      <Link>Network\core\Unity\Vector4.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\BindingEntry.cs">
+      <Link>Network\Binding\BindingEntry.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Generate\NetworkAnimator.cs">
+      <Link>Component\UnityComponent\Generate\NetworkAnimator.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JContainer.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JContainer.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetCmd.cs">
+      <Link>Network\core\Share\NetCmd.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\kcp\Server\KcpPlayer.cs">
+      <Link>Network\kcp\Server\KcpPlayer.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\TraceJsonReader.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\TraceJsonReader.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\JavaScriptUtils.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\JavaScriptUtils.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Editor\DisableScripReloadInPlayMode.cs">
+      <Link>Network\Editor\DisableScripReloadInPlayMode.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonContainerAttribute.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonContainerAttribute.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\OtherExt\MathExt.cs">
+      <Link>Component\OtherExt\MathExt.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonProperty.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonProperty.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\RegexConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\Converters\RegexConverter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\NetworkResources.cs">
+      <Link>Component\UnityComponent\NetworkResources.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Required.cs">
+      <Link>Serialize\Newtonsoft.Json\Required.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ISendHandle.cs">
+      <Link>Network\core\Share\ISendHandle.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\SerializationErrorCallback.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\SerializationErrorCallback.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\DataModel.cs">
+      <Link>Network\core\Share\DataModel.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Server\UdpServer.cs">
+      <Link>Network\gudp\Server\UdpServer.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonContractType.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonContractType.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\ExceptionResource.cs">
+      <Link>Network\core\System\ExceptionResource.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\DateFormatHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\DateFormatHandling.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\DateTimeZoneHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\DateTimeZoneHandling.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Editor\NetworkSceneManagerEdit.cs">
+      <Link>Component\UnityComponent\Editor\NetworkSceneManagerEdit.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineQuaternionBind.cs">
+      <Link>Network\Binding\UnityEngineQuaternionBind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JTokenType.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JTokenType.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetState.cs">
+      <Link>Network\core\Share\NetState.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\EnumValue.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\EnumValue.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\PropertyNameTable.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\PropertyNameTable.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ReceiveBuffer.cs">
+      <Link>Network\core\Share\ReceiveBuffer.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\ObjectCreationHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\ObjectCreationHandling.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\StateSystem.cs">
+      <Link>StateMachine\StateSystem.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonBinary.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonBinary.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\MVC\View\Editor\FieldCollectionEdit.cs">
+      <Link>MVC\View\Editor\FieldCollectionEdit.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\kcp\Server\KcpServer.cs">
+      <Link>Network\kcp\Server\KcpServer.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\StringEnumConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\Converters\StringEnumConverter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetRectBind.cs">
+      <Link>Network\Binding\NetRectBind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConverterCollection.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonConverterCollection.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ITraceWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\ITraceWriter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IServerHandle.cs">
+      <Link>Network\core\Share\IServerHandle.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\ExceptionArgument.cs">
+      <Link>Network\core\System\ExceptionArgument.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonPosition.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonPosition.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\StateManager.cs">
+      <Link>StateMachine\StateManager.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\ECS\Component.cs">
+      <Link>ECS\Component.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\kcp\Kcp\KcpLib.cs">
+      <Link>Network\kcp\Kcp\KcpLib.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\TypeExtensions.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\TypeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\SyncVarAttribute.cs">
+      <Link>Network\core\Share\SyncVarAttribute.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector4Bind.cs">
+      <Link>Network\Binding\UnityEngineVector4Bind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\ArraySegment.cs">
+      <Link>Network\core\System\ArraySegment.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\AOI\GridData.cs">
+      <Link>Component\AOI\GridData.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Vector3.cs">
+      <Link>Network\core\Unity\Vector3.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Editor\DebugTools.cs">
+      <Link>Network\Editor\DebugTools.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\NetworkTransformBase.cs">
+      <Link>Component\UnityComponent\NetworkTransformBase.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonException.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonException.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\CollectionUtils.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\CollectionUtils.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\ThrowHelper.cs">
+      <Link>Network\core\System\ThrowHelper.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RPCModel.cs">
+      <Link>Network\core\Share\RPCModel.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\kcp\Client\KcpClient.cs">
+      <Link>Network\kcp\Client\KcpClient.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonArray.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonArray.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RPCData.cs">
+      <Link>Network\core\Share\RPCData.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\GraphEditor.cs">
+      <Link>Editor\GraphEditor.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Matrix4x4.cs">
+      <Link>Network\core\Unity\Matrix4x4.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Client\UdpClient.cs">
+      <Link>Network\gudp\Client\UdpClient.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\NetworkTransform.cs">
+      <Link>Component\UnityComponent\NetworkTransform.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonReaderException.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonReaderException.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\ArrayExtend.cs">
+      <Link>Network\core\Tools\ArrayExtend.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Vector2.cs">
+      <Link>Network\core\Unity\Vector2.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ErrorEventArgs.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\ErrorEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\InvokeHelperBuild.cs">
+      <Link>Network\core\Helper\InvokeHelperBuild.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Adapter\ListenerAdapter.cs">
+      <Link>Network\Adapter\ListenerAdapter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ParseResult.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\ParseResult.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Generate\NetworkLight.cs">
+      <Link>Component\UnityComponent\Generate\NetworkLight.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ReflectionAttributeProvider.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\ReflectionAttributeProvider.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonContract.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonContract.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\SerializeAdapter.cs">
+      <Link>Component\Client\SerializeAdapter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\StateMachineSetting.cs">
+      <Link>Editor\StateMachineSetting.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonLoadSettings.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonLoadSettings.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JTokenReader.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JTokenReader.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ThreadGroup.cs">
+      <Link>Network\core\Share\ThreadGroup.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\SendBuffer.cs">
+      <Link>Network\core\Share\SendBuffer.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\Base64Encoder.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\Base64Encoder.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Server\ServerBase.cs">
+      <Link>Network\core\Server\ServerBase.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\OperationList.cs">
+      <Link>Network\core\Share\OperationList.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\MathUtils.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\MathUtils.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertOld.cs">
+      <Link>Network\core\Serialize\NetConvertOld.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConstructorAttribute.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonConstructorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\MemberData.cs">
+      <Link>Network\core\Share\MemberData.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Config\InvokeHelperConfigObject.cs">
+      <Link>Network\core\Config\InvokeHelperConfigObject.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\UnityThread.cs">
+      <Link>Component\Client\UnityThread.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\MissingMemberHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\MissingMemberHandling.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\CamelCasePropertyNamesContractResolver.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\CamelCasePropertyNamesContractResolver.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\PrimitiveTypeCode.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\PrimitiveTypeCode.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\StateMachineEditor.cs">
+      <Link>Editor\StateMachineEditor.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\BooleanQueryExpression.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\BooleanQueryExpression.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IServerEventHandle.cs">
+      <Link>Network\core\Share\IServerEventHandle.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\Constituency.cs">
+      <Link>Network\core\Share\Constituency.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Client\TcpClient.cs">
+      <Link>Network\gudp\Client\TcpClient.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\MemoryTraceWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\MemoryTraceWriter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\MVC\View\PanelBase.cs">
+      <Link>MVC\View\PanelBase.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\LateBoundReflectionDelegateFactory.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\LateBoundReflectionDelegateFactory.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonBinaryType.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonBinaryType.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\UIPanelInit.cs">
+      <Link>Component\Client\UIPanelInit.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\DefaultValueHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\DefaultValueHandling.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Rect.cs">
+      <Link>Network\core\Unity\Rect.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetShareOperationBind.cs">
+      <Link>Network\Binding\NetShareOperationBind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RPCFun.cs">
+      <Link>Network\core\Share\RPCFun.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConverterAttribute.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonConverterAttribute.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NonSerialized.cs">
+      <Link>Network\core\Serialize\NonSerialized.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Editor\BuildComponentTools.cs">
       <Link>Component\UnityComponent\Editor\BuildComponentTools.cs</Link>
@@ -1184,89 +1016,152 @@
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Mathf.cs">
       <Link>Network\core\Unity\Mathf.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Editor\DisableScripReloadInPlayMode.cs">
-      <Link>Network\Editor\DisableScripReloadInPlayMode.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonRequiredAttribute.cs">
       <Link>Serialize\Newtonsoft.Json\JsonRequiredAttribute.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector3IntBind.cs">
       <Link>Network\Binding\UnityEngineVector3IntBind.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonContainerAttribute.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonContainerAttribute.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Adapter\SerializeAdapter.cs">
-      <Link>Network\Adapter\SerializeAdapter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RTOMode.cs">
-      <Link>Network\core\Share\RTOMode.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\OtherExt\MathExt.cs">
-      <Link>Component\OtherExt\MathExt.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Color.cs">
-      <Link>Network\core\Unity\Color.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonType.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonType.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\ECS\GObject.cs">
-      <Link>ECS\GObject.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonProperty.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonProperty.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\StateEvent.cs">
-      <Link>StateMachine\StateEvent.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonPropertyCollection.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonPropertyCollection.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Plugins\GcpKernel.cs">
-      <Link>Network\gudp\Plugins\GcpKernel.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\RegexConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\Converters\RegexConverter.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Client\UdpClient.cs">
-      <Link>Network\gudp\Client\UdpClient.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\NetworkResources.cs">
-      <Link>Component\UnityComponent\NetworkResources.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\INetworkHandle.cs">
       <Link>Network\core\Share\INetworkHandle.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Quaternion.cs">
-      <Link>Network\core\Unity\Quaternion.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\MVC\View\Editor\AssetBundleWindow.cs">
-      <Link>MVC\View\Editor\AssetBundleWindow.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\NetworkTransform.cs">
-      <Link>Component\UnityComponent\NetworkTransform.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\NullValueHandling.cs">
       <Link>Serialize\Newtonsoft.Json\NullValueHandling.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ValidationUtils.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\ValidationUtils.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\IWellKnownStringEqualityComparer.cs">
+      <Link>Network\core\System\IWellKnownStringEqualityComparer.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\ECS\IUpdate.cs">
-      <Link>ECS\IUpdate.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Server\NetPlayer.cs">
+      <Link>Network\core\Server\NetPlayer.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertFast.cs">
-      <Link>Network\core\Serialize\NetConvertFast.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\StateMachineWindow.cs">
+      <Link>Editor\StateMachineWindow.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\HashHelpers.cs">
+      <Link>Network\core\System\HashHelpers.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonFormatterConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonFormatterConverter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\IBehaviour.cs">
+      <Link>StateMachine\IBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerProxy.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerProxy.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\StringEscapeHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\StringEscapeHandling.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ConnectState.cs">
+      <Link>Network\core\Share\ConnectState.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonValue.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonValue.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\HashSetSafe.cs">
+      <Link>Network\core\System\HashSetSafe.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\ECS\UpdateComponent.cs">
+      <Link>ECS\UpdateComponent.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\StateAction.cs">
+      <Link>StateMachine\StateAction.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\DateTimeParser.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\DateTimeParser.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\INetConvert.cs">
+      <Link>Network\core\Share\INetConvert.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineColor32Bind.cs">
+      <Link>Network\Binding\UnityEngineColor32Bind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JValue.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JValue.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IContractResolver.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\IContractResolver.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetVector4Bind.cs">
+      <Link>Network\Binding\NetVector4Bind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\JPath.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\JPath.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\NetworkTime.cs">
+      <Link>Component\Client\NetworkTime.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonObjectContract.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonObjectContract.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ResolverContractKey.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\ResolverContractKey.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\ListSafe.cs">
+      <Link>Network\core\System\ListSafe.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\KeyValuePairConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\Converters\KeyValuePairConverter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\Segment2.cs">
+      <Link>Network\core\System\Segment2.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Clone.cs">
+      <Link>Component\Clone.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertFast2.cs">
+      <Link>Network\core\Serialize\NetConvertFast2.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultContractResolver.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\DefaultContractResolver.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\QueueSafe.cs">
+      <Link>Network\core\System\QueueSafe.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalReader.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalReader.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Editor\NetworkTransformMultiEdit.cs">
+      <Link>Component\UnityComponent\Editor\NetworkTransformMultiEdit.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\QueryOperator.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\QueryOperator.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\NetworkTransformMulti.cs">
+      <Link>Component\UnityComponent\NetworkTransformMulti.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\ECS\ArrayPool.cs">
+      <Link>ECS\ArrayPool.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\ScriptTools.cs">
+      <Link>Editor\ScriptTools.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonDictionaryAttribute.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonDictionaryAttribute.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\MVC\View\FieldCollection.cs">
+      <Link>MVC\View\FieldCollection.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\IArrayPool.cs">
+      <Link>Serialize\Newtonsoft.Json\IArrayPool.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JTokenWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JTokenWriter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonSerializer.cs">
       <Link>Serialize\Newtonsoft.Json\JsonSerializer.cs</Link>
@@ -1274,32 +1169,137 @@
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\gudp\Server\TcpServerIOCP.cs">
       <Link>Network\gudp\Server\TcpServerIOCP.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonReaderException.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonReaderException.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\VersionConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\Converters\VersionConverter.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ExtensionDataGetter.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\ExtensionDataGetter.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\ClientManager.cs">
+      <Link>Component\Client\ClientManager.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\MemberSerialization.cs">
-      <Link>Serialize\Newtonsoft.Json\MemberSerialization.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonToken.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonToken.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\ArrayExtend.cs">
-      <Link>Network\core\Tools\ArrayExtend.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonPropertyAttribute.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonPropertyAttribute.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Required.cs">
-      <Link>Serialize\Newtonsoft.Json\Required.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\Win32KernelAPI.cs">
+      <Link>Network\core\Share\Win32KernelAPI.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\System\IWellKnownStringEqualityComparer.cs">
-      <Link>Network\core\System\IWellKnownStringEqualityComparer.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\IJEnumerable.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\IJEnumerable.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ISendHandle.cs">
-      <Link>Network\core\Share\ISendHandle.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\AotHelper.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\AotHelper.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonTypeReflector.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonTypeReflector.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IValueProvider.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\IValueProvider.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ReflectionUtils.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\ReflectionUtils.cs</Link>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\BsonObjectIdConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\Converters\BsonObjectIdConverter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Server\NetPort.cs">
+      <Link>Network\core\Server\NetPort.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\IState.cs">
+      <Link>StateMachine\IState.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonReader.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonReader.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\ARPGcamera.cs">
+      <Link>Component\Client\ARPGcamera.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetShareOperationListBind.cs">
+      <Link>Network\Binding\NetShareOperationListBind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertBase.cs">
+      <Link>Network\core\Serialize\NetConvertBase.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\Editor\NetworkObjectEdit.cs">
+      <Link>Component\UnityComponent\Editor\NetworkObjectEdit.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Editor\HelpEdit.cs">
+      <Link>Editor\HelpEdit.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\DateParseHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\DateParseHandling.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\SyncVarInfo.cs">
+      <Link>Network\core\Share\SyncVarInfo.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\LineInfoHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\LineInfoHandling.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\NetworkBehaviour.cs">
+      <Link>Component\UnityComponent\NetworkBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\SerializationCallback.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\SerializationCallback.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineRectIntBind.cs">
+      <Link>Network\Binding\UnityEngineRectIntBind.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonProperty.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonProperty.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonWriter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonExtensionDataAttribute.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonExtensionDataAttribute.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\FloatParseHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\FloatParseHandling.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\StateMachine\AudioManager.cs">
+      <Link>StateMachine\AudioManager.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\INetClient.cs">
+      <Link>Network\core\Share\INetClient.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RevdDataBuffer.cs">
+      <Link>Network\core\Share\RevdDataBuffer.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\Operation.cs">
+      <Link>Network\core\Share\Operation.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\EnumUtils.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\EnumUtils.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\FloatFormatHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\FloatFormatHandling.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\CommentHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\CommentHandling.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\UnityComponent\NetworkObject.cs">
+      <Link>Component\UnityComponent\NetworkObject.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Adapter\SerializeAdapter.cs">
+      <Link>Network\Adapter\SerializeAdapter.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RTOMode.cs">
+      <Link>Network\core\Share\RTOMode.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Color.cs">
+      <Link>Network\core\Unity\Color.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\ECS\GObject.cs">
+      <Link>ECS\GObject.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ValidationUtils.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\ValidationUtils.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\ECS\IUpdate.cs">
+      <Link>ECS\IUpdate.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\Binding\Fast2BuildMethod.cs">
       <Link>Network\Binding\Fast2BuildMethod.cs</Link>
@@ -1626,6 +1626,9 @@
     <Reference Include="Unity.VisualScripting.IonicZip">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
     </Reference>
+    <Reference Include="dnlib">
+      <HintPath>E:\Titansiege\GameDesigner\GameDesigner\Network\dnlib.dll</HintPath>
+    </Reference>
     <Reference Include="log4netPlastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
     </Reference>
@@ -1652,9 +1655,6 @@
     </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
-    </Reference>
-    <Reference Include="dnlib">
-      <HintPath>E:\Titansiege\GameDesigner\GameDesigner\Network\dnlib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Android.Types">
       <HintPath>D:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
