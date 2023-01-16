@@ -18,6 +18,7 @@ using GF.Unity.AB;
 using Net.System;
 using GF.NetWork;
 using UnityEngine.SceneManagement;
+using Net.Share;
 
 namespace GF.MainGame.Module {
     public class SkillModule : GeneralModule {
@@ -70,22 +71,23 @@ namespace GF.MainGame.Module {
         /// 准备计算技能的伤害
         /// </summary>
         public void CountSkillHurt(SkillDataBase sb, NPCBase npc) {
-            Debuger.Log("开始计算伤害");
             string scenename = SceneManager.GetActiveScene().name;
             //先从场景类中获取到当前场景和场景内的所有怪物对象
             ListSafe<Monster> monsters = AppTools.SendReturn<string, ListSafe<Monster>>((int)NpcEvent.GetMonstersbyScene, scenename);
             if (monsters != null && monsters.Count>0) {//场景内有怪物再计算伤害
-                //提前预算一下，距离玩家二百以外的怪物就不再计算了，节省性能
+                //提前预算一下，距离玩家一百以外的怪物就不再计算了，节省性能
                 ListSafe<CountSkillArg> tempmonstersarg = new ListSafe<CountSkillArg>();
                 for (int i = 0; i < monsters.Count; i++) {
                     float dis = Vector3.Distance(monsters[i].transform.position, npc.transform.position);
-                    if (dis <=200f) {
+                    if (dis <=100f) {
                         CountSkillArg temp = new CountSkillArg(monsters[i],dis);
                         tempmonstersarg.Add(temp);
                     }
                 }
-                if (tempmonstersarg.Count>0) {
+                if (tempmonstersarg.Count > 0) {
                     CountData(sb, npc, tempmonstersarg);
+                } else {
+                    Debuger.Log("本次技能没有打到任何怪物");
                 }
             }
         }
@@ -102,6 +104,15 @@ namespace GF.MainGame.Module {
                     for (int j = 0; j < monstersarg.Count; j++) {
                         if (monstersarg[j].dis<= att.range) {//计算是否在技能攻击的范围内
                             //计算是否在技能的攻击角度内
+                            if (true) { //空留给角度计算
+                                int damage = GetDamage(sb.shanghai,(SkillType)sb.skilltype,npc.Data, monstersarg[j].monster.Data);
+                                if (damage != 0) {
+                                    //飘字 todo
+                                    Debuger.Log($"{npc.Data.Name}对{monstersarg[j].monster.Data.Name}造成了{damage}点伤害");
+                                } else {
+                                    Debuger.Log($"{monstersarg[j].monster.Data.Name}闪避了{npc.Data.Name}的伤害");
+                                }
+                            }
                             //todo
                         }
                     }
@@ -115,9 +126,67 @@ namespace GF.MainGame.Module {
             } else {
                 Debuger.LogError($"技能{sb.name}未配置攻击点，请检查配置文件id");
             }
+        }
+        /// <summary>
+        /// 获取伤害值
+        /// </summary>
+        /// <param name="shanghai">技能伤害</param>
+        /// <param name="skilltype">技能类型</param>
+        /// <param name="att">攻击者</param>
+        /// <param name="beatt">被攻击者</param>
+        /// <returns></returns>
+        private int GetDamage(int shanghai, SkillType skilltype, NPCDataBase att, NPCDataBase beatt) {
+            int damage = 0;
+            //闪避,基础闪避率0.01f;
+            float tempsb = (float)beatt.Minjie / 1000f >= 0.3f ? 0.3f : (float)beatt.Minjie / 1000f;//属性加成的闪避
+            float shanbi = 0.01f + tempsb;
+            float randsb = RandomHelper.Range(0f, 1f);
+            if (randsb <= shanbi) {//闪避成功
+                 //todo 飘字 miss
 
+                return 0;
+            }
+            if (skilltype == SkillType.wuli) {
+                
+                //属性加成,力量加成物理攻击,1点力量10点攻击
+                damage += att.Liliang * 10;
+                //计算装备伤害  todo
+
+                //暴击，随机2-3倍伤害，幸运加成暴击,幸运加成最高50%；
+                if (att.Xingyun>0) {
+                    float baoji = (float)att.Xingyun * 0.05f >= 0.5f ? 0.5f : (float)att.Xingyun * 0.05f;
+                    float randbj = RandomHelper.Range(0f, 1f);
+                    if (randbj <= baoji) {//闪避成功
+                        //todo 飘字暴击
+                        damage *= 2;
+                    }
+                }
+                //计算属性及装备防御，装备防御 todo,力量加成30%的防御，防御上不区分法防和物防
+                int fangyu = beatt.Liliang * 3 + beatt.Tizhi * 7;
+                damage = (damage - fangyu) >= 0 ? (damage - fangyu) : 1;//不能破防，就强制掉血1点
+            } else if (skilltype == SkillType.fashu) {
+                
+                //属性加成,魔法加成法术攻击,1点魔力10点攻击
+                damage += att.Moli * 10;
+                //计算装备伤害  todo
+
+                //暴击，随机2-3倍伤害，幸运加成暴击,幸运加成最高50%；
+                if (att.Xingyun > 0) {
+                    float baoji = (float)att.Xingyun * 0.05f >= 0.5f ? 0.5f : (float)att.Xingyun * 0.05f;
+                    float randbj = RandomHelper.Range(0f, 1f);
+                    if (randbj <= baoji) {//闪避成功
+                        //todo 飘字暴击
+                        damage *= 2;
+                    }
+                }
+                //计算属性及装备防御，装备防御 todo,魔力加成30%防御，防御上不区分法防和物防
+                int fangyu = beatt.Moli * 3 + beatt.Tizhi * 7;
+                damage = (damage - fangyu) >= 0 ? (damage - fangyu) : 1;//不能破防，就强制掉血1点
+            }
+            return damage;
         }
     }
+   
     public class CountSkillArg{
         public CountSkillArg(Monster mon, float dis) {
             this.monster = mon;

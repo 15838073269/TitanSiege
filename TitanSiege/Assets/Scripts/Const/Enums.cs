@@ -31,15 +31,10 @@ namespace GF.Const {
     /// <summary>
     /// 技能种类枚举
     /// </summary>
-    public enum Skill {
-        jianfa = 0,
-        daofa = 1,
-        quanfa = 2,
-        wuxingshufa = 3,
-        foufa = 4,
-        guidao = 5,
-        qimen = 6,
-        xinfa = 7,
+    public enum SkillType {
+        none = 0,
+        wuli = 1,
+        fashu = 2,
     }
     /// <summary>
     /// 技能范围枚举
@@ -107,7 +102,7 @@ namespace GF.Const {
 
     }
     /// <summary>
-    /// 战斗使用的动画状态
+    /// 玩家使用的动画状态
     /// </summary>
     public enum AniState { 
         none,
