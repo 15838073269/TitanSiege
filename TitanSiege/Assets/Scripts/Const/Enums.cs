@@ -35,6 +35,7 @@ namespace GF.Const {
         none = 0,
         wuli = 1,
         fashu = 2,
+        
     }
     /// <summary>
     /// 技能范围枚举

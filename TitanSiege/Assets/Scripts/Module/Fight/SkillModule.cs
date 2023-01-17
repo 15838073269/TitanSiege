@@ -79,6 +79,7 @@ namespace GF.MainGame.Module {
                 ListSafe<CountSkillArg> tempmonstersarg = new ListSafe<CountSkillArg>();
                 for (int i = 0; i < monsters.Count; i++) {
                     float dis = Vector3.Distance(monsters[i].transform.position, npc.transform.position);
+                    Debuger.Log(dis+":"+ monsters[i].m_GDID);
                     if (dis <=100f) {
                         CountSkillArg temp = new CountSkillArg(monsters[i],dis);
                         tempmonstersarg.Add(temp);
@@ -102,15 +103,16 @@ namespace GF.MainGame.Module {
                 for (int i = 0; i < sb.skillattlist.Count; i++) {
                     skillatt att = sb.skillattlist[i];
                     for (int j = 0; j < monstersarg.Count; j++) {
-                        if (monstersarg[j].dis<= att.range) {//计算是否在技能攻击的范围内
-                            //计算是否在技能的攻击角度内
-                            if (true) { //空留给角度计算
-                                int damage = GetDamage(sb.shanghai,(SkillType)sb.skilltype,npc.Data, monstersarg[j].monster.Data);
+                        if (monstersarg[j].dis <= att.range) {//计算是否在技能攻击的范围内
+                            //计算是否在技能的攻击角度内,距离小于1，就默认能打到，不用计算角度了，离得太近
+                            float angle = GetAngle(npc.transform, monstersarg[j].monster.transform);
+                            if ((monstersarg[j].dis < 1f&&angle <90f)||InAngle(angle, sb.skillattlist[i].angle)) { //空留给角度计算
+                                int damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, npc.Data, monstersarg[j].monster.Data);
                                 if (damage != 0) {
                                     //飘字 todo
                                     Debuger.Log($"{npc.Data.Name}对{monstersarg[j].monster.Data.Name}造成了{damage}点伤害");
                                 } else {
-                                    Debuger.Log($"{monstersarg[j].monster.Data.Name}闪避了{npc.Data.Name}的伤害");
+                                    Debuger.Log($"{monstersarg[j].monster.Data.Name}闪避了{npc.m_GDID}的伤害");
                                 }
                             }
                             //todo
@@ -128,6 +130,35 @@ namespace GF.MainGame.Module {
             }
         }
         /// <summary>
+        /// 计算怪物是否在攻击夹角内
+        /// </summary>
+        /// <param name="att"></param>
+        /// <param name="beatt"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        private bool InAngle(float angle,float skillangle) {
+            if (skillangle == 360) {
+                return true;
+            } else {
+                if (angle <= skillangle / 2f) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        /// <summary>
+        /// 获取夹角
+        /// </summary>
+        /// <param name="att"></param>
+        /// <param name="beatt"></param>
+        /// <returns></returns>
+        private float GetAngle(Transform att, Transform beatt) {
+            //计算攻击者正前方和怪物的夹角
+            float angleto = Vector3.Angle(att.forward, (beatt.position - att.position).normalized);
+            return angleto;
+        }
+        /// <summary>
         /// 获取伤害值
         /// </summary>
         /// <param name="shanghai">技能伤害</param>
@@ -136,7 +167,7 @@ namespace GF.MainGame.Module {
         /// <param name="beatt">被攻击者</param>
         /// <returns></returns>
         private int GetDamage(int shanghai, SkillType skilltype, NPCDataBase att, NPCDataBase beatt) {
-            int damage = 0;
+            int damage = -1;
             //闪避,基础闪避率0.01f;
             float tempsb = (float)beatt.Minjie / 1000f >= 0.3f ? 0.3f : (float)beatt.Minjie / 1000f;//属性加成的闪避
             float shanbi = 0.01f + tempsb;
@@ -163,7 +194,7 @@ namespace GF.MainGame.Module {
                 }
                 //计算属性及装备防御，装备防御 todo,力量加成30%的防御，防御上不区分法防和物防
                 int fangyu = beatt.Liliang * 3 + beatt.Tizhi * 7;
-                damage = (damage - fangyu) >= 0 ? (damage - fangyu) : 1;//不能破防，就强制掉血1点
+                damage = (damage - fangyu) > 0 ? (damage - fangyu) : 1;//不能破防，就强制掉血1点
             } else if (skilltype == SkillType.fashu) {
                 
                 //属性加成,魔法加成法术攻击,1点魔力10点攻击
