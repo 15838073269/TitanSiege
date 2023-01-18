@@ -14,6 +14,7 @@ using UnityEngine;
 
 namespace GF.MainGame.Module.NPC {
     public class NPCBase : MonoBehaviour {
+        public NpcType m_NpcType; 
         public int m_GDID;
         public NPCAnimatorBase m_Nab;
         public ushort m_Id;

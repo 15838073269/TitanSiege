@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GDID: 0
   m_Nab: {fileID: 0}
-  m_Id: 0
+  m_Id: 3
   m_Wpdorsum: {fileID: 0}
   m_WpHand: {fileID: 0}
   m_Character: {fileID: 0}

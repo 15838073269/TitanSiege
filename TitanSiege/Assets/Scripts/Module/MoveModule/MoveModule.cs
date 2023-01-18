@@ -90,6 +90,7 @@ namespace GF.MainGame.Module {
                         p = player.AddComponent<Player>();
                     }
                     p.m_GDID = ClientBase.Instance.UID;
+                    p.m_NpcType = NpcType.player;
                     NetworkObject no = p.GetComponent<NetworkObject>();
                     no.Identity = ClientBase.Instance.UID;
                     UserService.GetInstance.m_CurrentPlayer = p;

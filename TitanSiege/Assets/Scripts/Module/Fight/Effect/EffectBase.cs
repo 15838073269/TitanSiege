@@ -16,5 +16,6 @@ namespace GF.MainGame.Module.Fight {
                 m_Particle = transform.GetComponent<ParticleSystem>();
             }
         }
+      
     }
 }

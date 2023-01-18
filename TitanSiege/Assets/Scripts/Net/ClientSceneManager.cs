@@ -34,6 +34,7 @@ namespace GF.NetWork {
             if (p != null) {
                 p.m_GDID = opt.identity;
                 p.m_IsNetPlayer = true;
+                p.m_NpcType = NpcType.player;
                 AppTools.Send<Player>((int)NpcEvent.AddPlayer, p);
             }
         }
@@ -109,6 +110,7 @@ namespace GF.NetWork {
                 monster.transform.position = opt.position;
                 monster.transform.rotation = opt.rotation;
                 monster.m_GDID = opt.identity;
+                monster.m_NpcType = NpcType.monster;
                 monsterDics.Add(opt.identity, monster);
                 AppTools.Send<string, Monster>((int)NpcEvent.AddMonster,SceneManager.GetActiveScene().name, monster);
             }
