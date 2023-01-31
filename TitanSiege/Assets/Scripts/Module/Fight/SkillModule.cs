@@ -166,10 +166,8 @@ namespace GF.MainGame.Module {
             }
         }
         /// <summary>
-        /// 计算怪物是否在攻击夹角内
+        /// 计算是否在攻击夹角内
         /// </summary>
-        /// <param name="att"></param>
-        /// <param name="beatt"></param>
         /// <param name="angle"></param>
         /// <returns></returns>
         private bool InAngle(float angle,float skillangle) {
