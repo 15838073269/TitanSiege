@@ -3,7 +3,7 @@
 	作者：昔莘
     邮箱: 304183153@qq.com
     日期：2022/11/14 1:27:21
-	功能：Nothing
+	功能：技能模块
 *****************************************************/
 
 using UnityEngine;
@@ -29,6 +29,7 @@ namespace GF.MainGame.Module {
             AppTools.Regist<ushort>((int)SkillEvent.ManzuXuqiudengji, ManzuXuqiudengji);
             AppTools.Regist<SkillDataBase, NPCBase>((int)SkillEvent.CountSkillHurt, CountSkillHurt);
             ///获取所有技能配置表数据
+            ///todo
         }
 
         public override void Release() {
