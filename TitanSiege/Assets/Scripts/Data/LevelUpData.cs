@@ -59,7 +59,7 @@ namespace GF.MainGame.Data {
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public LevelUpDataBase FindNPCByID(ushort id) {
+        public LevelUpDataBase FindByID(ushort id) {
             LevelUpDataBase npc;
             m_AllLevelDataDic.TryGetValue(id, out npc);
             return npc;

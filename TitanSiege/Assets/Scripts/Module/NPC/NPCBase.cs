@@ -9,6 +9,8 @@ using GF.ConfigTable;
 using GF.Const;
 using GF.MainGame.Data;
 using GF.MainGame.Module.Fight;
+using GF.Model;
+using GF.Service;
 using GF.Unity.AB;
 using UnityEngine;
 
@@ -20,7 +22,9 @@ namespace GF.MainGame.Module.NPC {
         public ushort m_Id;
         public GameObject m_Wpdorsum;//背部武器
         public GameObject m_WpHand;//手持武器
-        protected NPCDataBase m_Data;
+        public FightProp m_FightProp;//战斗属性
+        protected NPCDataBase m_Data;//数据值
+        protected LevelUpDataBase m_LevelData;//升级系数
         protected bool m_IsFight = false;
         public bool IsFight {
             get {
@@ -33,8 +37,11 @@ namespace GF.MainGame.Module.NPC {
         }
         public CharacterController m_Character;
         public AniState CurrentState = AniState.none;
-        
-        public bool isCanMove = true;
+        public bool isCanMove = true;//能否移动，用来判断是否npc
+        /// <summary>
+        /// 玩家不用这里的数值，这里是配置表的数值
+        /// 只有怪物采用配置表的数值
+        /// </summary>
         public NPCDataBase Data {
             get {
                 if (m_Data == null) {
@@ -43,18 +50,48 @@ namespace GF.MainGame.Module.NPC {
                 return m_Data;
             }
         }
+        public LevelUpDataBase LevelData {
+            get {
+                if (m_LevelData == null) {
+                    LevelUpData levelup= ConfigerManager.GetInstance.FindData<LevelUpData>(CT.TABLE_LEVEL);
+                    if (levelup != null) {
+                        m_LevelData = levelup.FindByID(Data.Levelupid);
+                    }
+                }
+                return m_LevelData;
+            }
+        }
         public virtual void Awake() {
             m_Character = GetComponent<CharacterController>();
             InitNPCAnimaor();
-            Init();
+            
         }
         public virtual void Start() {
             oldPosition = transform.position;
+            Init();
+            InitFightProps();
         }
 
         public virtual void Init(bool canmove = true) {
-            //oldPosition = transform.position;
             isCanMove = canmove;
+            
+        }
+        /// <summary>
+        /// 子类初始化战斗属性
+        /// </summary>
+        public virtual void InitFightProps() {
+            //属性加成,魔法加成法术攻击,1点魔力10点攻击
+            switch (UserService.GetInstance.m_CurrentChar.Zhiye) {
+                case 0:
+                    m_FightProp.Attack = UserService.GetInstance.m_CurrentChar.Liliang * 10;
+                    break;
+                case 1:
+                    m_FightProp.Attack = UserService.GetInstance.m_CurrentChar.Moli * 10;
+                    break;
+                case 2:
+                    break;
+            }
+           
         }
         public virtual void InitNPCAnimaor() {
             m_Nab = transform.GetComponent<NPCAnimatorBase>();
@@ -152,9 +189,9 @@ namespace GF.MainGame.Module.NPC {
         protected int m_Attack;
         public virtual int Attack {
             get {
-                return 0;
+                return m_Attack;
             }
-            protected set {
+            set {
                 if (value >= 0) {
                     m_Attack = value;
                 } else {

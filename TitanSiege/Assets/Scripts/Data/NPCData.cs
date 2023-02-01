@@ -26,6 +26,7 @@ namespace GF.MainGame.Data {
             nb1.ID = 1;
             nb1.Name = "谢子良";
             nb1.Level = 1;
+            nb1.Levelupid = 1;
             nb1.Zhiye = 0;
             nb1.Exp = 0;
             nb1.Shengming = 500;
@@ -118,7 +119,9 @@ namespace GF.MainGame.Data {
         public ushort Fali { get; set; }
         [XmlAttribute("等级")]
         public ushort Level { get; set; }
-        [XmlAttribute("经验")]
+        [XmlAttribute("升级系数")]
+        public ushort Levelupid { get; set; }
+        [XmlAttribute("经验")]//当前经验，如果是怪物，就是怪物的所属经验
         public int Exp { get; set; }
         //攻击和防御是运行时数值，运行数值还有精力，闪避，闪避率，暴击，暴击率，抗暴率，连击率，命中，法术减伤，外功减伤，冰冻，灼烧，
         //命中大于闪避，闪避率随机数，攻击生效，伤害是：攻击（已包含属性加成）-防御（已包含属性加成）-法术减伤/外功减伤（很多武学兼备法术伤害和外功伤害，要分别减，减完之后再相加，就是伤害总值），小于<0为固定-1，（根据暴击率触发暴击，暴击数值/100,换算百分比，翻倍伤害-抗暴率*翻倍伤害）， = 最终伤害

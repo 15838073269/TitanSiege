@@ -6,6 +6,7 @@
         <variable name = "Name" col="名称" type = "string"/>
         <variable name = "Zhiye" col="职业" type = "ushort"/>
         <variable name = "Level" col="等级" type = "ushort"/>
+        <variable name = "Levelupid" col="升级系数" type = "ushort"/>
         <variable name = "Exp" col="经验" type = "int"/>
         <variable name = "Shengming" col="生命" type = "ushort"/>
         <variable name = "Fali" col="法力" type = "ushort"/>
@@ -19,12 +20,12 @@
         <variable name = "Duanzao" col="锻造" type = "ushort"/>
         <variable name = "Jinbi" col="金币" type = "int"/>
         <variable name = "Zuanshi" col="钻石" type = "int"/>
-        <variable name = "Chenghao" col="称号" type = "string"/>
+        <variable name = "Chenghao" col="称号" type = "string" defaultValue="-"/>
         <variable name = "Friends" col="亲朋" type = "listStr" split="|"/>
         <variable name = "Skills" col="技能" type = "listStr" split="|"/>
         <variable name = "Prefabpath" col="预制体" type = "string"/>
-        <variable name = "Headpath" col="头像" type = "string"/>
-        <variable name = "Lihuipath" col="立绘" type = "string"/>
+        <variable name = "Headpath" col="头像" type = "string" defaultValue="-"/>
+        <variable name = "Lihuipath" col="立绘" type = "string" defaultValue="-"/>
     </list>
 </variable> 
 </data>

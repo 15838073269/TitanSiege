@@ -203,6 +203,7 @@ namespace GF.MainGame {
         private void LoadConfigTable() {
             ConfigerManager.GetInstance.LoadData<NPCData>(CT.TABLE_NPC);
             ConfigerManager.GetInstance.LoadData<SkillData>(CT.TABLE_SKILL);
+            ConfigerManager.GetInstance.LoadData<LevelUpData>(CT.TABLE_LEVEL);
             //ConfigerManager.GetInstance.LoadData<NameData>(CT.TABLE_NAME);  //名字不是每次都用，换到其他地方初始化
         }
         private void Onlogin(bool islogin) {
