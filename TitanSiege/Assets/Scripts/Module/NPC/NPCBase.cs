@@ -148,4 +148,22 @@ namespace GF.MainGame.Module.NPC {
             }
         }
     }
+    public class FightProp {
+        protected int m_Attack;
+        public virtual int Attack {
+            get {
+                return 0;
+            }
+            protected set {
+                if (value >= 0) {
+                    m_Attack = value;
+                } else {
+                    m_Attack = 0;
+                }
+                //通知ui层数据发生变化
+
+            }
+        }
+
+    }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding = "utf-8"?>
+<data name="LevelUpData" from="升级配置表.xlsx" to="LevelUpData.xml">
+<variable name= "AllLevelData" type = "list">
+    <list name="LevelUpDataBase" sheetname="升级配置表" mainKey = "ID">
+        <variable name = "ID" col="ID" type = "ushort"/>
+        <variable name = "LevelName" col="数值名称" type = "string"/>
+        <variable name = "Shengming" col="生命" type = "ushort"/>
+        <variable name = "Fali" col="法力" type = "ushort"/>
+        <variable name = "UpExp" col="升级经验" type = "int"/>
+        <variable name = "Tizhi" col="体质" type = "ushort"/>
+        <variable name = "Liliang" col="力量" type = "ushort"/>
+        <variable name = "Minjie" col="敏捷" type = "ushort"/>
+        <variable name = "Moli" col="魔力" type = "ushort"/>
+        <variable name = "Meili" col="魅力" type = "ushort"/>
+        <variable name = "Xingyun" col="幸运" type = "ushort"/>
+        <variable name = "Lianjin" col="炼金" type = "ushort"/>
+        <variable name = "Duanzao" col="锻造" type = "ushort"/>
+    </list>
+</variable> 
+</data>
