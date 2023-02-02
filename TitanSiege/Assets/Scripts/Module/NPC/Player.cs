@@ -27,6 +27,7 @@ namespace GF.MainGame.Module.NPC {
             SetFight(true);
             
         }
+       
         public override void InitNPCAnimaor() {
             m_Nab = transform.GetComponent<PlayerAnimator>();
             if (m_Nab == null) {

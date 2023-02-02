@@ -72,14 +72,10 @@ namespace GF.MainGame {
         public const string LoginScene = "Login";
         public const string RoleScene = "CreateRole";
         /// <summary>
-        /// 升级系数，用于升级后属性增加的比例
-        /// 为了省事的产物，正常应该写在配置表里，根据职业、怪物种类配置不同的增量值
-        /// 这里省事了，统一增加20%。
-        /// 这种百分比的增长方式，对策划来说是很要命的，后期数值直接会爆炸，不过我们这是demo，等有精力的再把这一块该了吧
-        /// 算了，现在改吧
+        /// 默认基础闪避和基础暴击，各职业怪物不同就单独修改
         /// </summary>
-        public const float PlayerLeveUpRatio = 0.2f;
-        public const float MonsterLeveUpRatio = 0.1f;
+        public const float Dodge = 0.01f;
+        public const float Crit = 0.01f;
         /// <summary>
         /// xml配置表存储路径
         /// </summary>

@@ -19,7 +19,6 @@ using GF.Service;
 using GF.Const;
 using Net.Client;
 using Net.UnityComponent;
-using System.Security.Principal;
 using Net.Component;
 //需要做一个修改，把玩家自己也放到队伍队列中，需要修改队列的
 namespace GF.MainGame.Module {

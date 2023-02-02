@@ -22,7 +22,6 @@ namespace GF.MainGame.Module.NPC {
         public ushort m_Id;
         public GameObject m_Wpdorsum;//背部武器
         public GameObject m_WpHand;//手持武器
-        public FightProp m_FightProp;//战斗属性
         protected NPCDataBase m_Data;//数据值
         protected LevelUpDataBase m_LevelData;//升级系数
         protected bool m_IsFight = false;
@@ -69,7 +68,7 @@ namespace GF.MainGame.Module.NPC {
         public virtual void Start() {
             oldPosition = transform.position;
             Init();
-            InitFightProps();
+            UpdateFightProps();
         }
 
         public virtual void Init(bool canmove = true) {
@@ -77,21 +76,62 @@ namespace GF.MainGame.Module.NPC {
             
         }
         /// <summary>
-        /// 子类初始化战斗属性
+        /// 根据属性写入战斗属性
+        /// 暂时还未加入道具影响，例如装备，需道具模块开发完成后，再完善
         /// </summary>
-        public virtual void InitFightProps() {
-            //属性加成,魔法加成法术攻击,1点魔力10点攻击
-            switch (UserService.GetInstance.m_CurrentChar.Zhiye) {
-                case 0:
-                    m_FightProp.Attack = UserService.GetInstance.m_CurrentChar.Liliang * 10;
-                    break;
-                case 1:
-                    m_FightProp.Attack = UserService.GetInstance.m_CurrentChar.Moli * 10;
-                    break;
-                case 2:
-                    break;
+        public virtual void UpdateFightProps() {
+            float jcDodge = AppConfig.Dodge;//基础闪避率，各职业角色和怪物不同
+            float jcCrit = AppConfig.Crit;//基础暴击率，各职业角色和怪物不同
+            if (m_NpcType == NpcType.player) {//计算玩家的属性
+                CharactersData cd = UserService.GetInstance.m_CurrentChar;
+                switch (cd.Zhiye) {
+                    case (int)Zhiye.剑士:
+                        Attack = cd.Liliang * 10;
+                        Defense = cd.Liliang * 3 + cd.Tizhi * 7;
+                        break;
+                    case (int)Zhiye.法师:
+                        Attack = UserService.GetInstance.m_CurrentChar.Moli * 10;
+                        Defense = cd.Moli * 4 + cd.Tizhi * 6;
+                        jcDodge = 0.02f;
+                        break;
+                    case (int)Zhiye.游侠:
+                        Attack = UserService.GetInstance.m_CurrentChar.Minjie * 10;
+                        Defense = cd.Minjie * 4 + cd.Tizhi * 6;
+                        jcDodge = 0.03f;
+                        break;
+                    default:
+                        break;
+                }
+                //闪避,基础闪避率0.01f;
+                Dodge = jcDodge + (float)cd.Minjie / 1000f >= 0.3f ? 0.3f : (float)cd.Minjie / 1000f;//属性加成的闪避
+                Crit = jcCrit + (float)cd.Xingyun * jcCrit >= 0.5f ? 0.5f : (float)cd.Xingyun * jcCrit;//暴击率
+                FightHP = cd.Shengming + cd.Tizhi * 10;
+                FightMagic = cd.Fali + cd.Moli * 10;
+            } else if(m_NpcType == NpcType.monster){//计算怪物的属性
+                switch (Data.Zhiye) {
+                    case (int)Zhiye.剑士:
+                        Attack = (Data.Liliang+Data.Level*LevelData.Liliang) * 10;
+                        Defense = (Data.Liliang + Data.Level * LevelData.Liliang) * 3 + (Data.Tizhi + Data.Level * LevelData.Tizhi) * 7;
+                        break;
+                    case (int)Zhiye.法师:
+                        Attack = (Data.Moli + Data.Level * LevelData.Moli) * 10;
+                        Defense = (Data.Moli + Data.Level * LevelData.Moli) * 4 + (Data.Tizhi + Data.Level * LevelData.Tizhi) * 6;
+                        jcDodge = 0.02f;
+                        break;
+                    case (int)Zhiye.游侠:
+                        Attack = (Data.Minjie + Data.Level * LevelData.Minjie) * 10;
+                        Defense = (Data.Minjie + Data.Level * LevelData.Minjie) * 4 + (Data.Tizhi + Data.Level * LevelData.Tizhi) * 6;
+                        jcDodge = 0f;
+                        break;
+                    default:
+                        break;
+                }
+                //闪避,基础闪避率0.01f;
+                Dodge = jcDodge + (float)(Data.Minjie + Data.Level * LevelData.Minjie) / 1000f >= 0.3f ? 0.3f : (float)(Data.Minjie + Data.Level * LevelData.Minjie ) / 1000f;//属性加成的闪避
+                Crit = jcCrit + (float)(Data.Xingyun + Data.Level * LevelData.Xingyun) * jcCrit >= 0.5f ? 0.5f : (float)(Data.Xingyun + Data.Level * LevelData.Xingyun) * jcCrit;//暴击率
+                FightHP = (Data.Shengming + Data.Level * LevelData.Shengming) + (Data.Tizhi + Data.Level * LevelData.Tizhi) * 10;//战斗生命
+                FightMagic = (Data.Fali + Data.Level * LevelData.Fali) + (Data.Moli + Data.Level * LevelData.Moli) * 10;//战斗法力
             }
-           
         }
         public virtual void InitNPCAnimaor() {
             m_Nab = transform.GetComponent<NPCAnimatorBase>();
@@ -184,23 +224,74 @@ namespace GF.MainGame.Module.NPC {
                 }
             }
         }
-    }
-    public class FightProp {
+        #region 战斗属性
         protected int m_Attack;
         public virtual int Attack {
             get {
                 return m_Attack;
             }
             set {
-                if (value >= 0) {
-                    m_Attack = value;
-                } else {
-                    m_Attack = 0;
-                }
+                m_Attack = value;
                 //通知ui层数据发生变化
 
             }
         }
+        protected int m_Defense;
+        public virtual int Defense {
+            get {
+                return m_Defense;
+            }
+            set {
+                m_Defense = value;
+                //通知ui层数据发生变化
 
+            }
+        }
+        protected float m_Dodge;//闪避
+        public virtual float Dodge {
+            get {
+                return m_Dodge;
+            }
+            set {
+                m_Dodge = value;
+                //通知ui层数据发生变化
+
+            }
+        }
+        protected float m_Crit;//暴击
+        public virtual float Crit {
+            get {
+                return m_Crit;
+            }
+            set {
+                m_Crit = value;
+                //通知ui层数据发生变化
+
+            }
+        }
+        protected float m_FightHp;//战斗时生命
+        public virtual float FightHP {
+            get {
+                return m_FightHp;
+            }
+            set {
+                m_FightHp = value;
+                //通知ui层数据发生变化
+
+            }
+        }
+        protected float m_FightMagic;//战斗魔力
+        public virtual float FightMagic {
+            get {
+                return m_FightMagic;
+            }
+            set {
+                m_FightMagic = value;
+                //通知ui层数据发生变化
+
+            }
+        }
+        #endregion
     }
 }
+
