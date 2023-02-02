@@ -45,6 +45,7 @@ namespace GF.MainGame.Module.NPC {
             get {
                 if (m_Data == null) {
                     m_Data = ConfigerManager.m_NPCData.FindNPCByID(m_Id);
+                    FightLevel = m_Data.Level;
                 }
                 return m_Data;
             }
@@ -110,27 +111,27 @@ namespace GF.MainGame.Module.NPC {
             } else if(m_NpcType == NpcType.monster){//计算怪物的属性
                 switch (Data.Zhiye) {
                     case (int)Zhiye.剑士:
-                        Attack = (Data.Liliang+Data.Level*LevelData.Liliang) * 10;
-                        Defense = (Data.Liliang + Data.Level * LevelData.Liliang) * 3 + (Data.Tizhi + Data.Level * LevelData.Tizhi) * 7;
+                        Attack = (Data.Liliang+FightLevel*LevelData.Liliang) * 10;
+                        Defense = (Data.Liliang + FightLevel * LevelData.Liliang) * 3 + (Data.Tizhi + FightLevel * LevelData.Tizhi) * 7;
                         break;
                     case (int)Zhiye.法师:
-                        Attack = (Data.Moli + Data.Level * LevelData.Moli) * 10;
-                        Defense = (Data.Moli + Data.Level * LevelData.Moli) * 4 + (Data.Tizhi + Data.Level * LevelData.Tizhi) * 6;
+                        Attack = (Data.Moli + FightLevel * LevelData.Moli) * 10;
+                        Defense = (Data.Moli + FightLevel * LevelData.Moli) * 4 + (Data.Tizhi + FightLevel * LevelData.Tizhi) * 6;
                         jcDodge = 0.02f;
                         break;
                     case (int)Zhiye.游侠:
-                        Attack = (Data.Minjie + Data.Level * LevelData.Minjie) * 10;
-                        Defense = (Data.Minjie + Data.Level * LevelData.Minjie) * 4 + (Data.Tizhi + Data.Level * LevelData.Tizhi) * 6;
+                        Attack = (Data.Minjie + FightLevel * LevelData.Minjie) * 10;
+                        Defense = (Data.Minjie + FightLevel * LevelData.Minjie) * 4 + (Data.Tizhi + FightLevel * LevelData.Tizhi) * 6;
                         jcDodge = 0f;
                         break;
                     default:
                         break;
                 }
                 //闪避,基础闪避率0.01f;
-                Dodge = jcDodge + (float)(Data.Minjie + Data.Level * LevelData.Minjie) / 1000f >= 0.3f ? 0.3f : (float)(Data.Minjie + Data.Level * LevelData.Minjie ) / 1000f;//属性加成的闪避
-                Crit = jcCrit + (float)(Data.Xingyun + Data.Level * LevelData.Xingyun) * jcCrit >= 0.5f ? 0.5f : (float)(Data.Xingyun + Data.Level * LevelData.Xingyun) * jcCrit;//暴击率
-                FightHP = (Data.Shengming + Data.Level * LevelData.Shengming) + (Data.Tizhi + Data.Level * LevelData.Tizhi) * 10;//战斗生命
-                FightMagic = (Data.Fali + Data.Level * LevelData.Fali) + (Data.Moli + Data.Level * LevelData.Moli) * 10;//战斗法力
+                Dodge = jcDodge + (float)(Data.Minjie + FightLevel * LevelData.Minjie) / 1000f >= 0.3f ? 0.3f : (float)(Data.Minjie + FightLevel * LevelData.Minjie ) / 1000f;//属性加成的闪避
+                Crit = jcCrit + (float)(Data.Xingyun + FightLevel * LevelData.Xingyun) * jcCrit >= 0.5f ? 0.5f : (float)(Data.Xingyun + FightLevel * LevelData.Xingyun) * jcCrit;//暴击率
+                FightHP = (Data.Shengming + FightLevel * LevelData.Shengming) + (Data.Tizhi + FightLevel * LevelData.Tizhi) * 10;//战斗生命
+                FightMagic = (Data.Fali + FightLevel * LevelData.Fali) + (Data.Moli + FightLevel * LevelData.Moli) * 10;//战斗法力
             }
         }
         public virtual void InitNPCAnimaor() {
@@ -287,6 +288,17 @@ namespace GF.MainGame.Module.NPC {
             }
             set {
                 m_FightMagic = value;
+                //通知ui层数据发生变化
+
+            }
+        }
+        protected int m_FightLevel = 0;//等级
+        public virtual int FightLevel {
+            get {
+                return m_FightLevel;
+            }
+            set {
+                m_FightLevel = value-1;
                 //通知ui层数据发生变化
 
             }

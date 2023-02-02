@@ -207,7 +207,7 @@ namespace GF.MainGame.Module {
                 return 0;
             }
             //技能加成和属性加成,力量加成物理攻击,1点力量10点攻击
-            damage += att.Attack + shanghai;
+            damage += (att.Attack + shanghai);
             //计算装备伤害  todo
 
             //暴击，随机2-3倍伤害，幸运加成暴击,幸运加成最高50%；
