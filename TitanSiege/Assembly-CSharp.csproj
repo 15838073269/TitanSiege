@@ -270,14 +270,23 @@
     <Compile Include="Assets\Scripts\Data\SceneData.cs" />
     <Compile Include="Assets\Scripts\Module\SceneModule\SceneData.cs" />
     <Compile Include="Assets\Scripts\UIModule\EnterWidget.cs" />
+    <Compile Include="Assets\Ultimate 10 Plus Shaders\Scripts\U10PS_MouseRotation.cs" />
+    <Compile Include="Assets\Ultimate 10 Plus Shaders\Shaders\Plexus\Plexus.cs" />
+    <Compile Include="Assets\Ultimate 10 Plus Shaders\Scripts\U10PS_SnowOverTime.cs" />
+    <Compile Include="Assets\Ultimate 10 Plus Shaders\Scripts\U10PS_DissolveOverTime.cs" />
+    <Compile Include="Assets\Ultimate 10 Plus Shaders\Scripts\U10PS_ExampleReview.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Art\data\xml\LevelUpData.xml" />
     <None Include="Assets\Hovl Studio\Sword slash VFX\Demo scene\HDRP and URP.txt" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Edge Detection.shader" />
     <None Include="Assets\Art\data\xml\SceneData.xml" />
     <None Include="Assets\IGSoft_Resources\ToolResources\EffectShader\FXMaker_Mask Additive Tint.shader" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Grass Sway.shader" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Blur.shader" />
     <None Include="Assets\RealToon\RealToon Shaders\Version 5\Default\D_Default.shader" />
     <None Include="Assets\RealToon\RealToon Shaders\Version 5\Tessellation\T_Fade_Transparency.shader" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Plexus\Plexus.compute" />
     <None Include="Assets\Resources\Shader\Particle Alpha Blend-Overlay.shader" />
     <None Include="Assets\Resources\Shaders\ShadowMap.shader" />
     <None Include="Assets\Art\materials\RimShader.shader" />
@@ -304,15 +313,24 @@
     <None Include="Assets\Art\data\xml\BuffDataTest.xml" />
     <None Include="Assets\Art\data\xml\NPCData.xml" />
     <None Include="Assets\RealToon\RealToon Shaders\Version 5\Default\D_Fade_Transparency.shader" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Depth Mask Edge Detection.shader" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Ocean.shader" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Dissolve.shader" />
     <None Include="Assets\Demigiant\DOTween\DOTween.dll" />
     <None Include="Assets\Hovl Studio\Sword slash VFX\Shaders\Lightning.shader" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Plasma.shader" />
     <None Include="Assets\Compond\Shader\MogoSkybox.shader" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Outline.shader" />
     <None Include="Assets\RealToon\RealToon Shaders\Version 5\Lite\L_Default.shader" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Plexus\Plexus Line.shader" />
     <None Include="Assets\Art\data\xml\NameData.xml" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Snow.shader" />
     <None Include="Assets\Demigiant\DOTweenPro\DOTweenPro.dll" />
     <None Include="Assets\Demigiant\DOTweenPro\readme.txt" />
     <None Include="Assets\Hovl Studio\Sword slash VFX\Shaders\BlendDistort.shader" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Lava3D.shader" />
     <None Include="Assets\Hovl Studio\Sword slash VFX\Shaders\Scroll.shader" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Force Field.shader" />
     <None Include="Assets\Demigiant\DemiLib\Core\DemiLib.xml" />
     <None Include="Assets\Demigiant\DOTweenPro\DOTweenPro.XML" />
     <None Include="Assets\Resources\Shaders\ShadowReceiver.shader" />
@@ -323,6 +341,7 @@
     <None Include="Assets\Art\data\xml\ItemData.xml" />
     <None Include="Assets\Hovl Studio\Sword slash VFX\Shaders\Add_CenterGlow.shader" />
     <None Include="Assets\RealToon\RealToon Shaders\Version 5\Tessellation\T_Default.shader" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Simple Sine Wave.shader" />
     <None Include="Assets\AssetBundleConfig.xml" />
     <None Include="Assets\Hovl Studio\Sword slash VFX\Shaders\Explosion.shader" />
     <None Include="Assets\Hovl Studio\Sword slash VFX\Shaders\SwordSlash.shader" />

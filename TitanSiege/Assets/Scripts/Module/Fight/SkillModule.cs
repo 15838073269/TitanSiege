@@ -77,12 +77,12 @@ namespace GF.MainGame.Module {
                 //先从场景类中获取到当前场景和场景内的所有怪物对象
                 ListSafe<Monster> monsters = AppTools.SendReturn<string, ListSafe<Monster>>((int)NpcEvent.GetMonstersbyScene, scenename);
                 if (monsters != null && monsters.Count > 0) {//场景内有怪物再计算伤害
-                    //提前预算一下，距离玩家一百以外的怪物就不再计算了，节省性能
+                    //提前预算一下，距离玩家15以外的怪物就不再计算了，节省性能，15是本项目最大技能范围，一般技能范围不会超过15
                     ListSafe<CountSkillArg> tempmonstersarg = new ListSafe<CountSkillArg>();
                     for (int i = 0; i < monsters.Count; i++) {
                         float dis = Vector3.Distance(monsters[i].transform.position, npc.transform.position);
                         Debuger.Log(dis + ":" + monsters[i].m_GDID);
-                        if (dis <= 100f) {
+                        if (dis <= 15f) {
                             CountSkillArg temp = new CountSkillArg(monsters[i], dis);
                             tempmonstersarg.Add(temp);
                         }
