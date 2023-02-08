@@ -1232,7 +1232,7 @@ GameObject:
   - component: {fileID: 400076}
   - component: {fileID: 13700000}
   m_Layer: 0
-  m_Name: xiongmao
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
