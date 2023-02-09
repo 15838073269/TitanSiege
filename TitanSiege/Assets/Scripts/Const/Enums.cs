@@ -112,6 +112,7 @@ namespace GF.Const {
         run,
         fightrun,
         attack,
+        die,
     }
     public enum NpcType {
         player,

@@ -26,10 +26,26 @@ namespace GF.MainGame.Module.NPC {
             //倒放溶解，显示怪物模型
             ShowModel();
         }
+        /// <summary>
+        /// 溶解显示
+        /// </summary>
+        /// <returns></returns>
         public async UniTask ShowModel() {
             float _cut = 1f;
             while (_cut >= 0) {
                 _cut -= 0.1f;
+                await UniTask.Delay(TimeSpan.FromSeconds(0.0618));
+                m_Material.SetFloat("_Cutoff", _cut);
+            }
+        }
+        /// <summary>
+        /// 溶解消失
+        /// </summary>
+        /// <returns></returns>
+        public async UniTask HideModel() {
+            float _cut = 0f;
+            while (_cut <= 1) {
+                _cut += 0.1f;
                 await UniTask.Delay(TimeSpan.FromSeconds(0.0618));
                 m_Material.SetFloat("_Cutoff", _cut);
             }

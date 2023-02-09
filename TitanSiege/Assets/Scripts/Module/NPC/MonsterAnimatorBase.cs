@@ -7,6 +7,7 @@
 *****************************************************/
 
 using GF.MainGame.Data;
+using Net.System;
 using UnityEngine;
 namespace GF.MainGame.Module.NPC {
     public class MonsterAnimatorBase : NPCAnimatorBase {
@@ -28,6 +29,21 @@ namespace GF.MainGame.Module.NPC {
 
         public override void Move() {
             m_ani.SetInteger("run", 1);
+        }
+        public override void Die() {
+            m_ani.SetInteger("die", -1);
+            //设定一个计时，死亡2秒后，溶解尸体
+            ThreadManager.Event.AddEvent(1.618f, DieToDestroy);
+        }
+        /// <summary>
+        /// 死亡销毁
+        /// </summary>
+        private async void DieToDestroy() {
+            Monster m = transform.GetComponent<Monster>();
+            if (m != null) { 
+               await m.HideModel();
+               m.gameObject.SetActive(false);
+            }
         }
     }
 }

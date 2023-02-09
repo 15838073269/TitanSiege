@@ -54,6 +54,12 @@ namespace GF.MainGame.Module.NPC {
         public virtual void Attack(SkillDataBase sd = null) { 
 
         }
+        /// <summary>
+        /// 死亡动画
+        /// </summary>
+        public virtual void Die() {
+            m_ani.SetInteger("die", -1);
+        }
         
         /// 移动动画
         /// </summary>
