@@ -20,6 +20,8 @@ namespace GF.MainGame.Module.NPC {
         private Vector3 m_Rota;//怪物的原始旋转，用于战斗返回
         private Vector3 m_Scal;//怪物的原始缩放，用于放大技能后的恢复
         public Material m_Material;
+        public bool m_SynchSign = false;//默认false，是服务器同步，true为本地同步
+        public int m_TargetID = -1;
         public async void OnEnable() {
             //重置溶解特效
             m_Material.SetFloat("_Cutoff",1);
@@ -51,7 +53,7 @@ namespace GF.MainGame.Module.NPC {
             }
         }
         public override void InitNPCAnimaor() {
-            m_Material = transform.Find("Body").GetComponentInChildren<Renderer>().material;
+            m_Material = transform.Find("Body").GetComponent<Renderer>().material;
             m_Nab = transform.GetComponent<MonsterAnimatorBase>();
             if (m_Nab == null) {
                 m_Nab = transform.gameObject.AddComponent<MonsterAnimatorBase>();
@@ -86,5 +88,7 @@ namespace GF.MainGame.Module.NPC {
                 time = Time.time + (1f / 50f);
             }
         }
+
+        
     }
 }

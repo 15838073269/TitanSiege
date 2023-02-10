@@ -4,6 +4,7 @@ using GF.MainGame;
 using GF.MainGame.Module;
 using GF.MainGame.Module.NPC;
 using GF.Unity.AB;
+using Net.Client;
 using Net.Share;
 using Net.System;
 using Net.UnityComponent;
@@ -61,17 +62,17 @@ namespace GF.NetWork {
                     break;
                 case Command.AIMonster://未发生攻击时，服务端同步场景怪物行为
                     var monster = CheckMonster(opt);
-                    monster.transform.position = opt.position;
-                    monster.transform.rotation = opt.rotation;
+                    if (monster.m_SynchSign == false ) {
+                        monster.transform.position = opt.position;
+                        monster.transform.rotation = opt.rotation;
+                    }
                     break;
                 case Command.EnemySync://攻击玩家时，客户端同步怪物位置的命令
                     var monster1 = CheckMonster(opt);
-                    //if (monster1.targetID != ClientBase.Instance.UID) {
-                    //    monster1.transform.position = opt.position;
-                    //    monster1.transform.rotation = opt.rotation;
-                    //}
-                    monster1.transform.position = opt.position;
-                    monster1.transform.rotation = opt.rotation;
+                    if (monster1.m_TargetID != ClientBase.Instance.UID) {//怪物不是本机控制的就直接同步位置
+                        monster1.transform.position = opt.position;
+                        monster1.transform.rotation = opt.rotation;
+                    }
                     break;
                 case Command.EnemySwitchState://客户端切换怪物状态的命令
                     //var monster2 = CheckMonster(opt);

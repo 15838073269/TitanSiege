@@ -92,7 +92,18 @@ namespace GDServer {
                         }
                         break;
                     case Command.AttackPlayer:
-                        
+                        var players = Clients;
+                        for (int n = 0; n < players.Count; n++) {
+                            if (players[n].UserID == opt.identity) {
+                                players[n].BeAttacked(opt.index1);
+                                break;
+                            }
+                        }
+                        ////攻击玩家，客户端警戒方法发送的命令，收到命令后，处理服务端怪物状态，并告知其他客户端
+                        //if (monsters.TryGetValue(opt.identity, out AIMonster monster0)) {
+                        //    monster0.targetID = opt.index1;//index1是玩家的id
+                        //    monster0.state = 1;//切换成客户端更新的模式，其他不用处理，mosnter脚本自己会处理
+                        //}
                         break;
                     case Command.EnemySync://客户端同步怪物位置的命令
                         if (monsters.TryGetValue(opt.identity, out AIMonster monster1)) {

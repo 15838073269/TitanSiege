@@ -25,6 +25,18 @@ public class TestMonster : MonoBehaviour
             m_Material.SetFloat("_Cutoff", _cut);
         }
     }
+    /// <summary>
+    /// »‹Ω‚œ˚ ß
+    /// </summary>
+    /// <returns></returns>
+    public async UniTask HideModel() {
+        float _cut = 0f;
+        while (_cut <= 1) {
+            _cut += 0.1f;
+            await UniTask.Delay(TimeSpan.FromSeconds(0.0618));
+            m_Material.SetFloat("_Cutoff", _cut);
+        }
+    }
     // Update is called once per frame
     void Update()
     {

@@ -942,24 +942,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {},
-    "E:\\ProgramFile\\unityhub\\ToolSDK\\NuGetPackages": {}
+    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\project\\TitanSiege\\GDServer\\GDServer.csproj",
+      "projectUniqueName": "E:\\Titansiege\\GDServer\\GDServer.csproj",
       "projectName": "GDServer",
-      "projectPath": "D:\\project\\TitanSiege\\GDServer\\GDServer.csproj",
+      "projectPath": "E:\\Titansiege\\GDServer\\GDServer.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "D:\\project\\TitanSiege\\GDServer\\obj\\",
+      "outputPath": "E:\\Titansiege\\GDServer\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "E:\\ProgramFile\\unityhub\\ToolSDK\\NuGetPackages"
-      ],
       "configFilePaths": [
         "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -973,8 +968,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\project\\TitanSiege\\GameDesigner\\GameDesigner.csproj": {
-              "projectPath": "D:\\project\\TitanSiege\\GameDesigner\\GameDesigner.csproj"
+            "E:\\Titansiege\\GameDesigner\\GameDesigner.csproj": {
+              "projectPath": "E:\\Titansiege\\GameDesigner\\GameDesigner.csproj"
             }
           }
         }
@@ -1014,7 +1009,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

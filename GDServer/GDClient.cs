@@ -37,6 +37,7 @@ namespace GDServer {
         }
 
         public void Resurrection() {
+            //数据库中不设置最大生命，而是根据等级+装备来计算
             //current.Shengming = data.HealthMax;
             isDead = false;
         }

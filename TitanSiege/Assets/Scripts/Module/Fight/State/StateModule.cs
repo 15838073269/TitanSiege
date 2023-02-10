@@ -25,7 +25,7 @@ namespace GF.MainGame.Module {
             FSM.Add(AniState.fightrun, new FightRunState());
             FSM.Add(AniState.idle, new IdleState());
             FSM.Add(AniState.attack, new AttackState());
-            FSM.Add(AniState.attack, new DieState());
+            FSM.Add(AniState.die, new DieState());
             AppTools.Regist<NPCBase, AniState>((int)StateEvent.ChangeState, ChangeState);
             AppTools.Regist<NPCBase, AniState, object>((int)StateEvent.ChangeStateWithArgs, ChangeStateWithArgs);
         }
