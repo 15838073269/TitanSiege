@@ -10,7 +10,7 @@ namespace GDServer.AI {
         internal NTransform transform;
         internal RoamingPath1 roamingPath;
         internal GDScene scene;
-        internal byte state = 0;
+        internal byte state = 0;//是否有服务器同步，0为服务器同步，1为客户端同步
         internal byte state1 = 0;
         private float idleTime = 30f;
         internal int pointIndex=-1;
@@ -20,7 +20,7 @@ namespace GDServer.AI {
         internal int mid;
         internal bool isDeath = false;
         internal int health = 100;
-        internal int targetID;
+        internal int targetID;//攻击的玩家id,也是同步怪物的客户端id
 
         public void OnUpdate() {
             if (isDeath)

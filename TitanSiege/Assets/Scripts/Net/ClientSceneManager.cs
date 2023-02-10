@@ -67,18 +67,25 @@ namespace GF.NetWork {
                         monster.transform.rotation = opt.rotation;
                     }
                     break;
-                case Command.EnemySync://攻击玩家时，客户端同步怪物位置的命令
+                case Command.EnemySync://前往或者攻击玩家时，客户端同步怪物位置的命令
                     var monster1 = CheckMonster(opt);
                     if (monster1.m_TargetID != ClientBase.Instance.UID) {//怪物不是本机控制的就直接同步位置
                         monster1.transform.position = opt.position;
                         monster1.transform.rotation = opt.rotation;
+                        monster1.FightHP = opt.index1;
                     }
                     break;
-                case Command.EnemySwitchState://客户端切换怪物状态的命令
+                case Command.EnemySwitchState:
+                    //客户端切换怪物状态的命令，客户端警戒方法发送的命令，收到命令后，处理服务端怪物状态，并告知其他客户端
+                    //警戒方法，失去目标后也发送此命令
                     //var monster2 = CheckMonster(opt);
                     //monster2.state = opt.cmd1;
                     //monster2.state1 = opt.cmd2;
-                    //monster2.StatusEntry();
+                    //monster2.StatusEntry();//切换状态后，客户端自行播放状态动画
+                    //var monster2 = CheckMonster(opt);
+                    //if (opt.identity != ClientBase.Instance.UID) { //如果不是目前操纵怪物的本机就切换状态，例如从移动切换为攻击
+                       
+                    //}
                     break;
                 case Command.PlayerState: 
                     break;
