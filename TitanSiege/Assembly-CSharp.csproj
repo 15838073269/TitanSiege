@@ -176,7 +176,6 @@
     <Compile Include="Assets\Scripts\Module\SceneModule\SceneData.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\SoundEvent.cs" />
     <Compile Include="Assets\Scripts\Module\MainUIModule.cs" />
-    <Compile Include="Assets\Scripts\Module\NPC\IConmster.cs" />
     <Compile Include="Assets\Scripts\UI\UIControl.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Demo\Assets\WFX_Demo_DeleteAfterDelay.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\VertexPool.cs" />
