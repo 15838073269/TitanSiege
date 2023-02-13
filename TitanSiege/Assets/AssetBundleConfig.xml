@@ -40,14 +40,19 @@
   <ABList ABName="createplayerpage" Crc="3819104588" Path="Assets/Art/UIPrefab/CreatePlayerPage.prefab" AssetName="CreatePlayerPage.prefab">
     <ABDepends>uires</ABDepends>
   </ABList>
+  <ABList ABName="createplayerpage" Crc="2308005185" Path="Assets/Art/UIRes/Common Atlas.png" AssetName="Common Atlas.png" />
   <ABList ABName="data" Crc="4042405636" Path="Assets/Art/data/AssetBundleConfig.bytes" AssetName="AssetBundleConfig.bytes" />
   <ABList ABName="data" Crc="967694235" Path="Assets/Art/data/binary/BuffDataTest.bytes" AssetName="BuffDataTest.bytes" />
   <ABList ABName="data" Crc="1172504862" Path="Assets/Art/data/binary/ItemData.bytes" AssetName="ItemData.bytes" />
+  <ABList ABName="data" Crc="3999026878" Path="Assets/Art/data/binary/LevelUpData.bytes" AssetName="LevelUpData.bytes" />
   <ABList ABName="data" Crc="2345462585" Path="Assets/Art/data/binary/NameData.bytes" AssetName="NameData.bytes" />
   <ABList ABName="data" Crc="1357250269" Path="Assets/Art/data/binary/NPCData.bytes" AssetName="NPCData.bytes" />
+  <ABList ABName="data" Crc="720528174" Path="Assets/Art/data/binary/SceneData.bytes" AssetName="SceneData.bytes" />
+  <ABList ABName="data" Crc="701664077" Path="Assets/Art/data/binary/SceneNData.bytes" AssetName="SceneNData.bytes" />
   <ABList ABName="data" Crc="3441139263" Path="Assets/Art/data/binary/SkillData.bytes" AssetName="SkillData.bytes" />
   <ABList ABName="data" Crc="1239248857" Path="Assets/Art/data/xml/BuffDataTest.xml" AssetName="BuffDataTest.xml" />
   <ABList ABName="data" Crc="2177806880" Path="Assets/Art/data/xml/ItemData.xml" AssetName="ItemData.xml" />
+  <ABList ABName="data" Crc="2690611548" Path="Assets/Art/data/xml/LevelUpData.xml" AssetName="LevelUpData.xml" />
   <ABList ABName="data" Crc="3205959729" Path="Assets/Art/data/xml/NameData.xml" AssetName="NameData.xml" />
   <ABList ABName="data" Crc="903242909" Path="Assets/Art/data/xml/NPCData.xml" AssetName="NPCData.xml" />
   <ABList ABName="data" Crc="2168666484" Path="Assets/Art/data/xml/SceneData.xml" AssetName="SceneData.xml" />
@@ -110,7 +115,6 @@
   </ABList>
   <ABList ABName="materials" Crc="1111220586" Path="Assets/Art/materials/RimShader.shader" AssetName="RimShader.shader" />
   <ABList ABName="roleinfo" Crc="681019528" Path="Assets/Art/UIPrefab/roleinfo.prefab" AssetName="roleinfo.prefab">
-    <ABDepends>createplayerpage</ABDepends>
     <ABDepends>uires</ABDepends>
   </ABList>
   <ABList ABName="selectmain" Crc="315022899" Path="Assets/Art/BuildPrefab/SelectMain.prefab" AssetName="SelectMain.prefab">
@@ -120,7 +124,6 @@
   </ABList>
   <ABList ABName="selectplayerpage" Crc="1343766309" Path="Assets/Art/UIPrefab/SelectPlayerPage.prefab" AssetName="SelectPlayerPage.prefab">
     <ABDepends>uires</ABDepends>
-    <ABDepends>createplayerpage</ABDepends>
   </ABList>
   <ABList ABName="skilleffect" Crc="3799223084" Path="Assets/Art/NPCPrefab/skilleffect.prefab" AssetName="skilleffect.prefab">
     <ABDepends>jianshi</ABDepends>
@@ -215,10 +218,8 @@
   <ABList ABName="uires" Crc="1951751552" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_15.PNG" AssetName="Common Atlas_15.PNG" />
   <ABList ABName="uires" Crc="2940400919" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_16.PNG" AssetName="Common Atlas_16.PNG" />
   <ABList ABName="uires" Crc="3863974554" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_17.PNG" AssetName="Common Atlas_17.PNG" />
-  <ABList ABName="uires" Crc="1548074632" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_18.PNG" AssetName="Common Atlas_18.PNG" />
   <ABList ABName="uires" Crc="357095685" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_19.PNG" AssetName="Common Atlas_19.PNG" />
   <ABList ABName="uires" Crc="819244550" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_20.PNG" AssetName="Common Atlas_20.PNG" />
-  <ABList ABName="uires" Crc="2044316043" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_21.PNG" AssetName="Common Atlas_21.PNG" />
   <ABList ABName="uires" Crc="3955426961" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_23.PNG" AssetName="Common Atlas_23.PNG" />
   <ABList ABName="uires" Crc="270544261" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_24.PNG" AssetName="Common Atlas_24.PNG" />
   <ABList ABName="uires" Crc="1496140296" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_25.PNG" AssetName="Common Atlas_25.PNG" />
@@ -242,8 +243,6 @@
   <ABList ABName="uires" Crc="2445781506" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_47.PNG" AssetName="Common Atlas_47.PNG" />
   <ABList ABName="uires" Crc="1896647790" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_50.PNG" AssetName="Common Atlas_50.PNG" />
   <ABList ABName="uires" Crc="1375211501" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_54.PNG" AssetName="Common Atlas_54.PNG" />
-  <ABList ABName="uires" Crc="2045308133" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_59.PNG" AssetName="Common Atlas_59.PNG" />
-  <ABList ABName="uires" Crc="1551145958" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_60.PNG" AssetName="Common Atlas_60.PNG" />
   <ABList ABName="uires" Crc="3463337212" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_62.PNG" AssetName="Common Atlas_62.PNG" />
   <ABList ABName="uires" Crc="2271425393" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_63.PNG" AssetName="Common Atlas_63.PNG" />
   <ABList ABName="uires" Crc="2088769637" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_64.PNG" AssetName="Common Atlas_64.PNG" />
@@ -258,11 +257,15 @@
   <ABList ABName="uires" Crc="124403169" Path="Assets/Art/UIRes/public/Common Atlas/strongbg.png" AssetName="strongbg.png" />
   <ABList ABName="uires" Crc="1575991614" Path="Assets/Art/UIRes/public/Common Atlas_4.PNG" AssetName="Common Atlas_4.PNG" />
   <ABList ABName="uires" Crc="2739094450" Path="Assets/Art/UIRes/public/Common Atlas_12.PNG" AssetName="Common Atlas_12.PNG" />
+  <ABList ABName="uires" Crc="1890618286" Path="Assets/Art/UIRes/public/Common Atlas_18.PNG" AssetName="Common Atlas_18.PNG" />
+  <ABList ABName="uires" Crc="1429011629" Path="Assets/Art/UIRes/public/Common Atlas_21.PNG" AssetName="Common Atlas_21.PNG" />
   <ABList ABName="uires" Crc="670897627" Path="Assets/Art/UIRes/public/Common Atlas_34.PNG" AssetName="Common Atlas_34.PNG" />
   <ABList ABName="uires" Crc="1188148272" Path="Assets/Art/UIRes/public/Common Atlas_40.PNG" AssetName="Common Atlas_40.PNG" />
   <ABList ABName="uires" Crc="1713715123" Path="Assets/Art/UIRes/public/Common Atlas_44.PNG" AssetName="Common Atlas_44.PNG" />
   <ABList ABName="uires" Crc="121156406" Path="Assets/Art/UIRes/public/Common Atlas_48.PNG" AssetName="Common Atlas_48.PNG" />
   <ABList ABName="uires" Crc="470859342" Path="Assets/Art/UIRes/public/Common Atlas_58.PNG" AssetName="Common Atlas_58.PNG" />
+  <ABList ABName="uires" Crc="1428019651" Path="Assets/Art/UIRes/public/Common Atlas_59.PNG" AssetName="Common Atlas_59.PNG" />
+  <ABList ABName="uires" Crc="1887547072" Path="Assets/Art/UIRes/public/Common Atlas_60.PNG" AssetName="Common Atlas_60.PNG" />
   <ABList ABName="uires" Crc="15395205" Path="Assets/Art/UIRes/public/exp.png" AssetName="exp.png" />
   <ABList ABName="uires" Crc="3021008997" Path="Assets/Art/UIRes/public/fight Atlas_21.PNG" AssetName="fight Atlas_21.PNG" />
   <ABList ABName="uires" Crc="117357820" Path="Assets/Art/UIRes/public/fight Atlas_27.PNG" AssetName="fight Atlas_27.PNG" />

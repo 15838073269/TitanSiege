@@ -32,6 +32,7 @@ namespace GF.MainGame.Module {
             }
             if (!AllMonsters[scenename].Contains(m)) {
                 AllMonsters[scenename].Add(m);
+                Debuger.Log(AllMonsters[scenename].Count);
             }
         }
         /// <summary>

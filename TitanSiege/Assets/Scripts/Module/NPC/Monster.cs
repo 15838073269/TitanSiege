@@ -19,15 +19,19 @@ namespace GF.MainGame.Module.NPC {
         private Vector3 m_Pos;//怪物的原始位置，用于战斗返回
         private Vector3 m_Rota;//怪物的原始旋转，用于战斗返回
         private Vector3 m_Scal;//怪物的原始缩放，用于放大技能后的恢复
-        public Material m_Material;
+        public Material m_Material = null;
         public bool m_SynchSign = false;//默认false，是服务器同步，true为本地同步
         public int m_TargetID = -1;
         public async void OnEnable() {
+            if (m_Material == null) {
+                return;
+            }
             //重置溶解特效
             m_Material.SetFloat("_Cutoff",1);
             //倒放溶解，显示怪物模型
             ShowModel();
         }
+        
         /// <summary>
         /// 溶解显示
         /// </summary>
@@ -53,7 +57,14 @@ namespace GF.MainGame.Module.NPC {
             }
         }
         public override void InitNPCAnimaor() {
-            m_Material = transform.Find("Body").GetComponent<Renderer>().material;
+            //发现一个很奇怪的bug，awake时，获取子物体的某个组件会报一次错误，仅一次，也不影响使用
+            //经查，发现加载怪物时，会连续创建双倍数量的怪物，怀疑是加载怪物脚本太慢了导致的重复加载，但地图只显示了一个，并且无任何异常，第一次创建的去哪里了？而且第一次创建结束后，第二次的第一次会报一次错，找不到任何子物体及任何组件，放到onenabled也一样，找不到问题原因
+            Transform body = transform.Find("Body");
+            if (body == null) {//找不到问题，先强行屏蔽一下吧
+                return;
+            }
+            var render = body.GetComponent<SkinnedMeshRenderer>();
+            m_Material = render.material;
             m_Nab = transform.GetComponent<MonsterAnimatorBase>();
             if (m_Nab == null) {
                 m_Nab = transform.gameObject.AddComponent<MonsterAnimatorBase>();

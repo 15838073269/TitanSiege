@@ -56,7 +56,8 @@ namespace GF.MainGame.Module {
             } else {
                 AudioService.GetInstance.StopBGAudio();
             }
-
+            //发送服务器切换场景角色,这里改成先切场景，场景切换成功后，再发送？
+            ClientManager.Instance.SendRT("SwitchScene", SceneName);
         }
         public virtual void OnDestroy() {
             AudioService.GetInstance.StopBGAudio();

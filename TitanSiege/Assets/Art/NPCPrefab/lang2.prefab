@@ -176,6 +176,9 @@ MonoBehaviour:
   isCanMove: 1
   m_IsNetPlayer: 0
   isPlaySkill: 0
+  m_Material: {fileID: 0}
+  m_SynchSign: 0
+  m_TargetID: -1
 --- !u!1 &100010
 GameObject:
   m_ObjectHideFlags: 0

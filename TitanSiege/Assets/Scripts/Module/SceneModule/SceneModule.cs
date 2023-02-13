@@ -32,10 +32,22 @@ namespace GF.MainGame.Module {
             ClientManager.Instance.client.AddRpc(this);
         }
         public void OpenScene(string scenename) {
-            //发送服务器切换场景角色
-            ClientManager.Instance.SendRT("SwitchScene", scenename);
+            m_Last = m_Current;
+            UILoadingArg uiarg = new UILoadingArg();
+            uiarg.tips = "神话世界的故事由你书写";
+            uiarg.title = "正在加载神话纪元，请稍等...";
+            //GameSceneService.GetInstance.SceneLoadedOver += SendSwtichScene;
+            GameSceneService.GetInstance.AsyncLoadScene(scenename, uiarg: uiarg,arg:scenename);
+            m_Current = scenename;
+           
            
         }
+        //public void SendSwtichScene(object o) {
+        //    Debuger.Log(1233);
+        //    //发送服务器切换场景角色,先发送了，这里改成先切场景，场景切换成功后，再发送？
+        //    ClientManager.Instance.SendRT("SwitchScene", o as string);
+        //    GameSceneService.GetInstance.SceneLoadedOver -= SendSwtichScene;
+        //}
         
         public override void Release() {
             base.Release();
@@ -90,12 +102,6 @@ namespace GF.MainGame.Module {
             if (state) {
                 if (!string.IsNullOrEmpty(msg)) {
                     Debuger.Log(msg);
-                    m_Last = m_Current;
-                    UILoadingArg uiarg = new UILoadingArg();
-                    uiarg.tips = "神话世界的故事由你书写";
-                    uiarg.title = "正在加载神话纪元，请稍等...";
-                    GameSceneService.GetInstance.AsyncLoadScene(msg, uiarg: uiarg);
-                    m_Current = msg;
                 }
             } else {
                 Debuger.LogError("服务器切换场景失败！");
