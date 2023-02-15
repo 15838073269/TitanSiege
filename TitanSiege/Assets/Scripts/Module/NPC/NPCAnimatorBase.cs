@@ -51,8 +51,8 @@ namespace GF.MainGame.Module.NPC {
         /// <summary>
         /// 攻击动画
         /// </summary>
-        public virtual void Attack(SkillDataBase sd = null) { 
-
+        public virtual void Attack(SkillDataBase sd = null) {
+           
         }
         /// <summary>
         /// 死亡动画
@@ -120,7 +120,7 @@ namespace GF.MainGame.Module.NPC {
                 }
             }
         }
-
+       
         public void StopEffect() {
             if (m_CurrentEffect!=null) {
                 m_CurrentEffect.gameObject.SetActive(false);

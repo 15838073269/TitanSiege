@@ -113,14 +113,20 @@ namespace GF.MainGame.Module {
                             //计算是否在技能的攻击角度内,距离小于1.5，就默认能打到，不用计算角度了，离得太近
                             float angle = GetAngle(npc.transform, monstersarg[j].monster.transform);
                             if ((monstersarg[j].dis <= 1.5f&&angle <90f)||InAngle(angle, sb.skillattlist[i].angle)) { //空留给角度计算
-                                int damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, npc, monstersarg[j].monster);
+                                DamageArg damagearg = new DamageArg();
+                                int damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, npc, monstersarg[j].monster,out damagearg.damagetype);
+                                damagearg.damage = damage;
                                 if (damage != 0) {
-                                    //飘字 todo
+                                    //切换怪物受击状态
+                                    AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, monstersarg[j].monster, AniState.hurt);
+                                    
                                     Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}对{monstersarg[j].monster.Data.Name}{monstersarg[j].monster.m_GDID}造成了{damage}点伤害");
                                 } else {
                                     Debuger.Log($"{monstersarg[j].monster.Data.Name}闪避了{UserService.GetInstance.m_CurrentChar.Name}的攻击");
                                 }
                             }
+                            //飘字的时机目前需要在考虑，最好的时机肯定是根据动画手动添加，但这样需要记录伤害及伤害类型给状态机中
+                            //默认
                             //todo
                         }
                     }
@@ -145,9 +151,12 @@ namespace GF.MainGame.Module {
                         //计算是否在技能的攻击角度内,距离小于1.5，就默认能打到，不用计算角度了，离得太近
                         float angle = GetAngle(m.transform, p.transform);
                         if ((dis <= 1.5f && angle < 90f) || InAngle(angle, sb.skillattlist[i].angle)) { //空留给角度计算
-                            int damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, m, p);
+                            DamageArg damagearg = new DamageArg();
+                            int damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, m, p,out damagearg.damagetype);
+                            damagearg.damage = damage;
                             if (damage != 0) {
-                                //飘字 todo
+                                //切换受击状态
+                                AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, p, AniState.hurt);
                                 Debuger.Log($"{m.name}对{UserService.GetInstance.m_CurrentChar.Name}{p.m_GDID}造成了{damage}点伤害");
                             } else {
                                 Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}{p.m_GDID}闪避了{m.name}的攻击");
@@ -201,9 +210,11 @@ namespace GF.MainGame.Module {
         /// <param name="att">攻击者</param>
         /// <param name="beatt">被攻击者</param>
         /// <returns></returns>
-        private int GetDamage(int shanghai, SkillType skilltype, NPCBase att, NPCBase beatt) {
+        private int GetDamage(int shanghai, SkillType skilltype, NPCBase att, NPCBase beatt,out DamageType damagetype) {
             int damage = 0;
+            damagetype = DamageType.none;
             if (JsShanbi(beatt.Dodge)) {
+                damagetype = DamageType.shangbi;
                 return 0;
             }
             //技能加成和属性加成,力量加成物理攻击,1点力量10点攻击
@@ -213,8 +224,8 @@ namespace GF.MainGame.Module {
             //暴击，随机2-3倍伤害，幸运加成暴击,幸运加成最高50%；
             float randbj = RandomHelper.Range(0f, 1f);
             if (randbj <= att.Crit) {//暴击成功
-                                     //todo 飘字暴击
-                                     //暴击随机2-4倍的伤害
+                damagetype = DamageType.baoji;
+                //暴击随机2-4倍的伤害
                 int baojinum = RandomHelper.Range(2, 4);
                 damage *= baojinum;
             }
@@ -244,5 +255,9 @@ namespace GF.MainGame.Module {
         }
         public float dis;
         public Monster monster;
+    }
+    public class DamageArg {
+        public DamageType damagetype;
+        public int damage;
     }
 }

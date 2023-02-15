@@ -115,6 +115,11 @@ namespace GF.Const {
         die,
         hurt,
     }
+    public enum DamageType {
+        none =0,//正常伤害
+        shangbi,
+        baoji,
+    }
     public enum NpcType {
         player,
         monster,
