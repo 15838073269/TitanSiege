@@ -99,7 +99,5 @@ namespace GF.MainGame.Module.NPC {
                 time = Time.time + (1f / 50f);
             }
         }
-
-        
     }
 }

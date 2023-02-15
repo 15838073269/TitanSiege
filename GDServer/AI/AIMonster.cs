@@ -19,7 +19,7 @@ namespace GDServer.AI {
         internal int id;
         internal int mid;
         internal bool isDeath = false;
-        internal int health = 100;
+        internal int health = 1000;
         internal int targetID;//攻击的玩家id,也是同步怪物的客户端id
 
         public void OnUpdate() {

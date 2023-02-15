@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: idle2
+  m_Name: hurt
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 1
@@ -36,7 +36,7 @@ AnimationClip:
       m_BitSize: 8
     m_Values:
       m_NumItems: 2
-      m_Data: fffbcf3ffffbcf3f
+      m_Data: f5f70f40f5f70f40
     m_Slopes:
       m_NumItems: 8
       m_Range: 0
@@ -52,7 +52,7 @@ AnimationClip:
       m_BitSize: 7
     m_Values:
       m_NumItems: 4
-      m_Data: fbf7df44fbf75f44fbf7df44fbf7df44
+      m_Data: fbf79f44fbf71f44fbf79f44fbf79f44
     m_Slopes:
       m_NumItems: 16
       m_Range: 0
@@ -68,7 +68,7 @@ AnimationClip:
       m_BitSize: 7
     m_Values:
       m_NumItems: 3
-      m_Data: 246c2081246c2081246c2081
+      m_Data: 1c6c20811c6c20811c6c2081
     m_Slopes:
       m_NumItems: 12
       m_Range: 0
@@ -100,7 +100,7 @@ AnimationClip:
       m_BitSize: 7
     m_Values:
       m_NumItems: 4
-      m_Data: fbf7df32fbf71f2bfbf71f2efbf7df32
+      m_Data: fbf79f32fbf7df2afbf71f2efbf79f32
     m_Slopes:
       m_NumItems: 16
       m_Range: 0.0010748624
@@ -166,7 +166,7 @@ AnimationClip:
       m_BitSize: 7
     m_Values:
       m_NumItems: 4
-      m_Data: feefbf2bfeefbf34feefbf31feefbf2b
+      m_Data: feefbf2bfeef3f34feefbf31feefbf2b
     m_Slopes:
       m_NumItems: 16
       m_Range: 0.0008617536
@@ -248,7 +248,7 @@ AnimationClip:
       m_BitSize: 7
     m_Values:
       m_NumItems: 4
-      m_Data: fff71f8b170822930f88608dfff71f8b
+      m_Data: fff71f8b17f821930f88608dfff71f8b
     m_Slopes:
       m_NumItems: 16
       m_Range: 0.00068666495
@@ -264,7 +264,7 @@ AnimationClip:
       m_BitSize: 6
     m_Values:
       m_NumItems: 6
-      m_Data: 0728203e7f67dd39d7575e333f88df311f08e03a0728203e
+      m_Data: 0728203e7f67dd39d7571e333f88df311f08a03a0728203e
     m_Slopes:
       m_NumItems: 24
       m_Range: 0.18439648
@@ -280,7 +280,7 @@ AnimationClip:
       m_BitSize: 7
     m_Values:
       m_NumItems: 4
-      m_Data: 62d79d4430446f3df2d71f4162d79d44
+      m_Data: 65f7b04430446f3df2d79f4065f7b044
     m_Slopes:
       m_NumItems: 16
       m_Range: 0.016012434
@@ -296,7 +296,7 @@ AnimationClip:
       m_BitSize: 7
     m_Values:
       m_NumItems: 4
-      m_Data: ae992caf4ed930b69e792db0ae992caf
+      m_Data: ae992caf46d930b69e792db0ae992caf
     m_Slopes:
       m_NumItems: 16
       m_Range: 0.00055630994
@@ -313,7 +313,7 @@ AnimationClip:
       m_BitSize: 6
     m_Values:
       m_NumItems: 5
-      m_Data: 5408eecb0cf8acceb438afc7a4182fc85408eecb
+      m_Data: 5408aecb0cf8acceb438afc7a418efc75408aecb
     m_Slopes:
       m_NumItems: 20
       m_Range: 0.0016247779
@@ -330,7 +330,7 @@ AnimationClip:
       m_BitSize: 6
     m_Values:
       m_NumItems: 5
-      m_Data: fbe75fc1fbf75fcbfbf75fd4fbe71fc6fbe75fc1
+      m_Data: fbe75fc1fbf71fcbfbf75fd4fbe71fc6fbe75fc1
     m_Slopes:
       m_NumItems: 20
       m_Range: 0.0017881378
@@ -363,7 +363,7 @@ AnimationClip:
       m_BitSize: 7
     m_Values:
       m_NumItems: 4
-      m_Data: 5ea653af54ca8db16c3a0cb05ea653af
+      m_Data: 56a653af54ca8db16c3a0cb056a653af
     m_Slopes:
       m_NumItems: 16
       m_Range: 0.00055631006
@@ -380,7 +380,7 @@ AnimationClip:
       m_BitSize: 6
     m_Values:
       m_NumItems: 5
-      m_Data: 9007adced827acd028772ec93047eec998272dce
+      m_Data: 9007adced827acd02877eec83047aec998272dce
     m_Slopes:
       m_NumItems: 20
       m_Range: 0.0021457663
@@ -397,7 +397,7 @@ AnimationClip:
       m_BitSize: 6
     m_Values:
       m_NumItems: 5
-      m_Data: fbf71fc8fbf7dfd0fbf75fd9fbe75fccfbf71fc8
+      m_Data: fbf7dfc7fbf7dfd0fbf75fd9fbe75fccfbf7dfc7
     m_Slopes:
       m_NumItems: 20
       m_Range: 0.0017881378
@@ -414,7 +414,7 @@ AnimationClip:
       m_BitSize: 6
     m_Values:
       m_NumItems: 5
-      m_Data: 3b88df792b781f712b789f642b889f6d3398df79
+      m_Data: 3b88df792b781f712b785f642b889f6d3398df79
     m_Slopes:
       m_NumItems: 20
       m_Range: 0.002614962
@@ -8361,8 +8361,8 @@ AnimationClip:
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 1
-    m_LoopBlend: 1
+    m_LoopTime: 0
+    m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0
     m_LoopBlendPositionXZ: 0

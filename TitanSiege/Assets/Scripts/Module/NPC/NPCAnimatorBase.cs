@@ -60,7 +60,12 @@ namespace GF.MainGame.Module.NPC {
         public virtual void Die() {
             m_ani.SetInteger("die", -1);
         }
-        
+        /// <summary>
+        /// 受击动画
+        /// </summary>
+        public virtual void Hurt() {
+            m_ani.SetTrigger("hurt");
+        }
         /// 移动动画
         /// </summary>
         public virtual void Move() {
