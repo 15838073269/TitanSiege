@@ -110,31 +110,30 @@ namespace GF.MainGame.Module {
                     skillatt att = sb.skillattlist[i];
                     for (int j = 0; j < monstersarg.Count; j++) {
                         if (monstersarg[j].dis <= att.range) {//计算是否在技能攻击的范围内
+                            DamageArg damagearg = new DamageArg();
                             //计算是否在技能的攻击角度内,距离小于1.5，就默认能打到，不用计算角度了，离得太近
                             float angle = GetAngle(npc.transform, monstersarg[j].monster.transform);
                             if ((monstersarg[j].dis <= 1.5f&&angle <90f)||InAngle(angle, sb.skillattlist[i].angle)) { //空留给角度计算
-                                DamageArg damagearg = new DamageArg();
                                 int damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, npc, monstersarg[j].monster,out damagearg.damagetype);
                                 damagearg.damage = damage;
+                                damagearg.npc = monstersarg[j].monster;
                                 if (damage != 0) {
                                     //切换怪物受击状态
                                     AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, monstersarg[j].monster, AniState.hurt);
-                                    
                                     Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}对{monstersarg[j].monster.Data.Name}{monstersarg[j].monster.m_GDID}造成了{damage}点伤害");
                                 } else {
                                     Debuger.Log($"{monstersarg[j].monster.Data.Name}闪避了{UserService.GetInstance.m_CurrentChar.Name}的攻击");
                                 }
                             }
-                            //飘字的时机目前需要在考虑，最好的时机肯定是根据动画手动添加，但这样需要记录伤害及伤害类型给状态机中
-                            //默认
-                            //todo
+                            //闪避了就忽略延迟，直接显示
+                            if (att.yanchi != 0f && damagearg.damagetype != DamageType.shangbi) {
+                                //延迟显示攻击数字即可，没必要就算都延迟
+                                ThreadManager.Event.AddEvent(att.yanchi, ShowDamage, damagearg);
+                            } else {
+                                //没有延迟，直接显示攻击伤害数值飘血
+                                ShowDamage(damagearg);
+                            }
                         }
-                    }
-                    if (att.yanchi != 0f) {
-                        //延迟显示攻击数字即可，没必要就算都延迟
-                        //ThreadManager.Event.AddEvent(att.yanchi, CountData, arg);
-                    } else {
-                        //没有延迟，直接显示攻击伤害数值飘血
                     }
                 }
             } else {
@@ -148,12 +147,13 @@ namespace GF.MainGame.Module {
                 for (int i = 0; i < sb.skillattlist.Count; i++) {
                     skillatt att = sb.skillattlist[i];
                     if (dis <= att.range) {//计算是否在技能攻击的范围内
+                        DamageArg damagearg = new DamageArg();
                         //计算是否在技能的攻击角度内,距离小于1.5，就默认能打到，不用计算角度了，离得太近
                         float angle = GetAngle(m.transform, p.transform);
                         if ((dis <= 1.5f && angle < 90f) || InAngle(angle, sb.skillattlist[i].angle)) { //空留给角度计算
-                            DamageArg damagearg = new DamageArg();
                             int damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, m, p,out damagearg.damagetype);
                             damagearg.damage = damage;
+                            damagearg.npc = p;
                             if (damage != 0) {
                                 //切换受击状态
                                 AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, p, AniState.hurt);
@@ -162,13 +162,14 @@ namespace GF.MainGame.Module {
                                 Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}{p.m_GDID}闪避了{m.name}的攻击");
                             }
                         }
-                        //todo
-                    }
-                    if (att.yanchi != 0f) {
-                        //延迟显示攻击数字即可，没必要就算都延迟
-                        //ThreadManager.Event.AddEvent(att.yanchi, CountData, arg);
-                    } else {
-                        //没有延迟，直接显示攻击伤害数值飘血
+                        //闪避了就忽略延迟，直接显示
+                        if (att.yanchi != 0f && damagearg.damagetype!= DamageType.shangbi) {
+                            //延迟显示攻击数字即可，没必要就算都延迟
+                            ThreadManager.Event.AddEvent(att.yanchi,ShowDamage, damagearg);
+                        } else {
+                            //没有延迟，直接显示攻击伤害数值飘血
+                            ShowDamage(damagearg);
+                        }
                     }
                 }
             } else {
@@ -246,6 +247,15 @@ namespace GF.MainGame.Module {
             }
             return false;
         }
+        /// <summary>
+        /// 显示伤害UI飘字
+        /// </summary>
+        /// <param name="arg">参数</param>
+        /// <param name="npc">被伤害的npc，可以是玩家，也可以是怪物</param>
+        private void ShowDamage(object arg) { 
+            DamageArg damageArg= (DamageArg)arg;
+            //TODO
+        }
     }
     
     public class CountSkillArg{
@@ -259,5 +269,6 @@ namespace GF.MainGame.Module {
     public class DamageArg {
         public DamageType damagetype;
         public int damage;
+        public NPCBase npc;
     }
 }
