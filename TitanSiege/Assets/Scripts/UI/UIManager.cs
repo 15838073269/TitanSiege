@@ -109,6 +109,7 @@ namespace GF.Unity.UI {
             }
             return ui;
         }
+        
         /// <summary>
         /// 打开一个ui
         /// </summary>

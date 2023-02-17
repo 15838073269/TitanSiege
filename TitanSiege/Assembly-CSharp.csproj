@@ -279,6 +279,7 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraComponent\XftCameraShakeComp.cs" />
     <Compile Include="Assets\Scripts\SqlData\TitansiegeHashProto.cs" />
     <Compile Include="Assets\Scripts\Data\SceneData.cs" />
+    <Compile Include="Assets\Scripts\UIModule\HpUIPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Art\data\xml\LevelUpData.xml" />

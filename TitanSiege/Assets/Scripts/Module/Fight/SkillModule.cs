@@ -242,7 +242,6 @@ namespace GF.MainGame.Module {
         /// <returns></returns>
         private bool JsShanbi(float dodge) {
             if (RandomHelper.Range(0f, 1f) <= dodge) {//闪避成功
-                //todo 飘字 miss
                 return true;
             }
             return false;
