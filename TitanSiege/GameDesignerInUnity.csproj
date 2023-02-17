@@ -407,11 +407,11 @@
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs</Link>
     </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonWriterException.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonWriterException.cs</Link>
-    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Matrix4Utils.cs">
       <Link>Network\core\Unity\Matrix4Utils.cs</Link>
+    </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonWriterException.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonWriterException.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonRegex.cs">
       <Link>Serialize\Newtonsoft.Json\Bson\BsonRegex.cs</Link>
@@ -425,14 +425,14 @@
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonSerializationException.cs">
       <Link>Serialize\Newtonsoft.Json\JsonSerializationException.cs</Link>
     </Compile>
+    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\RpcHelper.cs">
+      <Link>Network\core\Helper\RpcHelper.cs</Link>
+    </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Client\ClientBase.cs">
       <Link>Network\core\Client\ClientBase.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Component\Client\NetworkManager.cs">
       <Link>Component\Client\NetworkManager.cs</Link>
-    </Compile>
-    <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\RpcHelper.cs">
-      <Link>Network\core\Helper\RpcHelper.cs</Link>
     </Compile>
     <Compile Include="E:\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringBuffer.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\StringBuffer.cs</Link>

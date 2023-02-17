@@ -113,7 +113,7 @@ Material:
     - _DoubleSided: 2
     - _DoubleSidedOutline: 1
     - _DynamicNoisyOutline: 0
-    - _EdgeWidth: 0.211
+    - _EdgeWidth: 0.219
     - _EnableTextureTransparent: 0
     - _EnvironmentalLightingIntensity: 1
     - _FReflectionIntensity: 0
