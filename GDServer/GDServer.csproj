@@ -20,16 +20,16 @@
     <ProjectReference Include="..\GameDesigner\GameDesigner.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="E:\TitanSiege\TitanSiege\Assets\Scripts\SqlData\CharactersData.cs">
+    <Compile Include="D:\TitanSiege\TitanSiege\Assets\Scripts\SqlData\CharactersData.cs">
       <Link>SqlData\CharactersData.cs</Link>
     </Compile>
-    <Compile Include="E:\TitanSiege\TitanSiege\Assets\Scripts\SqlData\TitansiegeDB.cs">
+    <Compile Include="D:\TitanSiege\TitanSiege\Assets\Scripts\SqlData\TitansiegeDB.cs">
       <Link>SqlData\TitansiegeDB.cs</Link>
     </Compile>
-    <Compile Include="E:\TitanSiege\TitanSiege\Assets\Scripts\SqlData\TitansiegeHashProto.cs">
+    <Compile Include="D:\TitanSiege\TitanSiege\Assets\Scripts\SqlData\TitansiegeHashProto.cs">
       <Link>SqlData\TitansiegeHashProto.cs</Link>
     </Compile>
-    <Compile Include="E:\TitanSiege\TitanSiege\Assets\Scripts\SqlData\UsersData.cs">
+    <Compile Include="D:\TitanSiege\TitanSiege\Assets\Scripts\SqlData\UsersData.cs">
       <Link>SqlData\UsersData.cs</Link>
     </Compile>
   </ItemGroup>

@@ -1,32 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Titansiege\\GDServer\\GDServer.csproj": {}
+    "D:\\Titansiege\\GDServer\\GDServer.csproj": {}
   },
   "projects": {
-    "E:\\Titansiege\\GameDesigner\\GameDesigner.csproj": {
+    "D:\\Titansiege\\GameDesigner\\GameDesigner.csproj": {
       "restore": {
-        "projectUniqueName": "E:\\Titansiege\\GameDesigner\\GameDesigner.csproj",
+        "projectUniqueName": "D:\\Titansiege\\GameDesigner\\GameDesigner.csproj",
         "projectName": "GameDesigner",
-        "projectPath": "E:\\Titansiege\\GameDesigner\\GameDesigner.csproj",
+        "projectPath": "D:\\Titansiege\\GameDesigner\\GameDesigner.csproj",
         "frameworks": {
-          "net461": {
+          "net48": {
             "projectReferences": {}
           }
         }
       },
       "frameworks": {
-        "net461": {}
+        "net48": {}
       }
     },
-    "E:\\Titansiege\\GDServer\\GDServer.csproj": {
+    "D:\\Titansiege\\GDServer\\GDServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Titansiege\\GDServer\\GDServer.csproj",
+        "projectUniqueName": "D:\\Titansiege\\GDServer\\GDServer.csproj",
         "projectName": "GDServer",
-        "projectPath": "E:\\Titansiege\\GDServer\\GDServer.csproj",
+        "projectPath": "D:\\Titansiege\\GDServer\\GDServer.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "E:\\Titansiege\\GDServer\\obj\\",
+        "outputPath": "D:\\Titansiege\\GDServer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -43,8 +43,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\Titansiege\\GameDesigner\\GameDesigner.csproj": {
-                "projectPath": "E:\\Titansiege\\GameDesigner\\GameDesigner.csproj"
+              "D:\\Titansiege\\GameDesigner\\GameDesigner.csproj": {
+                "projectPath": "D:\\Titansiege\\GameDesigner\\GameDesigner.csproj"
               }
             }
           }
@@ -84,7 +84,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
