@@ -303,6 +303,7 @@
     <None Include="Assets\Resources\Shaders\ShadowReceiver_Alpha.shader" />
     <None Include="Assets\Hovl Studio\Sword slash VFX\Shaders\Add_Fresnel.shader" />
     <None Include="Assets\Art\data\xml\SceneNData.xml" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\usechar.txt" />
     <None Include="Assets\Resources\Shader\Particle Add-Overlay.shader" />
     <None Include="Assets\Resources\Shader\particleDepth.shader" />
     <None Include="Assets\Hovl Studio\Sword slash VFX\Shaders\Ice.shader" />
@@ -349,6 +350,7 @@
     <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Simple Sine Wave.shader" />
     <None Include="Assets\AssetBundleConfig.xml" />
     <None Include="Assets\Hovl Studio\Sword slash VFX\Shaders\Explosion.shader" />
+    <None Include="Assets\Ultimate 10 Plus Shaders\Chinese.txt" />
     <None Include="Assets\Hovl Studio\Sword slash VFX\Shaders\SwordSlash.shader" />
   </ItemGroup>
   <ItemGroup>
