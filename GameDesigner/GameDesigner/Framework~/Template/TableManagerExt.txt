@@ -1,0 +1,7 @@
+/// <summary>
+/// table管理器类
+/// </summary>
+public class TableManager : Framework.TableManager
+{
+	//扩展你的table管理器代码
+}

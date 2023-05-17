@@ -1,0 +1,16 @@
+using Net.Share;
+using System.Data;
+
+public partial class SHEETNAMEDataConfig : IDataConfig
+{
+SPLIT
+    /// <summary>NOTE</summary>
+    public TYPE NAME { get; set; }
+SPLIT
+    public void Init(DataRow row)
+    {
+SPLIT
+        NAME = ObjectConverter.AsTYPE(row["NAME"]);
+SPLIT
+    }
+}

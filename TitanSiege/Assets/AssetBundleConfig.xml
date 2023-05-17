@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AssetBundleConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ABList ABName="aersitai" Crc="3370753733" Path="Assets/Art/NPCPrefab/aersitai.prefab" AssetName="aersitai.prefab" />
+  <ABList ABName="audio" Crc="4199270428" Path="Assets/Art/audio/bgLogin.mp3" AssetName="bgLogin.mp3" />
+  <ABList ABName="audio" Crc="2427747471" Path="Assets/Art/audio/bgMainCity.mp3" AssetName="bgMainCity.mp3" />
+  <ABList ABName="audio" Crc="1821462888" Path="Assets/Art/audio/chongjibo - Copy.wav" AssetName="chongjibo - Copy.wav" />
+  <ABList ABName="audio" Crc="3583495531" Path="Assets/Art/audio/chongjibo.wav" AssetName="chongjibo.wav" />
+  <ABList ABName="audio" Crc="1926149770" Path="Assets/Art/audio/chongzhuang_new01.wav" AssetName="chongzhuang_new01.wav" />
+  <ABList ABName="audio" Crc="3133447591" Path="Assets/Art/audio/createrole.wav" AssetName="createrole.wav" />
+  <ABList ABName="audio" Crc="2844593585" Path="Assets/Art/audio/music09.mp3" AssetName="music09.mp3" />
+  <ABList ABName="audio" Crc="3068190059" Path="Assets/Art/audio/night.ogg" AssetName="night.ogg" />
+  <ABList ABName="audio" Crc="3984099197" Path="Assets/Art/audio/runSound.wav" AssetName="runSound.wav" />
+  <ABList ABName="audio" Crc="2787016063" Path="Assets/Art/audio/senlin.ogg" AssetName="senlin.ogg" />
+  <ABList ABName="audio" Crc="1842983187" Path="Assets/Art/audio/ShengLi/BG.png" AssetName="BG.png" />
+  <ABList ABName="audio" Crc="4016010931" Path="Assets/Art/audio/ShengLi/Dun.png" AssetName="Dun.png" />
+  <ABList ABName="audio" Crc="2075216824" Path="Assets/Art/audio/ShengLi/Jian.png" AssetName="Jian.png" />
+  <ABList ABName="audio" Crc="3549953628" Path="Assets/Art/audio/ShengLi/tx.png" AssetName="tx.png" />
+  <ABList ABName="audio" Crc="2021572298" Path="Assets/Art/audio/tiankongcheng.ogg" AssetName="tiankongcheng.ogg" />
+  <ABList ABName="audio" Crc="2138229511" Path="Assets/Art/audio/xuanfengzhan.wav" AssetName="xuanfengzhan.wav" />
+  <ABList ABName="audio" Crc="3616848185" Path="Assets/Art/audio/xuanzhong.wav" AssetName="xuanzhong.wav" />
+  <ABList ABName="chuansongsmall" Crc="2073921629" Path="Assets/Art/BuildPrefab/chuansongsmall.prefab" AssetName="chuansongsmall.prefab">
+    <ABDepends>jingling</ABDepends>
+    <ABDepends>jianshi</ABDepends>
+    <ABDepends>aersitai</ABDepends>
+    <ABDepends>longnv</ABDepends>
+  </ABList>
+  <ABList ABName="chuansongsmall1" Crc="4087843481" Path="Assets/Art/BuildPrefab/chuansongsmall1.prefab" AssetName="chuansongsmall1.prefab">
+    <ABDepends>chuansongsmall</ABDepends>
+    <ABDepends>aersitai</ABDepends>
+  </ABList>
+  <ABList ABName="clientscene" Crc="2253838261" Path="Assets/Art/BuildPrefab/ClientScene.prefab" AssetName="ClientScene.prefab">
+    <ABDepends>jianshi</ABDepends>
+    <ABDepends>jingling</ABDepends>
+    <ABDepends>longnv</ABDepends>
+    <ABDepends>audio</ABDepends>
+    <ABDepends>aersitai</ABDepends>
+  </ABList>
+  <ABList ABName="createplayerpage" Crc="3819104588" Path="Assets/Art/UIPrefab/CreatePlayerPage.prefab" AssetName="CreatePlayerPage.prefab">
+    <ABDepends>uires</ABDepends>
+  </ABList>
+  <ABList ABName="createplayerpage" Crc="2616070286" Path="Assets/Art/UIRes/login/btnsazi1.png" AssetName="btnsazi1.png" />
+  <ABList ABName="createplayerpage" Crc="1090107417" Path="Assets/Art/UIRes/login/btnsazi2.png" AssetName="btnsazi2.png" />
+  <ABList ABName="createplayerpage" Crc="124403169" Path="Assets/Art/UIRes/public/Common Atlas/strongbg.png" AssetName="strongbg.png" />
+  <ABList ABName="damgeuiwidget" Crc="3330304043" Path="Assets/Art/UIPrefab/DamgeUIWidget.prefab" AssetName="DamgeUIWidget.prefab">
+    <ABDepends>uires</ABDepends>
+  </ABList>
+  <ABList ABName="data" Crc="4042405636" Path="Assets/Art/data/AssetBundleConfig.bytes" AssetName="AssetBundleConfig.bytes" />
+  <ABList ABName="data" Crc="967694235" Path="Assets/Art/data/binary/BuffDataTest.bytes" AssetName="BuffDataTest.bytes" />
+  <ABList ABName="data" Crc="1172504862" Path="Assets/Art/data/binary/ItemData.bytes" AssetName="ItemData.bytes" />
+  <ABList ABName="data" Crc="3999026878" Path="Assets/Art/data/binary/LevelUpData.bytes" AssetName="LevelUpData.bytes" />
+  <ABList ABName="data" Crc="2345462585" Path="Assets/Art/data/binary/NameData.bytes" AssetName="NameData.bytes" />
+  <ABList ABName="data" Crc="1357250269" Path="Assets/Art/data/binary/NPCData.bytes" AssetName="NPCData.bytes" />
+  <ABList ABName="data" Crc="720528174" Path="Assets/Art/data/binary/SceneData.bytes" AssetName="SceneData.bytes" />
+  <ABList ABName="data" Crc="701664077" Path="Assets/Art/data/binary/SceneNData.bytes" AssetName="SceneNData.bytes" />
+  <ABList ABName="data" Crc="3441139263" Path="Assets/Art/data/binary/SkillData.bytes" AssetName="SkillData.bytes" />
+  <ABList ABName="data" Crc="1239248857" Path="Assets/Art/data/xml/BuffDataTest.xml" AssetName="BuffDataTest.xml" />
+  <ABList ABName="data" Crc="2177806880" Path="Assets/Art/data/xml/ItemData.xml" AssetName="ItemData.xml" />
+  <ABList ABName="data" Crc="2690611548" Path="Assets/Art/data/xml/LevelUpData.xml" AssetName="LevelUpData.xml" />
+  <ABList ABName="data" Crc="3205959729" Path="Assets/Art/data/xml/NameData.xml" AssetName="NameData.xml" />
+  <ABList ABName="data" Crc="903242909" Path="Assets/Art/data/xml/NPCData.xml" AssetName="NPCData.xml" />
+  <ABList ABName="data" Crc="2168666484" Path="Assets/Art/data/xml/SceneData.xml" AssetName="SceneData.xml" />
+  <ABList ABName="data" Crc="1966690112" Path="Assets/Art/data/xml/SceneNData.xml" AssetName="SceneNData.xml" />
+  <ABList ABName="data" Crc="4286874490" Path="Assets/Art/data/xml/SkillData.xml" AssetName="SkillData.xml" />
+  <ABList ABName="hpuipage" Crc="3115536279" Path="Assets/Art/UIPrefab/HpUIPage.prefab" AssetName="HpUIPage.prefab" />
+  <ABList ABName="jianshi" Crc="2838628313" Path="Assets/Art/audio/tiaozhan.wav" AssetName="tiaozhan.wav" />
+  <ABList ABName="jianshi" Crc="1486895085" Path="Assets/Art/NPCPrefab/jianshi.prefab" AssetName="jianshi.prefab">
+    <ABDepends>audio</ABDepends>
+    <ABDepends>aersitai</ABDepends>
+  </ABList>
+  <ABList ABName="jianshi_create" Crc="1531006608" Path="Assets/Art/NPCPrefab/jianshi_create.prefab" AssetName="jianshi_create.prefab">
+    <ABDepends>jianshi</ABDepends>
+    <ABDepends>aersitai</ABDepends>
+  </ABList>
+  <ABList ABName="jingling" Crc="2817405115" Path="Assets/Art/NPCPrefab/jingling.prefab" AssetName="jingling.prefab">
+    <ABDepends>jianshi</ABDepends>
+    <ABDepends>aersitai</ABDepends>
+  </ABList>
+  <ABList ABName="jingling_create" Crc="422414213" Path="Assets/Art/NPCPrefab/jingling_create.prefab" AssetName="jingling_create.prefab">
+    <ABDepends>jingling</ABDepends>
+    <ABDepends>jianshi</ABDepends>
+    <ABDepends>aersitai</ABDepends>
+    <ABDepends>jianshi_create</ABDepends>
+  </ABList>
+  <ABList ABName="joyuipage" Crc="1246856363" Path="Assets/Art/UIRes/public/bgDir.png" AssetName="bgDir.png" />
+  <ABList ABName="joyuipage" Crc="1743769173" Path="Assets/Art/UIRes/public/Common Atlas/bgLevel.png" AssetName="bgLevel.png" />
+  <ABList ABName="juese" Crc="255291787" Path="Assets/Art/BuildPrefab/juese.prefab" AssetName="juese.prefab">
+    <ABDepends>aersitai</ABDepends>
+    <ABDepends>wenlaini</ABDepends>
+  </ABList>
+  <ABList ABName="lang2" Crc="2528453947" Path="Assets/Art/NPCPrefab/lang2.prefab" AssetName="lang2.prefab">
+    <ABDepends>aersitai</ABDepends>
+  </ABList>
+  <ABList ABName="loadinguipage" Crc="316007751" Path="Assets/Art/UIPrefab/LoadingUIPage.prefab" AssetName="LoadingUIPage.prefab">
+    <ABDepends>uires</ABDepends>
+    <ABDepends>updateresource</ABDepends>
+  </ABList>
+  <ABList ABName="login" Crc="749228438" Path="Assets/Art/BuildPrefab/Login.prefab" AssetName="Login.prefab">
+    <ABDepends>uires</ABDepends>
+  </ABList>
+  <ABList ABName="loginuipage" Crc="3223421663" Path="Assets/Art/audio/uiClickBtn.mp3" AssetName="uiClickBtn.mp3" />
+  <ABList ABName="loginuipage" Crc="4270659044" Path="Assets/Art/UIPrefab/LoginUIPage.prefab" AssetName="LoginUIPage.prefab">
+    <ABDepends>uires</ABDepends>
+    <ABDepends>updateresource</ABDepends>
+  </ABList>
+  <ABList ABName="loginuipage" Crc="3761890233" Path="Assets/Art/UIRes/login/btnPop.png" AssetName="btnPop.png" />
+  <ABList ABName="longnv" Crc="184109385" Path="Assets/Art/NPCPrefab/longnv.prefab" AssetName="longnv.prefab">
+    <ABDepends>jingling</ABDepends>
+    <ABDepends>jianshi</ABDepends>
+    <ABDepends>aersitai</ABDepends>
+    <ABDepends>audio</ABDepends>
+  </ABList>
+  <ABList ABName="longnv_create" Crc="1446600481" Path="Assets/Art/NPCPrefab/longnv_create.prefab" AssetName="longnv_create.prefab">
+    <ABDepends>longnv</ABDepends>
+    <ABDepends>jianshi</ABDepends>
+    <ABDepends>aersitai</ABDepends>
+    <ABDepends>jianshi_create</ABDepends>
+  </ABList>
+  <ABList ABName="mainuipage" Crc="439826209" Path="Assets/Art/UIPrefab/MainUIPage.prefab" AssetName="MainUIPage.prefab">
+    <ABDepends>uires</ABDepends>
+  </ABList>
+  <ABList ABName="mainuipage" Crc="1841508165" Path="Assets/Art/UIPrefab/one.prefab" AssetName="one.prefab">
+    <ABDepends>uires</ABDepends>
+  </ABList>
+  <ABList ABName="mapuipage" Crc="671976547" Path="Assets/Art/UIPrefab/MapUIPage.prefab" AssetName="MapUIPage.prefab">
+    <ABDepends>uires</ABDepends>
+  </ABList>
+  <ABList ABName="materials" Crc="1111220586" Path="Assets/Art/materials/RimShader.shader" AssetName="RimShader.shader" />
+  <ABList ABName="roleinfo" Crc="681019528" Path="Assets/Art/UIPrefab/roleinfo.prefab" AssetName="roleinfo.prefab">
+    <ABDepends>uires</ABDepends>
+    <ABDepends>createplayerpage</ABDepends>
+  </ABList>
+  <ABList ABName="selectmain" Crc="315022899" Path="Assets/Art/BuildPrefab/SelectMain.prefab" AssetName="SelectMain.prefab">
+    <ABDepends>aersitai</ABDepends>
+    <ABDepends>chuansongsmall1</ABDepends>
+    <ABDepends>login</ABDepends>
+  </ABList>
+  <ABList ABName="selectplayerpage" Crc="1343766309" Path="Assets/Art/UIPrefab/SelectPlayerPage.prefab" AssetName="SelectPlayerPage.prefab">
+    <ABDepends>uires</ABDepends>
+  </ABList>
+  <ABList ABName="selectplayerpage" Crc="3167528960" Path="Assets/Art/UIRes/public/bgline.png" AssetName="bgline.png" />
+  <ABList ABName="skilleffect" Crc="3799223084" Path="Assets/Art/NPCPrefab/skilleffect.prefab" AssetName="skilleffect.prefab">
+    <ABDepends>jianshi</ABDepends>
+    <ABDepends>jingling</ABDepends>
+  </ABList>
+  <ABList ABName="uimsgbox" Crc="2349223314" Path="Assets/Art/UIPrefab/UIMsgBox.prefab" AssetName="UIMsgBox.prefab">
+    <ABDepends>uires</ABDepends>
+  </ABList>
+  <ABList ABName="uimsgtips" Crc="3367172522" Path="Assets/Art/UIPrefab/UIMsgTips.prefab" AssetName="UIMsgTips.prefab">
+    <ABDepends>selectplayerpage</ABDepends>
+  </ABList>
+  <ABList ABName="uires" Crc="1364566901" Path="Assets/Art/UIRes/function/Function Atlas_0.PNG" AssetName="Function Atlas_0.PNG" />
+  <ABList ABName="uires" Crc="408470776" Path="Assets/Art/UIRes/function/Function Atlas_1.PNG" AssetName="Function Atlas_1.PNG" />
+  <ABList ABName="uires" Crc="3276762223" Path="Assets/Art/UIRes/function/Function Atlas_2.PNG" AssetName="Function Atlas_2.PNG" />
+  <ABList ABName="uires" Crc="2319584226" Path="Assets/Art/UIRes/function/Function Atlas_3.PNG" AssetName="Function Atlas_3.PNG" />
+  <ABList ABName="uires" Crc="1906385142" Path="Assets/Art/UIRes/function/Function Atlas_4.PNG" AssetName="Function Atlas_4.PNG" />
+  <ABList ABName="uires" Crc="950814587" Path="Assets/Art/UIRes/function/Function Atlas_5.PNG" AssetName="Function Atlas_5.PNG" />
+  <ABList ABName="uires" Crc="3820744684" Path="Assets/Art/UIRes/function/Function Atlas_6.PNG" AssetName="Function Atlas_6.PNG" />
+  <ABList ABName="uires" Crc="2864089185" Path="Assets/Art/UIRes/function/Function Atlas_7.PNG" AssetName="Function Atlas_7.PNG" />
+  <ABList ABName="uires" Crc="280798323" Path="Assets/Art/UIRes/function/Function Atlas_8.PNG" AssetName="Function Atlas_8.PNG" />
+  <ABList ABName="uires" Crc="1504822270" Path="Assets/Art/UIRes/function/Function Atlas_9.PNG" AssetName="Function Atlas_9.PNG" />
+  <ABList ABName="uires" Crc="3538905388" Path="Assets/Art/UIRes/function/Function Atlas_10.PNG" AssetName="Function Atlas_10.PNG" />
+  <ABList ABName="uires" Crc="2615283361" Path="Assets/Art/UIRes/function/Function Atlas_11.PNG" AssetName="Function Atlas_11.PNG" />
+  <ABList ABName="uires" Crc="1089840694" Path="Assets/Art/UIRes/function/Function Atlas_12.PNG" AssetName="Function Atlas_12.PNG" />
+  <ABList ABName="uires" Crc="167297467" Path="Assets/Art/UIRes/function/Function Atlas_13.PNG" AssetName="Function Atlas_13.PNG" />
+  <ABList ABName="uires" Crc="4061915823" Path="Assets/Art/UIRes/function/Function Atlas_14.PNG" AssetName="Function Atlas_14.PNG" />
+  <ABList ABName="uires" Crc="3138817314" Path="Assets/Art/UIRes/function/Function Atlas_15.PNG" AssetName="Function Atlas_15.PNG" />
+  <ABList ABName="uires" Crc="1610687925" Path="Assets/Art/UIRes/function/Function Atlas_16.PNG" AssetName="Function Atlas_16.PNG" />
+  <ABList ABName="uires" Crc="688669240" Path="Assets/Art/UIRes/function/Function Atlas_17.PNG" AssetName="Function Atlas_17.PNG" />
+  <ABList ABName="uires" Crc="2466672170" Path="Assets/Art/UIRes/function/Function Atlas_18.PNG" AssetName="Function Atlas_18.PNG" />
+  <ABList ABName="uires" Crc="3658156455" Path="Assets/Art/UIRes/function/Function Atlas_19.PNG" AssetName="Function Atlas_19.PNG" />
+  <ABList ABName="uires" Crc="4288118436" Path="Assets/Art/UIRes/function/Function Atlas_20.PNG" AssetName="Function Atlas_20.PNG" />
+  <ABList ABName="uires" Crc="3063552297" Path="Assets/Art/UIRes/function/Function Atlas_21.PNG" AssetName="Function Atlas_21.PNG" />
+  <ABList ABName="uires" Crc="1838002622" Path="Assets/Art/UIRes/function/Function Atlas_22.PNG" AssetName="Function Atlas_22.PNG" />
+  <ABList ABName="uires" Crc="612423219" Path="Assets/Art/UIRes/function/Function Atlas_23.PNG" AssetName="Function Atlas_23.PNG" />
+  <ABList ABName="uires" Crc="3747872039" Path="Assets/Art/UIRes/function/Function Atlas_24.PNG" AssetName="Function Atlas_24.PNG" />
+  <ABList ABName="uires" Crc="2523830954" Path="Assets/Art/UIRes/function/Function Atlas_25.PNG" AssetName="Function Atlas_25.PNG" />
+  <ABList ABName="uires" Crc="1299788349" Path="Assets/Art/UIRes/function/Function Atlas_26.PNG" AssetName="Function Atlas_26.PNG" />
+  <ABList ABName="uires" Crc="74732976" Path="Assets/Art/UIRes/function/Function Atlas_27.PNG" AssetName="Function Atlas_27.PNG" />
+  <ABList ABName="uires" Crc="3195959714" Path="Assets/Art/UIRes/function/Function Atlas_28.PNG" AssetName="Function Atlas_28.PNG" />
+  <ABList ABName="uires" Crc="4151516719" Path="Assets/Art/UIRes/function/Function Atlas_29.PNG" AssetName="Function Atlas_29.PNG" />
+  <ABList ABName="uires" Crc="3837752284" Path="Assets/Art/UIRes/function/Function Atlas_30.PNG" AssetName="Function Atlas_30.PNG" />
+  <ABList ABName="uires" Crc="2914128977" Path="Assets/Art/UIRes/function/Function Atlas_31.PNG" AssetName="Function Atlas_31.PNG" />
+  <ABList ABName="uires" Crc="1990573254" Path="Assets/Art/UIRes/function/Function Atlas_32.PNG" AssetName="Function Atlas_32.PNG" />
+  <ABList ABName="uires" Crc="1068030795" Path="Assets/Art/UIRes/function/Function Atlas_33.PNG" AssetName="Function Atlas_33.PNG" />
+  <ABList ABName="uires" Crc="3293311071" Path="Assets/Art/UIRes/function/Function Atlas_34.PNG" AssetName="Function Atlas_34.PNG" />
+  <ABList ABName="uires" Crc="2370213842" Path="Assets/Art/UIRes/function/Function Atlas_35.PNG" AssetName="Function Atlas_35.PNG" />
+  <ABList ABName="uires" Crc="1448165189" Path="Assets/Art/UIRes/function/Function Atlas_36.PNG" AssetName="Function Atlas_36.PNG" />
+  <ABList ABName="uires" Crc="526145736" Path="Assets/Art/UIRes/function/Function Atlas_37.PNG" AssetName="Function Atlas_37.PNG" />
+  <ABList ABName="uires" Crc="2773906650" Path="Assets/Art/UIRes/function/Function Atlas_38.PNG" AssetName="Function Atlas_38.PNG" />
+  <ABList ABName="uires" Crc="2611737251" Path="Assets/Art/UIRes/head/jianshi.png" AssetName="jianshi.png" />
+  <ABList ABName="uires" Crc="1571521114" Path="Assets/Art/UIRes/head/jingling.png" AssetName="jingling.png" />
+  <ABList ABName="uires" Crc="2793263270" Path="Assets/Art/UIRes/head/longnv.png" AssetName="longnv.png" />
+  <ABList ABName="uires" Crc="62431042" Path="Assets/Art/UIRes/login/Back_bt_di.png" AssetName="Back_bt_di.png" />
+  <ABList ABName="uires" Crc="2260178803" Path="Assets/Art/UIRes/login/back_bt_no.png" AssetName="back_bt_no.png" />
+  <ABList ABName="uires" Crc="999746076" Path="Assets/Art/UIRes/login/Back_bt_pu.png" AssetName="Back_bt_pu.png" />
+  <ABList ABName="uires" Crc="1116918424" Path="Assets/Art/UIRes/login/bizActivity_+.png" AssetName="bizActivity_+.png" />
+  <ABList ABName="uires" Crc="489165949" Path="Assets/Art/UIRes/login/chat_red_packet_close.png" AssetName="chat_red_packet_close.png" />
+  <ABList ABName="uires" Crc="1030375133" Path="Assets/Art/UIRes/login/close_bt_di.png" AssetName="close_bt_di.png" />
+  <ABList ABName="uires" Crc="1620343668" Path="Assets/Art/UIRes/login/close_bt_no.png" AssetName="close_bt_no.png" />
+  <ABList ABName="uires" Crc="88355715" Path="Assets/Art/UIRes/login/close_bt_pu.png" AssetName="close_bt_pu.png" />
+  <ABList ABName="uires" Crc="2327054716" Path="Assets/Art/UIRes/login/jianshidi.png" AssetName="jianshidi.png" />
+  <ABList ABName="uires" Crc="1389738657" Path="Assets/Art/UIRes/login/jinglingdi.png" AssetName="jinglingdi.png" />
+  <ABList ABName="uires" Crc="297333930" Path="Assets/Art/UIRes/login/knapsack_guangbi.png" AssetName="knapsack_guangbi.png" />
+  <ABList ABName="uires" Crc="192820444" Path="Assets/Art/UIRes/login/longnvdi.jpg" AssetName="longnvdi.jpg" />
+  <ABList ABName="uires" Crc="675251552" Path="Assets/Art/UIRes/login/option_bt_di.png" AssetName="option_bt_di.png" />
+  <ABList ABName="uires" Crc="1975630025" Path="Assets/Art/UIRes/login/option_bt_no.png" AssetName="option_bt_no.png" />
+  <ABList ABName="uires" Crc="269611070" Path="Assets/Art/UIRes/login/option_bt_pu.png" AssetName="option_bt_pu.png" />
+  <ABList ABName="uires" Crc="2189996455" Path="Assets/Art/UIRes/login/p32.png" AssetName="p32.png" />
+  <ABList ABName="uires" Crc="950812987" Path="Assets/Art/UIRes/public/13.jpg" AssetName="13.jpg" />
+  <ABList ABName="uires" Crc="4135304574" Path="Assets/Art/UIRes/public/add2.png" AssetName="add2.png" />
+  <ABList ABName="uires" Crc="271941748" Path="Assets/Art/UIRes/public/btntype1.png" AssetName="btntype1.png" />
+  <ABList ABName="uires" Crc="3408013539" Path="Assets/Art/UIRes/public/btntype2.png" AssetName="btntype2.png" />
+  <ABList ABName="uires" Crc="3771588907" Path="Assets/Art/UIRes/public/Common Atlas/bgNor.png" AssetName="bgNor.png" />
+  <ABList ABName="uires" Crc="2426822534" Path="Assets/Art/UIRes/public/Common Atlas/bgSkill.png" AssetName="bgSkill.png" />
+  <ABList ABName="uires" Crc="3845446238" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_0.PNG" AssetName="Common Atlas_0.PNG" />
+  <ABList ABName="uires" Crc="1999508804" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_2.PNG" AssetName="Common Atlas_2.PNG" />
+  <ABList ABName="uires" Crc="1473943239" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_6.PNG" AssetName="Common Atlas_6.PNG" />
+  <ABList ABName="uires" Crc="517468490" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_7.PNG" AssetName="Common Atlas_7.PNG" />
+  <ABList ABName="uires" Crc="2766003544" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_8.PNG" AssetName="Common Atlas_8.PNG" />
+  <ABList ABName="uires" Crc="3989879509" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_9.PNG" AssetName="Common Atlas_9.PNG" />
+  <ABList ABName="uires" Crc="497858958" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_10.PNG" AssetName="Common Atlas_10.PNG" />
+  <ABList ABName="uires" Crc="1419894275" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_11.PNG" AssetName="Common Atlas_11.PNG" />
+  <ABList ABName="uires" Crc="3334148377" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_13.PNG" AssetName="Common Atlas_13.PNG" />
+  <ABList ABName="uires" Crc="1029192205" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_14.PNG" AssetName="Common Atlas_14.PNG" />
+  <ABList ABName="uires" Crc="1951751552" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_15.PNG" AssetName="Common Atlas_15.PNG" />
+  <ABList ABName="uires" Crc="2940400919" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_16.PNG" AssetName="Common Atlas_16.PNG" />
+  <ABList ABName="uires" Crc="3863974554" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_17.PNG" AssetName="Common Atlas_17.PNG" />
+  <ABList ABName="uires" Crc="357095685" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_19.PNG" AssetName="Common Atlas_19.PNG" />
+  <ABList ABName="uires" Crc="819244550" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_20.PNG" AssetName="Common Atlas_20.PNG" />
+  <ABList ABName="uires" Crc="3955426961" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_23.PNG" AssetName="Common Atlas_23.PNG" />
+  <ABList ABName="uires" Crc="270544261" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_24.PNG" AssetName="Common Atlas_24.PNG" />
+  <ABList ABName="uires" Crc="1496140296" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_25.PNG" AssetName="Common Atlas_25.PNG" />
+  <ABList ABName="uires" Crc="3409413394" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_27.PNG" AssetName="Common Atlas_27.PNG" />
+  <ABList ABName="uires" Crc="1899866368" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_28.PNG" AssetName="Common Atlas_28.PNG" />
+  <ABList ABName="uires" Crc="942722701" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_29.PNG" AssetName="Common Atlas_29.PNG" />
+  <ABList ABName="uires" Crc="737977214" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_30.PNG" AssetName="Common Atlas_30.PNG" />
+  <ABList ABName="uires" Crc="1660011763" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_31.PNG" AssetName="Common Atlas_31.PNG" />
+  <ABList ABName="uires" Crc="3118885988" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_32.PNG" AssetName="Common Atlas_32.PNG" />
+  <ABList ABName="uires" Crc="4041935849" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_33.PNG" AssetName="Common Atlas_33.PNG" />
+  <ABList ABName="uires" Crc="1107642224" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_35.PNG" AssetName="Common Atlas_35.PNG" />
+  <ABList ABName="uires" Crc="2568155111" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_36.PNG" AssetName="Common Atlas_36.PNG" />
+  <ABList ABName="uires" Crc="3491727466" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_37.PNG" AssetName="Common Atlas_37.PNG" />
+  <ABList ABName="uires" Crc="1779803256" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_38.PNG" AssetName="Common Atlas_38.PNG" />
+  <ABList ABName="uires" Crc="588825589" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_39.PNG" AssetName="Common Atlas_39.PNG" />
+  <ABList ABName="uires" Crc="589948571" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_41.PNG" AssetName="Common Atlas_41.PNG" />
+  <ABList ABName="uires" Crc="4164832780" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_42.PNG" AssetName="Common Atlas_42.PNG" />
+  <ABList ABName="uires" Crc="2972920193" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_43.PNG" AssetName="Common Atlas_43.PNG" />
+  <ABList ABName="uires" Crc="64840984" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_45.PNG" AssetName="Common Atlas_45.PNG" />
+  <ABList ABName="uires" Crc="3637169551" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_46.PNG" AssetName="Common Atlas_46.PNG" />
+  <ABList ABName="uires" Crc="2445781506" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_47.PNG" AssetName="Common Atlas_47.PNG" />
+  <ABList ABName="uires" Crc="1896647790" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_50.PNG" AssetName="Common Atlas_50.PNG" />
+  <ABList ABName="uires" Crc="1375211501" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_54.PNG" AssetName="Common Atlas_54.PNG" />
+  <ABList ABName="uires" Crc="3463337212" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_62.PNG" AssetName="Common Atlas_62.PNG" />
+  <ABList ABName="uires" Crc="2271425393" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_63.PNG" AssetName="Common Atlas_63.PNG" />
+  <ABList ABName="uires" Crc="2088769637" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_64.PNG" AssetName="Common Atlas_64.PNG" />
+  <ABList ABName="uires" Crc="898465768" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_65.PNG" AssetName="Common Atlas_65.PNG" />
+  <ABList ABName="uires" Crc="4003125119" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_66.PNG" AssetName="Common Atlas_66.PNG" />
+  <ABList ABName="uires" Crc="2811736306" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_67.PNG" AssetName="Common Atlas_67.PNG" />
+  <ABList ABName="uires" Crc="496868576" Path="Assets/Art/UIRes/public/Common Atlas/Common Atlas_68.PNG" AssetName="Common Atlas_68.PNG" />
+  <ABList ABName="uires" Crc="1400512728" Path="Assets/Art/UIRes/public/Common Atlas/fgBlue.png" AssetName="fgBlue.png" />
+  <ABList ABName="uires" Crc="1467444246" Path="Assets/Art/UIRes/public/Common Atlas/fgRed.png" AssetName="fgRed.png" />
+  <ABList ABName="uires" Crc="1842747264" Path="Assets/Art/UIRes/public/Common Atlas/fight Atlas_29.PNG" AssetName="fight Atlas_29.PNG" />
+  <ABList ABName="uires" Crc="2064745173" Path="Assets/Art/UIRes/public/Common Atlas/skill_lock.png" AssetName="skill_lock.png" />
+  <ABList ABName="uires" Crc="1575991614" Path="Assets/Art/UIRes/public/Common Atlas_4.PNG" AssetName="Common Atlas_4.PNG" />
+  <ABList ABName="uires" Crc="2739094450" Path="Assets/Art/UIRes/public/Common Atlas_12.PNG" AssetName="Common Atlas_12.PNG" />
+  <ABList ABName="uires" Crc="1890618286" Path="Assets/Art/UIRes/public/Common Atlas_18.PNG" AssetName="Common Atlas_18.PNG" />
+  <ABList ABName="uires" Crc="1429011629" Path="Assets/Art/UIRes/public/Common Atlas_21.PNG" AssetName="Common Atlas_21.PNG" />
+  <ABList ABName="uires" Crc="670897627" Path="Assets/Art/UIRes/public/Common Atlas_34.PNG" AssetName="Common Atlas_34.PNG" />
+  <ABList ABName="uires" Crc="1188148272" Path="Assets/Art/UIRes/public/Common Atlas_40.PNG" AssetName="Common Atlas_40.PNG" />
+  <ABList ABName="uires" Crc="1713715123" Path="Assets/Art/UIRes/public/Common Atlas_44.PNG" AssetName="Common Atlas_44.PNG" />
+  <ABList ABName="uires" Crc="121156406" Path="Assets/Art/UIRes/public/Common Atlas_48.PNG" AssetName="Common Atlas_48.PNG" />
+  <ABList ABName="uires" Crc="470859342" Path="Assets/Art/UIRes/public/Common Atlas_58.PNG" AssetName="Common Atlas_58.PNG" />
+  <ABList ABName="uires" Crc="1428019651" Path="Assets/Art/UIRes/public/Common Atlas_59.PNG" AssetName="Common Atlas_59.PNG" />
+  <ABList ABName="uires" Crc="1887547072" Path="Assets/Art/UIRes/public/Common Atlas_60.PNG" AssetName="Common Atlas_60.PNG" />
+  <ABList ABName="uires" Crc="15395205" Path="Assets/Art/UIRes/public/exp.png" AssetName="exp.png" />
+  <ABList ABName="uires" Crc="3021008997" Path="Assets/Art/UIRes/public/fight Atlas_21.PNG" AssetName="fight Atlas_21.PNG" />
+  <ABList ABName="uires" Crc="117357820" Path="Assets/Art/UIRes/public/fight Atlas_27.PNG" AssetName="fight Atlas_27.PNG" />
+  <ABList ABName="uires" Crc="4176653306" Path="Assets/Art/UIRes/public/guide_di.png" AssetName="guide_di.png" />
+  <ABList ABName="uires" Crc="803559156" Path="Assets/Art/UIRes/public/hallow_frame_bg.png" AssetName="hallow_frame_bg.png" />
+  <ABList ABName="uires" Crc="1465867032" Path="Assets/Art/UIRes/public/hp/sspml UI (113)-1.png" AssetName="sspml UI (113)-1.png" />
+  <ABList ABName="uires" Crc="1723394381" Path="Assets/Art/UIRes/public/hp/sspml UI (116)-1.png" AssetName="sspml UI (116)-1.png" />
+  <ABList ABName="uires" Crc="2820606148" Path="Assets/Art/UIRes/public/hp/sspml UI (457)-2.png" AssetName="sspml UI (457)-2.png" />
+  <ABList ABName="uires" Crc="192951265" Path="Assets/Art/UIRes/public/itemexp.png" AssetName="itemexp.png" />
+  <ABList ABName="uires" Crc="357367967" Path="Assets/Art/UIRes/public/joystick.png" AssetName="joystick.png" />
+  <ABList ABName="uires" Crc="3914753302" Path="Assets/Art/UIRes/public/joystick_area.png" AssetName="joystick_area.png" />
+  <ABList ABName="uires" Crc="1476411500" Path="Assets/Art/UIRes/public/light.png" AssetName="light.png" />
+  <ABList ABName="uires" Crc="812082883" Path="Assets/Art/UIRes/public/loading.png" AssetName="loading.png" />
+  <ABList ABName="uires" Crc="3726115601" Path="Assets/Art/UIRes/public/loading_bg_first.jpg" AssetName="loading_bg_first.jpg" />
+  <ABList ABName="uires" Crc="2452966019" Path="Assets/Art/UIRes/public/loading_progress.png" AssetName="loading_progress.png" />
+  <ABList ABName="uires" Crc="2113166961" Path="Assets/Art/UIRes/public/lock.png" AssetName="lock.png" />
+  <ABList ABName="uires" Crc="392745648" Path="Assets/Art/UIRes/public/login_bg.jpg" AssetName="login_bg.jpg" />
+  <ABList ABName="uires" Crc="2884522591" Path="Assets/Art/UIRes/public/logo1.png" AssetName="logo1.png" />
+  <ABList ABName="uires" Crc="733210939" Path="Assets/Art/UIRes/public/Main Atlas_17.PNG" AssetName="Main Atlas_17.PNG" />
+  <ABList ABName="uires" Crc="1865554621" Path="Assets/Art/UIRes/public/Main Atlas_22.PNG" AssetName="Main Atlas_22.PNG" />
+  <ABList ABName="uires" Crc="641695024" Path="Assets/Art/UIRes/public/Main Atlas_23.PNG" AssetName="Main Atlas_23.PNG" />
+  <ABList ABName="uires" Crc="1794809998" Path="Assets/Art/UIRes/public/mainUI_task_di1.png" AssetName="mainUI_task_di1.png" />
+  <ABList ABName="uires" Crc="1758178381" Path="Assets/Art/UIRes/public/map.jpg" AssetName="map.jpg" />
+  <ABList ABName="uires" Crc="1959680107" Path="Assets/Art/UIRes/public/mars_193.png" AssetName="mars_193.png" />
+  <ABList ABName="uires" Crc="3971858314" Path="Assets/Art/UIRes/public/role_bg.jpg" AssetName="role_bg.jpg" />
+  <ABList ABName="uires" Crc="2766000130" Path="Assets/Art/UIRes/Skill/cd.png" AssetName="cd.png" />
+  <ABList ABName="uires" Crc="517991921" Path="Assets/Art/UIRes/Skill/chongjibo.png" AssetName="chongjibo.png" />
+  <ABList ABName="uires" Crc="1142977334" Path="Assets/Art/UIRes/Skill/chongzhuang.png" AssetName="chongzhuang.png" />
+  <ABList ABName="uires" Crc="2108770669" Path="Assets/Art/UIRes/Skill/fashi_attack.png" AssetName="fashi_attack.png" />
+  <ABList ABName="uires" Crc="2827463163" Path="Assets/Art/UIRes/Skill/fashi_binghuan.png" AssetName="fashi_binghuan.png" />
+  <ABList ABName="uires" Crc="757668398" Path="Assets/Art/UIRes/Skill/fashi_huanying.png" AssetName="fashi_huanying.png" />
+  <ABList ABName="uires" Crc="1402327556" Path="Assets/Art/UIRes/Skill/fashi_leiyun.png" AssetName="fashi_leiyun.png" />
+  <ABList ABName="uires" Crc="3077439076" Path="Assets/Art/UIRes/Skill/fashi_longyan.png" AssetName="fashi_longyan.png" />
+  <ABList ABName="uires" Crc="947530010" Path="Assets/Art/UIRes/Skill/fight Atlas_30.PNG" AssetName="fight Atlas_30.PNG" />
+  <ABList ABName="uires" Crc="1903644311" Path="Assets/Art/UIRes/Skill/fight Atlas_31.PNG" AssetName="fight Atlas_31.PNG" />
+  <ABList ABName="uires" Crc="2858477056" Path="Assets/Art/UIRes/Skill/fight Atlas_32.PNG" AssetName="fight Atlas_32.PNG" />
+  <ABList ABName="uires" Crc="646103245" Path="Assets/Art/UIRes/Skill/gongjian_attack.png" AssetName="gongjian_attack.png" />
+  <ABList ABName="uires" Crc="3682720525" Path="Assets/Art/UIRes/Skill/gongjian_bingshuang.png" AssetName="gongjian_bingshuang.png" />
+  <ABList ABName="uires" Crc="4110964073" Path="Assets/Art/UIRes/Skill/gongjian_chuanci.png" AssetName="gongjian_chuanci.png" />
+  <ABList ABName="uires" Crc="1003675860" Path="Assets/Art/UIRes/Skill/gongjian_jianyu.png" AssetName="gongjian_jianyu.png" />
+  <ABList ABName="uires" Crc="3518111260" Path="Assets/Art/UIRes/Skill/gongjian_shalu.png" AssetName="gongjian_shalu.png" />
+  <ABList ABName="uires" Crc="1100434503" Path="Assets/Art/UIRes/Skill/jsattack.png" AssetName="jsattack.png" />
+  <ABList ABName="uires" Crc="69330442" Path="Assets/Art/UIRes/Skill/Petpicture/fashi_attack.png" AssetName="fashi_attack.png" />
+  <ABList ABName="uires" Crc="186175890" Path="Assets/Art/UIRes/Skill/Petpicture/fashi_binghuan.png" AssetName="fashi_binghuan.png" />
+  <ABList ABName="uires" Crc="2394317383" Path="Assets/Art/UIRes/Skill/Petpicture/fashi_huanying.png" AssetName="fashi_huanying.png" />
+  <ABList ABName="uires" Crc="705002851" Path="Assets/Art/UIRes/Skill/Petpicture/fashi_leiyun.png" AssetName="fashi_leiyun.png" />
+  <ABList ABName="uires" Crc="3854529676" Path="Assets/Art/UIRes/Skill/Petpicture/fashi_longyan.png" AssetName="fashi_longyan.png" />
+  <ABList ABName="uires" Crc="1089954343" Path="Assets/Art/UIRes/Skill/Petpicture/gongjian_chuanci.png" AssetName="gongjian_chuanci.png" />
+  <ABList ABName="uires" Crc="1489434883" Path="Assets/Art/UIRes/Skill/Petpicture/gongjian_jianyu.png" AssetName="gongjian_jianyu.png" />
+  <ABList ABName="uires" Crc="1915577973" Path="Assets/Art/UIRes/Skill/Petpicture/gongjian_shalu.png" AssetName="gongjian_shalu.png" />
+  <ABList ABName="uires" Crc="1985328470" Path="Assets/Art/UIRes/Skill/Petpicture/zhanshi_chongjibo.png" AssetName="zhanshi_chongjibo.png" />
+  <ABList ABName="uires" Crc="304820862" Path="Assets/Art/UIRes/Skill/Petpicture/zhanshi_xuanfengzhan.png" AssetName="zhanshi_xuanfengzhan.png" />
+  <ABList ABName="uires" Crc="4031981285" Path="Assets/Art/UIRes/Skill/skill0.png" AssetName="skill0.png" />
+  <ABList ABName="uires" Crc="3109962088" Path="Assets/Art/UIRes/Skill/skill1.png" AssetName="skill1.png" />
+  <ABList ABName="uires" Crc="1649011199" Path="Assets/Art/UIRes/Skill/skill2.png" AssetName="skill2.png" />
+  <ABList ABName="uires" Crc="725913202" Path="Assets/Art/UIRes/Skill/skill3.png" AssetName="skill3.png" />
+  <ABList ABName="uires" Crc="7971868" Path="Assets/Art/UIRes/Skill/xuanfengzhan.png" AssetName="xuanfengzhan.png" />
+  <ABList ABName="uires" Crc="2637112412" Path="Assets/Art/UIRes/Skill/zhongzhan.png" AssetName="zhongzhan.png" />
+  <ABList ABName="updateresource" Crc="3240380854" Path="Assets/Art/UIRes/public/loadingpoint.png" AssetName="loadingpoint.png" />
+  <ABList ABName="videouipage" Crc="478979671" Path="Assets/Art/UIPrefab/VideoUIPage.prefab" AssetName="VideoUIPage.prefab" />
+  <ABList ABName="wenlaini" Crc="3257804841" Path="Assets/Art/NPCPrefab/wenlaini.prefab" AssetName="wenlaini.prefab">
+    <ABDepends>aersitai</ABDepends>
+  </ABList>
+  <ABList ABName="xiongmao" Crc="1937645949" Path="Assets/Art/NPCPrefab/xiongmao.prefab" AssetName="xiongmao.prefab">
+    <ABDepends>aersitai</ABDepends>
+  </ABList>
+</AssetBundleConfig>

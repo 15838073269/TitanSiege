@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data name="SkillData" from="技能配置表.xlsx" to="SkillData.xml">
+	<variable name= "AllSkills" type = "list">
+		<list name="SkillDataBase" sheetname="技能配置表" mainKey = "id">
+			<variable name="id" col="ID" type="int" />
+			<variable name="name" col="技能名称" type="string" />
+			<variable name="desc" col="技能描述" type="string" />
+			<variable name="pic" col="技能图标" type="string" />
+			<variable name="skilltype" col="技能类型" type="int" />
+			<variable name="shanghai" col="技能伤害" type="int" defaultValue="1"/>
+			<variable name="levelarg" col="技能升级值参数" type="ushort" defaultValue="1"/>
+			<variable name="cd" col="冷却" type="float" defaultValue="0"/>
+			<variable name="range" col = "范围" type="float" defaultValue="0"/>
+			<variable name="angle" col = "角度" type="float" defaultValue="0"/>
+			<variable name="texiao" col="特效" type="string"/>
+			<variable name="xuqiudengji" col="需求等级" type="ushort" defaultValue="1"/>
+			<variable  name="skillefflist"  type="list"  foregin ="ID">
+				<list name = "skilleff" sheetname="效果list" >
+				    <variable  name="id" col = "效果ID" type="int"/>
+					<variable  name="yanchi" col = "延迟时间" type="float" defaultValue="0"/>
+					<variable  name="efftype" col = "效果类型" type="int" defaultValue="0"/>
+					<variable  name="xiaoguo1" col = "效果值1" type="string" defaultValue="null"/>
+					<variable  name="xiaoguo2" col = "效果值2" type="string" defaultValue="null"/>
+				</list>
+			</variable>
+			<variable  name="skillattlist"  type="list"  foregin ="ID">
+				<list name = "skillatt" sheetname="攻击点list" >
+				    <variable  name="id" col = "攻击ID" type="int"/>
+					<variable  name="xiaoguo3" col = "效果值3" type="string" defaultValue="null"/>
+				</list>
+			</variable>
+		</list>
+	</variable>      
+</data>
+	
+
+	
+	

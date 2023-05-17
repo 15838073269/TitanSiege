@@ -1,0 +1,51 @@
+最外层用data：
+    name:类名，例如NPCData
+    from:数据来源的excel名称
+    to:数据转化成的xml文件名称
+
+字段用variable
+    variable中的属性如下：
+    name:：类中的变量名
+    col：对应excel中的列名称
+    defaultValue:默认值
+    type：字段类型
+    foreign：对应主键值，列名
+    split：分割符
+特殊type类型的处理：
+	1、type= “listStr/listFloat/listBool/listInt/listUshort/listShort” 对应cs文件中的为List<string/float/bool/int/ushort/short>的字段
+		例如：[XmlElement("功法")]
+            public List<ushort> allskill;
+            reg写法：<variable name = "allfriend" col="亲朋" type = "listUshort" split=","/>
+	这种类型，生成xml，会在xml下添加子节点。生成excel，会将list按split组合成字符串。
+    2、variable的type=list，并且还有col和split，variable下的list节点也有split时，对应cs文件中的List<类>的字段
+        例如：  [XmlElement("AllBuffList")]
+               public List<BuffTest> AllBuffList;
+                reg写法：<variable  name="AllBuffList" col="list类组合列" type="list"split="|" >
+				            <list name = "BuffTest" sheetname="所有buff的测试list"  split=",">
+					            <variable  name="Id" col = "TestID" type="int"/>
+					            <variable  name="Name" col = "名字" type="string"/>
+				            </list>
+			            </variable>
+    这种类型，生成xml，会在xml下添加子节点，并在子节点中把类的字段作为属性。生成excel，会将list中的类先按list的split组合字符串，然后再按variable中split组合成字符串。
+     3、variable的type=list，并且没有col和split，但必须有foregin ，variable下的list节点也没有split时，对应cs文件中的List<类>的字段，但转成excel时，会把这个类单独转成一个sheet表
+        例如：  [XmlElement("AllBuffList")]
+               public List<BuffTest> AllBuffList;
+                reg写法：<variable  name="AllBuffList"  type="list" foregin ="ID"  >
+				            <list name = "BuffTest" sheetname="所有buff的测试list" >
+					            <variable  name="Id" col = "TestID" type="int"/>
+					            <variable  name="Name" col = "名字" type="string"/>
+				            </list>
+			            </variable>
+    这种类型，生成xml，会在xml下添加子节点，并在子节点中把类的字段作为属性。生成excel，会把这个类单独转成一个sheet表，以variable的主键作为识别归属标识
+
+list列表使用list：
+    name：list存储对象的类名   例如：list<NPCBase>  这里name就是NPCBase
+    sheetname:对应excel中的表名称
+    mainKey:这个类里的主键变量名称，一般是id
+    split：分割符
+
+同一行写完就加上/
+
+
+///需要注意的是，功能的类转xml，如果类中的赋值数据没有赋全，生成的xml中也可能不会出现未赋值的属性，但此时如果用类生成的xml转excel就会报错。
+///简单来说，转成excel的xml必须严格按照reg.xml中规定的属性填写完全，否则转换会报空引用异常

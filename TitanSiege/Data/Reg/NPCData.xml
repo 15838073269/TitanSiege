@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding = "utf-8"?>
+<data name="NPCData" from="NPC配置表.xlsx" to="NPCData.xml">
+<variable name= "AllNPC" type = "list">
+    <list name="NPCDataBase" sheetname="NPC配置表" mainKey = "ID">
+        <variable name = "ID" col="ID" type = "ushort"/>
+        <variable name = "Name" col="名称" type = "string"/>
+        <variable name = "Zhiye" col="职业" type = "ushort"/>
+        <variable name = "Level" col="等级" type = "ushort"/>
+        <variable name = "Levelupid" col="升级系数" type = "ushort"/>
+        <variable name = "Exp" col="经验" type = "int"/>
+        <variable name = "Shengming" col="生命" type = "ushort"/>
+        <variable name = "Fali" col="法力" type = "ushort"/>
+        <variable name = "Tizhi" col="体质" type = "ushort"/>
+        <variable name = "Liliang" col="力量" type = "ushort"/>
+        <variable name = "Minjie" col="敏捷" type = "ushort"/>
+        <variable name = "Moli" col="魔力" type = "ushort"/>
+        <variable name = "Meili" col="魅力" type = "ushort"/>
+        <variable name = "Xingyun" col="幸运" type = "ushort"/>
+        <variable name = "Lianjin" col="炼金" type = "ushort"/>
+        <variable name = "Duanzao" col="锻造" type = "ushort"/>
+        <variable name = "Jinbi" col="金币" type = "int"/>
+        <variable name = "Zuanshi" col="钻石" type = "int"/>
+        <variable name = "Chenghao" col="称号" type = "string" defaultValue="-"/>
+        <variable name = "Friends" col="亲朋" type = "listStr" split="|"/>
+        <variable name = "Skills" col="技能" type = "listInt" split="|"/>
+        <variable name = "Prefabpath" col="预制体" type = "string"/>
+        <variable name = "Headpath" col="头像" type = "string" defaultValue="-"/>
+        <variable name = "Lihuipath" col="立绘" type = "string" defaultValue="-"/>
+    </list>
+</variable> 
+</data>

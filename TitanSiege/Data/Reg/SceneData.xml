@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data name="SceneData" from="场景数据配置表.xlsx" to="SceneData.xml">
+	<variable name= "AllSceneDatas" type = "list">
+		<list name="SceneDataBase" sheetname="场景数据配置表" mainKey = "id">
+			<variable name="id" col="ID" type="int" />
+			<variable name="name" col="场景名称" type="string" />
+			<variable name="desc" col="场景描述" type="string" />
+			<variable name="audiopath" col="场景音乐" type="string" />
+			<variable  name="npclist"  type="list"  foregin ="ID">
+				<list name = "NData" sheetname="NPClist" >
+				    <variable  name="ndid" col = "NDID" type="int"/>
+					<variable  name="prepath" col = "预制体路径" type="string"/>
+					<variable  name="posx" col = "PosX" type="float" defaultValue="-9999"/>
+					<variable  name="posy" col = "PosY" type="float" defaultValue="-9999"/>
+					<variable  name="posz" col = "PosZ" type="float" defaultValue="-9999"/>
+					<variable  name="rotax" col = "RotaX" type="float" defaultValue="-9999"/>
+					<variable  name="rotay" col = "RotaY" type="float" defaultValue="-9999"/>
+					<variable  name="rotaz" col = "RotaZ" type="float" defaultValue="-9999"/>
+					<variable  name="scalx" col = "ScalX" type="float" defaultValue="-9999"/>
+					<variable  name="scaly" col = "ScalY" type="float" defaultValue="-9999"/>
+					<variable  name="scalz" col = "ScalZ" type="float" defaultValue="-9999"/>
+					<variable  name="renwulist" col = "绑定任务" type="listInt" split = ","/>
+				</list>
+			</variable>
+			<variable  name="monsterlist"  type="list"  foregin ="ID">
+				<list name = "NData" sheetname="怪物list" >
+				    <variable  name="ndid" col = "NDID" type="int"/>
+					<variable  name="prepath" col = "预制体路径" type="string"/>
+					<variable  name="posx" col = "PosX" type="float" defaultValue="-9999"/>
+					<variable  name="posy" col = "PosY" type="float" defaultValue="-9999"/>
+					<variable  name="posz" col = "PosZ" type="float" defaultValue="-9999"/>
+					<variable  name="rotax" col = "RotaX" type="float" defaultValue="-9999"/>
+					<variable  name="rotay" col = "RotaY" type="float" defaultValue="-9999"/>
+					<variable  name="rotaz" col = "RotaZ" type="float" defaultValue="-9999"/>
+					<variable  name="scalx" col = "ScalX" type="float" defaultValue="-9999"/>
+					<variable  name="scaly" col = "ScalY" type="float" defaultValue="-9999"/>
+					<variable  name="scalz" col = "ScalZ" type="float" defaultValue="-9999"/>
+					<variable  name="renwulist" col = "绑定任务" type="listInt" split = ","/>
+				</list>
+			</variable>
+		</list>
+	</variable>      
+</data>
+	
+
+	
+	

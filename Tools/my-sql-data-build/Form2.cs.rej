@@ -1,0 +1,13 @@
+diff a/Form2.cs b/Form2.cs	(rejected hunks)
+@@ -153,9 +153,9 @@
+                     if (cell.DataType == typeof(byte[]))
+                     {
+                         sb.AppendLine($"    object array = {cellName3};");
+-                        sb.AppendLine($"    Net.Client.ClientBase.Instance.SendRT(Net.Share.NetCmd.EntityRpc, {i + 1}, array);");
++                        sb.AppendLine($"    Net.Client.ClientBase.Instance.SendGateway(Net.Share.NetCmd.EntityRpc, Net.Client.ClientBase.Instance.MID, {i + 1}, array);");
+                     }
+-                    else sb.AppendLine($"    Net.Client.ClientBase.Instance.SendRT(Net.Share.NetCmd.EntityRpc, {i + 1}, {cellName3});");
++                    else sb.AppendLine($"    Net.Client.ClientBase.Instance.SendGateway(Net.Share.NetCmd.EntityRpc, Net.Client.ClientBase.Instance.MID, {i + 1}, {cellName3});");
+                     sb.AppendLine("}");
+                     sb.AppendLine("");
+                     sb.AppendLine($"[Net.Share.Rpc(mask = {i + 1})]");

@@ -1,0 +1,5 @@
+.vs/
+.git/
+obj/
+persist.data
+.vs/MySqlDataBuild/v16/.suo

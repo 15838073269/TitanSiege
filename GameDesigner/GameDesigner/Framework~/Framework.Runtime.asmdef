@@ -1,0 +1,17 @@
+{
+    "name": "Framework.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f263169dea78d2249ba035c363b9cb8e",
+        "GUID:be17a8778dbfe454890ed8279279e153"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,23 @@
+{
+    "name": "Framework.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f263169dea78d2249ba035c363b9cb8e",
+        "GUID:2373f786d14518f44b0f475db77ba4de",
+        "GUID:226ac141b630fca4695d86081162af7d"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "ExcelDataReader.dll",
+        "ExcelDataReader.DataSet.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

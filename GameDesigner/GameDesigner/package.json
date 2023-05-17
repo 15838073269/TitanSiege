@@ -1,0 +1,6 @@
+{
+    "name": "com.gamedesigner.network",
+    "version": "2023.1.28",
+    "displayName": "GameDesigner",
+    "description": "专为游戏而设计的前后端网络框架和动作状态机\r\n请使用unity菜单GameDesigner/Import Window导入需要的模块\r\n只支持2020版本或以上版本"
+}

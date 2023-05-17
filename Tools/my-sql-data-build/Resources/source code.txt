@@ -1,0 +1,428 @@
+using System;
+using System.Data;
+using System.Collections.Generic;
+using System.Text;
+using Net.Share;
+using Net.Event;
+#if SERVER
+using Net.System;
+using Cysharp.Threading.Tasks;
+using {USING};
+#endif
+using BooleanObs = Net.Common.PropertyObserverAuto<bool>;
+using ByteObs = Net.Common.PropertyObserverAuto<byte>;
+using SByteObs = Net.Common.PropertyObserverAuto<sbyte>;
+using Int16Obs = Net.Common.PropertyObserverAuto<short>;
+using UInt16Obs = Net.Common.PropertyObserverAuto<ushort>;
+using CharObs = Net.Common.PropertyObserverAuto<char>;
+using Int32Obs = Net.Common.PropertyObserverAuto<int>;
+using UInt32Obs = Net.Common.PropertyObserverAuto<uint>;
+using SingleObs = Net.Common.PropertyObserverAuto<float>;
+using Int64Obs = Net.Common.PropertyObserverAuto<long>;
+using UInt64Obs = Net.Common.PropertyObserverAuto<ulong>;
+using DoubleObs = Net.Common.PropertyObserverAuto<double>;
+using DateTimeObs = Net.Common.PropertyObserverAuto<System.DateTime>;
+using BytesObs = Net.Common.PropertyObserverAuto<byte[]>;
+using StringObs = Net.Common.PropertyObserverAuto<string>;
+
+{NAMESPACE_BEGIN}
+    /// <summary>
+    /// 此类由MySqlDataBuild工具生成, 请不要在此类编辑代码! 请新建一个类文件进行分写
+    /// <para>MySqlDataBuild工具提供Rpc自动同步到mysql数据库的功能, 提供数据库注释功能</para>
+    /// <para><see href="此脚本支持防内存修改器, 需要在uniyt的预编译处添加:ANTICHEAT关键字即可"/> </para>
+    /// MySqlDataBuild工具gitee地址:https://gitee.com/leng_yue/my-sql-data-build
+    /// </summary>
+    public partial class {TYPENAME} : IDataRow
+    {
+        [Net.Serialize.NonSerialized]
+        [Newtonsoft_X.Json.JsonIgnore]
+        public DataRowState RowState { get; set; }
+    #if SERVER
+        private readonly HashSetSafe<int> columns = new HashSetSafe<int>();
+    #endif
+        /// <summary>当属性被修改时调用, 参数1: 哪个字段被修改(表名_字段名), 参数2:被修改的值</summary>
+        [Net.Serialize.NonSerialized]
+        [Newtonsoft_X.Json.JsonIgnore]
+        public Action<{RPCHASHTYPE}, object> OnValueChanged;
+
+        private {KETTYPE} {KEYNAME1};
+        /// <summary>{KEYNOTE}</summary>
+        public {KETTYPE} {KEYNAME2} { get { return {KEYNAME1}; } set { this.{KEYNAME1} = value; } }
+
+    [split]
+        private readonly {FIELDTYPE1} {FIELDNAME1} = new {FIELDTYPE1}("{TYPENAME}_{FIELDNAME1}", {ISATK}, null);
+
+        /// <summary>{NOTE4}</summary>
+        internal {FIELDTYPE1} {FIELDNAME2}Observer => {FIELDNAME1};
+
+        /// <summary>{NOTE}</summary>
+        {PUBLIC} {FIELDTYPE} {FIELDNAME2} { get => Get{FIELDNAME2}Value(); set => Check{FIELDNAME2}Value(value, 0); }
+
+        /// <summary>{NOTE1}</summary>
+        internal {FIELDTYPE} Sync{FIELDNAME2} { get => Get{FIELDNAME2}Value(); set => Check{FIELDNAME2}Value(value, 1); }
+
+        /// <summary>{NOTE2}</summary>
+        internal {FIELDTYPE} SyncID{FIELDNAME2} { get => Get{FIELDNAME2}Value(); set => Check{FIELDNAME2}Value(value, 2); }
+
+        private {FIELDTYPE} Get{FIELDNAME2}Value() => this.{FIELDNAME1}.Value;
+
+        private void Check{FIELDNAME2}Value({FIELDTYPE} value, int type) 
+        {
+            if (this.{FIELDNAME1}.Value == value)
+                return;
+            this.{FIELDNAME1}.Value = value;
+            if (type == 0)
+                CheckUpdate({INDEX});
+            else if (type == 1)
+                {FIELDNAME2}Call(false);
+            else if (type == 2)
+                {FIELDNAME2}Call(true);
+            OnValueChanged?.Invoke({RPCHASHTYPE}.{RPCHASHVALUE}, value);
+        }
+
+        /// <summary>{NOTE3}</summary>
+        public void {FIELDNAME2}Call(bool syncId = false)
+        {
+            {VARSET}
+            object[] objects;
+            if (syncId) objects = new object[] { {KEYNAME1}, {VARSET1} };
+            else objects = new object[] { {VARSET1} };
+            {CLIENT}.SendRT(NetCmd.EntityRpc, (ushort){RPCHASHTYPE}.{RPCHASHVALUE}, objects);
+        }
+
+        [Rpc(hash = (ushort){RPCHASHTYPE}.{RPCHASHVALUE})]
+        private void {FIELDNAME2}Rpc({FIELDTYPE} value)//重写NetPlayer的OnStart方法来处理客户端自动同步到服务器数据库, 方法内部添加AddRpc(data({TYPENAME}));收集Rpc
+        {
+            {FIELDNAME2} = value;
+        }
+    [split]
+
+        public {TYPENAME}() { }
+
+    #if SERVER
+        public {TYPENAME}(params object[] parms) : base()
+        {
+            NewTableRow(parms);
+        }
+        public void NewTableRow()
+        {
+            for (int i = 0; i < {COUNT}; i++)
+            {
+                var obj = this[i];
+                if (obj == null)
+                    continue;
+                var defaultVal = GetDefaultValue(obj.GetType());
+                if (obj.Equals(defaultVal))
+                    continue;
+                columns.Add(i);
+            }
+            RowState = DataRowState.Added;
+            {DBNAME}.I.Update(this);
+        }
+        public object GetDefaultValue(Type type)
+        {
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
+        }
+        public void NewTableRow(params object[] parms)
+        {
+            if (parms == null)
+                return;
+            if (parms.Length == 0)
+                return;
+            for (int i = 0; i < parms.Length; i++)
+            {
+                if (parms[i] == null)
+                    continue;
+                this[i] = parms[i];
+                columns.Add(i);
+            }
+            RowState = DataRowState.Added;
+            {DBNAME}.I.Update(this);
+        }
+        public string GetCellNameAndTextLength(int index, out int length)
+        {
+            switch (index)
+            {
+    [split]
+                case {INDEX}: length = {TEXTLENGTH}; return "{INDEXNAME}";
+    [split]
+            }
+            throw new Exception("错误");
+        }
+        public object this[int index]
+        {
+            get
+            {
+                switch (index)
+                {
+    [split]
+                    case {INDEX}: return this.{INDEXNAME};
+    [split]
+                }
+                throw new Exception("错误");
+            }
+            set
+            {
+                switch (index)
+                {
+    [split]
+                    case {INDEX}:
+                        {ADDORCUTROW}
+                        break;
+    [split]
+                }
+            }
+        }
+
+        public void Delete(bool immediately = false)
+        {
+            if (immediately)
+            {
+                var sb = new StringBuilder();
+                DeletedSql(sb);
+                _ = {DBNAME}.I.ExecuteNonQuery(sb.ToString(), null);
+            }
+            else
+            {
+                RowState = DataRowState.Detached;
+                {DBNAME}.I.Update(this);
+            }
+        }
+
+        /// <summary>
+        /// 查询1: Query("`{KEYNAME1}`=1");
+        /// <para></para>
+        /// 查询2: Query("`{KEYNAME1}`=1 and `index`=1");
+        /// <para></para>
+        /// 查询3: Query("`{KEYNAME1}`=1 or `index`=1");
+        /// </summary>
+        /// <param name="filterExpression"></param>
+        /// <returns></returns>
+        public static {TYPENAME} Query(string filterExpression)
+        {
+            var cmdText = $"select * from {TABLENAME} where {filterExpression}; ";
+            var data = {DBNAME}.I.ExecuteQuery<{TYPENAME}>(cmdText);
+            return data;
+        }
+        /// <summary>
+        /// 查询1: Query("`{KEYNAME1}`=1");
+        /// <para></para>
+        /// 查询2: Query("`{KEYNAME1}`=1 and `index`=1");
+        /// <para></para>
+        /// 查询3: Query("`{KEYNAME1}`=1 or `index`=1");
+        /// </summary>
+        /// <param name="filterExpression"></param>
+        /// <returns></returns>
+        public static async UniTask<{TYPENAME}> QueryAsync(string filterExpression)
+        {
+            var cmdText = $"select * from {TABLENAME} where {filterExpression}; ";
+            var data = await {DBNAME}.I.ExecuteQueryAsync<{TYPENAME}>(cmdText);
+            return data;
+        }
+        public static {TYPENAME}[] QueryList(string filterExpression)
+        {
+            var cmdText = $"select * from {TABLENAME} where {filterExpression}; ";
+            var datas = {DBNAME}.I.ExecuteQueryList<{TYPENAME}>(cmdText);
+            return datas;
+        }
+        public static async UniTask<{TYPENAME}[]> QueryListAsync(string filterExpression)
+        {
+            var cmdText = $"select * from {TABLENAME} where {filterExpression}; ";
+            var datas = await {DBNAME}.I.ExecuteQueryListAsync<{TYPENAME}>(cmdText);
+            return datas;
+        }
+        public void Update() => Update(0, {COUNT});
+        public void Update(int start, int end)
+        {
+            if (RowState == DataRowState.Deleted | RowState == DataRowState.Detached | RowState == DataRowState.Added | RowState == 0) return;
+    [split]
+            for (int i = start; i < end; i++)
+                columns.Add(i);
+            RowState = DataRowState.Modified;
+            {DBNAME}.I.Update(this);
+    [split]
+        }
+    #endif
+
+        public void Init(DataRow row)
+        {
+            RowState = DataRowState.Unchanged;
+    [split]
+            if (row[{INDEX}] is {FIELDTYPE} {FIELDNAME1})
+                {INIT}
+    [split]
+        }
+
+        public void AddedSql(StringBuilder sb, List<IDbDataParameter> parms, ref int parmsLen)
+        {
+    #if SERVER
+            if(columns.Count == 0)//如果没有修改一个字段是不允许提交的
+                return;
+    [TREAT]
+            string cmdText = "REPLACE INTO {TABLENAME} SET ";
+            foreach (var column in columns)
+            {
+                var name = GetCellNameAndTextLength(column, out var length);
+                var value = this[column];
+                if (value == null) //空的值会导致sql语句错误
+                    continue;
+                if (value is string text)
+                {
+                    CheckStringValue(ref text, length);
+                    cmdText += $"`{name}`='{text}',";
+                }
+                else if (value is DateTime)
+                    cmdText += $"`{name}`='{value}',";
+                else if (value is byte[] buffer)
+                {
+                    if (buffer.Length >= length)
+                    {
+                        NDebug.LogError($"{TABLENAME}表{name}列长度溢出!");
+                        continue;
+                    }
+                    var count = parms.Count;
+                    cmdText += $"`{name}`=@buffer{count},";
+                    parms.Add(new {PARAMETER}($"@buffer{count}", buffer));
+                    parmsLen += buffer.Length;
+                }
+                else cmdText += $"`{name}`={value},";
+                columns.Remove(column);
+            }
+            cmdText = cmdText.TrimEnd(',');
+            cmdText += "; ";
+    [TREAT]
+            string cmdText = "REPLACE INTO {TABLENAME}(";
+            string cmdText1 = "VALUES(";
+            foreach (var column in columns)
+            {
+                var name = GetCellNameAndTextLength(column, out var length);
+                cmdText += $"`{name}`,";
+                var value = this[column];
+                if (value == null) //空的值会导致sql语句错误
+                    continue;
+                if (value is string text)
+                {
+                    CheckStringValue(ref text, length);
+                    cmdText1 += $"'{text}',";
+                }
+                else if (value is DateTime)
+                    cmdText1 += $"'{value}',";
+                else if (value is byte[] buffer)
+                {
+                    if (buffer.Length >= length)
+                    {
+                        NDebug.LogError($"{TABLENAME}表{name}列长度溢出!");
+                        continue;
+                    }
+                    var count = parms.Count;
+                    cmdText1 += $"@buffer{count},";
+                    parms.Add(new {PARAMETER}($"@buffer{count}", buffer));
+                    parmsLen += buffer.Length;
+                }
+                else cmdText1 += $"{value},";
+                columns.Remove(column);
+            }
+            cmdText = cmdText.TrimEnd(',');
+            cmdText1 = cmdText1.TrimEnd(',');
+            cmdText += ")" + cmdText1 + "); ";
+    [TREAT]
+            sb.Append(cmdText);
+            RowState = DataRowState.Unchanged;
+    #endif
+        }
+
+        public void ModifiedSql(StringBuilder sb, List<IDbDataParameter> parms, ref int parmsLen)
+        {
+    #if SERVER
+            if (RowState == DataRowState.Detached | RowState == DataRowState.Deleted | RowState == DataRowState.Added | RowState == 0)
+                return;
+            if(columns.Count == 0)//如果没有修改一个字段是不允许提交的
+                return;
+            string cmdText = $"UPDATE {TABLENAME} SET ";
+            foreach (var column in columns)
+            {
+                var name = GetCellNameAndTextLength(column, out var length);
+                var value = this[column];
+                if (value == null) //空的值会导致sql语句错误
+                    continue;
+                if (value is string text)
+                {
+                    CheckStringValue(ref text, length);
+                    cmdText += $"`{name}`='{text}',";
+                }
+                else if (value is DateTime)
+                    cmdText += $"`{name}`='{value}',";
+                else if (value is byte[] buffer)
+                {
+                    if (buffer.Length >= length)
+                    {
+                        NDebug.LogError($"{TABLENAME}表{name}列长度溢出!");
+                        continue;
+                    }
+                    var count = parms.Count;
+                    cmdText += $"`{name}`=@buffer{count},";
+                    parms.Add(new {PARAMETER}($"@buffer{count}", buffer));
+                    parmsLen += buffer.Length;
+                }
+                else cmdText += $"`{name}`={value},";
+                columns.Remove(column);
+            }
+            cmdText = cmdText.TrimEnd(',');
+            cmdText += CheckSqlKey(0, {KEYNAME1});
+            sb.Append(cmdText);
+            RowState = DataRowState.Unchanged;
+    #endif
+        }
+
+        public void DeletedSql(StringBuilder sb)
+        {
+    #if SERVER
+            if (RowState == DataRowState.Deleted)
+                return;
+            string cmdText = $"DELETE FROM {TABLENAME} {CheckSqlKey(0, {KEYNAME1})}";
+            sb.Append(cmdText);
+            RowState = DataRowState.Deleted;
+    #endif
+        }
+
+    #if SERVER
+        private string CheckSqlKey(int column, object value)
+        {
+            var name = GetCellNameAndTextLength(column, out var length);
+            if (value == null) //空的值会导致sql语句错误
+                return "";
+            if (value is string text)
+            {
+                CheckStringValue(ref text, length);
+                return $" WHERE `{name}`='{text}'; ";
+            }
+            else if (value is DateTime)
+                return $" WHERE `{name}`='{value}'; ";
+            else if (value is byte[] buffer)
+                return "";
+            return $" WHERE `{name}`={value}; ";
+        }
+    #endif
+
+        private void CheckStringValue(ref string value, int length)
+        {
+            if (value == null)
+                value = string.Empty;
+            value = value.Replace("\\", "\\\\"); //如果包含\必须转义, 否则出现 \'时就会出错
+            value = value.Replace("'", "\\\'"); //出现'时必须转转义成\'
+            if (value.Length >= length - 3) //必须保留三个字符做最后的判断, 如最后一个字符出现了\或'时出错问题
+                value = value.Substring(0, length);
+        }
+
+        private void CheckUpdate(int cellIndex)
+        {
+#if SERVER
+            if (RowState == DataRowState.Deleted | RowState == DataRowState.Detached) return;
+            columns.Add(cellIndex);
+            if (RowState != DataRowState.Added & RowState != 0)//如果还没初始化或者创建新行,只能修改值不能更新状态
+                RowState = DataRowState.Modified;
+            {DBNAME}.I.Update(this);
+#endif
+        }
+    }
+{NAMESPACE_END}

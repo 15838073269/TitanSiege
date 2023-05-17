@@ -1,0 +1,9 @@
+<linker>
+	<assembly fullname="Framework.Runtime" preserve="all" />
+	<assembly fullname="UniTask" preserve="all" />
+	<assembly fullname="UniTask.Addressables" preserve="all" />
+	<assembly fullname="UniTask.Linq" preserve="all" />
+	<assembly fullname="UniTask.DOTween" preserve="all" />
+	<assembly fullname="UniTask.TextMeshPro" preserve="all" />
+	<assembly fullname="Assembly-CSharp" preserve="all" />
+</linker>

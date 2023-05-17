@@ -1,0 +1,123 @@
+fileFormatVersion: 2
+guid: a01c5216f33f4674aa930479ec71b49e
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Bip01
+    100002: Bip01 Head
+    100004: Bip01 L Clavicle
+    100006: Bip01 L Finger0
+    100008: Bip01 L Forearm
+    100010: Bip01 L Hand
+    100012: Bip01 L UpperArm
+    100014: Bip01 Neck
+    100016: Bip01 Pelvis
+    100018: Bip01 R Clavicle
+    100020: Bip01 R Finger0
+    100022: Bip01 R Forearm
+    100024: Bip01 R Hand
+    100026: Bip01 R UpperArm
+    100028: Bip01 Spine
+    100030: Bip01 Spine1
+    100032: Bip01 Tail
+    100034: Bip01 Tail1
+    100036: Bip01 Tail2
+    100038: Bip01 Tail3
+    100040: Bip01 Tail4
+    100042: Bip01 Tail5
+    100044: Bone01
+    100046: Bone02
+    100048: Bone04
+    100050: Bone05
+    100052: Bone07
+    100054: Bone08
+    100056: meidusha
+    100058: //RootNode
+    400000: Bip01
+    400002: Bip01 Head
+    400004: Bip01 L Clavicle
+    400006: Bip01 L Finger0
+    400008: Bip01 L Forearm
+    400010: Bip01 L Hand
+    400012: Bip01 L UpperArm
+    400014: Bip01 Neck
+    400016: Bip01 Pelvis
+    400018: Bip01 R Clavicle
+    400020: Bip01 R Finger0
+    400022: Bip01 R Forearm
+    400024: Bip01 R Hand
+    400026: Bip01 R UpperArm
+    400028: Bip01 Spine
+    400030: Bip01 Spine1
+    400032: Bip01 Tail
+    400034: Bip01 Tail1
+    400036: Bip01 Tail2
+    400038: Bip01 Tail3
+    400040: Bip01 Tail4
+    400042: Bip01 Tail5
+    400044: Bone01
+    400046: Bone02
+    400048: Bone04
+    400050: Bone05
+    400052: Bone07
+    400054: Bone08
+    400056: meidusha
+    400058: //RootNode
+    4300000: meidusha
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: meidusha
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 

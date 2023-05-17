@@ -1,0 +1,79 @@
+fileFormatVersion: 2
+guid: 5b916886d5f87e6458134ba21164f999
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: effect_weapon
+    100002: Particle View 01
+    100004: Particle View 01 1
+    100006: Particle View 01 2
+    100008: Particle View 01 3
+    100010: Particle View 01 4
+    100012: Particle View 01 5
+    100014: //RootNode
+    100016: sword_04
+    400000: effect_weapon
+    400002: Particle View 01
+    400004: Particle View 01 1
+    400006: Particle View 01 2
+    400008: Particle View 01 3
+    400010: Particle View 01 4
+    400012: Particle View 01 5
+    400014: //RootNode
+    400016: sword_04
+    2300000: sword_04
+    3300000: sword_04
+    4300000: sword_04
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 0
+  userData: 

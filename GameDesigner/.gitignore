@@ -1,0 +1,7 @@
+.vs/
+.git/
+bin/Debug/
+bin/Release/
+obj/
+*.stream
+*.pool

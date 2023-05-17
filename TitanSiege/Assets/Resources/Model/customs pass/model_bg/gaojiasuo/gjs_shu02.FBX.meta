@@ -1,0 +1,85 @@
+fileFormatVersion: 2
+guid: 6bd3c04bef459d44c8e295ae17dcea35
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: ______188
+    100002: ______189
+    100004: ______190
+    100006: ______191
+    100008: ______192
+    100010: //RootNode
+    400000: ______188
+    400002: ______189
+    400004: ______190
+    400006: ______191
+    400008: ______192
+    400010: //RootNode
+    2300000: ______188
+    2300002: ______189
+    2300004: ______190
+    2300006: ______191
+    2300008: ______192
+    3300000: ______188
+    3300002: ______189
+    3300004: ______190
+    3300006: ______191
+    3300008: ______192
+    4300000: ______188
+    4300002: ______189
+    4300004: ______190
+    4300006: ______191
+    4300008: ______192
+    9500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 0
+  userData: 
