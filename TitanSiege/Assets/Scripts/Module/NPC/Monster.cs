@@ -10,6 +10,7 @@ using Cysharp.Threading.Tasks;
 using GameDesigner;
 using GF.ConfigTable;
 using GF.MainGame.Data;
+using MoreMountains.Feedbacks;
 using Net.Client;
 using Net.Component;
 using Net.Share;
@@ -29,7 +30,7 @@ namespace GF.MainGame.Module.NPC {
         public int m_PatrolState;//服务端巡逻状态字段
         public int m_targetID;
         public RVOController m_RvoController;
-
+        public MMF_Player m_Feel;
         public void OnEnable() {
             if (m_Material == null) {
                 return;
@@ -79,6 +80,9 @@ namespace GF.MainGame.Module.NPC {
             }
             if (m_RvoController == null) {
                 m_RvoController = transform.GetComponent<RVOController>();
+            }
+            if (m_Feel == null) {
+                m_Feel = transform.Find("Feel").GetComponent<MMF_Player>();
             }
         }
         public override void UpdateFightProps() {

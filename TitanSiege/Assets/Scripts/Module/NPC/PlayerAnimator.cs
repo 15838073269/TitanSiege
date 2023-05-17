@@ -42,7 +42,7 @@ namespace GF.MainGame.Module.NPC {
             ///因为特效资源与动画资源不同步而多停顿0.2f
             //ThreadManager.Event.AddEvent(sec+0.2f, ExitAttack, npc);
         }
-        
+       
         //public void ExitAttack(object obj) {
         //    Player npc = obj as Player;
         //    npc.isPlaySkill = false;

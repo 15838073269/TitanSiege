@@ -58,34 +58,34 @@
   <ItemGroup>
     <Compile Include="Assets\AstarPathfindingProject\Editor\RVONavmeshEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\SeekerEditor.cs" />
+    <Compile Include="Assets\AstarPathfindingProject\Editor\AILerpEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\GraphEditors\GridGeneratorEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\AstarUpdateWindow.cs" />
-    <Compile Include="Assets\AstarPathfindingProject\Editor\Legacy\LegacyRVOControllerEditor2.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\GraphUpdateSceneEditor.cs" />
+    <Compile Include="Assets\AstarPathfindingProject\Editor\Legacy\LegacyRVOControllerEditor2.cs" />
+    <Compile Include="Assets\AstarPathfindingProject\Editor\Legacy\LegacyAIPathEditor2.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\NavmeshAddEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\AnimationLinkEditor.cs" />
-    <Compile Include="Assets\AstarPathfindingProject\Editor\GraphEditors\NavMeshGeneratorEditor.cs" />
-    <Compile Include="Assets\AstarPathfindingProject\Editor\AIBaseEditor.cs" />
-    <Compile Include="Assets\AstarPathfindingProject\Editor\NavmeshCutEditor.cs" />
-    <Compile Include="Assets\AstarPathfindingProject\Editor\RecastMeshObjEditor.cs" />
-    <Compile Include="Assets\AstarPathfindingProject\Editor\ProceduralGridMoverEditor.cs" />
-    <Compile Include="Assets\AstarPathfindingProject\Editor\Legacy\LegacyEditorHelper2.cs" />
-    <Compile Include="Assets\AstarPathfindingProject\Editor\RVOSimulatorEditor.cs" />
-    <Compile Include="Assets\AstarPathfindingProject\Editor\RVOControllerEditor.cs" />
-    <Compile Include="Assets\AstarPathfindingProject\Editor\AILerpEditor.cs" />
-    <Compile Include="Assets\AstarPathfindingProject\Editor\Legacy\LegacyAIPathEditor2.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\GraphEditors\RecastGraphEditor.cs" />
+    <Compile Include="Assets\AstarPathfindingProject\Editor\GraphEditors\NavMeshGeneratorEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\CustomGraphEditorAttribute.cs" />
+    <Compile Include="Assets\AstarPathfindingProject\Editor\AIBaseEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\RVOSquareObstacleEditor.cs" />
+    <Compile Include="Assets\AstarPathfindingProject\Editor\NavmeshCutEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\GraphEditors\GraphEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\GraphMaskDrawer.cs" />
+    <Compile Include="Assets\AstarPathfindingProject\Editor\RecastMeshObjEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\ModifierEditors\SmoothModifierEditor.cs" />
+    <Compile Include="Assets\AstarPathfindingProject\Editor\ProceduralGridMoverEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\GraphEditors\PointGeneratorEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\GraphEditors\LayerGridGraphEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\ModifierEditors\RaycastModifierEditor.cs" />
+    <Compile Include="Assets\AstarPathfindingProject\Editor\Legacy\LegacyEditorHelper2.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\Legacy\LegacyRichAIEditor2.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\AstarPathEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\AstarUpdateChecker.cs" />
+    <Compile Include="Assets\AstarPathfindingProject\Editor\RVOSimulatorEditor.cs" />
+    <Compile Include="Assets\AstarPathfindingProject\Editor\RVOControllerEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AstarPathfindingProject\Editor\AstarPathfindingProjectEditor.asmdef" />

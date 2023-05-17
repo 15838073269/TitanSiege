@@ -27,6 +27,7 @@ namespace GF.MainGame.Module {
             AppTools.Regist<int>((int)SkillEvent.ClickSkill, ClickSkill);
             AppTools.Regist<ushort>((int)SkillEvent.ManzuXuqiudengji, ManzuXuqiudengji);
             AppTools.Regist<SkillDataBase, NPCBase,int>((int)SkillEvent.CountSkillHurt, CountSkillHurt);
+            //AppTools.Regist<DamageArg>((int)SkillEvent.ShowDamage, ShowDamage);
             ///获取所有技能配置表数据
             ///todo
         }
@@ -110,7 +111,8 @@ namespace GF.MainGame.Module {
                         }
                     }
                     if (tempmonstersarg.Count > 0) {
-                        damage = CountData(sb, npc, tempmonstersarg);
+                        Player p = npc as Player;
+                        damage = CountData(sb, p, tempmonstersarg);
                     } else {
                         Debuger.Log("本次技能没有打到任何怪物");
                     }
@@ -129,7 +131,7 @@ namespace GF.MainGame.Module {
         /// <param name="sb"></param>
         /// <param name="npc"></param>
         /// <param name="monstersarg"></param>
-        private int CountData(SkillDataBase sb, NPCBase npc, List<CountSkillArg> monstersarg) { //实际计算的方法
+        private int CountData(SkillDataBase sb, Player npc, List<CountSkillArg> monstersarg) { //实际计算的方法
             int damage = 0;
             if (sb.skillattlist != null && sb.skillattlist.Count > 0) {
                 for (int i = 0; i < sb.skillattlist.Count; i++) {
@@ -145,17 +147,18 @@ namespace GF.MainGame.Module {
                             if (damage != 0) {
                                 //切换怪物受击状态
                                 // AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, monstersarg[j].monster, AniState.hurt);
+                                //添加一个需要显示伤害数值和动画的队列
                                 Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}对{monstersarg[j].monster.Data.Name}{monstersarg[j].monster.m_GDID}造成了{damage}点伤害");
-                                if (npc.m_GDID == ClientBase.Instance.UID) {//这个判断没啥用，必进的，因为只要开始计算伤害了，就一定是本机玩家
-                                    if (monstersarg[j].monster.m_target == null) { //如果被攻击的怪物没有目标玩家
-                                        monstersarg[j].monster.m_target = npc;
-                                    }
-                                    ClientBase.Instance.AddOperation(new Operation(Command.Attack, npc.m_GDID) { index = damage, index1 = monstersarg[j].monster.m_GDID });
-                                }
+                                ////只要开始计算伤害了，就一定是本机玩家  
+                                //if (monstersarg[j].monster.m_target == null) { //如果被攻击的怪物没有目标玩家
+                                //    monstersarg[j].monster.m_target = npc;
+                                //}
+                                //这里禁用掉是想显示伤害时，再发送攻击伤害
+                                //ClientBase.Instance.AddOperation(new Operation(Command.Attack, npc.m_GDID) { index = damage, index1 = monstersarg[j].monster.m_GDID });
                             } else {
                                 Debuger.Log($"{monstersarg[j].monster.Data.Name}闪避了{UserService.GetInstance.m_CurrentChar.Name}的攻击");
                             }
-
+                            npc.m_Nab.m_HurtQue.Enqueue(damagearg);
                         }
                         //闪避了就忽略延迟，直接显示
                         //if (att.yanchi != 0f && damagearg.damagetype != DamageType.shangbi) {
@@ -196,6 +199,7 @@ namespace GF.MainGame.Module {
                         } else {
                             Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}{p.m_GDID}闪避了{m.name}的攻击");
                         }
+                        m.m_Nab.m_HurtQue.Enqueue(damagearg);
                     }
                     //闪避了就忽略延迟，直接显示
                     //if (att.yanchi != 0f && damagearg.damagetype!= DamageType.shangbi) {
@@ -286,7 +290,7 @@ namespace GF.MainGame.Module {
         /// </summary>
         /// <param name="arg">参数</param>
         /// <param name="npc">被伤害的npc，可以是玩家，也可以是怪物</param>
-        private void ShowDamage(object arg) { 
+        private void ShowDamage(DamageArg arg) { 
             DamageArg damageArg= (DamageArg)arg;
             AppTools.Send<DamageArg>((int)HPEvent.ShowDamgeTxt,damageArg);
         }

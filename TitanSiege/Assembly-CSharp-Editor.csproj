@@ -57,26 +57,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Cartoon FX\Editor\CFX_SpawnSystemEditor.cs" />
+    <Compile Include="Assets\Editor\BulidAseetBundle.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Cartoon FX Easy Editor\Editor\CFXEasyEditor.cs" />
+    <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Editor\EffectLayerCustom.cs" />
+    <Compile Include="Assets\Editor\ScriptsInfoRecoder.cs" />
+    <Compile Include="Assets\Editor\ImageSlicer.cs" />
     <Compile Include="Assets\Editor\BuildApp.cs" />
     <Compile Include="Assets\Demigiant\DOTweenPro\Editor\DOTweenPreviewManager.cs" />
     <Compile Include="Assets\RealToon\Editor\RT_Welcome.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Editor\Patch\XffectPatch400.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Editor\XEditorTool.cs" />
     <Compile Include="Assets\RealToon\Editor\RealToonShaderGUI.cs" />
-    <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Editor\WFX_ParticleMeshBillboardEditor.cs" />
-    <Compile Include="Assets\Editor\ToolsEditor.cs" />
-    <Compile Include="Assets\RealToon\Editor\RealToonShaderGUI_Lite.cs" />
-    <Compile Include="Assets\Editor\OfflineDataEditor.cs" />
-    <Compile Include="Assets\Editor\CongifTable\DataEditor.cs" />
-    <Compile Include="Assets\Editor\BulidAseetBundle.cs" />
-    <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Editor\EffectLayerCustom.cs" />
-    <Compile Include="Assets\Editor\ScriptsInfoRecoder.cs" />
-    <Compile Include="Assets\Editor\ImageSlicer.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Editor\XffectEventCustom.cs" />
+    <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Editor\WFX_ParticleMeshBillboardEditor.cs" />
     <Compile Include="Assets\Editor\SceneDataToXml.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Editor\XffectComponentCustom.cs" />
+    <Compile Include="Assets\Editor\ToolsEditor.cs" />
+    <Compile Include="Assets\RealToon\Editor\RealToonShaderGUI_Lite.cs" />
     <Compile Include="Assets\XWeaponTrail\Editor\XWeaponTrailEditor.cs" />
+    <Compile Include="Assets\Editor\OfflineDataEditor.cs" />
+    <Compile Include="Assets\Editor\CongifTable\DataEditor.cs" />
     <Compile Include="Assets\Editor\ABConfig.cs" />
     <Compile Include="Assets\Demigiant\DOTweenPro\Editor\DOTweenAnimationInspector.cs" />
     <Compile Include="Assets\Editor\BuildEditor.cs" />
@@ -1000,10 +1000,6 @@
     <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
       <Project>{65C17C25-7243-57F1-3BA2-CC9056E848E3}</Project>
       <Name>AstarPathfindingProjectEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Lofelt.NiceVibrations.Demo.csproj">
-      <Project>{7D9EABCA-A005-8560-8D2A-6BAEB711FFBC}</Project>
-      <Name>Lofelt.NiceVibrations.Demo</Name>
     </ProjectReference>
     <ProjectReference Include="MoreMountains.Tools.csproj">
       <Project>{320BECBD-2844-D9B7-9D31-7C35FEBBCE99}</Project>

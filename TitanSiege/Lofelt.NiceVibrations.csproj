@@ -59,14 +59,14 @@
     <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\AssemblyInfo.cs" />
     <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\Gamepad.cs" />
     <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\LofeltHaptics.cs" />
-    <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\HapticReceiver.cs" />
-    <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\DeviceCapabilities.cs" />
-    <Compile Include="Assets\Feel\NiceVibrations\Define\NiceVibrationsDefineSymbols.cs" />
     <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\HapticClip.cs" />
     <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\JNIHelpers.cs" />
     <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\HapticSource.cs" />
+    <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\HapticReceiver.cs" />
     <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\HapticPatterns.cs" />
     <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\HapticController.cs" />
+    <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\DeviceCapabilities.cs" />
+    <Compile Include="Assets\Feel\NiceVibrations\Define\NiceVibrationsDefineSymbols.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Feel\NiceVibrations\Plugins\Windows\x64\nice_vibrations_editor_plugin.dll" />

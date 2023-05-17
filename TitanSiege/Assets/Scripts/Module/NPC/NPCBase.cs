@@ -19,7 +19,9 @@ using System.Collections.Generic;
 using Titansiege;
 using UnityEngine;
 
+
 namespace GF.MainGame.Module.NPC {
+    
     public class NPCBase : MonoBehaviour {
         public NpcType m_NpcType; //角色类型
         public int m_GDID;//网络id
@@ -33,7 +35,8 @@ namespace GF.MainGame.Module.NPC {
         public Dictionary<string, int> m_AllStateID;//GDNet状态机所有的状态标识
         protected NPCDataBase m_Data;//数据值
         protected LevelUpDataBase m_LevelData;//升级系数
-       
+
+        
         protected bool m_IsFight = false;
         public bool IsFight {
             get {
@@ -354,7 +357,7 @@ namespace GF.MainGame.Module.NPC {
                 return m_FightHp;
             }
             set {
-
+                
                 if (value <= 0) {
                     m_FightHp = 0;
                     //m_IsDie = true;

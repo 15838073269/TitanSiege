@@ -70,7 +70,7 @@ namespace GF.MainGame.Module {
         //private Vector3 LTPosition;
 
         public void ShakeCamera() {
-            transform.DOShakeRotation(0.8f,0.4f);
+            transform.DOShakeRotation(0.8f,2f);
         }
         public void Start() {
             AppTools.Regist((int)MoveEvent.ShakeCamera, ShakeCamera);

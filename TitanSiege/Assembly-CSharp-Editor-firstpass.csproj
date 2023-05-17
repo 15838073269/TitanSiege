@@ -60,36 +60,36 @@
     <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\StateManagerEditor.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\PluginSettings.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\MMORPG\Editor\BuildMapDataTools.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\Component\Editor\NetworkTransformEdit.cs" />
     <Compile Include="Assets\Standard Assets\Editor\ImageEffects\BloomEditor.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\ObjectNameTools.cs" />
     <Compile Include="Assets\Standard Assets\Editor\ImageEffects\VignetteAndChromaticAberrationEditor.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\BlueprintSetting.cs" />
     <Compile Include="Assets\Standard Assets\Editor\ImageEffects\TonemappingEditor.cs" />
     <Compile Include="Assets\Standard Assets\Editor\ImageEffects\BloomAndFlaresEditor.cs" />
+    <Compile Include="Assets\Standard Assets\Editor\ImageEffects\EdgeDetectionEditor.cs" />
     <Compile Include="Assets\Standard Assets\Editor\Water (Pro Only)\Water4\SpecularLightingEditor.cs" />
     <Compile Include="Assets\Standard Assets\Editor\ImageEffects\CreaseShadingEditor.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Component\Editor\InspectorExtension.cs" />
     <Compile Include="Assets\Standard Assets\Editor\ImageEffects\AntialiasingEditor.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\BlueprintGUILayout.cs" />
-    <Compile Include="Assets\Standard Assets\Editor\ImageEffects\ColorCorrectionCurvesEditor.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\StateMachineEditor.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\StateMachineWindow.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\Component\Editor\NetworkTransformMultiEdit.cs" />
-    <Compile Include="Assets\Standard Assets\Editor\ImageEffects\CameraMotionBlurEditor.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\Component\Editor\NetworkTransformEdit.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\ObjectNameTools.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\BlueprintSetting.cs" />
-    <Compile Include="Assets\Standard Assets\Editor\ImageEffects\EdgeDetectionEditor.cs" />
     <Compile Include="Assets\Standard Assets\Editor\Water (Pro Only)\Water4\GerstnerDisplaceEditor.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\StateBehaviourInspector.cs" />
     <Compile Include="Assets\Standard Assets\Editor\ImageEffects\DepthOfFieldDeprecatedEditor.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\BlueprintGUILayout.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\MMORPG\Editor\RoamingPathEdit.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Component\Editor\NetworkSceneManagerEdit.cs" />
     <Compile Include="Assets\Standard Assets\Editor\ImageEffects\DepthOfFieldEditor.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\GraphEditor.cs" />
+    <Compile Include="Assets\Standard Assets\Editor\ImageEffects\ColorCorrectionCurvesEditor.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\StateMachineSetting.cs" />
     <Compile Include="Assets\Standard Assets\Editor\ImageEffects\ColorCorrectionLookupEditor.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\StateMachineEditor.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\MMORPG\Editor\LineOfSightEdit.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Component\Editor\BuildComponentTools.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\StateMachineWindow.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\Component\Editor\NetworkTransformMultiEdit.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\StateMachine\Editor\ScriptTools.cs" />
+    <Compile Include="Assets\Standard Assets\Editor\ImageEffects\CameraMotionBlurEditor.cs" />
     <Compile Include="Assets\Standard Assets\Editor\Water (Pro Only)\Water4\PlanarReflectionEditor.cs" />
     <Compile Include="Assets\Standard Assets\Editor\ImageEffects\SunShaftsEditor.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Component\Editor\NetworkObjectEdit.cs" />
@@ -1004,10 +1004,6 @@
     <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
       <Project>{65C17C25-7243-57F1-3BA2-CC9056E848E3}</Project>
       <Name>AstarPathfindingProjectEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Lofelt.NiceVibrations.Demo.csproj">
-      <Project>{7D9EABCA-A005-8560-8D2A-6BAEB711FFBC}</Project>
-      <Name>Lofelt.NiceVibrations.Demo</Name>
     </ProjectReference>
     <ProjectReference Include="MoreMountains.Tools.csproj">
       <Project>{320BECBD-2844-D9B7-9D31-7C35FEBBCE99}</Project>

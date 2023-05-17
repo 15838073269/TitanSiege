@@ -10,11 +10,6 @@
 using GameDesigner;
 using GF.ConfigTable;
 using GF.MainGame.Data;
-using GF.MainGame.UI;
-using GF.Service;
-using Net.Client;
-using Net.Share;
-using System;
 
 namespace GF.MainGame.Module.NPC {
     public class Player : NPCBase {
@@ -112,7 +107,7 @@ namespace GF.MainGame.Module.NPC {
             m_Self.m_Nab.Attack(sd);
             AppTools.SendReturn<SkillDataBase, NPCBase, int>((int)SkillEvent.CountSkillHurt, sd, m_Self);//发送消息让技能模块计算伤害
         }
-
+       
         public override void OnExit() {
             m_Self.isPlaySkill = false;
             m_Self.m_Nab.HiddenEffect();

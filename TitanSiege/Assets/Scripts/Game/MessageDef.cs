@@ -59,6 +59,7 @@ namespace GF.MainGame {
         ClickSkill = (int)MDef.SkillModule + 1,
         ManzuXuqiudengji,
         CountSkillHurt,
+        ShowDamage,
     }
     public enum StateEvent {
         ChangeState = (int)MDef.StateModule + 1,

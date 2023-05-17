@@ -13,7 +13,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Net.System;
 using GF.MainGame.Data;
-
+using Net.Client;
+using Net.Share;
 
 namespace GF.MainGame.Module.NPC {
   
@@ -25,11 +26,12 @@ namespace GF.MainGame.Module.NPC {
         //可以自行在面板拖入
         public Dictionary<string, EffectBase> SkillEffect;
         public Animator m_ani;
- 
+        public Queue<DamageArg> m_HurtQue;
         public virtual void Init() {
             m_ani = GetComponent<Animator>();
             SkillEffect = new Dictionary<string, EffectBase>();
             m_EffectFather = transform.Find("skilleffect");
+            m_HurtQue = new Queue<DamageArg>();
             //读取职业技能配置表配置的技能特效 todo
             if (m_EffectFather!=null) {
                 EffectBase[] effectarr = m_EffectFather.GetComponentsInChildren<EffectBase>();
@@ -127,20 +129,47 @@ namespace GF.MainGame.Module.NPC {
         /// 播放音效
         /// </summary>
         /// <param name="audio"></param>
-        public void PlayAudio(Object audio) {
+        public virtual void PlayAudio(Object audio) {
             AudioClip clip = audio as AudioClip;
             if (clip!=null) {
                 AudioService.GetInstance.PlayFTMusic(clip,false);
             }
         }
-        public void StopAudio() {
+        public virtual void StopAudio() {
             AudioService.GetInstance.StopFTAudio();
         }
         /// <summary>
         /// 抖动屏幕
         /// </summary>
-        public void Shake(float t) {
+        public virtual void Shake(float t) {
             AppTools.Send((int)MoveEvent.ShakeCamera);
+        }
+        /// <summary>
+        /// 计算攻击伤害
+        /// </summary>
+        public virtual void CountHurt() {
+            while (m_HurtQue.Count>0) {
+                DamageArg arg = m_HurtQue.Dequeue();
+                //添加feel受击特效
+                switch (arg.npc.m_NpcType) {
+                    case Const.NpcType.player://需要显示伤害的是玩家，怪物攻击玩家
+
+                        break;
+                    case Const.NpcType.monster://需要显示伤害的是怪物，玩家攻击怪物
+                        Monster m = arg.npc as Monster;
+                        m.m_Feel.PlayFeedbacks();
+                        //只要开始计算伤害了，就一定是本机玩家  
+                        if (m.m_target == null) { //如果被攻击的怪物没有目标玩家
+                            m.m_target = transform.GetComponent<Player>();
+                        }
+                        //显示伤害时在发送服务器发生的攻击伤害
+                        ClientBase.Instance.AddOperation(new Operation(Command.Attack, ClientBase.Instance.UID) { index = arg.damage, index1 = m.m_GDID });
+                        break;
+                    default:
+                        break;
+                }
+                AppTools.Send<DamageArg>((int)HPEvent.ShowDamgeTxt, arg);
+            }
         }
         /// <summary>
         /// 动画时，停止技能移动的方法
