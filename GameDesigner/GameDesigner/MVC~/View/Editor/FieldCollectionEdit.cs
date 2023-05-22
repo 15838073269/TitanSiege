@@ -56,18 +56,19 @@ namespace MVC.View
     [CustomEditor(typeof(FieldCollection))]
     public class FieldCollectionEdit : Editor
     {
-        FieldCollection field;
-        bool selectType;
+        private FieldCollection field;
+        private bool selectType;
         internal string search = "", search1 = "", fieldName = "";
-        string[] types = new string[0];
-        DateTime searchTime;
-        int deleteArrayIndex = -1;
-        bool doubleClick;
-        int index;
+        private string[] types = new string[0];
+        private DateTime searchTime;
+        private int deleteArrayIndex = -1;
+        private bool doubleClick;
+        private int index;
         private string savePath;
         private string selectTypeName;
         internal UnityEngine.Object selectObject;
-        JsonSave data = new JsonSave();
+        private JsonSave data = new JsonSave();
+        private Vector2 scrollPosition;
 
         public class JsonSave 
         {
@@ -191,6 +192,7 @@ namespace MVC.View
                     }
                 }
             }
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true);
             for (int i = 0; i < field.fields.Count; i++)
             {
                 try
@@ -235,6 +237,7 @@ namespace MVC.View
                 {
                 }
             }
+            GUILayout.EndScrollView();
             if (Event.current.type == EventType.DragUpdated | Event.current.type == EventType.DragPerform)
             {
                 DragAndDrop.visualMode = DragAndDropVisualMode.Copy;//拖动时显示辅助图标

@@ -127,6 +127,10 @@
         /// 断线重连等待时间
         /// </summary>
         public uint ReconnectTimeout { get; set; }
+        /// <summary>
+        /// 是否在发送中, 避免客户端循环压入任务过多导致线程池处理不过来的问题
+        /// </summary>
+        internal bool IsSending;
 
         #region 创建网络客户端(玩家)
         /// <summary>

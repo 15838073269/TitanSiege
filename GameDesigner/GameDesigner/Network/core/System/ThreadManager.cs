@@ -73,6 +73,11 @@ namespace Net.System
                 playerLoop.subSystemList = copyList.ToArray();
                 PlayerLoop.SetPlayerLoop(playerLoop);
             }
+            else //解决有的Unity不改代码每次运行不会调用静态构造函数导致的问题
+            {
+                Init();
+                Start();
+            }
         }
 
         private static void Start()

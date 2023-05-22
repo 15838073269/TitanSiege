@@ -4,6 +4,7 @@ using System.IO;
 using System.Collections.Generic;
 using Net.Event;
 using Net.Share;
+using System.Linq;
 
 namespace Net.Config
 {
@@ -13,7 +14,7 @@ namespace Net.Config
     public class TableConfig
     {
         private DataSet dataSet;
-        private readonly Dictionary<Type, Dictionary<string, IDataConfig[]>> directory = new Dictionary<Type, Dictionary<string, IDataConfig[]>>(); //表缓存字典
+        private readonly Dictionary<Type, Dictionary<string, object>> tableDict = new Dictionary<Type, Dictionary<string, object>>(); //表缓存字典
 
         /// <summary>
         /// 加载表文件
@@ -78,22 +79,47 @@ namespace Net.Config
             try
             {
                 var type = typeof(T);
-                if (!directory.TryGetValue(type, out var dict))
-                    directory.Add(type, dict = new Dictionary<string, IDataConfig[]>());
+                if (!tableDict.TryGetValue(type, out var dict))
+                    tableDict.Add(type, dict = new Dictionary<string, object>());
                 if (dict.TryGetValue(filterExpression, out var datas))
                     return datas as T[];
-                var sheetName = type.Name.Replace("DataConfig", "");
+                var sheetName = type.Name.Replace("DataConfig", string.Empty);
                 var table = GetTable(sheetName);
-                var rows = table.Select(filterExpression);
-                var items = new T[rows.Length];
-                for (int i = 0; i < rows.Length; i++)
+                var items = new List<T>();
+                if (string.IsNullOrEmpty(filterExpression))
                 {
-                    var t = new T();
-                    t.Init(rows[i]);
-                    items[i] = t;
+                    var rows = table.Rows;
+                    for (int i = 3; i < rows.Count; i++)
+                    {
+                        var obj = rows[i]["ID"];
+                        if (obj == null)
+                            continue;
+                        var str = obj.ToString();
+                        if (string.IsNullOrEmpty(str))
+                            continue;
+                        var t = new T();
+                        t.Init(rows[i]);
+                        items.Add(t);
+                    }
                 }
-                dict.Add(filterExpression, items as IDataConfig[]);
-                return items;
+                else
+                {
+                    var rows = table.Select(filterExpression);
+                    for (int i = 0; i < rows.Length; i++)
+                    {
+                        var t = new T();
+                        t.Init(rows[i]);
+                        items.Add(t);
+                    }
+                }
+                foreach (T[] items1 in dict.Values)
+                    for (int i = 0; i < items1.Length; i++)
+                        for (int x = 0; x < items.Count; x++)
+                            if (items[x].ID == items1[i].ID) //相同的行, 不同的查询语句必须保证只需要一个对象
+                                items[x] = items1[i];
+                datas = items.ToArray();
+                dict.Add(filterExpression, datas);
+                return datas as T[];
             }
             catch (Exception ex)
             {

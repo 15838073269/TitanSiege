@@ -126,18 +126,24 @@ namespace ECS
             {
                 for (int i = 0; i < count; i++)
                 {
-                    if (!entities[i].inactive)
+                    var entity = entities[i];
+                    if (entity == null) //多线程下判断
                         continue;
-                    entities[i].Execute();
+                    if (!entity.inactive)
+                        continue;
+                    entity.Execute();
                 }
             }
             else
             {
                 Parallel.For(0, count, i =>
                 {
-                    if (!entities[i].inactive)
+                    var entity = entities[i];
+                    if (entity == null) //多线程下判断
                         return;
-                    entities[i].Execute();
+                    if (!entity.inactive)
+                        return;
+                    entity.Execute();
                 });
             }
         }

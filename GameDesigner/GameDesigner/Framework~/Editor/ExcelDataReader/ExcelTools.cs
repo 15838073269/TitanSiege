@@ -69,7 +69,7 @@ public class ExcelTools
                         var sb = new StringBuilder();
                         var sb1 = new StringBuilder();
                         sb.Append(text2[0]);
-                        for (int i = 0; i < table.Columns.Count; i++)
+                        for (int i = 1; i < table.Columns.Count; i++)
                         {
                             var name = table.Rows[0][i].ToString();
                             var typeStr = table.Rows[1][i].ToString();

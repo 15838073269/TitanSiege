@@ -132,8 +132,11 @@ namespace Net.Helper
                     return;
                 }
             }
-            if(body.TaskQueue.TryDequeue(out var modelTask))
+            uint tick = (uint)Environment.TickCount;
+            while (body.TaskQueue.TryDequeue(out var modelTask))
             {
+                if (tick > modelTask.tick) //超时要移出队列, 检查下一个, 否则一个超时任务把其他Call也搞得超时
+                    continue;
                 modelTask.model = model;
                 modelTask.IsCompleted = true;
                 var callback = modelTask.callback;

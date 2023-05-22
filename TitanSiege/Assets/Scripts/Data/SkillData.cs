@@ -34,14 +34,7 @@ namespace GF.MainGame.Data {
             t.xuqiudengji = 1;
             t.range = 80f;
             t.angle = 30f;
-            t.skillefflist = new List<skilleff>();
-            skilleff se = new skilleff();
-            se.id = 1;
-            se.yanchi = 0.2f;
-            se.xiaoguo1 = "5";
-            se.xiaoguo2 = "";
-            se.efftype = (int)SkillEffType.weiyi;
-            t.skillefflist.Add(se);
+            t.usecollider = 1;
             t.texiao = "jianshi_chongzhuang";
             if (!AllSkills.Contains(t)) {
                 AllSkills.Add(t);
@@ -60,21 +53,14 @@ namespace GF.MainGame.Data {
             t1.xuqiudengji = 1;
             t1.range  = 80f;
             t1.angle = 30f;
-            t1.skillefflist = new List<skilleff>();
-            skilleff se1 = new skilleff();
-            se1.id = 2;
-            se1.yanchi = 0.2f;
-            se1.efftype =(int)SkillEffType.weiyi;
-            se1.xiaoguo1 = "5";
-            se1.xiaoguo2 = "";
-            t1.skillefflist.Add(se1);
+            t1.usecollider = 1;
             t1.texiao = "jianshi_chongzhuang";
-            t1.skillattlist = new List<skillatt>();
-            skillatt satt = new skillatt();
+            t1.skilleventlist = new List<skillevent>();
+            skillevent satt = new skillevent();
             satt.id = 1;
-            
-            satt.xiaoguo3 = "";
-            t1.skillattlist.Add(satt);
+            satt.eventtype = (int)EventType.attack;
+            satt.eventtime = 0.1f;
+            t1.skilleventlist.Add(satt);
             if (!AllSkills.Contains(t1)) {
                 AllSkills.Add(t1);
             } else {
@@ -149,39 +135,30 @@ namespace GF.MainGame.Data {
 
         [XmlAttribute("冷却")]
         public float cd { get; set; }
+        [XmlAttribute("使用碰撞")]//方便使用采用ushort，其实只有0和1
+        public ushort usecollider { get; set; }
         [XmlAttribute("攻击范围")]
         public float range { get; set; }
         [XmlAttribute("攻击角度")]
         public float angle { get; set; }
+        [XmlAttribute("位移")]
+        public float weiyi { get; set; }
         [XmlAttribute("特效")]
         public string texiao { get; set; }
         [XmlAttribute("需求等级")]
         public ushort xuqiudengji { get; set; }
-        [XmlElement("效果list")]
-        public List<skilleff> skillefflist { get; set; }//技能的特效，例如位移技能的特效就是位移，一个技能可以有多个特效，例如二段冲锋，就是两个位移特效，需要客户端根据数据处理
         [XmlElement("攻击点list")]
-        public List<skillatt> skillattlist { get; set; }
+        public List<skillevent> skilleventlist { get; set; }
     }
+    
     [System.Serializable]
-    public class skilleff {
-        [XmlAttribute("效果ID")]
+    public class skillevent {
+        [XmlAttribute("事件ID")]
         public int id { get; set; }
-        [XmlAttribute("延迟时间")]
-        public float yanchi { get; set; }
-        [XmlAttribute("效果类型")]
-        public int efftype { get; set; }
-        [XmlAttribute("效果值1")]//如果是冲锋技能，就是移动距离
-        public string xiaoguo1 { get; set; }
-        [XmlAttribute("效果值2")]
-        public string xiaoguo2 { get; set; }
-    }
-    [System.Serializable]
-    public class skillatt {
-        [XmlAttribute("攻击ID")]
-        public int id { get; set; }
+        [XmlAttribute("事件类型")]
+        public int eventtype { get; set; }
 
-       
-        [XmlAttribute("效果值3")]//拓展备用，暂无用途图
-        public string xiaoguo3 { get; set; }
+        [XmlAttribute("事件时间")]//动画触发时间的百分比，例如动画20%时触发事件
+        public float eventtime { get; set; }
     }
 }

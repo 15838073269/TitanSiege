@@ -69,11 +69,11 @@ public static class ArrayExtend
         }
     }
 
-    public static void ClearObjects<Key,Value>(this Dictionary<Key,Value> self) where Value : Object
+    public static void ClearObjects<Key, Value>(this Dictionary<Key, Value> self) where Value : Object
     {
         foreach (var item in self)
         {
-            if(item.Value != null)
+            if (item.Value != null)
                 Object.Destroy(item.Value);
         }
         self.Clear();
@@ -337,6 +337,15 @@ public static class ArrayExtend
             self[i].transform.SetSiblingIndex(i + offset);
         }
     }
+
+    public static void SetLayer(this GameObject self, int layer)
+    {
+        var trans = self.GetComponentInChildren<Transform>();
+        foreach (Transform tran in trans)
+        {
+            tran.gameObject.layer = layer;
+        }
+    }
 #endif
 
     public static void For<T>(this HashSet<T> self, Action<T> action)
@@ -354,7 +363,7 @@ public static class ArrayExtend
         return array;
     }
 
-    public static byte[] ToArray(this byte[] self, int index, int count) 
+    public static byte[] ToArray(this byte[] self, int index, int count)
     {
         var buffer = new byte[count];
         Buffer.BlockCopy(self, index, buffer, 0, count);

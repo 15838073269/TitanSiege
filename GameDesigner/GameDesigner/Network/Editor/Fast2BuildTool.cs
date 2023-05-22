@@ -277,14 +277,6 @@ public class Fast2BuildTools2 : EditorWindow
             SaveData();
         }
         GUILayout.EndHorizontal();
-        GUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("保存路径1:", data.savePath1);
-        if (GUILayout.Button("选择路径1", GUILayout.Width(100)))
-        {
-            data.savePath1 = EditorUtility.OpenFolderPanel("保存路径", "", "");
-            SaveData();
-        }
-        GUILayout.EndHorizontal();
         if (GUILayout.Button("生成绑定代码", GUILayout.Height(30)))
         {
             if (string.IsNullOrEmpty(data.savePath))
@@ -292,7 +284,7 @@ public class Fast2BuildTools2 : EditorWindow
                 EditorUtility.DisplayDialog("提示", "请选择生成脚本路径!", "确定");
                 return;
             }
-            List<Type> types = new List<Type>();
+            var types = new HashSet<Type>();
             foreach (var type1 in data.typeNames)
             {
                 Type type = AssemblyHelper.GetType(type1.name);
@@ -301,15 +293,9 @@ public class Fast2BuildTools2 : EditorWindow
                     Debug.Log($"类型:{type1.name}已不存在!");
                     continue;
                 }
-                Fast2BuildMethod.Build(type, data.savePath, serField, serProperty, type1.fields.ConvertAll((item)=> !item.serialize ? item.name : ""));
+                Fast2BuildMethod.Build(type, data.savePath, serField, serProperty, type1.fields.ConvertAll((item)=> !item.serialize ? item.name : ""), types);
                 Fast2BuildMethod.BuildArray(type, data.savePath);
                 Fast2BuildMethod.BuildGeneric(type, data.savePath);
-                if (!string.IsNullOrEmpty(data.savePath1)) 
-                {
-                    Fast2BuildMethod.Build(type, data.savePath1, serField, serProperty, type1.fields.ConvertAll((item) => !item.serialize ? item.name : ""));
-                    Fast2BuildMethod.BuildArray(type, data.savePath1);
-                    Fast2BuildMethod.BuildGeneric(type, data.savePath1);
-                }
                 types.Add(type);
             }
             if (!string.IsNullOrEmpty(data.typeEntry)) 
@@ -335,12 +321,6 @@ public class Fast2BuildTools2 : EditorWindow
                         Fast2BuildMethod.Build(type, data.savePath, serField, serProperty, new List<string>());
                         Fast2BuildMethod.BuildArray(type, data.savePath);
                         Fast2BuildMethod.BuildGeneric(type, data.savePath);
-                        if (!string.IsNullOrEmpty(data.savePath1))
-                        {
-                            Fast2BuildMethod.Build(type, data.savePath1, serField, serProperty, new List<string>());
-                            Fast2BuildMethod.BuildArray(type, data.savePath1);
-                            Fast2BuildMethod.BuildGeneric(type, data.savePath1);
-                        }
                     }
                     types.Add(type);
                 }
@@ -528,7 +508,7 @@ public class Fast2BuildTools2 : EditorWindow
 
     public class Data
     {
-        public string savePath, savePath1;
+        public string savePath;
         public List<FoldoutData> typeNames = new List<FoldoutData>();
         public string typeEntry;
         public string methodEntry;

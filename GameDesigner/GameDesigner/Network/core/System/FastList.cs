@@ -156,7 +156,7 @@ namespace Net.System
             {
                 if (index >= _size)
                 {
-                    ThrowHelper.ThrowArgumentOutOfRangeException();
+                    return default;
                 }
                 return _items[index];
             }
@@ -267,15 +267,12 @@ namespace Net.System
 
         public void Clear()
         {
-            lock (SyncRoot)
+            if (_size > 0)
             {
-                if (_size > 0)
-                {
-                    Array.Clear(_items, 0, _size);
-                    _size = 0;
-                }
-                _version++;
+                Array.Clear(_items, 0, _size);
+                _size = 0;
             }
+            _version++;
         }
 
         public bool Contains(T item)

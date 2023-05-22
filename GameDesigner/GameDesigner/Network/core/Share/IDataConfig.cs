@@ -8,6 +8,11 @@ namespace Net.Share
     public interface IDataConfig
     {
         /// <summary>
+        /// 唯一ID
+        /// </summary>
+        int ID { get; set; }
+
+        /// <summary>
         /// 初始化表格行数据转实体对象
         /// </summary>
         /// <param name="row"></param>

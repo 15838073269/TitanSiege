@@ -259,6 +259,7 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraComponent\XftCameraShakeComp.cs" />
     <Compile Include="Assets\Scripts\Data\SceneData.cs" />
     <Compile Include="Assets\Scripts\UIModule\EnterWidget.cs" />
+    <Compile Include="Assets\Scripts\Utilities\MyAcitonCore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

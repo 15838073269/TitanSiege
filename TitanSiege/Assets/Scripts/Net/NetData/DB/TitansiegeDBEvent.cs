@@ -16,5 +16,22 @@ namespace Titansiege
             }
             set => client = value;
         }
+
+        /// <summary>
+        /// 当服务器属性同步给客户端, 如果需要同步属性到客户端, 需要监听此事件, 并且调用发送给客户端
+        /// 参数1: 要发送给哪个客户端
+        /// 参数2: cmd
+        /// 参数3: methodHash
+        /// 参数4: pars
+        /// </summary>
+        public static System.Action<Net.Server.NetPlayer, byte, ushort, object[]> OnSyncProperty;
+
+        /// <summary>CharactersData类对象属性同步id索引</summary>
+		public static int CharactersData_SyncID = 0;
+		/// <summary>ConfigData类对象属性同步id索引</summary>
+		public static int ConfigData_SyncID = 0;
+		/// <summary>UsersData类对象属性同步id索引</summary>
+		public static int UsersData_SyncID = 0;
+		
     }
 }

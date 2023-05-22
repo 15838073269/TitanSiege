@@ -26,7 +26,7 @@ namespace MySqlDataBuild
         public List<string> mysqlDBNames = new List<string>();
         public List<string> mysqlPaths = new List<string>();
         public int namespaceIndex, namespaceIndex1;
-        public bool clearOldFiles, clearOldFiles1;
+        public bool clearOldFiles, compatible, creatDbPath;
 
         public static void LoadData(ref Persist persist)
         {

@@ -26,7 +26,7 @@ namespace GF.MainGame.Module {
             base.Create();
             AppTools.Regist<int>((int)SkillEvent.ClickSkill, ClickSkill);
             AppTools.Regist<ushort>((int)SkillEvent.ManzuXuqiudengji, ManzuXuqiudengji);
-            AppTools.Regist<SkillDataBase, NPCBase,int>((int)SkillEvent.CountSkillHurt, CountSkillHurt);
+            AppTools.Regist<SkillDataBase, NPCBase,List<NPCBase>,int>((int)SkillEvent.CountSkillHurt, CountSkillHurt);
             //AppTools.Regist<DamageArg>((int)SkillEvent.ShowDamage, ShowDamage);
             ///获取所有技能配置表数据
             ///todo
@@ -53,6 +53,12 @@ namespace GF.MainGame.Module {
             //开一个协程，或者task处理
             //}
             //toodo
+            //如果不是战斗状态，先切换成战斗状态，再切换技能状态
+            if (npc.IsFight == false) {
+                npc.SetFight(true);
+                npc.ChangeWp();//切换以下武器
+            }
+            npc.m_Resetidletime = AppConfig.FightReset;//重置战斗状态的切换时间
             switch (skillposid) {
                 case 0://普攻
 
@@ -91,32 +97,51 @@ namespace GF.MainGame.Module {
         /// <summary>
         /// 准备玩家计算技能的伤害
         /// </summary>
-        public int CountSkillHurt(SkillDataBase sb, NPCBase npc) {
+        public int CountSkillHurt(SkillDataBase sb, NPCBase npc,List<NPCBase> mlist = null) {
             int damage = 0;
             if (npc.m_NpcType == NpcType.player) {//玩家攻击怪物的情况
                 //string scenename = SceneManager.GetActiveScene().name;
                 //先从场景类中获取到当前场景和场景内的所有怪物对象
                 //ListSafe<Monster> monsters = AppTools.SendReturn<string, ListSafe<Monster>>((int)NpcEvent.GetMonstersbyScene, scenename);
                 ClientSceneManager c = ClientSceneManager.I as ClientSceneManager;
-                Dictionary<int,Monster> monsters = c.m_MonsterDics;
-                if (monsters != null && monsters.Count > 0) {//场景内有怪物再计算伤害
-                    //提前预算一下，距离玩家15以外的怪物就不再计算了，节省性能，15是本项目最大技能范围，一般技能范围不会超过15
+                if (mlist != null) {
                     List<CountSkillArg> tempmonstersarg = new List<CountSkillArg>();
-                    foreach (KeyValuePair<int,Monster> m in monsters) {
-                        float dis = Vector3.Distance(m.Value.transform.position, npc.transform.position);
-                        Debuger.Log(dis + ":" + m.Value.m_GDID);
-                        if (dis <= sb.range && !m.Value.m_IsDie) {
-                            CountSkillArg temp = new CountSkillArg(m.Value, dis);
+                    for (int i = 0; i < mlist.Count; i++) {
+                        float dis = Vector3.Distance(mlist[i].transform.position, npc.transform.position);
+                        Debuger.Log(dis + ":" + mlist[i].m_GDID);
+                        if (dis <= sb.range && !mlist[i].m_IsDie) {
+                            CountSkillArg temp = new CountSkillArg(mlist[i] as Monster, dis);
                             tempmonstersarg.Add(temp);
                         }
                     }
                     if (tempmonstersarg.Count > 0) {
                         Player p = npc as Player;
-                        damage = CountData(sb, p, tempmonstersarg);
+                        damage = CountData(sb, p, tempmonstersarg,true);
                     } else {
                         Debuger.Log("本次技能没有打到任何怪物");
                     }
+                } else {
+                    Dictionary<int, Monster> monsters = c.m_MonsterDics;
+                    if (monsters != null && monsters.Count > 0) {//场景内有怪物再计算伤害
+                        //提前预算一下，距离玩家15以外的怪物就不再计算了，节省性能，15是本项目最大技能范围，一般技能范围不会超过15
+                        List<CountSkillArg> tempmonstersarg = new List<CountSkillArg>();
+                        foreach (KeyValuePair<int, Monster> m in monsters) {
+                            float dis = Vector3.Distance(m.Value.transform.position, npc.transform.position);
+                            Debuger.Log(dis + ":" + m.Value.m_GDID);
+                            if (dis <= sb.range && !m.Value.m_IsDie) {
+                                CountSkillArg temp = new CountSkillArg(m.Value, dis);
+                                tempmonstersarg.Add(temp);
+                            }
+                        }
+                        if (tempmonstersarg.Count > 0) {
+                            Player p = npc as Player;
+                            damage = CountData(sb, p, tempmonstersarg);
+                        } else {
+                            Debuger.Log("本次技能没有打到任何怪物");
+                        }
+                    }
                 }
+                
             } else if (npc.m_NpcType == NpcType.monster) { //怪物攻击玩家，而且只可能攻击的是本人
                 Monster m = npc as Monster;
                 if (!m.m_target.m_IsDie) {
@@ -131,47 +156,53 @@ namespace GF.MainGame.Module {
         /// <param name="sb"></param>
         /// <param name="npc"></param>
         /// <param name="monstersarg"></param>
-        private int CountData(SkillDataBase sb, Player npc, List<CountSkillArg> monstersarg) { //实际计算的方法
+        private int CountData(SkillDataBase sb, Player npc, List<CountSkillArg> monstersarg, bool usecollider = false) { //实际计算的方法
             int damage = 0;
-            if (sb.skillattlist != null && sb.skillattlist.Count > 0) {
-                for (int i = 0; i < sb.skillattlist.Count; i++) {
-                    skillatt att = sb.skillattlist[i];
-                    for (int j = 0; j < monstersarg.Count; j++) {
-                        DamageArg damagearg = new DamageArg();
-                        //计算是否在技能的攻击角度内,距离小于1.5，就默认能打到，不用计算角度了，离得太近
-                        float angle = GetAngle(npc.transform, monstersarg[j].monster.transform);
-                        if (monstersarg[j].dis <= AppConfig.AttackRange && InAngle(angle, sb.angle)) { //空留给角度计算
-                            damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, npc, monstersarg[j].monster, out damagearg.damagetype);
-                            damagearg.damage = damage;
-                            damagearg.npc = monstersarg[j].monster;
-                            if (damage != 0) {
-                                //切换怪物受击状态
-                                // AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, monstersarg[j].monster, AniState.hurt);
-                                //添加一个需要显示伤害数值和动画的队列
-                                Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}对{monstersarg[j].monster.Data.Name}{monstersarg[j].monster.m_GDID}造成了{damage}点伤害");
-                                ////只要开始计算伤害了，就一定是本机玩家  
-                                //if (monstersarg[j].monster.m_target == null) { //如果被攻击的怪物没有目标玩家
-                                //    monstersarg[j].monster.m_target = npc;
-                                //}
-                                //这里禁用掉是想显示伤害时，再发送攻击伤害
-                                //ClientBase.Instance.AddOperation(new Operation(Command.Attack, npc.m_GDID) { index = damage, index1 = monstersarg[j].monster.m_GDID });
-                            } else {
-                                Debuger.Log($"{monstersarg[j].monster.Data.Name}闪避了{UserService.GetInstance.m_CurrentChar.Name}的攻击");
-                            }
-                            npc.m_Nab.m_HurtQue.Enqueue(damagearg);
+            //if (sb.skillattlist != null && sb.skillattlist.Count > 0) {
+            //    for (int i = 0; i < sb.skillattlist.Count; i++) {
+            //        skillatt att = sb.skillattlist[i];
+
+            //    }
+            //} else {
+            //    Debuger.LogError($"技能{sb.name}未配置攻击点，请检查配置文件id");
+            //}
+            for (int j = 0; j < monstersarg.Count; j++) {
+                DamageArg damagearg = new DamageArg();
+                if (usecollider) {
+                    damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, npc, monstersarg[j].monster, out damagearg.damagetype);
+                    damagearg.damage = damage;
+                    damagearg.npc = monstersarg[j].monster;
+                    if (damage != 0) {
+                        //切换怪物受击状态
+                        // AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, monstersarg[j].monster, AniState.hurt);
+                        Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}对{monstersarg[j].monster.Data.Name}{monstersarg[j].monster.m_GDID}造成了{damage}点伤害");
+                    } else {
+                        Debuger.Log($"{monstersarg[j].monster.Data.Name}闪避了{UserService.GetInstance.m_CurrentChar.Name}的攻击");
+                    }
+                } else {
+                    //计算是否在技能的攻击角度内,距离小于1.5，就默认能打到，不用计算角度了，离得太近
+                    float angle = GetAngle(npc.transform, monstersarg[j].monster.transform);
+                    if (monstersarg[j].dis <= AppConfig.AttackRange && InAngle(angle, sb.angle)) { //空留给角度计算
+                        damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, npc, monstersarg[j].monster, out damagearg.damagetype);
+                        damagearg.damage = damage;
+                        damagearg.npc = monstersarg[j].monster;
+                        if (damage != 0) {
+                            //切换怪物受击状态
+                            // AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, monstersarg[j].monster, AniState.hurt);
+                            Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}对{monstersarg[j].monster.Data.Name}{monstersarg[j].monster.m_GDID}造成了{damage}点伤害");
+                        } else {
+                            Debuger.Log($"{monstersarg[j].monster.Data.Name}闪避了{UserService.GetInstance.m_CurrentChar.Name}的攻击");
                         }
-                        //闪避了就忽略延迟，直接显示
-                        //if (att.yanchi != 0f && damagearg.damagetype != DamageType.shangbi) {
-                        //    //延迟显示攻击数字即可，没必要就算都延迟
-                        //    //ThreadManager.Event.AddEvent(att.yanchi, ShowDamage, damagearg);
-                        //} else {
-                        //    //没有延迟，直接显示攻击伤害数值飘血
-                        //    ShowDamage(damagearg);
-                        //}
                     }
                 }
-            } else {
-                Debuger.LogError($"技能{sb.name}未配置攻击点，请检查配置文件id");
+                //只要开始计算伤害了，就一定是本机玩家  
+                if (monstersarg[j].monster.m_target == null) { //如果被攻击的怪物没有目标玩家
+                    monstersarg[j].monster.m_target = npc;
+                }
+                if (damage != 0) {
+                    ClientBase.Instance.AddOperation(new Operation(Command.Attack, npc.m_GDID) { index = damage, index1 = monstersarg[j].monster.m_GDID });
+                }
+                AppTools.Send<DamageArg>((int)HPEvent.ShowDamgeTxt, damagearg);
             }
             return damage;
         }
@@ -179,40 +210,32 @@ namespace GF.MainGame.Module {
         private int CountData(SkillDataBase sb, Monster m, Player p) {
             int damage = 0;
             float dis = Vector3.Distance(p.transform.position, m.transform.position);
-            if (sb.skillattlist != null && sb.skillattlist.Count > 0) {
-                for (int i = 0; i < sb.skillattlist.Count; i++) {
-                    skillatt att = sb.skillattlist[i];
-                    DamageArg damagearg = new DamageArg();
-                    //计算是否在技能的攻击角度内,距离小于1.5，就默认能打到，不用计算角度了，离得太近
-                    float angle = GetAngle(m.transform, p.transform);
-                    if (dis <= AppConfig.AttackRange && InAngle(angle, sb.angle)) { //空留给角度计算
-                        damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, m, p, out damagearg.damagetype);
-                        damagearg.damage = damage;
-                        damagearg.npc = p;
-                        if (damage != 0) {
-                            //切换受击状态
-                            // AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, p, AniState.hurt);
-                            Debuger.Log($"{m.name}对{UserService.GetInstance.m_CurrentChar.Name}{p.m_GDID}造成了{damage}点伤害");
-                            if (m.m_target.m_GDID == ClientBase.Instance.UID) { //只有攻击的是本机玩家，本机才会同步，攻击其他的玩家，本机不发送同步消息
-                                ClientBase.Instance.AddOperation(new Operation(Command.EnemyAttack) { index = damage });//这里不用给参数，因为只有攻击是本机玩家才会发送，默认发送本机玩家的即可，所以只用发伤害过去
-                            }
-                        } else {
-                            Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}{p.m_GDID}闪避了{m.name}的攻击");
-                        }
-                        m.m_Nab.m_HurtQue.Enqueue(damagearg);
+            DamageArg damagearg = new DamageArg();
+            //计算是否在技能的攻击角度内,距离小于1.5，就默认能打到，不用计算角度了，离得太近
+            float angle = GetAngle(m.transform, p.transform);
+            if (dis <= AppConfig.AttackRange && InAngle(angle, sb.angle)) { //空留给角度计算
+                damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, m, p, out damagearg.damagetype);
+                damagearg.damage = damage;
+                damagearg.npc = p;
+                if (damage != 0) {
+                    //切换受击状态
+                    // AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, p, AniState.hurt);
+                    Debuger.Log($"{m.name}对{UserService.GetInstance.m_CurrentChar.Name}{p.m_GDID}造成了{damage}点伤害");
+                    if (m.m_target.m_GDID == ClientBase.Instance.UID) { //只有攻击的是本机玩家，本机才会同步，攻击其他的玩家，本机不发送同步消息
+                        ClientBase.Instance.AddOperation(new Operation(Command.EnemyAttack) { index = damage });//这里不用给参数，因为只有攻击是本机玩家才会发送，默认发送本机玩家的即可，所以只用发伤害过去
                     }
-                    //闪避了就忽略延迟，直接显示
-                    //if (att.yanchi != 0f && damagearg.damagetype!= DamageType.shangbi) {
-                    //    //延迟显示攻击数字即可，没必要就算都延迟
-                    //    //ThreadManager.Event.AddEvent(att.yanchi,ShowDamage, damagearg);
-                    //} else {
-                    //    //没有延迟，直接显示攻击伤害数值飘血
-                    //    ShowDamage(damagearg);
-                    //}
+                } else {
+                    Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}{p.m_GDID}闪避了{m.name}的攻击");
                 }
-            } else {
-                Debuger.LogError($"技能{sb.name}未配置攻击点，请检查配置文件id");
             }
+            //闪避了就忽略延迟，直接显示
+            //if (att.yanchi != 0f && damagearg.damagetype!= DamageType.shangbi) {
+            //    //延迟显示攻击数字即可，没必要就算都延迟
+            //    //ThreadManager.Event.AddEvent(att.yanchi,ShowDamage, damagearg);
+            //} else {
+            //    //没有延迟，直接显示攻击伤害数值飘血
+            //    ShowDamage(damagearg);
+            //}
             return damage;
         }
         /// <summary>

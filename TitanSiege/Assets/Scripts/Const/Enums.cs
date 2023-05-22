@@ -8,6 +8,18 @@
 
 namespace GF.Const {
     /// <summary>
+    /// 攻击技能的事件类型
+    /// </summary>
+    public enum EventType { 
+        none=0,
+        playaudio,
+        showeff,
+        hiddeneff,
+        attack,
+        weiyi,//此处的位移事件并不是技能第一次位移，而是针对二段冲锋这种多次位移的情况
+        shake,//屏幕震动
+    }
+    /// <summary>
     /// 关系枚举
     /// </summary>
     public enum guanxi {

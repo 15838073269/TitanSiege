@@ -93,14 +93,14 @@ public static class Fast2BuildMethod
         File.WriteAllText(savePath + $"//{className}Bind.cs", str.ToString());
     }
 
-    public static void Build(Type type, string savePath, bool serField, bool serProperty, List<string> ignores)
+    public static void Build(Type type, string savePath, bool serField, bool serProperty, List<string> ignores, HashSet<Type> types = null)
     {
-        var str = BuildNew(type, serField, serProperty, ignores, savePath);
+        var str = BuildNew(type, serField, serProperty, ignores, savePath, types);
         var className = type.FullName.Replace(".", "").Replace("+", "");
         File.WriteAllText(savePath + $"//{className}Bind.cs", str.ToString());
     }
 
-    public static StringBuilder BuildNew(Type type, bool serField, bool serProperty, List<string> ignores, string savePath = null)
+    public static StringBuilder BuildNew(Type type, bool serField, bool serProperty, List<string> ignores, string savePath = null, HashSet<Type> types = null)
     {
         var sb = new StringBuilder();
         var sb1 = new StringBuilder();
@@ -465,6 +465,8 @@ namespace Binding
 
                     var text = BuildDictionary(members[i].Type, out var className1);
                     File.WriteAllText(savePath + $"//{className1}.cs", text);
+
+                    types?.Add(members[i].Type);
                 }
             }
             else
@@ -498,7 +500,7 @@ namespace Binding
         return sb;
     }
 
-    public static void BuildBindingType(List<Type> types, string savePath)
+    public static void BuildBindingType(HashSet<Type> types, string savePath)
     {
         StringBuilder str = new StringBuilder();
         str.AppendLine("using System;");
@@ -518,7 +520,9 @@ namespace Binding
             {
                 var key = item.GenericTypeArguments[0].FullName;
                 var value = item.GenericTypeArguments[1].FullName;
-                str.AppendLine($"\t\t\t{{ typeof(Dictionary<{key},{value}>), typeof(Dictionary_{key}_{value}_Bind) }},");
+                var key1 = key.Replace(".", "");
+                var value1 = value.Replace(".", "");
+                str.AppendLine($"\t\t\t{{ typeof(Dictionary<{key},{value}>), typeof(Dictionary_{key1}_{value1}Bind_Bind) }},");
             }
             else
             {

@@ -20485,27 +20485,4 @@ AnimationClip:
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0
-    functionName: PlayAudio
-    data: 
-    objectReferenceParameter: {fileID: 8300000, guid: 5710b3add7c735e459507e9f6d2579b3,
-      type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.04092409
-    functionName: PlayEffect
-    data: jianshi_chongzhuang1
-    objectReferenceParameter: {fileID: 5287086501969287422, guid: 6cf4b4f77d166f04ab516f56ba86db34,
-      type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.15016502
-    functionName: CountHurt
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

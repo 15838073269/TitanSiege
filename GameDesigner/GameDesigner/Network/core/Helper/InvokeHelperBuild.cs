@@ -47,11 +47,25 @@ namespace Net.Helper
         void Init();
     }
 
+    /// <summary>
+    /// 字段和属性同步帮助类
+    /// </summary>
     public class SyncVarGetSetHelper
     {
+        /// <summary>
+        /// 收集的字段和属性同步缓存
+        /// </summary>
         public static Dictionary<Type, Dictionary<string, SyncVarInfo>> Cache = new Dictionary<Type, Dictionary<string, SyncVarInfo>>();
 
-        static SyncVarGetSetHelper() 
+#if SERVICE
+        static SyncVarGetSetHelper()
+        {
+            Init();
+        }
+#endif
+
+        [UnityEngine.RuntimeInitializeOnLoadMethod]
+        private static void Init()
         {
             Type type = null;
             bool hasHelper = false;

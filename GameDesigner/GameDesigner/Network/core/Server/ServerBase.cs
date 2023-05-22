@@ -615,6 +615,32 @@ namespace Net.Server
         protected virtual FuncData OnDeserializeRpc(byte[] buffer, int index, int count) { return OnDeserializeRPC(buffer, index, count); }
 
         protected internal FuncData OnDeserializeRpcInternal(byte[] buffer, int index, int count) { return NetConvert.Deserialize(buffer, index, count); }
+
+        /// <summary>
+        /// 当客户端使用场景转发命令会调用此方法
+        /// </summary>
+        /// <param name="client"></param>
+        protected virtual void OnSceneRelay(Player client, RPCModel model, bool reliable)
+        {
+            if (!(client.Scene is Scene scene))
+            {
+                if (reliable)
+                    client.tcpRPCModels.Enqueue(new RPCModel(model.cmd, model.Buffer, model.kernel, false, model.methodHash));
+                else
+                    client.udpRPCModels.Enqueue(new RPCModel(model.cmd, model.Buffer, model.kernel, false, model.methodHash));
+                return;
+            }
+            Multicast(scene.Players, reliable, new RPCModel(model.cmd, model.Buffer, model.kernel, false, model.methodHash));
+        }
+
+        /// <summary>
+        /// 当客户端使用公告转发命令会调用此方法
+        /// </summary>
+        /// <param name="client"></param>
+        protected virtual void OnNoticeRelay(Player client, RPCModel model, bool reliable)
+        {
+            Multicast(Clients, reliable, new RPCModel(model.cmd, model.Buffer, model.kernel, false, model.methodHash));
+        }
         #endregion
 
         /// <summary>
@@ -1347,26 +1373,16 @@ namespace Net.Server
                     client.tcpRPCModels.Enqueue(new RPCModel(model.cmd, model.Buffer, model.kernel, false, model.methodHash));
                     break;
                 case NetCmd.Scene:
-                    if (!(client.Scene is Scene scene))
-                    {
-                        client.udpRPCModels.Enqueue(new RPCModel(model.cmd, model.Buffer, model.kernel, false, model.methodHash));
-                        return;
-                    }
-                    Multicast(scene.Players, false, new RPCModel(model.cmd, model.Buffer, model.kernel, false, model.methodHash));
+                    OnSceneRelay(client, model, false);
                     break;
                 case NetCmd.SceneRT:
-                    if (!(client.Scene is Scene scene1))
-                    {
-                        client.tcpRPCModels.Enqueue(new RPCModel(model.cmd, model.Buffer, model.kernel, false, model.methodHash));
-                        return;
-                    }
-                    Multicast(scene1.Players, true, new RPCModel(model.cmd, model.Buffer, model.kernel, false, model.methodHash));
+                    OnSceneRelay(client, model, true);
                     break;
                 case NetCmd.Notice:
-                    Multicast(UIDClients.Values.ToList(), false, new RPCModel(model.cmd, model.Buffer, model.kernel, false, model.methodHash));
+                    OnNoticeRelay(client, model, false);
                     break;
                 case NetCmd.NoticeRT:
-                    Multicast(UIDClients.Values.ToList(), true, new RPCModel(model.cmd, model.Buffer, model.kernel, false, model.methodHash));
+                    OnNoticeRelay(client, model, true);
                     break;
                 case NetCmd.SendHeartbeat:
                     Send(client, NetCmd.RevdHeartbeat, new byte[0]);
@@ -1542,27 +1558,36 @@ namespace Net.Server
         protected virtual void SendDataHandle()//发送线程
         {
             var allClients = new Player[0];
-            var timer = new TimerTick();
-            var tick = (uint)Environment.TickCount;
             while (IsRunServer)
             {
                 try
                 {
+                    Thread.Sleep(1);
                     if (allClients.Length != AllClients.Count)
                         allClients = AllClients.Values.ToArray();
-                    tick = (uint)Environment.TickCount;
-                    if (timer.CheckTimeout(tick, (uint)16, true)) 
+                    for (int i = 0; i < allClients.Length; i++)
                     {
-                        var result = Parallel.ForEach(allClients, client => SendDirect(client));
-                        while (!result.IsCompleted)
-                            Thread.Sleep(1);
-                        sendLoopNum++;
+                        if (!allClients[i].IsSending)
+                        {
+                            allClients[i].IsSending = true;
+                            ThreadPool.UnsafeQueueUserWorkItem(SendWorkCallback, allClients[i]);
+                        }
                     }
+                    sendLoopNum++;
                 }
                 catch (Exception ex)
                 {
                     Debug.LogWarning("发送异常:" + ex);
                 }
+            }
+        }
+
+        private void SendWorkCallback(object state)
+        {
+            if (state is Player client)
+            {
+                client.IsSending = false; //避免不必要的问题发生, 放在前面比较安全
+                SendDirect(client);
             }
         }
 

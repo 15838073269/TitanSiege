@@ -1580,7 +1580,7 @@ MonoBehaviour:
           Value: {fileID: 0}
           values: []
           arraySize: 0
-          foldout: 1
+          foldout: 0
         - name: spwanmode
           type: 29
           typeName: GameDesigner.SpwanMode
@@ -1999,7 +1999,7 @@ MonoBehaviour:
       animTime: 0
       animTimeMax: 100
       rewind: 1
-  selectStates: 03000000
+  selectStates: 02000000
   animMode: 1
   animation: {fileID: 0}
   animator: {fileID: 5186555465227957303}

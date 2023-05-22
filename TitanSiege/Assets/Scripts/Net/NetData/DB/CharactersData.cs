@@ -39,7 +39,7 @@ namespace Titansiege
         [Newtonsoft_X.Json.JsonIgnore]
         public DataRowState RowState { get; set; }
     #if SERVER
-        private readonly HashSetSafe<int> columns = new HashSetSafe<int>();
+        internal Net.Server.NetPlayer client;
     #endif
         /// <summary>当属性被修改时调用, 参数1: 哪个字段被修改(表名_字段名), 参数2:被修改的值</summary>
         [Net.Serialize.NonSerialized]
@@ -86,9 +86,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, name.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], name.Value };
             else objects = new object[] { name.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_NAME, objects);
+#if SERVER
+            CheckUpdate(1);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_NAME, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_NAME, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_NAME)]
@@ -132,9 +137,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, zhiye.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], zhiye.Value };
             else objects = new object[] { zhiye.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_ZHIYE, objects);
+#if SERVER
+            CheckUpdate(2);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_ZHIYE, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_ZHIYE, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_ZHIYE)]
@@ -178,9 +188,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, level.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], level.Value };
             else objects = new object[] { level.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_LEVEL, objects);
+#if SERVER
+            CheckUpdate(3);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LEVEL, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LEVEL, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_LEVEL)]
@@ -224,9 +239,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, exp.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], exp.Value };
             else objects = new object[] { exp.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_EXP, objects);
+#if SERVER
+            CheckUpdate(4);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_EXP, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_EXP, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_EXP)]
@@ -270,9 +290,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, shengming.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], shengming.Value };
             else objects = new object[] { shengming.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_SHENGMING, objects);
+#if SERVER
+            CheckUpdate(5);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_SHENGMING, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_SHENGMING, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_SHENGMING)]
@@ -316,9 +341,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, fali.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], fali.Value };
             else objects = new object[] { fali.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_FALI, objects);
+#if SERVER
+            CheckUpdate(6);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_FALI, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_FALI, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_FALI)]
@@ -362,9 +392,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, tizhi.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], tizhi.Value };
             else objects = new object[] { tizhi.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_TIZHI, objects);
+#if SERVER
+            CheckUpdate(7);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_TIZHI, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_TIZHI, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_TIZHI)]
@@ -408,9 +443,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, liliang.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], liliang.Value };
             else objects = new object[] { liliang.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_LILIANG, objects);
+#if SERVER
+            CheckUpdate(8);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LILIANG, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LILIANG, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_LILIANG)]
@@ -454,9 +494,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, minjie.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], minjie.Value };
             else objects = new object[] { minjie.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_MINJIE, objects);
+#if SERVER
+            CheckUpdate(9);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MINJIE, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MINJIE, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_MINJIE)]
@@ -500,9 +545,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, moli.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], moli.Value };
             else objects = new object[] { moli.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_MOLI, objects);
+#if SERVER
+            CheckUpdate(10);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MOLI, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MOLI, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_MOLI)]
@@ -546,9 +596,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, meili.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], meili.Value };
             else objects = new object[] { meili.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_MEILI, objects);
+#if SERVER
+            CheckUpdate(11);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MEILI, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MEILI, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_MEILI)]
@@ -592,9 +647,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, xingyun.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], xingyun.Value };
             else objects = new object[] { xingyun.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_XINGYUN, objects);
+#if SERVER
+            CheckUpdate(12);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_XINGYUN, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_XINGYUN, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_XINGYUN)]
@@ -638,9 +698,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, lianjin.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], lianjin.Value };
             else objects = new object[] { lianjin.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_LIANJIN, objects);
+#if SERVER
+            CheckUpdate(13);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LIANJIN, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LIANJIN, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_LIANJIN)]
@@ -684,9 +749,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, duanzao.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], duanzao.Value };
             else objects = new object[] { duanzao.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_DUANZAO, objects);
+#if SERVER
+            CheckUpdate(14);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_DUANZAO, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_DUANZAO, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_DUANZAO)]
@@ -730,9 +800,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, jinbi.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], jinbi.Value };
             else objects = new object[] { jinbi.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_JINBI, objects);
+#if SERVER
+            CheckUpdate(15);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_JINBI, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_JINBI, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_JINBI)]
@@ -776,9 +851,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, zuanshi.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], zuanshi.Value };
             else objects = new object[] { zuanshi.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_ZUANSHI, objects);
+#if SERVER
+            CheckUpdate(16);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_ZUANSHI, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_ZUANSHI, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_ZUANSHI)]
@@ -822,9 +902,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, chenghao.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], chenghao.Value };
             else objects = new object[] { chenghao.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_CHENGHAO, objects);
+#if SERVER
+            CheckUpdate(17);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_CHENGHAO, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_CHENGHAO, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_CHENGHAO)]
@@ -868,9 +953,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, friends.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], friends.Value };
             else objects = new object[] { friends.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_FRIENDS, objects);
+#if SERVER
+            CheckUpdate(18);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_FRIENDS, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_FRIENDS, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_FRIENDS)]
@@ -914,9 +1004,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, skills.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], skills.Value };
             else objects = new object[] { skills.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_SKILLS, objects);
+#if SERVER
+            CheckUpdate(19);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_SKILLS, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_SKILLS, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_SKILLS)]
@@ -960,9 +1055,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, prefabpath.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], prefabpath.Value };
             else objects = new object[] { prefabpath.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_PREFABPATH, objects);
+#if SERVER
+            CheckUpdate(20);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_PREFABPATH, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_PREFABPATH, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_PREFABPATH)]
@@ -1006,9 +1106,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, headpath.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], headpath.Value };
             else objects = new object[] { headpath.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_HEADPATH, objects);
+#if SERVER
+            CheckUpdate(21);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_HEADPATH, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_HEADPATH, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_HEADPATH)]
@@ -1052,9 +1157,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, lihuipath.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], lihuipath.Value };
             else objects = new object[] { lihuipath.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_LIHUIPATH, objects);
+#if SERVER
+            CheckUpdate(22);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LIHUIPATH, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LIHUIPATH, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_LIHUIPATH)]
@@ -1098,9 +1208,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, wuqi.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], wuqi.Value };
             else objects = new object[] { wuqi.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_WUQI, objects);
+#if SERVER
+            CheckUpdate(23);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_WUQI, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_WUQI, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_WUQI)]
@@ -1144,9 +1259,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, toukui.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], toukui.Value };
             else objects = new object[] { toukui.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_TOUKUI, objects);
+#if SERVER
+            CheckUpdate(24);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_TOUKUI, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_TOUKUI, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_TOUKUI)]
@@ -1190,9 +1310,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, yifu.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], yifu.Value };
             else objects = new object[] { yifu.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_YIFU, objects);
+#if SERVER
+            CheckUpdate(25);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_YIFU, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_YIFU, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_YIFU)]
@@ -1236,9 +1361,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, xiezi.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], xiezi.Value };
             else objects = new object[] { xiezi.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_XIEZI, objects);
+#if SERVER
+            CheckUpdate(26);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_XIEZI, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_XIEZI, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_XIEZI)]
@@ -1282,9 +1412,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, mapID.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], mapID.Value };
             else objects = new object[] { mapID.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_MAPID, objects);
+#if SERVER
+            CheckUpdate(27);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPID, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPID, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_MAPID)]
@@ -1328,9 +1463,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, mapPosX.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], mapPosX.Value };
             else objects = new object[] { mapPosX.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSX, objects);
+#if SERVER
+            CheckUpdate(28);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSX, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSX, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSX)]
@@ -1374,9 +1514,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, mapPosY.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], mapPosY.Value };
             else objects = new object[] { mapPosY.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSY, objects);
+#if SERVER
+            CheckUpdate(29);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSY, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSY, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSY)]
@@ -1420,9 +1565,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, mapPosZ.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], mapPosZ.Value };
             else objects = new object[] { mapPosZ.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSZ, objects);
+#if SERVER
+            CheckUpdate(30);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSZ, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSZ, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSZ)]
@@ -1466,9 +1616,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, uid.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], uid.Value };
             else objects = new object[] { uid.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_UID, objects);
+#if SERVER
+            CheckUpdate(31);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_UID, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_UID, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_UID)]
@@ -1512,9 +1667,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, lastDate.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], lastDate.Value };
             else objects = new object[] { lastDate.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_LASTDATE, objects);
+#if SERVER
+            CheckUpdate(32);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LASTDATE, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LASTDATE, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_LASTDATE)]
@@ -1558,9 +1718,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, delRole.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], delRole.Value };
             else objects = new object[] { delRole.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.CHARACTERS_DELROLE, objects);
+#if SERVER
+            CheckUpdate(33);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_DELROLE, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_DELROLE, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_DELROLE)]
@@ -1579,16 +1744,6 @@ namespace Titansiege
         }
         public void NewTableRow()
         {
-            for (int i = 0; i < 34; i++)
-            {
-                var obj = this[i];
-                if (obj == null)
-                    continue;
-                var defaultVal = GetDefaultValue(obj.GetType());
-                if (obj.Equals(defaultVal))
-                    continue;
-                columns.Add(i);
-            }
             RowState = DataRowState.Added;
             TitansiegeDB.I.Update(this);
         }
@@ -1607,7 +1762,6 @@ namespace Titansiege
                 if (parms[i] == null)
                     continue;
                 this[i] = parms[i];
-                columns.Add(i);
             }
             RowState = DataRowState.Added;
             TitansiegeDB.I.Update(this);
@@ -1688,6 +1842,8 @@ namespace Titansiege
             }
             throw new Exception("错误");
         }
+    #endif
+
         public object this[int index]
         {
             get
@@ -1911,6 +2067,7 @@ namespace Titansiege
             }
         }
 
+    #if SERVER
         public void Delete(bool immediately = false)
         {
             if (immediately)
@@ -1968,13 +2125,10 @@ namespace Titansiege
             var datas = await TitansiegeDB.I.ExecuteQueryListAsync<CharactersData>(cmdText);
             return datas;
         }
-        public void Update() => Update(0, 34);
-        public void Update(int start, int end)
+        public void Update()
         {
             if (RowState == DataRowState.Deleted | RowState == DataRowState.Detached | RowState == DataRowState.Added | RowState == 0) return;
     
-            for (int i = start; i < end; i++)
-                columns.Add(i);
             RowState = DataRowState.Modified;
             TitansiegeDB.I.Update(this);
     
@@ -2089,88 +2243,22 @@ namespace Titansiege
     
         }
 
-        public void AddedSql(StringBuilder sb, List<IDbDataParameter> parms, ref int parmsLen)
+        public void AddedSql(StringBuilder sb)
         {
     #if SERVER
-            if(columns.Count == 0)//如果没有修改一个字段是不允许提交的
-                return;
     
-            string cmdText = "REPLACE INTO characters SET ";
-            foreach (var column in columns)
-            {
-                var name = GetCellNameAndTextLength(column, out var length);
-                var value = this[column];
-                if (value == null) //空的值会导致sql语句错误
-                    continue;
-                if (value is string text)
-                {
-                    CheckStringValue(ref text, length);
-                    cmdText += $"`{name}`='{text}',";
-                }
-                else if (value is DateTime)
-                    cmdText += $"`{name}`='{value}',";
-                else if (value is byte[] buffer)
-                {
-                    if (buffer.Length >= length)
-                    {
-                        NDebug.LogError($"characters表{name}列长度溢出!");
-                        continue;
-                    }
-                    var count = parms.Count;
-                    cmdText += $"`{name}`=@buffer{count},";
-                    parms.Add(new MySqlParameter($"@buffer{count}", buffer));
-                    parmsLen += buffer.Length;
-                }
-                else cmdText += $"`{name}`={value},";
-                columns.Remove(column);
-            }
-            cmdText = cmdText.TrimEnd(',');
-            cmdText += "; ";
+            BulkLoaderBuilder(sb);
     
-            sb.Append(cmdText);
             RowState = DataRowState.Unchanged;
     #endif
         }
 
-        public void ModifiedSql(StringBuilder sb, List<IDbDataParameter> parms, ref int parmsLen)
+        public void ModifiedSql(StringBuilder sb)
         {
     #if SERVER
             if (RowState == DataRowState.Detached | RowState == DataRowState.Deleted | RowState == DataRowState.Added | RowState == 0)
                 return;
-            if(columns.Count == 0)//如果没有修改一个字段是不允许提交的
-                return;
-            string cmdText = $"UPDATE characters SET ";
-            foreach (var column in columns)
-            {
-                var name = GetCellNameAndTextLength(column, out var length);
-                var value = this[column];
-                if (value == null) //空的值会导致sql语句错误
-                    continue;
-                if (value is string text)
-                {
-                    CheckStringValue(ref text, length);
-                    cmdText += $"`{name}`='{text}',";
-                }
-                else if (value is DateTime)
-                    cmdText += $"`{name}`='{value}',";
-                else if (value is byte[] buffer)
-                {
-                    if (buffer.Length >= length)
-                    {
-                        NDebug.LogError($"characters表{name}列长度溢出!");
-                        continue;
-                    }
-                    var count = parms.Count;
-                    cmdText += $"`{name}`=@buffer{count},";
-                    parms.Add(new MySqlParameter($"@buffer{count}", buffer));
-                    parmsLen += buffer.Length;
-                }
-                else cmdText += $"`{name}`={value},";
-                columns.Remove(column);
-            }
-            cmdText = cmdText.TrimEnd(',');
-            cmdText += CheckSqlKey(0, iD);
-            sb.Append(cmdText);
+            BulkLoaderBuilder(sb);
             RowState = DataRowState.Unchanged;
     #endif
         }
@@ -2187,6 +2275,51 @@ namespace Titansiege
         }
 
     #if SERVER
+        public void BulkLoaderBuilder(StringBuilder sb)
+        {
+            for (int i = 0; i < 34; i++)
+            {
+                var name = GetCellNameAndTextLength(i, out var length);
+                var value = this[i];
+                if (value == null) //空的值会导致sql语句错误
+                {
+                    sb.Append(@"\N|");
+                    continue;
+                }
+                if (value is string text)
+                {
+                    TitansiegeDB.I.CheckStringValue(ref text, length);
+                    sb.Append(text + "|");
+                }
+                else if (value is DateTime dateTime)
+                {
+                    sb.Append(dateTime.ToString("G") + "|");
+                }
+                else if (value is bool boolVal)
+                {
+                    sb.Append(boolVal ? "1|" : "0|");
+                }
+                else if (value is byte[] buffer)
+                {
+                    var base64Str = Convert.ToBase64String(buffer, Base64FormattingOptions.None);
+                    if (buffer.Length >= length)
+                    {
+                        NDebug.LogError($"userinfo表{name}列长度溢出!");
+                        sb.Append(@"\N|");
+                        continue;
+                    }
+                    sb.Append(base64Str + "|");
+                }
+                else 
+                {
+                    sb.Append(value + "|");
+                }
+            }
+            sb.AppendLine();
+        }
+    #endif
+
+    #if SERVER
         private string CheckSqlKey(int column, object value)
         {
             var name = GetCellNameAndTextLength(column, out var length);
@@ -2194,32 +2327,21 @@ namespace Titansiege
                 return "";
             if (value is string text)
             {
-                CheckStringValue(ref text, length);
+                TitansiegeDB.I.CheckStringValue(ref text, length);
                 return $" WHERE `{name}`='{text}'; ";
             }
             else if (value is DateTime)
                 return $" WHERE `{name}`='{value}'; ";
-            else if (value is byte[] buffer)
+            else if (value is byte[])
                 return "";
             return $" WHERE `{name}`={value}; ";
         }
     #endif
 
-        private void CheckStringValue(ref string value, int length)
-        {
-            if (value == null)
-                value = string.Empty;
-            value = value.Replace("\\", "\\\\"); //如果包含\必须转义, 否则出现 \'时就会出错
-            value = value.Replace("'", "\\\'"); //出现'时必须转转义成\'
-            if (value.Length >= length - 3) //必须保留三个字符做最后的判断, 如最后一个字符出现了\或'时出错问题
-                value = value.Substring(0, length);
-        }
-
         private void CheckUpdate(int cellIndex)
         {
 #if SERVER
             if (RowState == DataRowState.Deleted | RowState == DataRowState.Detached) return;
-            columns.Add(cellIndex);
             if (RowState != DataRowState.Added & RowState != 0)//如果还没初始化或者创建新行,只能修改值不能更新状态
                 RowState = DataRowState.Modified;
             TitansiegeDB.I.Update(this);

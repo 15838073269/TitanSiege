@@ -118,6 +118,17 @@ namespace Framework
     /// UI界面基类
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    public class UIFormBase1<T, Item> : UIFormBase<T> where T : UIFormBase1<T, Item>
+    {
+        public Item[] item;
+        public Transform[] itemRoot;
+        public List<Item>[] items = new List<Item>[0];
+    }
+
+    /// <summary>
+    /// UI界面基类
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class NetworkOneUIFormBase<T> : UIFormBase<T> where T : NetworkOneUIFormBase<T>
     {
         public virtual void Awake()

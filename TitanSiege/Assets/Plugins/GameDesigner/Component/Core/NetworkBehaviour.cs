@@ -62,6 +62,8 @@ namespace Net.UnityComponent
             {
                 while (netObj.networkBehaviours.Count <= NetComponentID)
                     netObj.networkBehaviours.Add(null);
+                if (netObj.networkBehaviours[NetComponentID] != null)
+                    throw new Exception($"索引有冲突!打开预制体设置{this}组件的NetComponentID值为唯一ID!");
                 netObj.networkBehaviours[NetComponentID] = this;
             }
             netObj.InitSyncVar(this);

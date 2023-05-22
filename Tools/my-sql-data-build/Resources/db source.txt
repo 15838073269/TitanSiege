@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using System.IO;
 using {USING};
 using Net.Event;
 using Net.System;
@@ -22,13 +23,9 @@ using Cysharp.Threading.Tasks;
     public partial class {DBNAME}
     {
         public static {DBNAME} I { get; private set; } = new {DBNAME}();
-        private readonly HashSetSafe<IDataRow> dataRowHandler = new HashSetSafe<IDataRow>();
+        private readonly MyDictionary<Type, HashSetSafe<IDataRow>> DataRowHandler = new MyDictionary<Type, HashSetSafe<IDataRow>>();
         private readonly ConcurrentStack<{CONNECT}> conns = new ConcurrentStack<{CONNECT}>();
-        public static string connStr = @"Database='{DBNAME1}';Data Source='{DS}';Port={PORT};User Id='{IDNAME}';Password='{IDPWD}';charset='utf8mb4';pooling=true;useCompression=true;allowBatch=true;connectionTimeout=60;";
-        /// <summary>
-        /// 打印输出Sql语句批处理字符串
-        /// </summary>
-        public bool DebugSqlBatch { get; set; }
+        public static string connStr = @"Database='{DBNAME1}';Data Source='{DS}';Port={PORT};User Id='{IDNAME}';Password='{IDPWD}';charset='utf8mb4';pooling=true;useCompression=true;allowBatch=true;connectionTimeout=60;allowloadlocalinfile=true;";
         /// <summary>
         /// 从运行到现在的所有Sql执行次数
         /// </summary>
@@ -37,6 +34,16 @@ using Cysharp.Threading.Tasks;
         /// Sql批处理sql语句字符串大小, 默认是128k的字符串长度
         /// </summary>
         public int SqlBatchSize { get; set; } = ushort.MaxValue * 2;
+        /// <summary>
+        /// 命令超时, 默认为30秒内必须完成
+        /// </summary>
+        public int CommandTimeout { get; set; } = 30;
+        /// <summary>
+        /// 每次执行最多可批量的次数 默认是10万
+        /// </summary>
+        public int BatchSize { get; set; } = 100000;
+        private readonly StringBuilder updateCmdText = new StringBuilder();
+        private readonly StringBuilder deleteCmdText = new StringBuilder();
 
         private {CONNECT} CheckConn({CONNECT} conn)
         {
@@ -80,12 +87,17 @@ using Cysharp.Threading.Tasks;
                 conns.Push(CheckConn(null));
         }
 
-        public DataTable ExecuteReader(string cmdText)
+        public {CONNECT} PopConnect()
         {
             {CONNECT} conn1;
             while (!conns.TryPop(out conn1))
                 Thread.Sleep(1);
-            var conn = CheckConn(conn1);
+            return CheckConn(conn1);
+        }
+
+        public DataTable ExecuteReader(string cmdText)
+        {
+            var conn = PopConnect();
             var dt = new DataTable();
             try
             {
@@ -93,6 +105,7 @@ using Cysharp.Threading.Tasks;
                 {
                     cmd.CommandText = cmdText;
                     cmd.Connection = conn;
+                    cmd.CommandTimeout = CommandTimeout;
                     cmd.Parameters.Clear();
                     using (var sdr = cmd.ExecuteReader())
                     {
@@ -158,8 +171,6 @@ using Cysharp.Threading.Tasks;
         {
             using (var dt = ExecuteReader(cmdText))
             {
-                if (dt.Rows.Count == 0)
-                    return default;
                 var datas = new T[dt.Rows.Count];
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
@@ -210,8 +221,6 @@ using Cysharp.Threading.Tasks;
         {
             using (var dt = await ExecuteReaderAsync(cmdText))
             {
-                if (dt.Rows.Count == 0)
-                    return default;
                 var datas = new T[dt.Rows.Count];
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
@@ -222,34 +231,31 @@ using Cysharp.Threading.Tasks;
             }
         }
 
-        public async UniTask<int> ExecuteNonQuery(string cmdText, List<IDbDataParameter> parameters)
-        {
-            await UniTask.SwitchToThreadPool();
-            {CONNECT} conn1;
-            int tick = Environment.TickCount + 60000;//1分钟内如果一直在循环, 则提示
-            while (!conns.TryPop(out conn1))
-            {
-                if (Environment.TickCount >= tick)
-                {
-                    cmdText = GetCommandText(cmdText, parameters.ToArray());
-                    NDebug.LogError(cmdText + " 连接池不足, 等待超过1分钟, 此次提交失败! 如果有必要, 请将sql语句复制到Navicat的查询窗口执行");
-                    return await UniTask.FromResult(0);
-                }
-                await UniTask.Yield();
-            }
-            var conn = CheckConn(conn1);
-            var pars = parameters != null ? parameters.ToArray() : new IDbDataParameter[0];
-            var count = ExecuteNonQuery(conn, cmdText, pars);
-            conns.Push(conn);
-            return count;
-        }
-
         public async UniTaskVoid ExecuteNonQuery(string cmdText, List<IDbDataParameter> parameters, Action<int, Stopwatch> onComplete)
         {
             var stopwatch = Stopwatch.StartNew();
             var count = await ExecuteNonQuery(cmdText, parameters);
             stopwatch.Stop();
             onComplete(count, stopwatch);
+        }
+
+        public async UniTask<int> ExecuteNonQuery(string cmdText, List<IDbDataParameter> parameters)
+        {
+            await UniTask.SwitchToThreadPool();
+            var conn = PopConnect();
+            var pars = parameters != null ? parameters.ToArray() : new IDbDataParameter[0];
+            var count = ExecuteNonQuery(conn, cmdText, pars);
+            conns.Push(conn);
+            return count;
+        }
+
+        public int ExecuteNonQuery(string cmdText)
+        {
+            var conn = PopConnect();
+            var pars = new IDbDataParameter[0];
+            var count = ExecuteNonQuery(conn, cmdText, pars);
+            conns.Push(conn);
+            return count;
         }
 
         private int ExecuteNonQuery({CONNECT} conn, string cmdText, IDbDataParameter[] parameters)
@@ -260,7 +266,7 @@ using Cysharp.Threading.Tasks;
                 {
                     cmd.CommandText = cmdText;
                     cmd.Connection = conn;
-                    cmd.CommandTimeout = 30;//避免死锁一直无畏的等待, 在30秒内必须完成
+                    cmd.CommandTimeout = CommandTimeout;//避免死锁一直无畏的等待, 在30秒内必须完成
                     cmd.Parameters.AddRange(parameters);
                     var count = cmd.ExecuteNonQuery();
                     QueryCount += count;
@@ -296,42 +302,52 @@ using Cysharp.Threading.Tasks;
 
         public void Update(IDataRow entity)//更新的行,列
         {
-            dataRowHandler.Add(entity);
+            var type = entity.GetType();
+            if (!DataRowHandler.TryGetValue(type, out var hash))
+                DataRowHandler[type] = hash = new HashSetSafe<IDataRow>();
+            hash.Add(entity);
         }
 
         public bool Executed()//每秒调用一次, 需要自己调用此方法
         {
             try
             {
-                var sb = new StringBuilder();
-                var parms = new List<IDbDataParameter>();
-                int parmsLen = 0;
-                foreach (var row in dataRowHandler)
+                updateCmdText.Clear();
+                deleteCmdText.Clear();
+                foreach (var item in DataRowHandler)
                 {
-                    switch (row.RowState)
+                    var tableName = item.Key.Name;
+                    tableName = tableName.Remove(tableName.Length - 4, 4);
+                    var index = 0;
+                    var count = item.Value.Count;
+                    count = count > BatchSize ? BatchSize : count;
+                    foreach (var row in item.Value)
                     {
-                        case DataRowState.Added:
-                            row.AddedSql(sb, parms, ref parmsLen);
-                            break;
-                        case DataRowState.Detached:
-                            row.DeletedSql(sb);
-                            break;
-                        case DataRowState.Modified:
-                            row.ModifiedSql(sb, parms, ref parmsLen);
+                        switch (row.RowState)
+                        {
+                            case DataRowState.Added:
+                                row.AddedSql(updateCmdText);
+                                break;
+                            case DataRowState.Modified:
+                                row.ModifiedSql(updateCmdText);
+                                break;
+                            case DataRowState.Detached:
+                                row.DeletedSql(deleteCmdText);
+                                break;
+                        }
+                        item.Value.Remove(row);
+                        if (updateCmdText.Length + deleteCmdText.Length >= SqlBatchSize) 
+                        {
+                            ExecuteNonQuery(tableName, updateCmdText, deleteCmdText);
+                            updateCmdText.Clear();
+                            deleteCmdText.Clear();
+                        }
+                        if (index++ >= count)
                             break;
                     }
-                    if (sb.Length + parmsLen >= SqlBatchSize)
-                    {
-                        _ = ExecuteNonQuery(sb.ToString(), parms, (count1, stopwatch) => NDebug.Log($"sql批处理完成:{count1} 用时:{stopwatch.Elapsed}"));
-                        sb.Clear();
-                        parms.Clear();
-                        parmsLen = 0;
-                    }
-                    dataRowHandler.Remove(row);
-                }
-                if (sb.Length > 0)
-                {
-                    _ = ExecuteNonQuery(sb.ToString(), parms, (count1, stopwatch) => { if (count1 > 2000) NDebug.Log($"sql批处理完成:{count1} 用时:{stopwatch.Elapsed}"); } );
+                    ExecuteNonQuery(tableName, updateCmdText, deleteCmdText);
+                    updateCmdText.Clear();
+                    deleteCmdText.Clear();
                 }
             }
             catch (Exception ex)
@@ -339,6 +355,78 @@ using Cysharp.Threading.Tasks;
                 NDebug.LogError("SQL异常: " + ex);
             }
             return true;
+        }
+
+        private void ExecuteNonQuery(string tableName, StringBuilder stringBuilder, StringBuilder deleteSb)
+        {
+            if (stringBuilder.Length > 0)
+            {
+                var conn = PopConnect();
+                try
+                {
+                    var path = AppDomain.CurrentDomain.BaseDirectory + "MySqlBulkLoader\\";
+                    var fileName = path + $"{tableName}.txt";
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+                    using (var stream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                    {
+                        stream.SetLength(0);
+                        var text = stringBuilder.ToString();
+                        var bytes = Encoding.UTF8.GetBytes(text);
+                        stream.Write(bytes, 0, bytes.Length);
+                        stream.Flush();
+                    }
+                    var bulkLoader = new MySqlBulkLoader(conn)
+                    {
+                        TableName = tableName,
+                        FieldTerminator = "|",
+                        LineTerminator = "\r\n",
+                        NumberOfLinesToSkip = 0,
+                        FileName = fileName,
+                        EscapeCharacter = '\\',
+                        Local = true,
+                        CharacterSet = "utf8mb4",
+                        ConflictOption = MySqlBulkLoaderConflictOption.Replace,
+                    };
+                    var stopwatch = Stopwatch.StartNew();
+                    var rowCount = bulkLoader.Load();
+                    QueryCount += rowCount;
+                    stopwatch.Stop();
+                    if (rowCount > 2000) NDebug.Log($"SQL批处理完成:{rowCount} 用时:{stopwatch.Elapsed}");
+                }
+                catch (Exception ex)
+                {
+                    NDebug.LogError("批量错误:" + ex);
+                }
+                finally
+                {
+                    conns.Push(conn);
+                }
+            }
+            if (deleteSb.Length > 0)
+            {
+                var stopwatch = Stopwatch.StartNew();
+                var rowCount = ExecuteNonQuery(deleteSb.ToString());
+                stopwatch.Stop();
+                if (rowCount > 2000) NDebug.Log($"SQL批处理完成:{rowCount} 用时:{stopwatch.Elapsed}");
+            }
+        }
+
+        public string CheckStringValue(string value, int length)
+        {
+            CheckStringValue(ref value, length);
+            return value;
+        }
+
+        public void CheckStringValue(ref string value, int length)
+        {
+            if (value == null)
+                value = string.Empty;
+            value = value.Replace("\\", "\\\\"); //如果包含\必须转义, 否则出现 \'时就会出错
+            value = value.Replace("'", "\\\'"); //出现'时必须转转义成\'
+            value = value.Replace("|", "\\|"); //批量分隔符|
+            if (value.Length >= length - 3) //必须保留三个字符做最后的判断, 如最后一个字符出现了\或'时出错问题
+                value = value.Substring(0, length);
         }
     }
 {NAMESPACE_END}

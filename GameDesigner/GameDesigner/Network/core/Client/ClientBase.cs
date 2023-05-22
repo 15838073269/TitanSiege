@@ -433,7 +433,7 @@ namespace Net.Client
         public int ReconnectInterval { get; set; } = 2000;
         private int sendInterval = 1;
         /// <summary>
-        /// 每次发送数据间隔，每秒发送30次，每次间隔33毫秒
+        /// 每次发送数据间隔，每秒大概执行1000次
         /// </summary>
         public int SendInterval {
             get => sendInterval;
@@ -1492,49 +1492,49 @@ namespace Net.Client
                     if (model.kernel)
                         OnRPCExecute(model);
                     else
-                        InvokeInMainThread(() => OnReceiveDataHandle?.Invoke(model));
+                        InvokeInMainThread(model);
                     break;
                 case NetCmd.Local:
                     if (model.kernel)
                         OnRPCExecute(model);
                     else
-                        InvokeInMainThread(() => OnReceiveDataHandle?.Invoke(model));
+                        InvokeInMainThread(model);
                     break;
                 case NetCmd.LocalRT:
                     if (model.kernel)
                         OnRPCExecute(model);
                     else
-                        InvokeInMainThread(() => OnReceiveDataHandle?.Invoke(model));
+                        InvokeInMainThread(model);
                     break;
                 case NetCmd.Scene:
                     if (model.kernel)
                         OnRPCExecute(model);
                     else
-                        InvokeInMainThread(() => OnReceiveDataHandle?.Invoke(model));
+                        InvokeInMainThread(model);
                     break;
                 case NetCmd.SceneRT:
                     if (model.kernel)
                         OnRPCExecute(model);
                     else
-                        InvokeInMainThread(() => OnReceiveDataHandle?.Invoke(model));
+                        InvokeInMainThread(model);
                     break;
                 case NetCmd.Notice:
                     if (model.kernel)
                         OnRPCExecute(model);
                     else
-                        InvokeInMainThread(() => OnReceiveDataHandle?.Invoke(model));
+                        InvokeInMainThread(model);
                     break;
                 case NetCmd.NoticeRT:
                     if (model.kernel)
                         OnRPCExecute(model);
                     else
-                        InvokeInMainThread(() => OnReceiveDataHandle?.Invoke(model));
+                        InvokeInMainThread(model);
                     break;
                 case NetCmd.ThreadRpc:
                     if (model.kernel)
                         OnRPCExecute(model);
                     else
-                        InvokeInMainThread(() => OnReceiveDataHandle?.Invoke(model));
+                        OnReceiveDataHandle?.Invoke(model); //这里是多线程调用,不切换到主线程了
                     break;
                 case NetCmd.ReliableTransport:
                     Gcp.Input(model.Buffer);
@@ -1550,13 +1550,12 @@ namespace Net.Client
                     Connected = true;
                     break;
                 case NetCmd.SwitchPort:
-                    Task.Run(() => {
-                        InvokeInMainThread(() => {
-                            if (OnSwitchPortHandle != null)
-                                OnSwitchPortHandle(model.pars[0].ToString(), (ushort)model.pars[1]);
-                            else
-                                OnSwitchPortInternal(model.pars[0].ToString(), (ushort)model.pars[1]);
-                        });
+                    InvokeInMainThread(() =>
+                    {
+                        if (OnSwitchPortHandle != null)
+                            OnSwitchPortHandle(model.AsString, model.AsUshort);
+                        else
+                            OnSwitchPortInternal(model.AsString, model.AsUshort);
                     });
                     break;
                 case NetCmd.Identify:
@@ -1692,23 +1691,31 @@ namespace Net.Client
                     break;
                 case NetCmd.QueueCancellation:
                     {
-                        InvokeInMainThread(() => OnQueueCancellation?.Invoke());
+                        InvokeInMainThread(OnQueueCancellation);
                     }
                     break;
                 case NetCmd.ServerFull:
                     {
-                        InvokeInMainThread(() => OnServerFull?.Invoke());
+                        InvokeInMainThread(OnServerFull);
                     }
                     break;
                 case NetCmd.SyncPropertyData:
                     {
-                        InvokeInMainThread(() => OnSyncPropertyHandle?.Invoke(model));
+                        InvokeInMainThread(() => OnSyncPropertyHandle?.Invoke(model)); //属性同步没有用到Buffer
                     }
                     break;
                 default:
-                    InvokeInMainThread(() => OnReceiveDataHandle?.Invoke(model));
+                    {
+                        InvokeInMainThread(model);
+                    }
                     break;
             }
+        }
+
+        protected virtual void InvokeInMainThread(RPCModel model) 
+        {
+            model.Flush(); //先缓存起来, 当切换到主线程后才能得到正确的数据
+            InvokeInMainThread(() => OnReceiveDataHandle?.Invoke(model));
         }
 
         protected virtual void OnSwitchPortInternal(string host, ushort port)
@@ -2306,13 +2313,13 @@ namespace Net.Client
             }
             else body = OnRpcTaskRegister(callbackFunc1, callbackFunc);
             model.intercept = intercept;
-            model.tick = (uint)Environment.TickCount;
             body.TaskQueue.Enqueue(model);
             if (timeoutMilliseconds == -1)
                 timeoutMilliseconds = int.MaxValue;
             else if (timeoutMilliseconds == 0)
                 timeoutMilliseconds = 5000;
             var timeout = (uint)Environment.TickCount + (uint)timeoutMilliseconds;
+            model.tick = timeout;
             while ((uint)Environment.TickCount < timeout)
             {
                 await UniTask.Yield();
@@ -2512,7 +2519,6 @@ namespace Net.Client
             }
             var model1 = new RPCModelTask();
             model1.callback = callback;
-            model1.tick = (uint)Environment.TickCount;
             body.TaskQueue.Enqueue(model1);
             if (outTimeAct == null)
                 return;
@@ -2521,6 +2527,7 @@ namespace Net.Client
             else if (timeoutMilliseconds == 0)
                 timeoutMilliseconds = 5000;
             var timeout = (uint)Environment.TickCount + (uint)timeoutMilliseconds;
+            model1.tick = timeout;
             while ((uint)Environment.TickCount < timeout)
             {
                 await UniTask.Yield();

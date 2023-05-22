@@ -39,7 +39,7 @@ namespace Titansiege
         [Newtonsoft_X.Json.JsonIgnore]
         public DataRowState RowState { get; set; }
     #if SERVER
-        private readonly HashSetSafe<int> columns = new HashSetSafe<int>();
+        internal Net.Server.NetPlayer client;
     #endif
         /// <summary>当属性被修改时调用, 参数1: 哪个字段被修改(表名_字段名), 参数2:被修改的值</summary>
         [Net.Serialize.NonSerialized]
@@ -86,9 +86,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, username.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.UsersData_SyncID], username.Value };
             else objects = new object[] { username.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.USERS_USERNAME, objects);
+#if SERVER
+            CheckUpdate(1);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.USERS_USERNAME, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.USERS_USERNAME, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.USERS_USERNAME)]
@@ -132,9 +137,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, password.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.UsersData_SyncID], password.Value };
             else objects = new object[] { password.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.USERS_PASSWORD, objects);
+#if SERVER
+            CheckUpdate(2);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.USERS_PASSWORD, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.USERS_PASSWORD, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.USERS_PASSWORD)]
@@ -178,9 +188,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, registerDate.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.UsersData_SyncID], registerDate.Value };
             else objects = new object[] { registerDate.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.USERS_REGISTERDATE, objects);
+#if SERVER
+            CheckUpdate(3);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.USERS_REGISTERDATE, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.USERS_REGISTERDATE, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.USERS_REGISTERDATE)]
@@ -224,9 +239,14 @@ namespace Titansiege
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { iD, email.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.UsersData_SyncID], email.Value };
             else objects = new object[] { email.Value };
-            TitansiegeDBEvent.Client.SendRT(NetCmd.EntityRpc, (ushort)TitansiegeHashProto.USERS_EMAIL, objects);
+#if SERVER
+            CheckUpdate(4);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.USERS_EMAIL, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.USERS_EMAIL, objects);
+#endif
         }
 
         [Rpc(hash = (ushort)TitansiegeHashProto.USERS_EMAIL)]
@@ -245,16 +265,6 @@ namespace Titansiege
         }
         public void NewTableRow()
         {
-            for (int i = 0; i < 5; i++)
-            {
-                var obj = this[i];
-                if (obj == null)
-                    continue;
-                var defaultVal = GetDefaultValue(obj.GetType());
-                if (obj.Equals(defaultVal))
-                    continue;
-                columns.Add(i);
-            }
             RowState = DataRowState.Added;
             TitansiegeDB.I.Update(this);
         }
@@ -273,7 +283,6 @@ namespace Titansiege
                 if (parms[i] == null)
                     continue;
                 this[i] = parms[i];
-                columns.Add(i);
             }
             RowState = DataRowState.Added;
             TitansiegeDB.I.Update(this);
@@ -296,6 +305,8 @@ namespace Titansiege
             }
             throw new Exception("错误");
         }
+    #endif
+
         public object this[int index]
         {
             get
@@ -345,6 +356,7 @@ namespace Titansiege
             }
         }
 
+    #if SERVER
         public void Delete(bool immediately = false)
         {
             if (immediately)
@@ -402,13 +414,10 @@ namespace Titansiege
             var datas = await TitansiegeDB.I.ExecuteQueryListAsync<UsersData>(cmdText);
             return datas;
         }
-        public void Update() => Update(0, 5);
-        public void Update(int start, int end)
+        public void Update()
         {
             if (RowState == DataRowState.Deleted | RowState == DataRowState.Detached | RowState == DataRowState.Added | RowState == 0) return;
     
-            for (int i = start; i < end; i++)
-                columns.Add(i);
             RowState = DataRowState.Modified;
             TitansiegeDB.I.Update(this);
     
@@ -436,88 +445,22 @@ namespace Titansiege
     
         }
 
-        public void AddedSql(StringBuilder sb, List<IDbDataParameter> parms, ref int parmsLen)
+        public void AddedSql(StringBuilder sb)
         {
     #if SERVER
-            if(columns.Count == 0)//如果没有修改一个字段是不允许提交的
-                return;
     
-            string cmdText = "REPLACE INTO users SET ";
-            foreach (var column in columns)
-            {
-                var name = GetCellNameAndTextLength(column, out var length);
-                var value = this[column];
-                if (value == null) //空的值会导致sql语句错误
-                    continue;
-                if (value is string text)
-                {
-                    CheckStringValue(ref text, length);
-                    cmdText += $"`{name}`='{text}',";
-                }
-                else if (value is DateTime)
-                    cmdText += $"`{name}`='{value}',";
-                else if (value is byte[] buffer)
-                {
-                    if (buffer.Length >= length)
-                    {
-                        NDebug.LogError($"users表{name}列长度溢出!");
-                        continue;
-                    }
-                    var count = parms.Count;
-                    cmdText += $"`{name}`=@buffer{count},";
-                    parms.Add(new MySqlParameter($"@buffer{count}", buffer));
-                    parmsLen += buffer.Length;
-                }
-                else cmdText += $"`{name}`={value},";
-                columns.Remove(column);
-            }
-            cmdText = cmdText.TrimEnd(',');
-            cmdText += "; ";
+            BulkLoaderBuilder(sb);
     
-            sb.Append(cmdText);
             RowState = DataRowState.Unchanged;
     #endif
         }
 
-        public void ModifiedSql(StringBuilder sb, List<IDbDataParameter> parms, ref int parmsLen)
+        public void ModifiedSql(StringBuilder sb)
         {
     #if SERVER
             if (RowState == DataRowState.Detached | RowState == DataRowState.Deleted | RowState == DataRowState.Added | RowState == 0)
                 return;
-            if(columns.Count == 0)//如果没有修改一个字段是不允许提交的
-                return;
-            string cmdText = $"UPDATE users SET ";
-            foreach (var column in columns)
-            {
-                var name = GetCellNameAndTextLength(column, out var length);
-                var value = this[column];
-                if (value == null) //空的值会导致sql语句错误
-                    continue;
-                if (value is string text)
-                {
-                    CheckStringValue(ref text, length);
-                    cmdText += $"`{name}`='{text}',";
-                }
-                else if (value is DateTime)
-                    cmdText += $"`{name}`='{value}',";
-                else if (value is byte[] buffer)
-                {
-                    if (buffer.Length >= length)
-                    {
-                        NDebug.LogError($"users表{name}列长度溢出!");
-                        continue;
-                    }
-                    var count = parms.Count;
-                    cmdText += $"`{name}`=@buffer{count},";
-                    parms.Add(new MySqlParameter($"@buffer{count}", buffer));
-                    parmsLen += buffer.Length;
-                }
-                else cmdText += $"`{name}`={value},";
-                columns.Remove(column);
-            }
-            cmdText = cmdText.TrimEnd(',');
-            cmdText += CheckSqlKey(0, iD);
-            sb.Append(cmdText);
+            BulkLoaderBuilder(sb);
             RowState = DataRowState.Unchanged;
     #endif
         }
@@ -534,6 +477,51 @@ namespace Titansiege
         }
 
     #if SERVER
+        public void BulkLoaderBuilder(StringBuilder sb)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                var name = GetCellNameAndTextLength(i, out var length);
+                var value = this[i];
+                if (value == null) //空的值会导致sql语句错误
+                {
+                    sb.Append(@"\N|");
+                    continue;
+                }
+                if (value is string text)
+                {
+                    TitansiegeDB.I.CheckStringValue(ref text, length);
+                    sb.Append(text + "|");
+                }
+                else if (value is DateTime dateTime)
+                {
+                    sb.Append(dateTime.ToString("G") + "|");
+                }
+                else if (value is bool boolVal)
+                {
+                    sb.Append(boolVal ? "1|" : "0|");
+                }
+                else if (value is byte[] buffer)
+                {
+                    var base64Str = Convert.ToBase64String(buffer, Base64FormattingOptions.None);
+                    if (buffer.Length >= length)
+                    {
+                        NDebug.LogError($"userinfo表{name}列长度溢出!");
+                        sb.Append(@"\N|");
+                        continue;
+                    }
+                    sb.Append(base64Str + "|");
+                }
+                else 
+                {
+                    sb.Append(value + "|");
+                }
+            }
+            sb.AppendLine();
+        }
+    #endif
+
+    #if SERVER
         private string CheckSqlKey(int column, object value)
         {
             var name = GetCellNameAndTextLength(column, out var length);
@@ -541,32 +529,21 @@ namespace Titansiege
                 return "";
             if (value is string text)
             {
-                CheckStringValue(ref text, length);
+                TitansiegeDB.I.CheckStringValue(ref text, length);
                 return $" WHERE `{name}`='{text}'; ";
             }
             else if (value is DateTime)
                 return $" WHERE `{name}`='{value}'; ";
-            else if (value is byte[] buffer)
+            else if (value is byte[])
                 return "";
             return $" WHERE `{name}`={value}; ";
         }
     #endif
 
-        private void CheckStringValue(ref string value, int length)
-        {
-            if (value == null)
-                value = string.Empty;
-            value = value.Replace("\\", "\\\\"); //如果包含\必须转义, 否则出现 \'时就会出错
-            value = value.Replace("'", "\\\'"); //出现'时必须转转义成\'
-            if (value.Length >= length - 3) //必须保留三个字符做最后的判断, 如最后一个字符出现了\或'时出错问题
-                value = value.Substring(0, length);
-        }
-
         private void CheckUpdate(int cellIndex)
         {
 #if SERVER
             if (RowState == DataRowState.Deleted | RowState == DataRowState.Detached) return;
-            columns.Add(cellIndex);
             if (RowState != DataRowState.Added & RowState != 0)//如果还没初始化或者创建新行,只能修改值不能更新状态
                 RowState = DataRowState.Modified;
             TitansiegeDB.I.Update(this);

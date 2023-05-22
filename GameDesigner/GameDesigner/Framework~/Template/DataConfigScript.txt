@@ -3,12 +3,14 @@ using System.Data;
 
 public partial class SHEETNAMEDataConfig : IDataConfig
 {
+    public int ID { get; set; }
 SPLIT
     /// <summary>NOTE</summary>
     public TYPE NAME { get; set; }
 SPLIT
     public void Init(DataRow row)
     {
+        ID = ObjectConverter.AsInt(row["ID"]);
 SPLIT
         NAME = ObjectConverter.AsTYPE(row["NAME"]);
 SPLIT

@@ -109,6 +109,18 @@ namespace Framework
             if (assetObj != null)
                 return assetObj;
 #endif
+            var path = assetPath;
+            for (int i = assetPath.Length - 1; i >= 0; i--)
+            {
+                if (path[i] == '.')
+                {
+                    path = path.Substring(0, i);
+                    break;
+                }
+            }
+            assetObj = Resources.Load<T>(path);
+            if (assetObj != null)
+                return assetObj;
             throw new Exception("找不到资源:" + assetPath);
         }
 

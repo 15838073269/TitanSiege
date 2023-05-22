@@ -28,6 +28,8 @@ namespace MySqlDataBuild
             comboBox1.SelectedIndex = Persist.I.namespaceIndex;
             nameSpaceText.Enabled = comboBox1.SelectedIndex == 2;
             checkBox1.Checked = Persist.I.clearOldFiles;
+            checkBox2.Checked = Persist.I.compatible;
+            checkBox3.Checked = Persist.I.creatDbPath;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -132,7 +134,7 @@ namespace MySqlDataBuild
                 codeText = codeText.Replace("{DBNAME}", $"{dbUpp}DB");
                 codeText = codeText.Replace("{COUNT}", $"{table.Columns.Count}");
                 codeText = codeText.Replace("{PARAMETER}", "MySqlParameter");
-                codeText = codeText.Replace("{CLIENT}", $"{dbUpp}DBEvent.Client");
+                codeText = codeText.Replace("{CLIENT}", $"{dbUpp}DBEvent");
 
                 var codeTexts = codeText.Split(new string[] { "[split]" }, 0);
 
@@ -186,7 +188,7 @@ namespace MySqlDataBuild
                     indexCode4 = indexCode4.Replace("{FIELDTYPE}", $"{GetCodeType(cell.DataType)}");
                     indexCode4 = indexCode4.Replace("{FIELDTYPE1}", $"{GetCodeType1(cell.DataType)}Obs");
                     indexCode4 = indexCode4.Replace("{FIELDNAME1}", $"{fieldName1}");
-                    indexCode4 = indexCode4.Replace("{INIT}", isKey ? $"this.{fieldName1} = {fieldName1};" : $"Check{fieldName2}{(isArray ? "Bytes" : "")}Value({fieldName1}, -1);");
+                    indexCode4 = indexCode4.Replace("{INIT}", isKey ? $"this.{fieldName1} = {fieldName1};" : $"Check{fieldName2}{(isArray ? "Bytes" : "")}Value({(isArray ? $"Convert.FromBase64String(Encoding.ASCII.GetString({fieldName1}))" : $"{fieldName1}")}, -1);");
                     sb5.Append(indexCode4);
 
                     if (isKey)
@@ -219,6 +221,8 @@ namespace MySqlDataBuild
                     fieldCode = fieldCode.Replace("{NOTE3}", $"{dic[cell.ColumnName][0]} --同步当前值到服务器Player对象上，需要处理");
                     fieldCode = fieldCode.Replace("{NOTE4}", $"{dic[cell.ColumnName][0]} --获得属性观察对象");
 
+                    fieldCode = fieldCode.Replace("{JUDGE}", isArray ? "" : $"if (this.{fieldName1}.Value == value)\r\n                return;");
+
                     sb.Append(fieldCode);
                 }
 
@@ -239,9 +243,14 @@ namespace MySqlDataBuild
 
                 string path;
                 if (string.IsNullOrEmpty(pathCb.Text))
-                    path = AppDomain.CurrentDomain.BaseDirectory + tableName.newString + "Data.cs";
+                    path = AppDomain.CurrentDomain.BaseDirectory;
                 else
-                    path = pathCb.Text + "/" + tableName.newString + "Data.cs";
+                    path = pathCb.Text + "\\";
+                if (checkBox3.Checked)
+                    path += dbUpp + "DB";
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+                path += "\\" + (checkBox2.Checked ? dbUpp + "_" : "") + tableName.newString + "Data.cs";
                 File.WriteAllText(path, sb.ToString());
             }
             BuildDBNew(dbUpp, tableNames, rpcMaskDic);
@@ -301,6 +310,17 @@ namespace MySqlDataBuild
             }}
             set => client = value;
         }}
+
+        /// <summary>
+        /// 当服务器属性同步给客户端, 如果需要同步属性到客户端, 需要监听此事件, 并且调用发送给客户端
+        /// 参数1: 要发送给哪个客户端
+        /// 参数2: cmd
+        /// 参数3: methodHash
+        /// 参数4: pars
+        /// </summary>
+        public static System.Action<Net.Server.NetPlayer, byte, ushort, object[]> OnSyncProperty;
+
+        SYNC_KEY
     }}
 NAMESPACE_END";
             var db1 = db + "DB";
@@ -341,16 +361,21 @@ NAMESPACE_END";
 
             var sb = new StringBuilder(codeTexts[0]);
             var sb2 = new StringBuilder();
+            var sb3 = new StringBuilder();
 
             foreach (var tableName in tableNames)
             {
                 var indexCode = codeTexts[1].Replace("{TABLENAME}", $"{tableName.source}");
                 indexCode = indexCode.Replace("{TABLENAME1}", $"{tableName.newString}");
                 sb2.Append(indexCode);
+
+                sb3.Append($"/// <summary>{tableName.newString}Data类对象属性同步id索引</summary>\r\n\t\tpublic static int {tableName.newString}Data_SyncID = 0;\r\n\t\t");
             }
 
             sb.Append(sb2);
             sb.Append(codeTexts[2]);
+
+            codeText15 = codeText15.Replace("SYNC_KEY", sb3.ToString());
 
             string path, path1, path2;
             if (string.IsNullOrEmpty(pathCb.Text))
@@ -482,6 +507,18 @@ NAMESPACE_END";
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             Persist.I.clearOldFiles = checkBox1.Checked;
+            Persist.SaveData();
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            Persist.I.compatible = checkBox2.Checked;
+            Persist.SaveData();
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            Persist.I.creatDbPath = checkBox3.Checked;
             Persist.SaveData();
         }
     }

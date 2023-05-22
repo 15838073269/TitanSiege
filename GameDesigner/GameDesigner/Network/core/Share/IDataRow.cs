@@ -24,14 +24,14 @@ namespace Net.Share
         /// <param name="sb"></param>
         /// <param name="parms"></param>
         /// <param name="parmsLen"></param>
-        void AddedSql(StringBuilder sb, List<IDbDataParameter> parms, ref int parmsLen);
+        void AddedSql(StringBuilder sb);
         /// <summary>
         /// sql的修改语句处理
         /// </summary>
         /// <param name="sb"></param>
         /// <param name="parms"></param>
         /// <param name="parmsLen"></param>
-        void ModifiedSql(StringBuilder sb, List<IDbDataParameter> parms, ref int parmsLen);
+        void ModifiedSql(StringBuilder sb);
         /// <summary>
         /// sql的删除语句处理
         /// </summary>

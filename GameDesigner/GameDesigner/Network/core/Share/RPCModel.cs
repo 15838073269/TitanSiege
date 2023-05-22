@@ -1,4 +1,7 @@
-﻿namespace Net.Share
+﻿using Net.System;
+using System;
+
+namespace Net.Share
 {
     /// <summary>
     /// 远程过程调用模型,此类负责网络通讯中数据解析临时存储的对象
@@ -25,9 +28,11 @@
         {
             get
             {
+                if (isFill)
+                    return buffer;
                 if (count == 0)
                     return new byte[0];//byte[]不能为空,否则出错
-                byte[] buffer1 = new byte[count];
+                var buffer1 = new byte[count];
                 global::System.Buffer.BlockCopy(buffer, index, buffer1, 0, count);
                 return buffer1;
             }
@@ -61,25 +66,21 @@
         /// 参数To或As调用一次+1
         /// </summary>
         private int parsIndex;
+        /// <summary>
+        /// 当数据已经填充, 获取Buffer可直接返回真正数据
+        /// </summary>
+        private bool isFill;
 
         /// <summary>
         /// 构造
         /// </summary>
         /// <param name="cmd"></param>
         /// <param name="buffer"></param>
-        public RPCModel(byte cmd, byte[] buffer)
+        public RPCModel(byte cmd, byte[] buffer) : this()
         {
-            kernel = false;
             this.cmd = cmd;
             this.buffer = buffer;
-            func = null;
-            pars = null;
-            serialize = false;
-            index = 0;
             count = buffer.Length;
-            methodHash = 0;
-            bigData = false;
-            parsIndex = 0;
         }
 
         /// <summary>
@@ -88,34 +89,23 @@
         /// <param name="cmd"></param>
         /// <param name="func"></param>
         /// <param name="pars"></param>
-        public RPCModel(byte cmd, string func, object[] pars)
+        public RPCModel(byte cmd, string func, object[] pars) : this()
         {
             kernel = true;
             serialize = true;
             this.cmd = cmd;
             this.func = func;
             this.pars = pars;
-            buffer = null;
-            index = 0;
-            count = 0; 
-            methodHash = 0;
-            bigData = false;
-            parsIndex = 0;
         }
 
-        public RPCModel(byte cmd, ushort methodHash, object[] pars)
+        public RPCModel(byte cmd, ushort methodHash, object[] pars) : this()
         {
             kernel = true;
             serialize = true;
             this.cmd = cmd;
-            func = string.Empty;
+            //func = string.Empty;
             this.methodHash = methodHash;
             this.pars = pars;
-            buffer = null;
-            index = 0;
-            count = 0; 
-            bigData = false;
-            parsIndex = 0;
         }
 
         /// <summary>
@@ -124,34 +114,21 @@
         /// <param name="cmd"></param>
         /// <param name="buffer"></param>
         /// <param name="kernel"></param>
-        public RPCModel(byte cmd, byte[] buffer, bool kernel)
+        public RPCModel(byte cmd, byte[] buffer, bool kernel) : this()
         {
             this.cmd = cmd;
             this.buffer = buffer;
             this.kernel = kernel;
-            func = null;
-            pars = null;
-            serialize = false;
-            index = 0;
             count = buffer.Length;
-            methodHash = 0; 
-            bigData = false;
-            parsIndex = 0;
         }
 
-        public RPCModel(byte cmd, bool kernel, byte[] buffer, int index, int size)
+        public RPCModel(byte cmd, bool kernel, byte[] buffer, int index, int size) : this()
         {
             this.cmd = cmd;
             this.buffer = buffer;
             this.index = index;
             this.count = size;
             this.kernel = kernel;
-            func = null;
-            pars = null;
-            serialize = false;
-            methodHash = 0;
-            bigData = false;
-            parsIndex = 0;
         }
 
         /// <summary>
@@ -161,34 +138,23 @@
         /// <param name="buffer"></param>
         /// <param name="kernel"></param>
         /// <param name="serialize"></param>
-        public RPCModel(byte cmd, byte[] buffer, bool kernel, bool serialize)
+        public RPCModel(byte cmd, byte[] buffer, bool kernel, bool serialize) : this()
         {
             this.cmd = cmd;
             this.buffer = buffer;
             this.kernel = kernel;
             this.serialize = serialize;
-            func = null;
-            pars = null;
-            index = 0;
             count = buffer.Length;
-            methodHash = 0;
-            bigData = false;
-            parsIndex = 0;
         }
 
-        public RPCModel(byte cmd, byte[] buffer, bool kernel, bool serialize, ushort methodHash)
+        public RPCModel(byte cmd, byte[] buffer, bool kernel, bool serialize, ushort methodHash) : this()
         {
             this.cmd = cmd;
             this.buffer = buffer;
             this.kernel = kernel;
             this.serialize = serialize;
-            func = null;
-            pars = null;
-            index = 0;
             count = buffer.Length;
             this.methodHash = methodHash; 
-            bigData = false;
-            parsIndex = 0;
         }
 
         /// <summary>
@@ -199,34 +165,23 @@
         /// <param name="pars"></param>
         /// <param name="kernel"></param>
         /// <param name="serialize"></param>
-        public RPCModel(byte cmd, string func, object[] pars, bool kernel, bool serialize)
+        public RPCModel(byte cmd, string func, object[] pars, bool kernel, bool serialize) : this()
         {
             this.cmd = cmd;
             this.func = func;
             this.pars = pars;
             this.kernel = kernel;
             this.serialize = serialize;
-            buffer = null;
-            index = 0;
-            count = 0;
-            methodHash = 0;
-            bigData = false;
-            parsIndex = 0;
         }
 
-        public RPCModel(byte cmd, string func, object[] pars, bool kernel, bool serialize, ushort methodHash)
+        public RPCModel(byte cmd, string func, object[] pars, bool kernel, bool serialize, ushort methodHash) : this()
         {
             this.cmd = cmd;
             this.func = func;
             this.pars = pars;
             this.kernel = kernel;
             this.serialize = serialize;
-            buffer = null;
-            index = 0;
-            count = 0;
             this.methodHash = methodHash; 
-            bigData = false;
-            parsIndex = 0;
         }
 
         /// <summary>
@@ -294,6 +249,13 @@
                 }
             }
             return $"指令:{cmdStr} 内核:{kernel} 方法:{func} Mask:{methodHash} 数据:{(buffer != null ? buffer.Length : 0)}";
+        }
+
+        public void Flush()
+        {
+            buffer = Buffer;
+            index = 0;
+            isFill = true;
         }
     }
 }
