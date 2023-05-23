@@ -26,7 +26,8 @@ namespace GF.MainGame.Module {
             base.Create();
             AppTools.Regist<int>((int)SkillEvent.ClickSkill, ClickSkill);
             AppTools.Regist<ushort>((int)SkillEvent.ManzuXuqiudengji, ManzuXuqiudengji);
-            AppTools.Regist<SkillDataBase, NPCBase,List<NPCBase>,int>((int)SkillEvent.CountSkillHurt, CountSkillHurt);
+            AppTools.Regist<SkillDataBase, NPCBase,List<NPCBase>>((int)SkillEvent.CountSkillHurt, CountSkillHurt);
+            AppTools.Regist<SkillDataBase, Player, Monster>((int)SkillEvent.CountSkillHurt, CountSkillHurt);
             //AppTools.Regist<DamageArg>((int)SkillEvent.ShowDamage, ShowDamage);
             ///获取所有技能配置表数据
             ///todo
@@ -61,18 +62,22 @@ namespace GF.MainGame.Module {
             npc.m_Resetidletime = AppConfig.FightReset;//重置战斗状态的切换时间
             switch (skillposid) {
                 case 0://普攻
-
+                    npc.m_CurrentSkillId = npc.m_SkillId[0];
                     break;
                 case 1://技能1
+                    npc.m_CurrentSkillId = npc.m_SkillId[1];
                     npc.m_State.StatusEntry(npc.m_AllStateID["skill1"]);
                     break;
                 case 2://技能2
+                    npc.m_CurrentSkillId = npc.m_SkillId[2];
                     npc.m_State.StatusEntry(npc.m_AllStateID["skill2"]);
                     break;
                 case 3://技能3
+                    npc.m_CurrentSkillId = npc.m_SkillId[3];
                     npc.m_State.StatusEntry(npc.m_AllStateID["skill3"]);
                     break;
                 case 4://技能4
+                    npc.m_CurrentSkillId = npc.m_SkillId[4];
                     npc.m_State.StatusEntry(npc.m_AllStateID["skill4"]);
                     break;
                 default:
@@ -97,8 +102,7 @@ namespace GF.MainGame.Module {
         /// <summary>
         /// 准备玩家计算技能的伤害
         /// </summary>
-        public int CountSkillHurt(SkillDataBase sb, NPCBase npc,List<NPCBase> mlist = null) {
-            int damage = 0;
+        public void CountSkillHurt(SkillDataBase sb, NPCBase npc,List<NPCBase> mlist = null) {
             if (npc.m_NpcType == NpcType.player) {//玩家攻击怪物的情况
                 //string scenename = SceneManager.GetActiveScene().name;
                 //先从场景类中获取到当前场景和场景内的所有怪物对象
@@ -116,7 +120,7 @@ namespace GF.MainGame.Module {
                     }
                     if (tempmonstersarg.Count > 0) {
                         Player p = npc as Player;
-                        damage = CountData(sb, p, tempmonstersarg,true);
+                        CountData(sb, p, tempmonstersarg,true);
                     } else {
                         Debuger.Log("本次技能没有打到任何怪物");
                     }
@@ -135,20 +139,36 @@ namespace GF.MainGame.Module {
                         }
                         if (tempmonstersarg.Count > 0) {
                             Player p = npc as Player;
-                            damage = CountData(sb, p, tempmonstersarg);
+                            CountData(sb, p, tempmonstersarg);
                         } else {
                             Debuger.Log("本次技能没有打到任何怪物");
                         }
                     }
                 }
-                
             } else if (npc.m_NpcType == NpcType.monster) { //怪物攻击玩家，而且只可能攻击的是本人
                 Monster m = npc as Monster;
                 if (!m.m_target.m_IsDie) {
-                    damage = CountData(sb, m, m.m_target as Player);
+                    CountData(sb, m, m.m_target as Player);
                 }
             }
-            return damage;
+        }
+        /// <summary>
+        /// 用于碰撞时，单个怪物的伤害计算,这种情况只可能用于玩家伤害计算，因为比较精确，怪物的不用，怪物的直接用数学计算
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="npc"></param>
+        /// <param name="m"></param>
+        public void CountSkillHurt(SkillDataBase sb, Player npc, Monster m) {
+            ClientSceneManager c = ClientSceneManager.I as ClientSceneManager;
+            if (m != null) {
+                float dis = Vector3.Distance(m.transform.position, npc.transform.position);
+                Debuger.Log(dis + ":" + m.m_GDID);
+                if (!m.m_IsDie) {
+                    CountSkillArg temp = new CountSkillArg(m as Monster, dis);
+                    CountData(sb, npc, temp);
+                }
+                
+            }
         }
         /// <summary>
         /// 实际计算玩家技能伤害
@@ -156,16 +176,8 @@ namespace GF.MainGame.Module {
         /// <param name="sb"></param>
         /// <param name="npc"></param>
         /// <param name="monstersarg"></param>
-        private int CountData(SkillDataBase sb, Player npc, List<CountSkillArg> monstersarg, bool usecollider = false) { //实际计算的方法
+        private void CountData(SkillDataBase sb, Player npc, List<CountSkillArg> monstersarg, bool usecollider = false) { //实际计算的方法
             int damage = 0;
-            //if (sb.skillattlist != null && sb.skillattlist.Count > 0) {
-            //    for (int i = 0; i < sb.skillattlist.Count; i++) {
-            //        skillatt att = sb.skillattlist[i];
-
-            //    }
-            //} else {
-            //    Debuger.LogError($"技能{sb.name}未配置攻击点，请检查配置文件id");
-            //}
             for (int j = 0; j < monstersarg.Count; j++) {
                 DamageArg damagearg = new DamageArg();
                 if (usecollider) {
@@ -204,7 +216,34 @@ namespace GF.MainGame.Module {
                 }
                 AppTools.Send<DamageArg>((int)HPEvent.ShowDamgeTxt, damagearg);
             }
-            return damage;
+        }
+        /// <summary>
+        /// 使用碰撞时，单个怪物逇伤害计算，只可能是玩家对怪物攻击使用
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="npc"></param>
+        /// <param name="monstersarg"></param>
+        /// <param name="usecollider"></param>
+        private void CountData(SkillDataBase sb, Player npc, CountSkillArg monstersarg) {
+            int damage = 0;
+            DamageArg damagearg = new DamageArg();
+            damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, npc, monstersarg.monster, out damagearg.damagetype);
+            damagearg.damage = damage;
+            damagearg.npc = monstersarg.monster;
+            if (damage != 0) {
+                //切换怪物受击状态
+                Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}对{monstersarg.monster.Data.Name}{monstersarg.monster.m_GDID}造成了{damage}点伤害");
+            } else {
+                Debuger.Log($"{monstersarg.monster.Data.Name}闪避了{UserService.GetInstance.m_CurrentChar.Name}的攻击");
+            }
+            //只要开始计算伤害了，就一定是本机玩家  
+            if (monstersarg.monster.m_target == null) { //如果被攻击的怪物没有目标玩家
+                monstersarg.monster.m_target = npc;
+            }
+            if (damage != 0) {
+                ClientBase.Instance.AddOperation(new Operation(Command.Attack, npc.m_GDID) { index = damage, index1 = monstersarg.monster.m_GDID });
+            }
+            AppTools.Send<DamageArg>((int)HPEvent.ShowDamgeTxt, damagearg);
         }
         //怪物技能攻击玩家
         private int CountData(SkillDataBase sb, Monster m, Player p) {

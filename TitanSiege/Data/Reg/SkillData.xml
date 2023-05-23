@@ -13,7 +13,6 @@
 			<variable name="usecollider" col = "使用碰撞" type="ushort" defaultValue="0"/>
 			<variable name="range" col = "范围" type="float" defaultValue="0"/>
 			<variable name="angle" col = "角度" type="float" defaultValue="0"/>
-			<variable name="weiyi" col = "位移" type="float" defaultValue="0"/>
 			<variable name="texiao" col="特效" type="string"/>
 			<variable name="xuqiudengji" col="需求等级" type="ushort" defaultValue="1"/>
 			<variable  name="skilleventlist"  type="list"  foregin ="ID">
@@ -21,6 +20,7 @@
 				    <variable  name="id" col = "事件ID" type="int"/>
 					<variable  name="eventtype" col = "事件类型" type="int" defaultValue="0"/>
 					<variable  name="eventtime" col = "事件时间" type="float" defaultValue="0"/>
+					<variable name="eventeff" col = "效果值" type="float" defaultValue="0"/>
 				</list>
 			</variable>
 		</list>

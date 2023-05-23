@@ -6,17 +6,20 @@
 	功能：Nothing
 *****************************************************/
 
+using GF.MainGame.Data;
+using GF.MainGame.Module.NPC;
+using GF.Service;
+using System.Collections.Generic;
 using UnityEngine;
 namespace GF.MainGame.Module.Fight {
     public class EffectBase : MonoBehaviour {
         public ParticleSystem m_Particle;
         public bool m_IsFollow;
-
         public void Init() {
             if (m_Particle == null) {
                 m_Particle = transform.GetComponent<ParticleSystem>();
             }
         }
-      
+    
     }
 }

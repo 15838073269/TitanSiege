@@ -58,8 +58,9 @@ namespace GF.MainGame.Data {
             t1.skilleventlist = new List<skillevent>();
             skillevent satt = new skillevent();
             satt.id = 1;
-            satt.eventtype = (int)EventType.attack;
+            satt.eventtype = (int)SkillEventType.attack;
             satt.eventtime = 0.1f;
+            satt.eventeff = 5.0f;
             t1.skilleventlist.Add(satt);
             if (!AllSkills.Contains(t1)) {
                 AllSkills.Add(t1);
@@ -141,13 +142,11 @@ namespace GF.MainGame.Data {
         public float range { get; set; }
         [XmlAttribute("攻击角度")]
         public float angle { get; set; }
-        [XmlAttribute("位移")]
-        public float weiyi { get; set; }
         [XmlAttribute("特效")]
         public string texiao { get; set; }
         [XmlAttribute("需求等级")]
         public ushort xuqiudengji { get; set; }
-        [XmlElement("攻击点list")]
+        [XmlElement("事件list")]
         public List<skillevent> skilleventlist { get; set; }
     }
     
@@ -160,5 +159,7 @@ namespace GF.MainGame.Data {
 
         [XmlAttribute("事件时间")]//动画触发时间的百分比，例如动画20%时触发事件
         public float eventtime { get; set; }
+        [XmlAttribute("效果值")]//事件的效果，例如位移多少米，屏幕抖动幅度，特效参数等，可以放任意值，在代码中拓展识别即可
+        public float eventeff { get; set; }
     }
 }

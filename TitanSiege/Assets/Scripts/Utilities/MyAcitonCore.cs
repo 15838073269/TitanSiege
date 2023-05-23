@@ -1,5 +1,6 @@
 using GameDesigner;
 using GF;
+using GF.Const;
 using GF.MainGame;
 using GF.MainGame.Module.Fight;
 using System.Collections;
@@ -10,8 +11,9 @@ using UnityEngine;
 /// </summary>
 public class EventArg {
     public float animEventTime;  /// 动画事件时间
-    public GF.Const.EventType eventType;//动画事件类型
+    public SkillEventType eventType;//动画事件类型
     public bool eventEnter;// 是否已到达事件时间或超过事件时间，到为true，没到为flase
+    public float eventeff;//事件的效果，例如位移多少米，屏幕抖动幅度，特效参数等，可以放任意值，在代码中拓展识别即可
 }
 public class MyAcitonCore : ActionBehaviour {
     
@@ -59,7 +61,7 @@ public class MyAcitonCore : ActionBehaviour {
     /// <summary>
     /// 音效触发模式
     /// </summary>
-    public AudioMode audioModel = AudioMode.AnimEvent;
+    public AudioMode audioModel = AudioMode.EnterPlay;
     /// <summary>
     /// 音效剪辑
     /// </summary>
@@ -88,20 +90,58 @@ public class MyAcitonCore : ActionBehaviour {
             for (int i = 0; i < animEventList.Count; i++) {
                 if (action.animTime >= animEventList[i].animEventTime & !animEventList[i].eventEnter) {
                     switch (animEventList[i].eventType) {
-                        case GF.Const.EventType.playaudio:
+                        case SkillEventType.playaudio:
                             if (isPlayAudio & audioModel == AudioMode.AnimEvent & audioClips.Count > 0) {
                                 audioIndex = Random.Range(0, audioClips.Count);
                                 AudioManager.Play(audioClips[audioIndex]);
                             }
                             break;
-                        case GF.Const.EventType.none:
+                        case SkillEventType.none:
 
                             break;
-                        case GF.Const.EventType.shake:
-                            AppTools.Send((int)MoveEvent.ShakeCamera);
+                        case SkillEventType.shake:
+                            AppTools.Send<float>((int)MoveEvent.ShakeCamera, animEventList[i].eventeff);
+                            break;
+                        case SkillEventType.showeff:
+                            //播放特效
+                            if (effectSpwan != null) {
+                                if (activeMode == ActiveMode.Instantiate)
+                                    Object.Destroy(InstantiateSpwan(stateManager), spwanTime);
+                                else if (activeMode == ActiveMode.ObjectPool) {
+                                    bool active = false;
+                                    foreach (GameObject go in activeObjs) {
+                                        if (go == null) {
+                                            activeObjs.Remove(go);
+                                            break;
+                                        }
+                                        if (!go.activeSelf) {
+                                            go.SetActive(true);
+                                            go.transform.SetParent(null);
+                                            SetPosition(stateManager, go);
+                                            active = true;
+                                            GameDesigner.StateEvent.AddEvent(spwanTime, () =>
+                                            {
+                                                if (go != null) go.SetActive(false);
+                                            });
+                                            break;
+                                        }
+                                    }
+                                    if (!active) {
+                                        var go = InstantiateSpwan(stateManager);
+                                        activeObjs.Add(go);
+                                        GameDesigner.StateEvent.AddEvent(spwanTime, () =>
+                                        {
+                                            if (go != null) go.SetActive(false);
+                                        });
+                                    }
+                                } else {
+                                    effectSpwan.gameObject.SetActive(true);
+                                    SetPosition(stateManager, effectSpwan.gameObject);
+                                }
+                            }
                             break;
                         default:
-                            Debuger.Log("未知事件类型"+ animEventList[i].eventType.ToString());
+                           
                             break;
                     }
                     animEventList[i].eventEnter = true;
@@ -167,8 +207,8 @@ public class MyAcitonCore : ActionBehaviour {
             audioIndex = Random.Range(0, audioClips.Count);
             AudioManager.Play(audioClips[audioIndex]);
         }
-        for (int i = 0; i < animEventTimeList.Count; i++) {
-            animEventTimeList[i].eventEnter = false;
+        for (int i = 0; i < animEventList.Count; i++) {
+            animEventList[i].eventEnter = false;
         }
     }
 

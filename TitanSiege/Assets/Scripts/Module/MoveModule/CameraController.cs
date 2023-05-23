@@ -69,14 +69,14 @@ namespace GF.MainGame.Module {
         ////中心物体坐标还原点
         //private Vector3 LTPosition;
 
-        public void ShakeCamera() {
-            transform.DOShakeRotation(0.8f,2f);
+        public void ShakeCamera(float t = 1f) {
+            transform.DOShakeRotation(0.618f,strength:t,vibrato:15);
         }
         public void Start() {
-            AppTools.Regist((int)MoveEvent.ShakeCamera, ShakeCamera);
+            AppTools.Regist<float>((int)MoveEvent.ShakeCamera, ShakeCamera);
         }
         public void OnDestroy() {
-            AppTools.Remove((int)MoveEvent.ShakeCamera, ShakeCamera);
+            AppTools.Remove<float>((int)MoveEvent.ShakeCamera, ShakeCamera);
         }
     }
 }

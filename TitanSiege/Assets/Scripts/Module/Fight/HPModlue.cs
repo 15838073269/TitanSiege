@@ -14,7 +14,6 @@ using GF.Pool;
 using GF.MainGame.Module.NPC;
 using GF.Service;
 using System.Collections.Generic;
-using GF.Const;
 
 namespace GF.MainGame.Module {
     public class HPModule : GeneralModule {

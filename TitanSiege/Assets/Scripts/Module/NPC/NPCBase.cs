@@ -35,7 +35,7 @@ namespace GF.MainGame.Module.NPC {
         public Dictionary<string, int> m_AllStateID;//GDNet状态机所有的状态标识
         protected NPCDataBase m_Data;//数据值
         protected LevelUpDataBase m_LevelData;//升级系数
-
+        public int m_CurrentSkillId = -1;//当前正在施展的技能的id
         
         protected bool m_IsFight = false;
         public bool IsFight {

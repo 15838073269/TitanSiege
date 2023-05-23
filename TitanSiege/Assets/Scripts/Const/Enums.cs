@@ -10,7 +10,7 @@ namespace GF.Const {
     /// <summary>
     /// 攻击技能的事件类型
     /// </summary>
-    public enum EventType { 
+    public enum SkillEventType { 
         none=0,
         playaudio,
         showeff,
