@@ -16,15 +16,16 @@ namespace GF.MainGame {
         Register,
     }
     public enum NpcEvent {
+        ChangeSelected = (int)MDef.NPCModule + 1,
         RotateTo = (int)MDef.NPCModule + 1,
         SetRotationZero,
-        PlayerAniMove,
-        AddMonster,
-        AddPlayer,
-        RemoveMonsterByScene,
-        RemoveMonster,
+        //PlayerAniMove,
         Removeplayer,
-        GetMonstersbyScene,
+        AddPlayer,
+        //AddMonster,
+        //GetMonstersbyScene,
+        //RemoveMonsterByScene,
+        //RemoveMonster,
     }
     public enum CreateAndSelectEvent {
         ShowModel = (int)MDef.CreateAndSelectModule+1,

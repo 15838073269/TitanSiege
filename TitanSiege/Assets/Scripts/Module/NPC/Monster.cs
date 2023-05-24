@@ -10,6 +10,7 @@ using Cysharp.Threading.Tasks;
 using GameDesigner;
 using GF.ConfigTable;
 using GF.MainGame.Data;
+using GF.Service;
 using MoreMountains.Feedbacks;
 using Net.Client;
 using Net.Component;
@@ -25,12 +26,12 @@ namespace GF.MainGame.Module.NPC {
         //private Vector3 m_Rota;//怪物的原始旋转，用于战斗返回
         //private Vector3 m_Scal;//怪物的原始缩放，用于放大技能后的恢复
         public Material m_Material = null;
-        public NPCBase m_target = null;//默认null，是服务器同步，有攻击目标就为本地同步
         public int m_NetState;//和服务器monster对应的state，0为服务端更新，1为客户端更新
         public int m_PatrolState;//服务端巡逻状态字段
         public int m_targetID;
         public RVOController m_RvoController;
         public MMF_Player m_Feel;
+        
         public void OnEnable() {
             if (m_Material == null) {
                 return;
@@ -90,48 +91,21 @@ namespace GF.MainGame.Module.NPC {
             AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, this);
         }
         public void Update() {
-            if ((m_target != null) && (m_targetID == ClientBase.Instance.UID)) { //如果攻击目标存在，并且就是本机，那就需要负责同步怪物的移动和旋转
+            if ((AttackTarget != null) && (m_targetID == ClientBase.Instance.UID)) { //如果攻击目标存在，并且就是本机，那就需要负责同步怪物的移动和旋转
                 if (NetworkTime.CanSent) {//update的次数由机器配置决定，不确定数量，所以要加上限制，一般不超过30次，NetworkTime.CanSent就是控制发送次数的
                     ClientBase.Instance.AddOperation(new Operation(Command.EnemySync, m_GDID, transform.position, transform.rotation));
                 }
-            } else if ((m_NetState == 1) && (m_targetID == ClientBase.Instance.UID)&&(m_target == null)) { //如果当前是客户端同步，并且是本机在同步，但怪物的目标已经为null了，一般是脱离攻击范围，就发送消息给服务端，转为服务端控制
+            } else if ((m_NetState == 1) && (m_targetID == ClientBase.Instance.UID)&&(AttackTarget == null)) { //如果当前是客户端同步，并且是本机在同步，但怪物的目标已经为null了，一般是脱离攻击范围，就发送消息给服务端，转为服务端控制
                 if (NetworkTime.CanSent) {
                     ClientBase.Instance.AddOperation(new Operation(Command.EnemySwitchState, m_GDID) { cmd1 = 0,cmd2 = 0});
 
                 }
             }
         }
-        public override void LateUpdate() {
-            //if (!isPlaySkill && (Time.time > time)) {//优化以下，减少移动时频繁变更状态机的情况,其实就是三帧相同才转为idle
-            //    newPosition = transform.position;
-            //    if (newPosition != oldPosition) {
-            //        if (Vector3.Distance(oldPosition, newPosition) > 0.02f) {
-            //            if (m_State.stateMachine.currState.ID != m_AllStateID["run"]) {
-            //                m_State.StatusEntry(m_AllStateID["run"]);
-            //            }
-            //        } else {
-            //            if (oldoldPosition == newPosition) {
-            //                if (m_State.stateMachine.currState.ID == m_AllStateID["run"]) {
-            //                    m_State.StatusEntry(m_AllStateID["idle"]);
-            //                }
-            //            }
-            //        }
-
-            //    } else {
-            //        if (oldoldPosition == newPosition) {
-            //            if (m_State.stateMachine.currState.ID == m_AllStateID["run"]) {
-
-            //                m_State.StatusEntry(m_AllStateID["idle"]);
-            //            }
-            //        }
-            //    }
-            //    oldoldPosition = oldPosition;
-            //    oldPosition = newPosition;
-            //    time = Time.time + (1f / 50f);
-            //}
-        }
-
-        internal void StatusEntry() {//根据服务端转换本地状态
+        /// <summary>
+        /// 根据服务端转换本地状态
+        /// </summary>
+        internal void StatusEntry() {
             switch (m_PatrolState) {
                 case 0://服务端的0是idle
                     m_State.StatusEntry(m_AllStateID["idle"]);
@@ -155,18 +129,18 @@ namespace GF.MainGame.Module.NPC {
             m_SendCount = 0;
         }
         public override void OnUpdate() {
-            if (m_Self.m_target==null) {//没有目标，就让服务器执行
+            if (m_Self.AttackTarget == null) {//没有目标，就让服务器执行
                 return;
             }
-            if (m_Self.m_target.m_GDID!=ClientBase.Instance.UID) {//目标对象不是本机，也不执行，谁是怪物攻击目标，就由谁来计算
+            if (m_Self.AttackTarget.m_GDID!=ClientBase.Instance.UID) {//目标对象不是本机，也不执行，谁是怪物攻击目标，就由谁来计算
                 return;
             }
             if (m_SendCount>0) {//同一时间如果有数据发送，就不再发送
                 return;
             }
             //判断目前为止和怪物的距离，然后决定攻击、追击、放弃
-            m_Self.transform.LookAt(new Vector3(m_Self.m_target.transform.position.x, m_Self.transform.position.y, m_Self.m_target.transform.position.z));
-            float dis = Vector3.Distance( m_Self.transform.position, m_Self.m_target.transform.position );
+            m_Self.transform.LookAt(new Vector3(m_Self.AttackTarget.transform.position.x, m_Self.transform.position.y, m_Self.AttackTarget.transform.position.z));
+            float dis = Vector3.Distance( m_Self.transform.position, m_Self.AttackTarget.transform.position );
             byte stateid = 0;
             if (dis > AppConfig.WarnRange) {//放弃
                 //返回原位并切换成idle
@@ -215,18 +189,18 @@ namespace GF.MainGame.Module.NPC {
             m_SendCount = 0;
         }
         public override void OnUpdate() {
-            if (m_Self.m_target == null) {//没有目标，就让服务器执行
+            if (m_Self.AttackTarget == null) {//没有目标，就让服务器执行
                 return;
             }
-            if (m_Self.m_target.m_GDID != ClientBase.Instance.UID) {//目标对象不是本机，也不执行，谁是怪物攻击目标，就由谁来计算
+            if (m_Self.AttackTarget.m_GDID != ClientBase.Instance.UID) {//目标对象不是本机，也不执行，谁是怪物攻击目标，就由谁来计算
                 return;
             }
             if (m_SendCount > 0) {//同一时间如果有数据发送，就不再发送
                 return;
             }
             //判断目前为止和怪物的距离，然后决定攻击、追击、放弃
-            m_Self.transform.LookAt(new Vector3(m_Self.m_target.transform.position.x, m_Self.transform.position.y, m_Self.m_target.transform.position.z));
-            float dis = Vector3.Distance(m_Self.transform.position, m_Self.m_target.transform.position);
+            m_Self.transform.LookAt(new Vector3(m_Self.AttackTarget.transform.position.x, m_Self.transform.position.y, m_Self.AttackTarget.transform.position.z));
+            float dis = Vector3.Distance(m_Self.transform.position, m_Self.AttackTarget.transform.position);
             byte stateid = 0;
             if (dis > AppConfig.WarnRange) {//放弃
                 //返回原位并切换成idle todo
@@ -286,15 +260,15 @@ namespace GF.MainGame.Module.NPC {
         /// <param name="action"></param>
         public override void OnAnimationEvent(StateAction action) {
             if (!m_Self.m_IsDie) {
-                m_Self.transform.LookAt(m_Self.m_target.transform.position);//攻击前，先转向
+                m_Self.transform.LookAt(m_Self.AttackTarget.transform.position);//攻击前，先转向
                 //gd的状态机已经调用了动作，不用再写攻击部分了
                 //直接在动作中触发播放特效就行 PlayEffect(string effname) 
                 _ = AppTools.SendReturn<SkillDataBase, NPCBase, int>((int)SkillEvent.CountSkillHurt, m_SData, m_Self);
                 
             }
-            if (m_Self.m_target!=null) { //每次攻击完就判断一下，如果存在攻击状态，并且攻击目标已经死亡。重新回去巡逻
-                if (m_Self.m_target.m_IsDie == true) {
-                    m_Self.m_target = null;
+            if (m_Self.AttackTarget != null) { //每次攻击完就判断一下，如果存在攻击状态，并且攻击目标已经死亡。重新回去巡逻
+                if (m_Self.AttackTarget.m_IsDie == true) {
+                    m_Self.AttackTarget = null;
                 }
             }
         }
@@ -305,10 +279,10 @@ namespace GF.MainGame.Module.NPC {
             m_Self = transform.GetComponent<Monster>();
         }
         public override void OnEnter() {
-            m_Self.m_target = null;
+            m_Self.AttackTarget = null;
         }
         public override void OnExit() {
-            m_Self.m_target = null;
+            m_Self.AttackTarget = null;
         }
     }
     public class MHurtState : StateBehaviour {
@@ -332,9 +306,9 @@ namespace GF.MainGame.Module.NPC {
             m_Self.m_Resetidletime = AppConfig.FightReset;
             //m_Self.m_Nab.Attack(sd);
             AppTools.SendReturn<SkillDataBase, NPCBase, int>((int)SkillEvent.CountSkillHurt, sd, m_Self);//发送消息让技能模块计算伤害
-            if (m_Self.m_target != null) { //每次攻击完就判断一下，如果存在攻击状态，并且攻击目标已经死亡。重新回去巡逻
-                if (m_Self.m_target.m_IsDie == true) {
-                    m_Self.m_target = null;
+            if (m_Self.AttackTarget != null) { //每次攻击完就判断一下，如果存在攻击状态，并且攻击目标已经死亡。重新回去巡逻
+                if (m_Self.AttackTarget.m_IsDie == true) {
+                    m_Self.AttackTarget = null;
                 }
             }
         }
@@ -364,9 +338,9 @@ namespace GF.MainGame.Module.NPC {
             m_Self.m_Resetidletime = AppConfig.FightReset;
             //m_Self.m_Nab.Attack(sd);
             AppTools.SendReturn<SkillDataBase, NPCBase, int>((int)SkillEvent.CountSkillHurt, sd, m_Self);//发送消息让技能模块计算伤害
-            if (m_Self.m_target != null) { //每次攻击完就判断一下，如果存在攻击状态，并且攻击目标已经死亡。重新回去巡逻
-                if (m_Self.m_target.m_IsDie == true) {
-                    m_Self.m_target = null;
+            if (m_Self.AttackTarget != null) { //每次攻击完就判断一下，如果存在攻击状态，并且攻击目标已经死亡。重新回去巡逻
+                if (m_Self.AttackTarget.m_IsDie == true) {
+                    m_Self.AttackTarget = null;
                 }
             }
         }

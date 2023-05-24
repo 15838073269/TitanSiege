@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3628670887135380219}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: skilleffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7689801423435336006}
   - component: {fileID: 5157274746171325170}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: machine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,25 +86,16 @@ MonoBehaviour:
   - name: run
     ID: 0
     perID: 0
-    findBehaviours: 0
-    makeTransition: 0
-    makeGetValueTransition: 0
-    makeRuntimeTransition: 0
-    makeOutRuntimeTransition: 0
-    createScriptName: NewStateBehaviour
+    behaviours: []
+    stateMachine: {fileID: 5157274746171325170}
     foldout: 1
-    compiling: 0
-    behaviourMenuIndex: 0
-    actionMenuIndex: 0
     rect:
       serializedVersion: 2
       x: 5435
       y: 5104
       width: 150
       height: 30
-    stateMachine: {fileID: 5157274746171325170}
     transitions: []
-    behaviours: []
     actionSystem: 1
     animLoop: 1
     animPlayMode: 0
@@ -113,42 +104,36 @@ MonoBehaviour:
     isExitState: 0
     DstStateID: 0
     actions:
-    - clipName: run
+    - name: 
+      ID: 0
+      perID: 0
+      behaviours: []
+      stateMachine: {fileID: 5157274746171325170}
+      foldout: 1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 10
+        width: 150
+        height: 30
+      clipName: run
       clipIndex: 2
       animTime: 0
       animTimeMax: 100
       rewind: 0
-      behaviours: []
-      foldout: 1
-      audiofoldout: 0
-      findBehaviours: 0
-      desAudioIndex: 0
-      behaviourMenuIndex: 0
-      createScriptName: NewStateAction
-      acSize: 1
-      stateMachine: {fileID: 5157274746171325170}
   - name: fightidle
     ID: 1
     perID: 0
-    findBehaviours: 0
-    makeTransition: 0
-    makeGetValueTransition: 0
-    makeRuntimeTransition: 0
-    makeOutRuntimeTransition: 0
-    createScriptName: NewStateBehaviour
+    behaviours: []
+    stateMachine: {fileID: 5157274746171325170}
     foldout: 1
-    compiling: 0
-    behaviourMenuIndex: 0
-    actionMenuIndex: 0
     rect:
       serializedVersion: 2
       x: 5856
       y: 5109
       width: 150
       height: 30
-    stateMachine: {fileID: 5157274746171325170}
     transitions: []
-    behaviours: []
     actionSystem: 1
     animLoop: 1
     animPlayMode: 0
@@ -157,69 +142,54 @@ MonoBehaviour:
     isExitState: 0
     DstStateID: 0
     actions:
-    - clipName: wait
+    - name: 
+      ID: 0
+      perID: 0
+      behaviours: []
+      stateMachine: {fileID: 5157274746171325170}
+      foldout: 1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 10
+        width: 150
+        height: 30
+      clipName: wait
       clipIndex: 1
       animTime: 0
       animTimeMax: 100
       rewind: 0
-      behaviours: []
-      foldout: 1
-      audiofoldout: 0
-      findBehaviours: 0
-      desAudioIndex: 0
-      behaviourMenuIndex: 0
-      createScriptName: NewStateAction
-      acSize: 1
-      stateMachine: {fileID: 5157274746171325170}
   - name: skill1
     ID: 2
     perID: 0
-    findBehaviours: 0
-    makeTransition: 0
-    makeGetValueTransition: 0
-    makeRuntimeTransition: 0
-    makeOutRuntimeTransition: 0
-    createScriptName: NewStateBehaviour
+    behaviours: []
+    stateMachine: {fileID: 5157274746171325170}
     foldout: 1
-    compiling: 0
-    behaviourMenuIndex: 0
-    actionMenuIndex: 0
     rect:
       serializedVersion: 2
       x: 5564
       y: 5179
       width: 150
       height: 30
-    stateMachine: {fileID: 5157274746171325170}
     transitions:
     - name: skill1 -> fightidle
       ID: 1
       perID: 0
-      findBehaviours: 0
-      makeTransition: 0
-      makeGetValueTransition: 0
-      makeRuntimeTransition: 0
-      makeOutRuntimeTransition: 0
-      createScriptName: NewStateBehaviour
+      behaviours: []
+      stateMachine: {fileID: 5157274746171325170}
       foldout: 1
-      compiling: 0
-      behaviourMenuIndex: 0
-      actionMenuIndex: 0
       rect:
         serializedVersion: 2
         x: 10
         y: 10
         width: 150
         height: 30
-      stateMachine: {fileID: 5157274746171325170}
       currStateID: 2
       nextStateID: 1
       model: 1
       time: 0
       exitTime: 1
-      behaviours: []
       isEnterNextState: 0
-    behaviours: []
     actionSystem: 1
     animLoop: 0
     animPlayMode: 0
@@ -228,69 +198,54 @@ MonoBehaviour:
     isExitState: 1
     DstStateID: 1
     actions:
-    - clipName: skill_binghuan
+    - name: 
+      ID: 0
+      perID: 0
+      behaviours: []
+      stateMachine: {fileID: 5157274746171325170}
+      foldout: 1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 10
+        width: 150
+        height: 30
+      clipName: skill_binghuan
       clipIndex: 16
       animTime: 0
       animTimeMax: 100
       rewind: 0
-      behaviours: []
-      foldout: 1
-      audiofoldout: 0
-      findBehaviours: 0
-      desAudioIndex: 0
-      behaviourMenuIndex: 0
-      createScriptName: NewStateAction
-      acSize: 1
-      stateMachine: {fileID: 5157274746171325170}
   - name: skill2
     ID: 3
     perID: 0
-    findBehaviours: 0
-    makeTransition: 0
-    makeGetValueTransition: 0
-    makeRuntimeTransition: 0
-    makeOutRuntimeTransition: 0
-    createScriptName: NewStateBehaviour
+    behaviours: []
+    stateMachine: {fileID: 5157274746171325170}
     foldout: 1
-    compiling: 0
-    behaviourMenuIndex: 0
-    actionMenuIndex: 0
     rect:
       serializedVersion: 2
       x: 5772
       y: 5185
       width: 150
       height: 30
-    stateMachine: {fileID: 5157274746171325170}
     transitions:
     - name: skill2 -> fightidle
       ID: 1
       perID: 0
-      findBehaviours: 0
-      makeTransition: 0
-      makeGetValueTransition: 0
-      makeRuntimeTransition: 0
-      makeOutRuntimeTransition: 0
-      createScriptName: NewStateBehaviour
+      behaviours: []
+      stateMachine: {fileID: 5157274746171325170}
       foldout: 1
-      compiling: 0
-      behaviourMenuIndex: 0
-      actionMenuIndex: 0
       rect:
         serializedVersion: 2
         x: 10
         y: 10
         width: 150
         height: 30
-      stateMachine: {fileID: 5157274746171325170}
       currStateID: 3
       nextStateID: 1
       model: 1
       time: 0
       exitTime: 1
-      behaviours: []
       isEnterNextState: 0
-    behaviours: []
     actionSystem: 1
     animLoop: 0
     animPlayMode: 0
@@ -299,42 +254,36 @@ MonoBehaviour:
     isExitState: 1
     DstStateID: 1
     actions:
-    - clipName: skill_leiyun
+    - name: 
+      ID: 0
+      perID: 0
+      behaviours: []
+      stateMachine: {fileID: 5157274746171325170}
+      foldout: 1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 10
+        width: 150
+        height: 30
+      clipName: skill_leiyun
       clipIndex: 20
       animTime: 0
       animTimeMax: 100
       rewind: 0
-      behaviours: []
-      foldout: 1
-      audiofoldout: 0
-      findBehaviours: 0
-      desAudioIndex: 0
-      behaviourMenuIndex: 0
-      createScriptName: NewStateAction
-      acSize: 1
-      stateMachine: {fileID: 5157274746171325170}
   - name: idle
     ID: 4
     perID: 0
-    findBehaviours: 0
-    makeTransition: 0
-    makeGetValueTransition: 0
-    makeRuntimeTransition: 0
-    makeOutRuntimeTransition: 0
-    createScriptName: NewStateBehaviour
+    behaviours: []
+    stateMachine: {fileID: 5157274746171325170}
     foldout: 1
-    compiling: 0
-    behaviourMenuIndex: 0
-    actionMenuIndex: 0
     rect:
       serializedVersion: 2
       x: 5645
       y: 5049
       width: 150
       height: 30
-    stateMachine: {fileID: 5157274746171325170}
     transitions: []
-    behaviours: []
     actionSystem: 1
     animLoop: 1
     animPlayMode: 0
@@ -343,20 +292,23 @@ MonoBehaviour:
     isExitState: 0
     DstStateID: 0
     actions:
-    - clipName: idle
+    - name: 
+      ID: 0
+      perID: 0
+      behaviours: []
+      stateMachine: {fileID: 5157274746171325170}
+      foldout: 1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 10
+        width: 150
+        height: 30
+      clipName: idle
       clipIndex: 4
       animTime: 0
       animTimeMax: 100
       rewind: 0
-      behaviours: []
-      foldout: 1
-      audiofoldout: 0
-      findBehaviours: 0
-      desAudioIndex: 0
-      behaviourMenuIndex: 0
-      createScriptName: NewStateAction
-      acSize: 1
-      stateMachine: {fileID: 5157274746171325170}
   selectStates: 02000000
   animMode: 1
   animation: {fileID: 7021746579989824093}
@@ -399,7 +351,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868875}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: staff4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -435,7 +387,7 @@ GameObject:
   - component: {fileID: 7021746579996444573}
   - component: {fileID: 7021746579997574493}
   - component: {fileID: 7021746579989824093}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: fazhang_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,7 +483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868877}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +515,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868881}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: staff_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,7 +547,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868883}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -628,7 +580,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868885}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: effect_weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -663,7 +615,7 @@ GameObject:
   - component: {fileID: 7021746579999868891}
   - component: {fileID: 7021746579981517565}
   - component: {fileID: 7021746579981564765}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mask ball 16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5407,7 +5359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868893}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mask missile 11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5440,7 +5392,7 @@ GameObject:
   - component: {fileID: 7021746579999868887}
   - component: {fileID: 7021746579981517567}
   - component: {fileID: 7021746579981564767}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lightning01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10112,7 +10064,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868813}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 R Clavicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10144,7 +10096,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868849}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 R UpperArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10176,7 +10128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868851}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 R Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10208,7 +10160,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868853}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01right_hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10240,7 +10192,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868855}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: right_hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10272,7 +10224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868803}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: effect_spine01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10303,7 +10255,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868805}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: help_body01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10334,7 +10286,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868807}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: weapon_spine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10365,7 +10317,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868913}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10397,7 +10349,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868857}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10428,7 +10380,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868915}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10460,7 +10412,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868859}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10491,7 +10443,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868917}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10523,7 +10475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868861}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10554,7 +10506,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868919}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10586,7 +10538,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868863}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10623,7 +10575,7 @@ GameObject:
   - component: {fileID: 266317919319279106}
   - component: {fileID: 266317919319279108}
   - component: {fileID: 917855872019762411}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: jingling
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -10688,12 +10640,18 @@ MonoBehaviour:
   m_Wpdorsum: {fileID: 0}
   m_WpHand: {fileID: 0}
   m_HPRoot: {fileID: 0}
+  m_State: {fileID: 0}
+  m_SkillId: 
+  m_CurrentSkillId: -1
+  m_Selected: {fileID: 0}
   m_Character: {fileID: 0}
-  CurrentState: 0
   isCanMove: 1
+  m_Resetidletime: 0
   m_IsNetPlayer: 0
   isPlaySkill: 0
+  m_IsDie: 0
   m_PlayerName: 
+  m_AttackTarget: {fileID: 0}
 --- !u!114 &266317919319279107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10774,7 +10732,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868899}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10807,7 +10765,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7021746579999868901}
   - component: {fileID: 7021746579994564255}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: jingling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10930,7 +10888,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868903}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 Pelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10962,7 +10920,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868905}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 Spine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11000,7 +10958,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868907}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 L Thigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11032,7 +10990,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868921}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 L Calf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11065,7 +11023,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868923}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 L Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11096,7 +11054,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868909}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 R Thigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11128,7 +11086,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868925}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 R Calf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11160,7 +11118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868927}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 R Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11191,7 +11149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868911}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 Spine1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11226,7 +11184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868801}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11260,7 +11218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868809}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11296,7 +11254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868815}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11328,7 +11286,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868825}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11360,7 +11318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868827}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11392,7 +11350,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868829}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11423,7 +11381,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868817}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11455,7 +11413,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868831}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11487,7 +11445,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868833}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11519,7 +11477,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868835}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11550,7 +11508,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868819}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone23
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11582,7 +11540,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868837}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone24
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11613,7 +11571,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868821}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone26
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11645,7 +11603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868839}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone27
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11676,7 +11634,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868823}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: help_head01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11707,7 +11665,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868811}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 L Clavicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11739,7 +11697,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868841}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 L UpperArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11771,7 +11729,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868843}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01 L Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11803,7 +11761,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868845}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bip01left_hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11835,7 +11793,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021746579999868847}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: left_hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11869,6 +11827,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: paobuyan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6808242558163678148, guid: 03696b44579262a448e6ac2aa6f5f460,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6808242558163840996, guid: 03696b44579262a448e6ac2aa6f5f460,
         type: 3}
@@ -11945,8 +11908,28 @@ PrefabInstance:
       value: jianshi_chongzhuang1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 5dd6ba078cced924e99e368eee3e13ff, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 5dd6ba078cced924e99e368eee3e13ff, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 5dd6ba078cced924e99e368eee3e13ff, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 5dd6ba078cced924e99e368eee3e13ff, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 5dd6ba078cced924e99e368eee3e13ff, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 5dd6ba078cced924e99e368eee3e13ff, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5dd6ba078cced924e99e368eee3e13ff, type: 3}
       propertyPath: m_RootOrder
@@ -12007,13 +11990,65 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3628670887135380219}
     m_Modifications:
+    - target: {fileID: 1061628015548678, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063008944064876, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1196147973552272, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205095493702014, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1210069404974878, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
       propertyPath: m_Name
       value: jianshi_chongjibo
       objectReference: {fileID: 0}
     - target: {fileID: 1210069404974878, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210069404974878, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1224352617635550, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1348140619524968, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425958645525900, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467732738875826, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1628816563694104, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713933755402740, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753527742201160, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1777647386325530, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4251436283269968, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
       propertyPath: m_RootOrder
@@ -12079,8 +12114,84 @@ PrefabInstance:
       value: jianshi_tiaozhan
       objectReference: {fileID: 0}
     - target: {fileID: 1011157772751556, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011157772751556, guid: ca63c6ac7458764498741e0306f78528, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011721013208612, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1015203067782396, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1088132429335092, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1096042095707862, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157530243789004, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205515080476972, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347210261281002, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402959594292980, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447407554669440, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1503331100319962, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520788359601334, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1537236789583440, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1631222538910772, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671297445934582, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1673223333892938, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1721809256555276, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1780696324654462, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1990176219786490, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4764711410696670, guid: ca63c6ac7458764498741e0306f78528, type: 3}
       propertyPath: m_RootOrder
@@ -12241,8 +12352,40 @@ PrefabInstance:
       value: jianshi_xuanfengzhan
       objectReference: {fileID: 0}
     - target: {fileID: 1044528419629608, guid: 3be98662c9e7ef5468cb9c4e11010dc7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1044528419629608, guid: 3be98662c9e7ef5468cb9c4e11010dc7, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1121838822274422, guid: 3be98662c9e7ef5468cb9c4e11010dc7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1224454752777588, guid: 3be98662c9e7ef5468cb9c4e11010dc7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1361886822255692, guid: 3be98662c9e7ef5468cb9c4e11010dc7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1657785734005040, guid: 3be98662c9e7ef5468cb9c4e11010dc7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663821679938722, guid: 3be98662c9e7ef5468cb9c4e11010dc7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1828664956948346, guid: 3be98662c9e7ef5468cb9c4e11010dc7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1864582171275114, guid: 3be98662c9e7ef5468cb9c4e11010dc7, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4513172908254008, guid: 3be98662c9e7ef5468cb9c4e11010dc7, type: 3}
       propertyPath: m_RootOrder

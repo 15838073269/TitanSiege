@@ -147,8 +147,8 @@ namespace GF.MainGame.Module {
                 }
             } else if (npc.m_NpcType == NpcType.monster) { //怪物攻击玩家，而且只可能攻击的是本人
                 Monster m = npc as Monster;
-                if (!m.m_target.m_IsDie) {
-                    CountData(sb, m, m.m_target as Player);
+                if (!m.AttackTarget.m_IsDie) {
+                    CountData(sb, m, m.AttackTarget as Player);
                 }
             }
         }
@@ -208,8 +208,8 @@ namespace GF.MainGame.Module {
                     }
                 }
                 //只要开始计算伤害了，就一定是本机玩家  
-                if (monstersarg[j].monster.m_target == null) { //如果被攻击的怪物没有目标玩家
-                    monstersarg[j].monster.m_target = npc;
+                if (monstersarg[j].monster.AttackTarget == null) { //如果被攻击的怪物没有目标玩家
+                    monstersarg[j].monster.AttackTarget = npc;
                 }
                 if (damage != 0) {
                     ClientBase.Instance.AddOperation(new Operation(Command.Attack, npc.m_GDID) { index = damage, index1 = monstersarg[j].monster.m_GDID });
@@ -237,8 +237,8 @@ namespace GF.MainGame.Module {
                 Debuger.Log($"{monstersarg.monster.Data.Name}闪避了{UserService.GetInstance.m_CurrentChar.Name}的攻击");
             }
             //只要开始计算伤害了，就一定是本机玩家  
-            if (monstersarg.monster.m_target == null) { //如果被攻击的怪物没有目标玩家
-                monstersarg.monster.m_target = npc;
+            if (monstersarg.monster.AttackTarget == null) { //如果被攻击的怪物没有目标玩家
+                monstersarg.monster.AttackTarget = npc;
             }
             if (damage != 0) {
                 ClientBase.Instance.AddOperation(new Operation(Command.Attack, npc.m_GDID) { index = damage, index1 = monstersarg.monster.m_GDID });
@@ -260,7 +260,7 @@ namespace GF.MainGame.Module {
                     //切换受击状态
                     // AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, p, AniState.hurt);
                     Debuger.Log($"{m.name}对{UserService.GetInstance.m_CurrentChar.Name}{p.m_GDID}造成了{damage}点伤害");
-                    if (m.m_target.m_GDID == ClientBase.Instance.UID) { //只有攻击的是本机玩家，本机才会同步，攻击其他的玩家，本机不发送同步消息
+                    if (m.AttackTarget.m_GDID == ClientBase.Instance.UID) { //只有攻击的是本机玩家，本机才会同步，攻击其他的玩家，本机不发送同步消息
                         ClientBase.Instance.AddOperation(new Operation(Command.EnemyAttack) { index = damage });//这里不用给参数，因为只有攻击是本机玩家才会发送，默认发送本机玩家的即可，所以只用发伤害过去
                     }
                 } else {

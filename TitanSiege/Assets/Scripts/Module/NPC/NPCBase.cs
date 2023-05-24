@@ -18,11 +18,11 @@ using Net.Share;
 using System.Collections.Generic;
 using Titansiege;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 
 namespace GF.MainGame.Module.NPC {
     
-    public class NPCBase : MonoBehaviour {
+    public class NPCBase : MonoBehaviour,IPointerDownHandler {
         public NpcType m_NpcType; //角色类型
         public int m_GDID;//网络id
         public NPCAnimatorBase m_Nab;
@@ -38,6 +38,27 @@ namespace GF.MainGame.Module.NPC {
         public int m_CurrentSkillId = -1;//当前正在施展的技能的id
         
         protected bool m_IsFight = false;
+        
+        public GameObject m_Selected;//角色脚下的选中目标
+        private NPCBase m_AttackTarget = null;//攻击的目标
+
+        public bool m_IsNetPlayer = false;//是否是网络对象，也就是费本机玩家
+        public bool isPlaySkill = false;//是否正在播放技能
+        public NPCBase AttackTarget {
+            set {
+                m_AttackTarget = value;
+                if (m_NpcType != NpcType.monster) {//怪物不能给别人加选中，只有玩家可以
+                    if (m_AttackTarget == null) {
+                        m_AttackTarget.m_Selected.SetActive(false);
+                    } else {
+                        m_AttackTarget.m_Selected.SetActive(true);
+                    }
+                }
+            }
+            get {
+                return m_AttackTarget;
+            }
+        }
         public bool IsFight {
             get {
                 return m_IsFight;
@@ -48,7 +69,6 @@ namespace GF.MainGame.Module.NPC {
             }
         }
         public CharacterController m_Character;
-        //public AniState CurrentState = AniState.none;
         public bool isCanMove = true;//能否移动，用来判断是否npc
         /// <summary>
         /// 玩家不用这里的数值，这里是配置表的数值
@@ -104,7 +124,6 @@ namespace GF.MainGame.Module.NPC {
                     }
                     break;
                 case NpcType.monster:
-
                     //技能添加的顺序，决定角色技能在面板上的位置，第一个永远是普通攻击，第二个永远是第一个技能，以此类推
                     if (Data != null && Data.Skills.Count != 0) {
                         m_SkillId = Data.Skills;
@@ -116,6 +135,9 @@ namespace GF.MainGame.Module.NPC {
                     break;
                 default:
                     break;
+            }
+            if (m_Selected!=null) {
+                m_Selected.SetActive(false);//默认隐藏显示选中特效
             }
         }
         public virtual void Start() {
@@ -239,50 +261,49 @@ namespace GF.MainGame.Module.NPC {
         protected Vector3 newPosition;//网络对象本帧同步过来的位置
         protected Vector3 oldoldPosition;//网络对象上上一帧同步过来的位置，用来减少移动中的频繁改变动画状态的情况，只有三帧都相同，才让切换,相当于延迟一帧
         protected float time;
-        public bool m_IsNetPlayer = false;
-        public bool isPlaySkill = false;
+       
         public virtual void LateUpdate() {
             if (m_Resetidletime > 0) {
                 m_Resetidletime -= Time.deltaTime;
             }
-            if (!isPlaySkill&&m_IsNetPlayer && (Time.time > time)) {
-                newPosition = transform.position;
-                if (oldPosition != newPosition) {
-                    if (Vector3.Distance(oldPosition, newPosition) > 0.02f) {
-                        if ((m_State.stateMachine.currState.ID != m_AllStateID["fightrun"] && m_State.stateMachine.currState.ID != m_AllStateID["run"])) {
-                            if (IsFight) {
-                                m_State.StatusEntry(m_AllStateID["fightrun"]);
-                            } else {
-                                m_State.StatusEntry(m_AllStateID["run"]);
-                            }
-                        } 
+            //if (!isPlaySkill&&m_IsNetPlayer && (Time.time > time)) {
+            //    newPosition = transform.position;
+            //    if (oldPosition != newPosition) {
+            //        if (Vector3.Distance(oldPosition, newPosition) > 0.02f) {
+            //            if ((m_State.stateMachine.currState.ID != m_AllStateID["fightrun"] && m_State.stateMachine.currState.ID != m_AllStateID["run"])) {
+            //                if (IsFight) {
+            //                    m_State.StatusEntry(m_AllStateID["fightrun"]);
+            //                } else {
+            //                    m_State.StatusEntry(m_AllStateID["run"]);
+            //                }
+            //            } 
                         
-                    } else {
-                        if (Vector3.Distance(oldPosition, oldoldPosition) <= 0.02f) {
-                            if (m_State.stateMachine.currState.ID == m_AllStateID["run"] || m_State.stateMachine.currState.ID == m_AllStateID["fightrun"]) {
-                                if (IsFight) {
-                                    m_State.StatusEntry(m_AllStateID["fightidle"]);
-                                } else {
-                                    m_State.StatusEntry(m_AllStateID["idle"]);
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    if (Vector3.Distance(oldPosition, oldoldPosition) <= 0.02f) {
-                        if (m_State.stateMachine.currState.ID == m_AllStateID["run"] || m_State.stateMachine.currState.ID == m_AllStateID["fightrun"]) {
-                            if (IsFight) {
-                                m_State.StatusEntry(m_AllStateID["fightidle"]);
-                            } else {
-                                m_State.StatusEntry(m_AllStateID["idle"]);
-                            }
-                        }
-                    } 
-                }
-                oldoldPosition = oldPosition;
-                oldPosition = newPosition;
-                time = Time.time + (1f / 50f);
-            }
+            //        } else {
+            //            if (Vector3.Distance(oldPosition, oldoldPosition) <= 0.02f) {
+            //                if (m_State.stateMachine.currState.ID == m_AllStateID["run"] || m_State.stateMachine.currState.ID == m_AllStateID["fightrun"]) {
+            //                    if (IsFight) {
+            //                        m_State.StatusEntry(m_AllStateID["fightidle"]);
+            //                    } else {
+            //                        m_State.StatusEntry(m_AllStateID["idle"]);
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    } else {
+            //        if (Vector3.Distance(oldPosition, oldoldPosition) <= 0.02f) {
+            //            if (m_State.stateMachine.currState.ID == m_AllStateID["run"] || m_State.stateMachine.currState.ID == m_AllStateID["fightrun"]) {
+            //                if (IsFight) {
+            //                    m_State.StatusEntry(m_AllStateID["fightidle"]);
+            //                } else {
+            //                    m_State.StatusEntry(m_AllStateID["idle"]);
+            //                }
+            //            }
+            //        } 
+            //    }
+            //    oldoldPosition = oldPosition;
+            //    oldPosition = newPosition;
+            //    time = Time.time + (1f / 50f);
+            //}
         }
         /// <summary>
         /// 根据战斗状态切换武器
@@ -303,6 +324,20 @@ namespace GF.MainGame.Module.NPC {
                     m_WpHand.SetActive(false);
                 }
             }
+        }
+        /// <summary>
+        /// 选中事件
+        /// </summary>
+        /// <param name="eventData"></param>
+        public void OnPointerDown(PointerEventData eventData) {
+            if (m_Selected!=null) {
+                NPCModule npcmodule = AppTools.GetModule<NPCModule>(MDef.NPCModule);
+                if (m_GDID != ClientBase.Instance.UID && npcmodule != null && npcmodule.m_CurrentSelected != this) {
+                    AppTools.Send<NPCBase>((int)NpcEvent.ChangeSelected, this);
+                    UserService.GetInstance.m_CurrentPlayer.AttackTarget = this;
+                }
+            }
+            
         }
         #region 战斗属性
         public bool m_IsDie = false;

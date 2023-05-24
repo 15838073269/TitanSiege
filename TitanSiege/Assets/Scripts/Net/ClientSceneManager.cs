@@ -127,7 +127,7 @@ namespace GF.NetWork {
                 monster.m_GDID = opt.identity;
                 monster.m_NpcType = NpcType.monster;
                 m_MonsterDics.Add(opt.identity, monster);
-                AppTools.Send<string, Monster>((int)NpcEvent.AddMonster,SceneManager.GetActiveScene().name, monster);
+                //AppTools.Send<string, Monster>((int)NpcEvent.AddMonster,SceneManager.GetActiveScene().name, monster);
             }
             return monster;
         }
