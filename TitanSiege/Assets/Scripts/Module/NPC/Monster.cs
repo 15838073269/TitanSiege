@@ -234,10 +234,6 @@ namespace GF.MainGame.Module.NPC {
                 }
             } else if (dis > AppConfig.AttackRange && dis <= AppConfig.WarnRange) { //追击
                 //每桢向目标移动
-                ////Vector3 dir = m_Self.m_target.transform.position - m_Self.transform.position;
-                ////Vector3 randomdir = new Vector3(dir.x + RandomHelper.Range(0f,2f), dir.y, dir.z + RandomHelper.Range(0f,2f)) ;//每一次添加随机的向量，防止怪物完全重叠
-                //m_Self.transform.LookAt(m_Self.m_target.transform.position);
-                //m_Self.transform.position += (m_Self.transform.forward * Time.deltaTime * AppConfig.MonsterSpeed);
                 var targetPoint = m_Self.transform.position + m_Self.transform.forward * 100;
                 m_Self.m_RvoController.SetTarget(targetPoint, AppConfig.MonsterSpeed, AppConfig.MonsterSpeed+2f);
                 var delta = m_Self.m_RvoController.CalculateMovementDelta(m_Self.transform.position, Time.deltaTime);
@@ -262,8 +258,7 @@ namespace GF.MainGame.Module.NPC {
             if (!m_Self.m_IsDie) {
                 m_Self.transform.LookAt(m_Self.AttackTarget.transform.position);//攻击前，先转向
                 //gd的状态机已经调用了动作，不用再写攻击部分了
-                //直接在动作中触发播放特效就行 PlayEffect(string effname) 
-                _ = AppTools.SendReturn<SkillDataBase, NPCBase, int>((int)SkillEvent.CountSkillHurt, m_SData, m_Self);
+                AppTools.Send<SkillDataBase, NPCBase>((int)SkillEvent.CountSkillHurt, m_SData, m_Self);
                 
             }
             if (m_Self.AttackTarget != null) { //每次攻击完就判断一下，如果存在攻击状态，并且攻击目标已经死亡。重新回去巡逻

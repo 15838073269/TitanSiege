@@ -27,7 +27,7 @@ namespace GF.MainGame.Module {
             AppTools.Regist<int>((int)SkillEvent.ClickSkill, ClickSkill);
             AppTools.Regist<ushort>((int)SkillEvent.ManzuXuqiudengji, ManzuXuqiudengji);
             AppTools.Regist<SkillDataBase, NPCBase,List<NPCBase>>((int)SkillEvent.CountSkillHurt, CountSkillHurt);
-            AppTools.Regist<SkillDataBase, Player, Monster>((int)SkillEvent.CountSkillHurt, CountSkillHurt);
+            AppTools.Regist<SkillDataBase, Player, Monster>((int)SkillEvent.CountSkillHurtWithOne, CountSkillHurtWithOne);
             //AppTools.Regist<DamageArg>((int)SkillEvent.ShowDamage, ShowDamage);
             ///获取所有技能配置表数据
             ///todo
@@ -83,8 +83,6 @@ namespace GF.MainGame.Module {
                 default:
                     break;
             }
-            
-            //AppTools.Send<NPCBase, AniState, object>((int)StateEvent.ChangeStateWithArgs, npc, AniState.attack, info.Data);
         }
         /// <summary>
         /// 点击技能，默认玩家攻击
@@ -104,9 +102,6 @@ namespace GF.MainGame.Module {
         /// </summary>
         public void CountSkillHurt(SkillDataBase sb, NPCBase npc,List<NPCBase> mlist = null) {
             if (npc.m_NpcType == NpcType.player) {//玩家攻击怪物的情况
-                //string scenename = SceneManager.GetActiveScene().name;
-                //先从场景类中获取到当前场景和场景内的所有怪物对象
-                //ListSafe<Monster> monsters = AppTools.SendReturn<string, ListSafe<Monster>>((int)NpcEvent.GetMonstersbyScene, scenename);
                 ClientSceneManager c = ClientSceneManager.I as ClientSceneManager;
                 if (mlist != null) {
                     List<CountSkillArg> tempmonstersarg = new List<CountSkillArg>();
@@ -158,16 +153,14 @@ namespace GF.MainGame.Module {
         /// <param name="sb"></param>
         /// <param name="npc"></param>
         /// <param name="m"></param>
-        public void CountSkillHurt(SkillDataBase sb, Player npc, Monster m) {
-            ClientSceneManager c = ClientSceneManager.I as ClientSceneManager;
+        public void CountSkillHurtWithOne(SkillDataBase sb, Player p, Monster m) {
             if (m != null) {
-                float dis = Vector3.Distance(m.transform.position, npc.transform.position);
+                float dis = Vector3.Distance(m.transform.position, p.transform.position);
                 Debuger.Log(dis + ":" + m.m_GDID);
                 if (!m.m_IsDie) {
-                    CountSkillArg temp = new CountSkillArg(m as Monster, dis);
-                    CountData(sb, npc, temp);
+                    CountSkillArg temp = new CountSkillArg(m, dis);
+                    CountData(sb, p, temp);
                 }
-                
             }
         }
         /// <summary>
@@ -212,6 +205,7 @@ namespace GF.MainGame.Module {
                     monstersarg[j].monster.AttackTarget = npc;
                 }
                 if (damage != 0) {
+                    monstersarg[j].monster.m_Feel.PlayFeedbacks();
                     ClientBase.Instance.AddOperation(new Operation(Command.Attack, npc.m_GDID) { index = damage, index1 = monstersarg[j].monster.m_GDID });
                 }
                 AppTools.Send<DamageArg>((int)HPEvent.ShowDamgeTxt, damagearg);
@@ -241,6 +235,7 @@ namespace GF.MainGame.Module {
                 monstersarg.monster.AttackTarget = npc;
             }
             if (damage != 0) {
+                monstersarg.monster.m_Feel.PlayFeedbacks();
                 ClientBase.Instance.AddOperation(new Operation(Command.Attack, npc.m_GDID) { index = damage, index1 = monstersarg.monster.m_GDID });
             }
             AppTools.Send<DamageArg>((int)HPEvent.ShowDamgeTxt, damagearg);

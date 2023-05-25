@@ -8,6 +8,7 @@
 using GF.MainGame.Module.NPC;
 using GF.Module;
 using GF.Unity.UI;
+using Net.Client;
 using UnityEngine;
 namespace GF.MainGame.Module {
     public class ChuanSong:MonoBehaviour {
@@ -24,7 +25,7 @@ namespace GF.MainGame.Module {
             }
         }
         public void OnTriggerEnter(Collider other) {
-            if (!other.GetComponent<Player>().m_IsNetPlayer) {
+            if (other.GetComponent<Player>().m_GDID == ClientBase.Instance.UID) {
                 m_Sm.OpenChuanSongUI(m_ToScenename, m_ShowMap, m_Charname);
             }
         }

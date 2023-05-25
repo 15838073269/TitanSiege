@@ -42,7 +42,7 @@ namespace GF.MainGame.Module.NPC {
         public GameObject m_Selected;//角色脚下的选中目标
         private NPCBase m_AttackTarget = null;//攻击的目标
 
-        public bool m_IsNetPlayer = false;//是否是网络对象，也就是费本机玩家
+
         public bool isPlaySkill = false;//是否正在播放技能
         public NPCBase AttackTarget {
             set {
@@ -235,7 +235,7 @@ namespace GF.MainGame.Module.NPC {
                 stateid = m_AllStateID["idle"];
             }
             m_State.StatusEntry(stateid);
-            if (!m_IsNetPlayer) {//如果不是网络对象，就发送操作命令给服务器
+            if (m_GDID == ClientBase.Instance.UID) {//如果不是网络对象，就发送操作命令给服务器
                 Operation cmd = new Operation(Command.SwitchState, ClientBase.Instance.UID);
                 cmd.index1 = stateid;
                 ClientBase.Instance.AddOperation(cmd);
@@ -266,7 +266,7 @@ namespace GF.MainGame.Module.NPC {
             if (m_Resetidletime > 0) {
                 m_Resetidletime -= Time.deltaTime;
             }
-            //if (!isPlaySkill&&m_IsNetPlayer && (Time.time > time)) {
+            //if (!isPlaySkill&&m_GDID!=ClientBase.Instance.UID && (Time.time > time)) {
             //    newPosition = transform.position;
             //    if (oldPosition != newPosition) {
             //        if (Vector3.Distance(oldPosition, newPosition) > 0.02f) {
@@ -277,7 +277,7 @@ namespace GF.MainGame.Module.NPC {
             //                    m_State.StatusEntry(m_AllStateID["run"]);
             //                }
             //            } 
-                        
+
             //        } else {
             //            if (Vector3.Distance(oldPosition, oldoldPosition) <= 0.02f) {
             //                if (m_State.stateMachine.currState.ID == m_AllStateID["run"] || m_State.stateMachine.currState.ID == m_AllStateID["fightrun"]) {

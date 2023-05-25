@@ -23,7 +23,7 @@ namespace GF.MainGame.Module.NPC {
         /// </summary>
         public override void Attack(SkillDataBase sd = null) {
             Player npc = transform.GetComponent<Player>();
-            if (!npc.m_IsNetPlayer) {//如果不是网络对象，就发送操作命令给服务器
+            if (npc.m_GDID == ClientBase.Instance.UID) {//如果不是网络对象，就发送操作命令给服务器
                 Operation cmd = new Operation(Command.Skill, ClientBase.Instance.UID);
                 cmd.index1 = npc.m_State.stateMachine.currState.ID;//传递当前stateid
                 ClientBase.Instance.AddOperation(cmd);

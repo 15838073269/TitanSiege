@@ -14,6 +14,7 @@ using GF.Pool;
 using GF.MainGame.Module.NPC;
 using GF.Service;
 using System.Collections.Generic;
+using Net.Client;
 
 namespace GF.MainGame.Module {
     public class HPModule : GeneralModule {
@@ -60,9 +61,9 @@ namespace GF.MainGame.Module {
             dwt.InitPos(npc.m_HPRoot);
             //如果是本机玩家
             float amount = 1.0f;
-            if (npc.m_NpcType == Const.NpcType.player && npc.m_IsNetPlayer == false) {
+            if (npc.m_NpcType == Const.NpcType.player && npc.m_GDID == ClientBase.Instance.UID) {
                 amount = (float)npc.FightHP / (float)UserService.GetInstance.m_CurrentChar.Shengming;
-            } else if (npc.m_IsNetPlayer) {//网络玩家,todo
+            } else if (npc.m_GDID != ClientBase.Instance.UID) {//网络玩家,todo
                 
             } else if (npc.m_NpcType == Const.NpcType.monster) { //怪物
                 amount = (float)npc.FightHP / (float)npc.FightMaxHp;

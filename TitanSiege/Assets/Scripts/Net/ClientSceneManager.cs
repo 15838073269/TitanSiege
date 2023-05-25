@@ -34,7 +34,6 @@ namespace GF.NetWork {
             var p = identity.GetComponent<Player>();
             if (p != null) {
                 p.m_GDID = opt.identity;
-                p.m_IsNetPlayer = true;
                 p.m_NpcType = NpcType.player;
                 AppTools.Send<Player>((int)NpcEvent.AddPlayer, p);
             }
@@ -54,16 +53,16 @@ namespace GF.NetWork {
                 case Command.Skill:
                     if (identitys.TryGetValue(opt.identity, out var t)) {
                         var p = t.GetComponent<Player>();
-                        if (p.m_IsNetPlayer) {//不是本地的
+                        if (p.m_GDID!=ClientBase.Instance.UID) {//不是本地的
                             Debuger.Log($"{opt.identity}释放技能{opt.index1}");
                             p.m_State.StatusEntry(opt.index1);
                         }
                     }
                     break;
-                case Command.SwitchState:
+                case Command.SwitchState://发送消息切换玩家状态
                     if (identitys.TryGetValue(opt.identity, out var t1)) {
                         var p = t1.GetComponent<Player>();
-                        if (p.m_IsNetPlayer) {//不是本地的
+                        if (p.m_GDID != ClientBase.Instance.UID) {//不是本地的
                             Debuger.Log($"{opt.identity}切换状态为{opt.index1}");
                             p.m_State.StatusEntry(opt.index1);
                         }

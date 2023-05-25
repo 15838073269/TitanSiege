@@ -10,6 +10,7 @@ using GF.ConfigTable;
 using GF.Const;
 using GF.MainGame.Data;
 using GF.MainGame.Module.NPC;
+using Net.Client;
 using Net.Config;
 using System.Collections;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace GF.MainGame.Module.Fight {
         public override void Process(NPCBase npc, object args = null) {
             base.Process(npc,args);
             SkillDataBase sd = null;
-            if (npc.m_IsNetPlayer) {
+            if (npc.m_GDID != ClientBase.Instance.UID) {
                 sd = ConfigerManager.m_SkillData.FindNPCByID((int)args);
             } else {
                 if (args != null) {

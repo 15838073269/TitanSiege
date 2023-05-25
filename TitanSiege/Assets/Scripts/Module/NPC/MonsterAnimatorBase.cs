@@ -12,15 +12,6 @@ using Net.Share;
 using Net.System;
 namespace GF.MainGame.Module.NPC {
     public class MonsterAnimatorBase : NPCAnimatorBase {
-        //public override void Attack(SkillDataBase sd = null) {
-            
-            
-        //}
-
-        //public override void Attack1(int skillid) {
-
-        //}
-
 
         public override void Init() {
             base.Init();

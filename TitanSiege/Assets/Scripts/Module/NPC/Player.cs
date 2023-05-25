@@ -196,7 +196,7 @@ namespace GF.MainGame.Module.NPC {
                     if (m_SData.usecollider != 0) {//使用碰撞
                         if (m_WeiyiArg != null ) {//如果是位移技能，且有位移目标
                             if (m_WeiyiMonster != null) {//如果是位移技能，没有目标就不计算伤害，说明是空放技能
-                                AppTools.Send<SkillDataBase, NPCBase, Monster>((int)SkillEvent.CountSkillHurt, m_SData, m_Self, m_WeiyiMonster as Monster);//发送消息让技能模块计算伤害
+                                AppTools.Send((int)SkillEvent.CountSkillHurtWithOne, m_SData, m_Self, m_WeiyiMonster as Monster);//发送消息让技能模块计算伤害
                             }
                         } else {//不是位移技能
                             //位移的时候发送一条射线过去，碰到谁，就执行掉血
@@ -210,7 +210,6 @@ namespace GF.MainGame.Module.NPC {
                                 AppTools.Send<SkillDataBase, NPCBase, List<NPCBase>>((int)SkillEvent.CountSkillHurt, m_SData, m_Self, mlist);//发送消息让技能模块计算伤害
                             }
                         }
-                        
                     } else { //不使用碰撞
                         AppTools.Send<SkillDataBase, NPCBase>((int)SkillEvent.CountSkillHurt, m_SData, m_Self);//发送消息让技能模块计算伤害
                     }
@@ -218,7 +217,7 @@ namespace GF.MainGame.Module.NPC {
                 case SkillEventType.weiyi:
                     float sec = m_Self.GetAnimatorSeconds(m_Self.m_Nab.m_ani, m_SData.texiao);
                     m_Self.isPlaySkill = true;
-                    if (!m_Self.m_IsNetPlayer) {//如果不是网络对象，就自行控制特效移动
+                    if (m_Self.m_GDID == ClientBase.Instance.UID) {//如果不是网络对象，就自行控制特效移动
                         if (eventarg.eventeff > 0) {//速度只要不为0，就会移动
                             float tempdis = 0;
                             if (m_WeiyiDis != 0f && m_WeiyiMonster != null && m_WeiyiDis<= eventarg.eventeff) {//判断一下是否有目标怪物，如果有，就只移动到怪物处
