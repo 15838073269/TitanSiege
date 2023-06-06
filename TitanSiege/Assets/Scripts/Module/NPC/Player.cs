@@ -207,11 +207,11 @@ namespace GF.MainGame.Module.NPC {
                                 for (int j = 0; j < hitarr.Length; j++) {
                                     mlist.Add(hitarr[j].transform.GetComponent<Monster>());
                                 }
-                                AppTools.Send<SkillDataBase, NPCBase, List<NPCBase>>((int)SkillEvent.CountSkillHurt, m_SData, m_Self, mlist);//发送消息让技能模块计算伤害
+                                AppTools.Send((int)SkillEvent.CountSkillHurt, m_SData, m_Self, mlist);//发送消息让技能模块计算伤害
                             }
                         }
                     } else { //不使用碰撞
-                        AppTools.Send<SkillDataBase, NPCBase>((int)SkillEvent.CountSkillHurt, m_SData, m_Self);//发送消息让技能模块计算伤害
+                        AppTools.Send((int)SkillEvent.CountSkillHurt, m_SData, m_Self);//发送消息让技能模块计算伤害
                     }
                     break;
                 case SkillEventType.weiyi:
