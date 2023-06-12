@@ -107,7 +107,6 @@ namespace GF.MainGame.Module.NPC {
             m_WeiyiDis = 0f;
             m_WeiyiMonster = null;
             m_Self.m_Resetidletime = AppConfig.FightReset;
-
             if (m_Self.m_CurrentSkillId ==-1) {//如果没有技能id，就直接返回
                 m_Self.m_State.StatusEntry(m_Self.m_AllStateID["fightidle"]);
             }
@@ -194,21 +193,33 @@ namespace GF.MainGame.Module.NPC {
                     break;
                 case SkillEventType.attack:
                     if (m_SData.usecollider != 0) {//使用碰撞
-                        if (m_WeiyiArg != null ) {//如果是位移技能，且有位移目标
-                            if (m_WeiyiMonster != null) {//如果是位移技能，没有目标就不计算伤害，说明是空放技能
-                                AppTools.Send((int)SkillEvent.CountSkillHurtWithOne, m_SData, m_Self, m_WeiyiMonster as Monster);//发送消息让技能模块计算伤害
-                            }
-                        } else {//不是位移技能
-                            //位移的时候发送一条射线过去，碰到谁，就执行掉血
-                            RaycastHit[] hitarr = Physics.BoxCastAll(m_Self.transform.position, new Vector3(2f, 2f, 2f), m_Self.transform.forward, Quaternion.identity, 5f);
-                            Debuger.Log(hitarr.Length);
-                            if (hitarr.Length > 0) {
-                                List<NPCBase> mlist = new List<NPCBase>();
-                                for (int j = 0; j < hitarr.Length; j++) {
-                                    mlist.Add(hitarr[j].transform.GetComponent<Monster>());
+                        switch ((SkillColliderType)m_SData.usecollider) {
+                            case SkillColliderType.box:
+                                if (m_WeiyiArg != null) {//如果是位移技能，且有位移目标
+                                    if (m_WeiyiMonster != null) {//如果是位移技能，没有目标就不计算伤害，说明是空放技能
+                                        m_WeiyiMonster.transform.position += (m_Self.transform.forward * 0.318f);//朝玩家攻击方向的后退一点，模拟击退效果
+                                        AppTools.Send((int)SkillEvent.CountSkillHurtWithOne, m_SData, m_Self, m_WeiyiMonster as Monster);//发送消息让技能模块计算伤害
+                                    }
+                                } else {//不是位移技能
+                                        //位移的时候发送一条射线过去，碰到谁，就执行掉血
+                                    RaycastHit[] hitarr = Physics.BoxCastAll(m_Self.transform.position, new Vector3(2f, 2f, 2f), m_Self.transform.forward, Quaternion.identity, 5f);
+                                    Debuger.Log(hitarr.Length);
+                                    if (hitarr.Length > 0) {
+                                        List<NPCBase> mlist = new List<NPCBase>();
+                                        for (int j = 0; j < hitarr.Length; j++) {
+                                            mlist.Add(hitarr[j].transform.GetComponent<Monster>());
+                                        }
+                                        AppTools.Send((int)SkillEvent.CountSkillHurt, m_SData, m_Self, mlist);//发送消息让技能模块计算伤害
+                                    }
                                 }
-                                AppTools.Send((int)SkillEvent.CountSkillHurt, m_SData, m_Self, mlist);//发送消息让技能模块计算伤害
-                            }
+                                break;
+                            case SkillColliderType.line:
+                                break;
+                            case SkillColliderType.circle:
+                                break;
+                            case SkillColliderType.none:
+                                break;
+                            default: break;
                         }
                     } else { //不使用碰撞
                         AppTools.Send((int)SkillEvent.CountSkillHurt, m_SData, m_Self);//发送消息让技能模块计算伤害

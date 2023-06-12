@@ -34,7 +34,7 @@ namespace GF.MainGame.Data {
             t.xuqiudengji = 1;
             t.range = 80f;
             t.angle = 30f;
-            t.usecollider = 1;
+            t.usecollider =(int)SkillColliderType.box;
             t.texiao = "jianshi_chongzhuang";
             if (!AllSkills.Contains(t)) {
                 AllSkills.Add(t);
@@ -53,7 +53,7 @@ namespace GF.MainGame.Data {
             t1.xuqiudengji = 1;
             t1.range  = 80f;
             t1.angle = 30f;
-            t1.usecollider = 1;
+            t1.usecollider = (int)SkillColliderType.box;
             t1.texiao = "jianshi_chongzhuang";
             t1.skilleventlist = new List<skillevent>();
             skillevent satt = new skillevent();
@@ -136,8 +136,8 @@ namespace GF.MainGame.Data {
 
         [XmlAttribute("冷却")]
         public float cd { get; set; }
-        [XmlAttribute("使用碰撞")]//方便使用采用ushort，其实只有0和1
-        public ushort usecollider { get; set; }
+        [XmlAttribute("使用碰撞")]//对应enum SkillColliderType
+        public int usecollider { get; set; }
         [XmlAttribute("攻击范围")]
         public float range { get; set; }
         [XmlAttribute("攻击角度")]

@@ -10,7 +10,7 @@
 			<variable name="shanghai" col="技能伤害" type="int" defaultValue="1"/>
 			<variable name="levelarg" col="技能升级值参数" type="ushort" defaultValue="1"/>
 			<variable name="cd" col="冷却" type="float" defaultValue="0"/>
-			<variable name="usecollider" col = "使用碰撞" type="ushort" defaultValue="0"/>
+			<variable name="usecollider" col = "使用碰撞" type="int" defaultValue="0"/>
 			<variable name="range" col = "范围" type="float" defaultValue="0"/>
 			<variable name="angle" col = "角度" type="float" defaultValue="0"/>
 			<variable name="texiao" col="特效" type="string"/>

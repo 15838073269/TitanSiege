@@ -7,6 +7,12 @@
 *****************************************************/
 
 namespace GF.Const {
+    public enum SkillColliderType { 
+        none = 0,
+        box = 1,
+        line,
+        circle,
+    }
     /// <summary>
     /// 攻击技能的事件类型
     /// </summary>
