@@ -56,15 +56,15 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="E:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\External\TextMeshPro\TextMeshProAsyncExtensions.cs">
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\External\TextMeshPro\TextMeshProAsyncExtensions.cs">
       <Link>UniTask\Runtime\External\TextMeshPro\TextMeshProAsyncExtensions.cs</Link>
     </Compile>
-    <Compile Include="E:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\External\TextMeshPro\TextMeshProAsyncExtensions.InputField.cs">
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\External\TextMeshPro\TextMeshProAsyncExtensions.InputField.cs">
       <Link>UniTask\Runtime\External\TextMeshPro\TextMeshProAsyncExtensions.InputField.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="E:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\External\TextMeshPro\UniTask.TextMeshPro.asmdef">
+    <None Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\External\TextMeshPro\UniTask.TextMeshPro.asmdef">
       <Link>UniTask\Runtime\External\TextMeshPro\UniTask.TextMeshPro.asmdef</Link>
     </None>
   </ItemGroup>
@@ -343,7 +343,7 @@
       <HintPath>Assets\Plugins\ManagedLib\GFCore.dll</HintPath>
     </Reference>
     <Reference Include="dnlib">
-      <HintPath>E:\project\Titansiege\GameDesigner\GameDesigner\Network\Library\dnlib.dll</HintPath>
+      <HintPath>D:\project\Titansiege\GameDesigner\GameDesigner\Network\Library\dnlib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Plastic.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
@@ -352,7 +352,7 @@
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>E:\project\Titansiege\GameDesigner\GameDesigner\Network\Library\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>D:\project\Titansiege\GameDesigner\GameDesigner\Network\Library\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="DOTweenProEditor">
       <HintPath>Assets\Demigiant\DOTweenPro\Editor\DOTweenProEditor.dll</HintPath>

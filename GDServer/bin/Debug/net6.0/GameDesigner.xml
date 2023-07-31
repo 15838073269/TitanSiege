@@ -66,6 +66,20 @@
             </summary>
             <param name="body"></param>
         </member>
+        <member name="M:Net.AOI.GridWorld.EnterHandler(Net.AOI.IGridBody,Net.AOI.IGridBody)">
+            <summary>
+            当一个物体进入另外一个物体处理
+            </summary>
+            <param name="body"></param>
+            <param name="other"></param>
+        </member>
+        <member name="M:Net.AOI.GridWorld.ExitHandler(Net.AOI.IGridBody,Net.AOI.IGridBody)">
+            <summary>
+            当一个物体退出另外一个物体处理
+            </summary>
+            <param name="body"></param>
+            <param name="other"></param>
+        </member>
         <member name="M:Net.AOI.GridWorld.UpdateHandler">
             <summary>
             更新感兴趣的移除和添加物体
@@ -219,6 +233,14 @@
         <member name="F:Net.Component.Command.Transform">
             <summary>
             Transform同步指令
+            <code><see cref="F:Net.Share.Operation.identity"/> 作为网络物体标识</code>
+            <code><see cref="F:Net.Share.Operation.index"/> 作为要实例化registerObjects的物体索引</code>
+            <code><see cref="F:Net.Share.Operation.index1"/> 用作NetComponentID区分</code> 
+            <code><see cref="F:Net.Share.Operation.index2"/> 作为父子转换组件索引</code>
+            <code><see cref="F:Net.Share.Operation.cmd1"/> 作为SyncMode(同步模式)</code>
+            <code><see cref="F:Net.Share.Operation.position"/> 作为位置同步</code>
+            <code><see cref="F:Net.Share.Operation.rotation"/> 作为旋转同步</code>
+            <code><see cref="F:Net.Share.Operation.direction"/> 作为缩放同步</code>
             </summary>
         </member>
         <member name="F:Net.Component.Command.Destroy">
@@ -384,6 +406,11 @@
             <param name="text"></param>
             <returns></returns>
         </member>
+        <member name="T:Net.Helper.PersistHelper">
+            <summary>
+            持久化数据记录帮助类
+            </summary>
+        </member>
         <member name="M:Net.Helper.StringHelper.CheckSqlString(System.String@,System.Int32)">
             <summary>
             检查sql的字符串类型的值合法性
@@ -463,6 +490,16 @@
             <param name="text">要解密的字符串</param> 
             <returns>解密后的字符串</returns>   
         </member>
+        <member name="T:Net.Helper.SyncVarGetSetHelper">
+            <summary>
+            字段和属性同步帮助类
+            </summary>
+        </member>
+        <member name="F:Net.Helper.SyncVarGetSetHelper.Cache">
+            <summary>
+            收集的字段和属性同步缓存
+            </summary>
+        </member>
         <member name="T:Net.Helper.RpcHelper">
             <summary>
             远程过程调用(RPC)帮助类
@@ -518,6 +555,41 @@
             <param name="target"></param>
             <returns></returns>
         </member>
+        <member name="T:Net.MMORPG.MapAOIData">
+            <summary>
+            地图九宫格初始化数据
+            </summary>
+        </member>
+        <member name="F:Net.MMORPG.MapAOIData.xPos">
+            <summary>
+            x开始位置
+            </summary>
+        </member>
+        <member name="F:Net.MMORPG.MapAOIData.zPos">
+            <summary>
+            z开始位置
+            </summary>
+        </member>
+        <member name="F:Net.MMORPG.MapAOIData.xMax">
+            <summary>
+            x列最大值
+            </summary>
+        </member>
+        <member name="F:Net.MMORPG.MapAOIData.zMax">
+            <summary>
+            z列最大值
+            </summary>
+        </member>
+        <member name="F:Net.MMORPG.MapAOIData.width">
+            <summary>
+            格子宽度
+            </summary>
+        </member>
+        <member name="F:Net.MMORPG.MapAOIData.height">
+            <summary>
+            格子高度
+            </summary>
+        </member>
         <member name="T:Net.MMORPG.MapData">
             <summary>
             地图数据
@@ -531,6 +603,11 @@
         <member name="F:Net.MMORPG.MapData.monsterPoints">
             <summary>
             地图的所有怪物点
+            </summary>
+        </member>
+        <member name="F:Net.MMORPG.MapData.aoiData">
+            <summary>
+            地图九宫格数据
             </summary>
         </member>
         <member name="M:Net.MMORPG.MapData.ReadData(System.String)">
@@ -831,7 +908,7 @@
             当断开连接事件
             </summary>
         </member>
-        <member name="P:Net.Client.ClientBase.OnRevdBufferHandle">
+        <member name="P:Net.Client.ClientBase.OnReceiveDataHandle">
             <summary>
             当接收到自定义的cmd指令时调用事件
             </summary>
@@ -971,6 +1048,11 @@
             当更新版本(参数:服务器的版本号)-- 当服务器版本和客户端版本不一致时, 会调用此事件
             </summary>
         </member>
+        <member name="P:Net.Client.ClientBase.OnSyncPropertyHandle">
+            <summary>
+            当属性同步-- 当MysqlBuild生成的类属性在服务器被修改后同步下来会调用此事件
+            </summary>
+        </member>
         <member name="P:Net.Client.ClientBase.frame">
             <summary>
             1CRC协议
@@ -1101,7 +1183,7 @@
         </member>
         <member name="P:Net.Client.ClientBase.SendInterval">
             <summary>
-            每次发送数据间隔，每秒发送30次，每次间隔33毫秒
+            每次发送数据间隔，每秒大概执行1000次
             </summary>
         </member>
         <member name="P:Net.Client.ClientBase.IsMultiThread">
@@ -2089,6 +2171,46 @@
             在主线程处理所有网络功能? 否则会在多线程进行
             </summary>
         </member>
+        <member name="T:Net.Config.TableConfig">
+            <summary>
+            表配置类, 可双端使用
+            </summary>
+        </member>
+        <member name="M:Net.Config.TableConfig.LoadTableFile(System.String)">
+            <summary>
+            加载表文件
+            </summary>
+            <param name="path"></param>
+        </member>
+        <member name="M:Net.Config.TableConfig.LoadTable(System.String)">
+            <summary>
+            加载表数据
+            </summary>
+            <param name="jsonStr"></param>
+        </member>
+        <member name="M:Net.Config.TableConfig.GetTable(System.String)">
+            <summary>
+            获取某个表
+            </summary>
+            <param name="sheetName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Net.Config.TableConfig.GetDataConfig``1(System.String)">
+            <summary>
+            获取excel表格数据，filterExpression参数例子: "Name = 'UI_Message'"
+            </summary>
+            <typeparam name="T">要获取的类型</typeparam>
+            <param name="filterExpression">过滤表达式</param>
+            <returns></returns>
+        </member>
+        <member name="M:Net.Config.TableConfig.GetDataConfigs``1(System.String)">
+            <summary>
+            获取excel表格数据，filterExpression参数例子: "Name = 'UI_Message'"
+            </summary>
+            <typeparam name="T">要获取的类型</typeparam>
+            <param name="filterExpression">过滤表达式</param>
+            <returns></returns>
+        </member>
         <member name="T:Net.Event.EventSystem">
             <summary>
             事件处理静态类, 此类可以用于计时调用事件
@@ -2892,6 +3014,11 @@
             断线重连等待时间
             </summary>
         </member>
+        <member name="F:Net.Server.NetPlayer.IsSending">
+            <summary>
+            是否在发送中, 避免客户端循环压入任务过多导致线程池处理不过来的问题
+            </summary>
+        </member>
         <member name="M:Net.Server.NetPlayer.#ctor">
             <summary>
             构造网络客户端
@@ -3028,6 +3155,12 @@
             <param name="list"></param>
             <returns></returns>
         </member>
+        <member name="M:Net.Server.NetPlayer.OnSyncPropertyHandler(Net.Share.RPCModel)">
+            <summary>
+            当属性同步-- 当MysqlBuild生成的类属性在客户端被修改后同步上来会调用此方法
+            </summary>
+            <param name="model"></param>
+        </member>
         <member name="M:Net.Server.NetPlayer.Close">
             <summary>
             此方法需要自己实现, 实现内容如下: <see langword="xxServer.Instance.RemoveClient(this);"/>
@@ -3130,6 +3263,11 @@
             线程群组, 解决多线程竞争, Addopt方法, removeopt方法
             </summary>
         </member>
+        <member name="P:Net.Server.NetScene`1.FPS">
+            <summary>
+            场景帧数
+            </summary>
+        </member>
         <member name="M:Net.Server.NetScene`1.#ctor">
             <summary>
             构造网络场景
@@ -3209,6 +3347,16 @@
             <param name="handle"></param>
             <param name="cmd"></param>
             <param name="count"></param>
+        </member>
+        <member name="M:Net.Server.NetScene`1.OnPacket(Net.Share.IServerSendHandle{`0},System.Byte,System.Int32,`0,Net.System.FastList{Net.Share.Operation})">
+            <summary>
+            当封包数据时调用
+            </summary>
+            <param name="handle"></param>
+            <param name="cmd"></param>
+            <param name="count"></param>
+            <param name="client"></param>
+            <param name="operations"></param>
         </member>
         <member name="M:Net.Server.NetScene`1.AddOperation(System.String,System.Object[])">
             <summary>
@@ -3868,6 +4016,18 @@
             </summary>
             <param name="buffer"></param>
             <returns></returns>
+        </member>
+        <member name="M:Net.Server.ServerBase`2.OnSceneRelay(`0,Net.Share.RPCModel,System.Boolean)">
+            <summary>
+            当客户端使用场景转发命令会调用此方法
+            </summary>
+            <param name="client"></param>
+        </member>
+        <member name="M:Net.Server.ServerBase`2.OnNoticeRelay(`0,Net.Share.RPCModel,System.Boolean)">
+            <summary>
+            当客户端使用公告转发命令会调用此方法
+            </summary>
+            <param name="client"></param>
         </member>
         <member name="M:Net.Server.ServerBase`2.Run(System.UInt16)">
             <summary>
@@ -4831,6 +4991,22 @@
             网络事件适配器
             </summary>
         </member>
+        <member name="T:Net.Share.IDataConfig">
+            <summary>
+            游戏数据配置接口
+            </summary>
+        </member>
+        <member name="P:Net.Share.IDataConfig.ID">
+            <summary>
+            唯一ID
+            </summary>
+        </member>
+        <member name="M:Net.Share.IDataConfig.Init(System.Data.DataRow)">
+            <summary>
+            初始化表格行数据转实体对象
+            </summary>
+            <param name="row"></param>
+        </member>
         <member name="T:Net.Share.IDataRow">
             <summary>
             数据行接口
@@ -4847,7 +5023,7 @@
             </summary>
             <param name="row"></param>
         </member>
-        <member name="M:Net.Share.IDataRow.AddedSql(System.Text.StringBuilder,System.Collections.Generic.List{System.Data.IDbDataParameter},System.Int32@)">
+        <member name="M:Net.Share.IDataRow.AddedSql(System.Text.StringBuilder)">
             <summary>
             sql的插入语句处理
             </summary>
@@ -4855,7 +5031,7 @@
             <param name="parms"></param>
             <param name="parmsLen"></param>
         </member>
-        <member name="M:Net.Share.IDataRow.ModifiedSql(System.Text.StringBuilder,System.Collections.Generic.List{System.Data.IDbDataParameter},System.Int32@)">
+        <member name="M:Net.Share.IDataRow.ModifiedSql(System.Text.StringBuilder)">
             <summary>
             sql的修改语句处理
             </summary>
@@ -4956,7 +5132,7 @@
             当断开连接事件
             </summary>
         </member>
-        <member name="P:Net.Share.INetClient.OnRevdBufferHandle">
+        <member name="P:Net.Share.INetClient.OnReceiveDataHandle">
             <summary>
             当接收到网络数据处理事件
             </summary>
@@ -5730,6 +5906,11 @@
             否则可以使用CallRpc命令，
             使用此命令时,函数第一个参数必须是派生于<see cref="T:Net.Server.NetPlayer"/>类型的参数.
             此指令是线程池执行
+            </summary>
+        </member>
+        <member name="F:Net.Share.NetCmd.SyncPropertyData">
+            <summary>
+            同步MySqlBuild生成的类, 当属性被修改后同步给(客户端/服务器)
             </summary>
         </member>
         <member name="F:Net.Share.NetCmd.ReliableTransport">
@@ -6603,6 +6784,11 @@
         <member name="F:Net.Share.RPCModel.parsIndex">
             <summary>
             参数To或As调用一次+1
+            </summary>
+        </member>
+        <member name="F:Net.Share.RPCModel.isFill">
+            <summary>
+            当数据已经填充, 获取Buffer可直接返回真正数据
             </summary>
         </member>
         <member name="M:Net.Share.RPCModel.#ctor(System.Byte,System.Byte[])">
@@ -7630,11 +7816,6 @@
         <member name="T:ECS.UpdateComponent">
             <summary>
             热更层借助此组件进行更新, ilr不支持多继承, 接口继承
-            </summary>
-        </member>
-        <member name="T:PersistHelper">
-            <summary>
-            持久化数据记录帮助类
             </summary>
         </member>
         <member name="T:Binding.BaseBind`1">
