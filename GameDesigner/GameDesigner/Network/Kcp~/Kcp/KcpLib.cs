@@ -17,7 +17,7 @@ namespace Kcp
         // from the same connection. 'user' will be passed to the output callback
         // output callback can be setup like this: 'kcp->output = my_udp_output'
         [DllImport(nativeLibrary, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr ikcp_create(uint conv, IntPtr user);
+        public static extern IntPtr ikcp_create(int conv, IntPtr user);
 
         // release kcp control object
         [DllImport(nativeLibrary, CallingConvention = CallingConvention.Cdecl)]

@@ -33,10 +33,6 @@
         /// 备用操作, 当玩家被移除后速度比update更新要快而没有地方收集操作指令, 所以在玩家即将被移除时, 可以访问这个变量进行添加操作同步数据
         /// </summary>
         protected FastList<Operation> operations = new FastList<Operation>();
-        /// <summary>
-        /// 玩家操作是以可靠传输进行发送的?
-        /// </summary>
-        public bool SendOperationReliable { get; set; }
         public Func<OperationList, byte[]> onSerializeOpt;
         public Func<RPCModel, byte[]> onSerializeRpc;
         /// <summary>
@@ -72,10 +68,6 @@
         /// 操作列表分段值, 当operations.Count的长度大于Split值时, 就会裁剪为多段数据发送 默认为500长度分段
         /// </summary>
         public int Split { get; set; } = 500;
-        /// <summary>
-        /// 线程群组, 解决多线程竞争, Addopt方法, removeopt方法
-        /// </summary>
-        public ThreadGroup Group;
         private int hash;
         internal int preFps, currFps;
         /// <summary>
@@ -133,8 +125,6 @@
                 preScene.Remove(client);
             client.SceneName = Name;
             client.Scene = this;
-            if (Group != null)
-                client.Group = Group;
             Players.Add(client);
             OnEnter(client);
             client.OnEnter();
@@ -245,7 +235,7 @@
                 operations = opts
             };
             var buffer = onSerializeOpt(operList);
-            handle.Multicast(players, SendOperationReliable, cmd, buffer, false, false);
+            handle.Multicast(players, cmd, buffer, false, false);
         }
 
         /// <summary>
@@ -425,6 +415,5 @@
     /// </summary>
     public class DefaultScene : NetScene<NetPlayer> 
     {
-        public DefaultScene() { SendOperationReliable = true; }
     }
 }

@@ -582,24 +582,6 @@ namespace Net
             get
             {
                 Vector3 vector3;
-                vector3.x = -m02;
-                vector3.y = -m12;
-                vector3.z = -m22;
-                return vector3;
-            }
-            set
-            {
-                m02 = -value.x;
-                m12 = -value.y;
-                m22 = -value.z;
-            }
-        }
-
-        public Vector3 back
-        {
-            get
-            {
-                Vector3 vector3;
                 vector3.x = m02;
                 vector3.y = m12;
                 vector3.z = m22;
@@ -610,6 +592,24 @@ namespace Net
                 m02 = value.x;
                 m12 = value.y;
                 m22 = value.z;
+            }
+        }
+
+        public Vector3 back
+        {
+            get
+            {
+                Vector3 vector3;
+                vector3.x = -m02;
+                vector3.y = -m12;
+                vector3.z = -m22;
+                return vector3;
+            }
+            set
+            {
+                m02 = -value.x;
+                m12 = -value.y;
+                m22 = -value.z;
             }
         }
 

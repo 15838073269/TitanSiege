@@ -79,7 +79,6 @@ public class ExcelTools
                             text3 = text3.Replace("TYPE", typeStr);
                             text3 = text3.Replace("NOTE", des);
                             text3 = text3.TrimStart('\r', '\n');
-                            //text3 = text3.TrimEnd('\n', '\r');
                             sb.AppendLine(text3);
 
                             var text4 = text2[3].Replace("NAME", name);
@@ -105,5 +104,12 @@ public class ExcelTools
         {
             File.Delete(temp);
         }
+    }
+
+    [MenuItem("GameDesigner/Framework/GenerateExcelDataAll", priority = 4)]
+    public static void GenerateExcelDataAll() 
+    {
+        GenerateExcelData();
+        GenerateExcelDataToCs();
     }
 }

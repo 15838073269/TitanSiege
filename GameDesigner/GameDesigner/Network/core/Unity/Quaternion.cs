@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Net.Component;
+using System;
 
 namespace Net
 {
@@ -78,6 +79,19 @@ namespace Net
             get
             {
                 return Quaternion.identityQuaternion;
+            }
+        }
+
+        public Vector3 eulerAngles
+        {
+            get
+            {
+                Matrix4x4 m = QuaternionToMatrix(this);
+                return MatrixToEuler(m) * 180f / Mathf.PI;
+            }
+            set
+            {
+                this = Euler(value);
             }
         }
 
@@ -428,158 +442,6 @@ namespace Net
             return Euler(new Vector3(x, y, z));
         }
 
-        private static Matrix3x3 QuaternionToMatrix(Quaternion q)
-        {
-            // Precalculate coordinate products
-            float x = q.x * 2.0F;
-            float y = q.y * 2.0F;
-            float z = q.z * 2.0F;
-            float xx = q.x * x;
-            float yy = q.y * y;
-            float zz = q.z * z;
-            float xy = q.x * y;
-            float xz = q.x * z;
-            float yz = q.y * z;
-            float wx = q.w * x;
-            float wy = q.w * y;
-            float wz = q.w * z;
-
-            // Calculate 3x3 matrix from orthonormal basis
-            Matrix3x3 m = Matrix3x3.identity;
-
-            m.Data[0] = 1.0f - (yy + zz);
-            m.Data[1] = xy + wz;
-            m.Data[2] = xz - wy;
-
-            m.Data[3] = xy - wz;
-            m.Data[4] = 1.0f - (xx + zz);
-            m.Data[5] = yz + wx;
-
-            m.Data[6] = xz + wy;
-            m.Data[7] = yz - wx;
-            m.Data[8] = 1.0f - (xx + yy);
-
-            return m;
-        }
-
-        public static Vector3 QuaternionToEuler(Quaternion quat)
-        {
-            Matrix3x3 m = QuaternionToMatrix(quat);
-            Vector3 euler = MatrixToEuler(m);
-
-            //弧度转角度
-            return Mathf.Rad2Deg(euler);
-        }
-
-        private static Vector3 MakePositive(Vector3 euler)
-        {
-            const float negativeFlip = -0.0001F;
-            const float positiveFlip = ((float)Math.PI * 2.0F) - 0.0001F;
-
-            if (euler.x < negativeFlip)
-                euler.x += 2.0f * (float)Math.PI;
-            else if (euler.x > positiveFlip)
-                euler.x -= 2.0f * (float)Math.PI;
-
-            if (euler.y < negativeFlip)
-                euler.y += 2.0f * (float)Math.PI;
-            else if (euler.y > positiveFlip)
-                euler.y -= 2.0f * (float)Math.PI;
-
-            if (euler.z < negativeFlip)
-                euler.z += 2.0f * (float)Math.PI;
-            else if (euler.z > positiveFlip)
-                euler.z -= 2.0f * (float)Math.PI;
-
-            return euler;
-        }
-
-
-        private static Vector3 MatrixToEuler(Matrix3x3 matrix)
-        {
-            // from http://www.geometrictools.com/Documentation/EulerAngles.pdf
-            // YXZ order
-            Vector3 v = Vector3.zero;
-            if (matrix.Data[7] < 0.999F) // some fudge for imprecision
-            {
-                if (matrix.Data[7] > -0.999F) // some fudge for imprecision
-                {
-                    v.x = Mathf.Asin(-matrix.Data[7]);
-                    v.y = Mathf.Atan2(matrix.Data[6], matrix.Data[8]);
-                    v.z = Mathf.Atan2(matrix.Data[1], matrix.Data[4]);
-                    MakePositive(v);
-                }
-                else
-                {
-                    // WARNING.  Not unique.  YA - ZA = atan2(r01,r00)
-                    v.x = (float)Math.PI * 0.5F;
-                    v.y = Mathf.Atan2(matrix.Data[3], matrix.Data[0]);
-                    v.z = 0.0F;
-                    MakePositive(v);
-                }
-            }
-            else
-            {
-                // WARNING.  Not unique.  YA + ZA = atan2(-r01,r00)
-                v.x = -(float)Math.PI * 0.5F;
-                v.y = Mathf.Atan2(-matrix.Data[3], matrix.Data[0]);
-                v.z = 0.0F;
-                MakePositive(v);
-            }
-
-            return v; //返回的是弧度值
-        }
-
-        private static Quaternion MatrixToQuaternion(Matrix3x3 kRot)
-        {
-            Quaternion q = new Quaternion();
-
-            // Algorithm in Ken Shoemake's article in 1987 SIGGRAPH course notes
-            // article "Quaternionf Calculus and Fast Animation".
-
-            float fTrace = kRot.Get(0, 0) + kRot.Get(1, 1) + kRot.Get(2, 2);
-            float fRoot;
-
-            if (fTrace > 0.0f)
-            {
-                // |w| > 1/2, mafy as well choose w > 1/2
-                fRoot = Mathf.Sqrt(fTrace + 1.0f);  // 2w
-                q.w = 0.5f * fRoot;
-                fRoot = 0.5f / fRoot;  // 1/(4w)
-                q.x = (kRot.Get(2, 1) - kRot.Get(1, 2)) * fRoot;
-                q.y = (kRot.Get(0, 2) - kRot.Get(2, 0)) * fRoot;
-                q.z = (kRot.Get(1, 0) - kRot.Get(0, 1)) * fRoot;
-            }
-            else
-            {
-                // |w| <= 1/2
-                int[] s_iNext = new int[3] { 1, 2, 0 };
-                int i = 0;
-                if (kRot.Get(1, 1) > kRot.Get(0, 0))
-                    i = 1;
-                if (kRot.Get(2, 2) > kRot.Get(i, i))
-                    i = 2;
-                int j = s_iNext[i];
-                int k = s_iNext[j];
-
-                fRoot = Mathf.Sqrt(kRot.Get(i, i) - kRot.Get(j, j) - kRot.Get(k, k) + 1.0f);
-                float[] apkQuat = new float[3] { q.x, q.y, q.z };
-
-                apkQuat[i] = 0.5f * fRoot;
-                fRoot = 0.5f / fRoot;
-                q.w = (kRot.Get(k, j) - kRot.Get(j, k)) * fRoot;
-                apkQuat[j] = (kRot.Get(j, i) + kRot.Get(i, j)) * fRoot;
-                apkQuat[k] = (kRot.Get(k, i) + kRot.Get(i, k)) * fRoot;
-
-                q.x = apkQuat[0];
-                q.y = apkQuat[1];
-                q.z = apkQuat[2];
-            }
-            q = Quaternion.Normalize(q);
-
-            return q;
-        }
-
         public static Quaternion FromToRotation(Vector3 a, Vector3 b)
         {
             //return UnityEngine.Quaternion.FromToRotation(a, b);
@@ -610,26 +472,35 @@ namespace Net
             return quaternion;
         }
 
-        public static bool LookRotationToQuaternion(Vector3 viewVec, Vector3 upVec, out Quaternion quat)
+        public static Quaternion LookRotation(Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector) 
         {
-            quat = Quaternion.identity;
-
-            // Generates a Right handed Quat from a look rotation. Returns if conversion was successful.
-            if (!Matrix3x3.LookRotationToMatrix(viewVec, upVec, out Matrix3x3 m))
-                return false;
-            quat = MatrixToQuaternion(m);
-            return true;
+            var matrix = CreateLookAt(cameraPosition, cameraTarget, cameraUpVector);
+            return matrix.GetRotation();
         }
 
-        public static Quaternion LookRotation(Vector3 viewVec, Vector3 upVec)
+        public static Matrix4x4 CreateLookAt(Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector)
         {
-            bool ret = LookRotationToQuaternion(viewVec, upVec, out Quaternion q);
-            if (!ret)
-            {
-                //throw new Exception("Look fail!");
-            }
-
-            return q;
+            Vector3 vector = Vector3.Normalize(cameraTarget - cameraPosition);
+            Vector3 vector2 = Vector3.Normalize(Vector3.Cross(cameraUpVector, vector));
+            Vector3 vector3 = Vector3.Cross(vector, vector2);
+            Matrix4x4 result = default;
+            result.m00 = vector2.x;
+            result.m01 = vector3.x;
+            result.m02 = vector.x;
+            result.m03 = 0f;
+            result.m10 = vector2.y;
+            result.m11 = vector3.y;
+            result.m12 = vector.y;
+            result.m13 = 0f;
+            result.m20 = vector2.z;
+            result.m21 = vector3.z;
+            result.m22 = vector.z;
+            result.m23 = 0f;
+            result.m30 = 0f - Vector3.Dot(vector2, cameraPosition);
+            result.m31 = 0f - Vector3.Dot(vector3, cameraPosition);
+            result.m32 = 0f - Vector3.Dot(vector, cameraPosition);
+            result.m33 = 1f;
+            return result;
         }
 
         public static void CreateFromYawPitchRoll(float yaw, float pitch, float roll, out Quaternion result)
@@ -736,6 +607,133 @@ namespace Net
             }
         }
 
+        private Vector3 MatrixToEuler(Matrix4x4 m)
+        {
+            Vector3 v = new Vector3();
+            if (m[1, 2] < 1)
+            {
+                if (m[1, 2] > -1)
+                {
+                    v.x = Mathf.Asin(-m[1, 2]);
+                    v.y = Mathf.Atan2(m[0, 2], m[2, 2]);
+                    v.z = Mathf.Atan2(m[1, 0], m[1, 1]);
+                }
+                else
+                {
+                    v.x = Mathf.PI * 0.5f;
+                    v.y = Mathf.Atan2(m[0, 1], m[0, 0]);
+                    v.z = 0;
+                }
+            }
+            else
+            {
+                v.x = -Mathf.PI * 0.5f;
+                v.y = Mathf.Atan2(-m[0, 1], m[0, 0]);
+                v.z = 0;
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                if (v[i] < 0)
+                {
+                    v[i] += 2 * Mathf.PI;
+                }
+                else if (v[i] > 2 * Mathf.PI)
+                {
+                    v[i] -= 2 * Mathf.PI;
+                }
+            }
+
+            return v;
+        }
+
+        public static Matrix4x4 QuaternionToMatrix(Quaternion quat)
+        {
+            Matrix4x4 m = new Matrix4x4();
+
+            float x = quat.x * 2;
+            float y = quat.y * 2;
+            float z = quat.z * 2;
+            float xx = quat.x * x;
+            float yy = quat.y * y;
+            float zz = quat.z * z;
+            float xy = quat.x * y;
+            float xz = quat.x * z;
+            float yz = quat.y * z;
+            float wx = quat.w * x;
+            float wy = quat.w * y;
+            float wz = quat.w * z;
+
+            m[0] = 1.0f - (yy + zz);
+            m[1] = xy + wz;
+            m[2] = xz - wy;
+            m[3] = 0.0F;
+
+            m[4] = xy - wz;
+            m[5] = 1.0f - (xx + zz);
+            m[6] = yz + wx;
+            m[7] = 0.0F;
+
+            m[8] = xz + wy;
+            m[9] = yz - wx;
+            m[10] = 1.0f - (xx + yy);
+            m[11] = 0.0F;
+
+            m[12] = 0.0F;
+            m[13] = 0.0F;
+            m[14] = 0.0F;
+            m[15] = 1.0F;
+
+            return m;
+        }
+
+        private static Quaternion MatrixToQuaternion(Matrix4x4 m)
+        {
+            Quaternion quat = new Quaternion();
+
+            float fTrace = m[0, 0] + m[1, 1] + m[2, 2];
+            float root;
+
+            if (fTrace > 0)
+            {
+                root = Mathf.Sqrt(fTrace + 1);
+                quat.w = 0.5f * root;
+                root = 0.5f / root;
+                quat.x = (m[2, 1] - m[1, 2]) * root;
+                quat.y = (m[0, 2] - m[2, 0]) * root;
+                quat.z = (m[1, 0] - m[0, 1]) * root;
+            }
+            else
+            {
+                int[] s_iNext = new int[] { 1, 2, 0 };
+                int i = 0;
+                if (m[1, 1] > m[0, 0])
+                {
+                    i = 1;
+                }
+                if (m[2, 2] > m[i, i])
+                {
+                    i = 2;
+                }
+                int j = s_iNext[i];
+                int k = s_iNext[j];
+
+                root = Mathf.Sqrt(m[i, i] - m[j, j] - m[k, k] + 1);
+                if (root < 0)
+                {
+                    throw new IndexOutOfRangeException("error!");
+                }
+                quat[i] = 0.5f * root;
+                root = 0.5f / root;
+                quat.w = (m[k, j] - m[j, k]) * root;
+                quat[j] = (m[j, i] + m[i, j]) * root;
+                quat[k] = (m[k, i] + m[i, k]) * root;
+            }
+            float nor = Mathf.Sqrt(Dot(quat, quat));
+            quat = new Quaternion(quat.x / nor, quat.y / nor, quat.z / nor, quat.w / nor);
+
+            return quat;
+        }
 
         public static void Dot(ref Quaternion quaternion1, ref Quaternion quaternion2, out float result)
         {
@@ -897,7 +895,6 @@ namespace Net
             result.z = -value.z;
             result.w = value.w;
         }
-
 
         private static void Angle(ref Quaternion a, ref Quaternion b, out float result)
         {

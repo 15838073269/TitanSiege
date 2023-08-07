@@ -1,5 +1,6 @@
 ﻿using Net.Serialize;
 using Net.Server;
+using Net.System;
 using System;
 
 namespace Net.Share
@@ -9,6 +10,7 @@ namespace Net.Share
         Serialize,
         RPC,
         NetworkEvt,
+        Package,
     }
 
     /// <summary>
@@ -72,5 +74,30 @@ namespace Net.Share
     /// </summary>
     public interface INetworkEvtAdapter : INetworkHandle, IAdapter 
     {
+    }
+
+    /// <summary>
+    /// 数据包适配器
+    /// </summary>
+    public interface IPackageAdapter : IAdapter
+    {
+        /// <summary>
+        /// 头部长度
+        /// </summary>
+        int HeadCount { get; set; }
+        /// <summary>
+        /// 封包
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="frame"></param>
+        void Pack(ISegment stream);
+        /// <summary>
+        /// 解包
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="frame"></param>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        bool Unpack(ISegment stream, int frame, int uid);
     }
 }

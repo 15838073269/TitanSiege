@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Net.Helper
 {
-    public class StringHelper
+    public static class StringHelper
     {
         /// <summary>
         /// 检查sql的字符串类型的值合法性
@@ -59,6 +59,51 @@ namespace Net.Helper
                     count++;
                 }
             }
+        }
+
+        public static int IndexOf(List<char> chars, string text)
+        {
+            for (int i = 0; i < chars.Count; i++)
+            {
+                if (chars[i] == text[0])
+                {
+                    int index = i + 1;
+                    int index1 = 1;
+                    while (index < chars.Count & index1 < text.Length)
+                    {
+                        if (chars[index] != text[index1])
+                            goto J;
+                    }
+                    return i;
+                }
+            J:;
+            }
+            return -1;
+        }
+
+        public static void Remove(List<char> chars, int index, int count)
+        {
+            chars.RemoveRange(index, count);
+        }
+
+        public static string ToString(List<char> chars)
+        {
+            var stringBuilder = new StringBuilder();
+            for (int i = 0; i < chars.Count; i++)
+                stringBuilder.Append(chars[i]);
+            return stringBuilder.ToString();
+        }
+
+        public static List<char> Substring(List<char> chars, int index, int count)
+        {
+            return chars.GetRange(index, count);
+        }
+
+        public static string ReplaceClear(this string self, params string[] pars)
+        {
+            foreach (var item in pars)
+                self = self.Replace(item, "");
+            return self;
         }
     }
 }

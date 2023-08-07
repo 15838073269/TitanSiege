@@ -38,39 +38,58 @@
         private readonly MyDictionary<string, LogEntity> dic = new MyDictionary<string, LogEntity>();
         public int count = 1000;
         private int cursorTop;
+        private bool collapse;
+
+        public ConsoleDebug(bool collapse) 
+        {
+            this.collapse = collapse;
+        }
 
         public void Output(DateTime time, LogType log, string msg)
         {
-            if (dic.Count > count)
+            if (collapse)
             {
-                dic.Clear();
-                Console.Clear();
-                cursorTop = 0;
+                if (dic.Count > count)
+                {
+                    dic.Clear();
+                    Console.Clear();
+                    cursorTop = 0;
+                }
+                if (!dic.TryGetValue(log + msg, out var entity))
+                    dic.TryAdd(log + msg, entity = new LogEntity() { time = time, log = log, msg = msg });
+                entity.count++;
+                if (entity.row == -1)
+                {
+                    entity.row = cursorTop;
+                    Console.SetCursorPosition(0, cursorTop);
+                }
+                else
+                {
+                    Console.SetCursorPosition(0, entity.row);
+                }
+                var info = $"[{time.ToString("yyyy-MM-dd HH:mm:ss")}][";
+                Console.Write(info);
+                Console.ForegroundColor = log == LogType.Log ? ConsoleColor.Green : log == LogType.Warning ? ConsoleColor.Yellow : ConsoleColor.Red;
+                info = $"{log}";
+                Console.Write(info);
+                Console.ResetColor();
+                if (entity.count > 1)
+                    Console.Write($"] ({entity.count}) {msg}\r\n");
+                else
+                    Console.Write($"] {msg}\r\n");
+                if (Console.CursorTop > cursorTop)
+                    cursorTop = Console.CursorTop;
             }
-            if (!dic.TryGetValue(log + msg, out var entity))
-                dic.TryAdd(log + msg, entity = new LogEntity() { time = time, log = log, msg = msg });
-            entity.count++;
-            if (entity.row == -1)
+            else 
             {
-                entity.row = cursorTop;
-                Console.SetCursorPosition(0, cursorTop);
-            }
-            else
-            {
-                Console.SetCursorPosition(0, entity.row);
-            }
-            var info = $"[{time.ToString("yyyy-MM-dd HH:mm:ss")}][";
-            Console.Write(info);
-            Console.ForegroundColor = log == LogType.Log ? ConsoleColor.Green : log == LogType.Warning ? ConsoleColor.Yellow : ConsoleColor.Red;
-            info = $"{log}";
-            Console.Write(info);
-            Console.ResetColor();
-            if (entity.count > 1)
-                Console.Write($"] ({entity.count}) {msg}\r\n");
-            else
+                var info = $"[{time.ToString("yyyy-MM-dd HH:mm:ss")}][";
+                Console.Write(info);
+                Console.ForegroundColor = log == LogType.Log ? ConsoleColor.Green : log == LogType.Warning ? ConsoleColor.Yellow : ConsoleColor.Red;
+                info = $"{log}";
+                Console.Write(info);
+                Console.ResetColor();
                 Console.Write($"] {msg}\r\n");
-            if(Console.CursorTop > cursorTop)
-                cursorTop = Console.CursorTop;
+            }
         }
     }
 
@@ -248,11 +267,7 @@
                 if (value != WriteLogMode.None & fileStream == null)
                 {
                     CreateLogFile();
-                    var now = DateTime.Now;
-                    var day = now.AddDays(1);
-                    day = new DateTime(day.Year, day.Month, day.Day, 0, 0, 0);//明天0点
-                    var time = (day - now).TotalMilliseconds / 1000d;//转换成0.x秒
-                    writeFileModeID = ThreadManager.Invoke("CreateLogFile", (float)time, CreateLogFile);//每0点会创建新的日志文件
+                    writeFileModeID = ThreadManager.Invoke("CreateLogFile", GetResetTime(), CreateLogFile);//每0点会创建新的日志文件
                 }
                 else if (value == WriteLogMode.None & fileStream != null)
                 {
@@ -261,6 +276,16 @@
                     ThreadManager.Event.RemoveEvent(writeFileModeID);
                 }
             }
+        }
+
+        private static int GetResetTime() //获取毫秒数
+        {
+            var now = DateTime.Now;
+            var day = now.AddDays(1);
+            day = new DateTime(day.Year, day.Month, day.Day, 0, 0, 0);//明天0点
+            var time = (day - now).TotalMilliseconds;
+            var seconds = (int)Math.Ceiling(time);
+            return seconds;
         }
 
         private static bool CreateLogFile()
@@ -281,6 +306,10 @@
             catch (Exception ex)
             {
                 NDebug.LogError(ex);
+            }
+            finally
+            {
+                ThreadManager.Event.ResetTimeInterval(writeFileModeID, (ulong)GetResetTime());
             }
             return true;
         }
@@ -305,6 +334,8 @@
                 var output = LogOutputMax;
                 while (logQueue.TryDequeue(out message))
                 {
+                    if (message == null)
+                        continue;
                     msg = message.ToString();
                     log = $"[{logTime}][Log] {msg}";
                     LogHandle?.Invoke(log);
@@ -318,6 +349,8 @@
                 output = LogOutputMax;
                 while (warningQueue.TryDequeue(out message))
                 {
+                    if (message == null)
+                        continue;
                     msg = message.ToString();
                     log = $"[{logTime}][Warning] {msg}";
                     LogWarningHandle?.Invoke(log);
@@ -331,6 +364,8 @@
                 output = LogOutputMax;
                 while (errorQueue.TryDequeue(out message))
                 {
+                    if (message == null)
+                        continue;
                     msg = message.ToString();
                     log = $"[{logTime}][Error] {msg}";
                     LogErrorHandle?.Invoke(log);
@@ -368,6 +403,8 @@
 #else
             LogHandle?.Invoke($"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}][Log] {message}");
             Output?.Invoke(DateTime.Now, LogType.Log, message.ToString());
+            if (!ThreadManager.IsRuning)
+                UnityEngine.Debug.Log(message);
 #endif
         }
 
@@ -384,6 +421,8 @@
 #else
             LogErrorHandle?.Invoke($"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}][Error] {message}");
             Output?.Invoke(DateTime.Now, LogType.Error, message.ToString());
+            if (!ThreadManager.IsRuning)
+                UnityEngine.Debug.LogError(message);
 #endif
         }
 
@@ -400,6 +439,8 @@
 #else
             LogWarningHandle?.Invoke($"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}][Warning] {message}");
             Output?.Invoke(DateTime.Now, LogType.Warning, message.ToString());
+            if (!ThreadManager.IsRuning)
+                UnityEngine.Debug.LogWarning(message);
 #endif
         }
 
@@ -430,9 +471,9 @@
         /// <summary>
         /// 绑定控制台输出
         /// </summary>
-        public static void BindConsoleLog()
+        public static void BindConsoleLog(bool collapse = true)
         {
-            BindDebug(new ConsoleDebug());
+            BindDebug(new ConsoleDebug(collapse));
         }
 
         /// <summary>

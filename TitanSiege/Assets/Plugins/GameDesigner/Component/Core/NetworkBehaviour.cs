@@ -27,6 +27,7 @@ namespace Net.UnityComponent
                 netComponentID = value;
             }
         }
+        public int SyncVarID { get; set; }
         /// <summary>
         /// 这个物体是本机生成的?
         /// true:这个物体是从你本机实例化后, 同步给其他客户端的, 其他客户端的IsLocal为false
@@ -66,7 +67,7 @@ namespace Net.UnityComponent
                     throw new Exception($"索引有冲突!打开预制体设置{this}组件的NetComponentID值为唯一ID!");
                 netObj.networkBehaviours[NetComponentID] = this;
             }
-            netObj.InitSyncVar(this);
+            netObj.AddSyncVar(this, this);
             if (IsLocal)
                 OnNetworkObjectInit(netObj.Identity);
             else
@@ -107,17 +108,6 @@ namespace Net.UnityComponent
         public virtual void OnDestroy()
         {
             netObj.RemoveSyncVar(this);
-            var nbs = netObj.networkBehaviours;
-            for (int i = 0; i < nbs.Count; i++)
-            {
-                var nb = nbs[i];
-                nb.NetComponentID = i;
-                if (nb == this)
-                {
-                    nbs.RemoveAt(i);
-                    if (i >= 0) i--;
-                }
-            }
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Binding
 {
     public struct NetQuaternionBind : ISerialize<Net.Quaternion>, ISerialize
     {
-        public void Write(Net.Quaternion value, Segment stream)
+        public void Write(Net.Quaternion value, ISegment stream)
         {
             int pos = stream.Position;
             stream.Position += 1;
@@ -43,7 +43,7 @@ namespace Binding
             stream.Position = pos1;
         }
 		
-		public Net.Quaternion Read(Segment stream)
+		public Net.Quaternion Read(ISegment stream)
 		{
 			byte[] bits = stream.Read(1);
 			var value = new Net.Quaternion();
@@ -63,12 +63,12 @@ namespace Binding
 			return value;
 		}
 
-        public void WriteValue(object value, Segment stream)
+        public void WriteValue(object value, ISegment stream)
         {
             Write((Net.Quaternion)value, stream);
         }
 
-        public object ReadValue(Segment stream)
+        public object ReadValue(ISegment stream)
         {
             return Read(stream);
         }
@@ -79,7 +79,7 @@ namespace Binding
 {
 	public struct NetQuaternionArrayBind : ISerialize<Net.Quaternion[]>, ISerialize
 	{
-		public void Write(Net.Quaternion[] value, Segment stream)
+		public void Write(Net.Quaternion[] value, ISegment stream)
 		{
 			int count = value.Length;
 			stream.Write(count);
@@ -89,7 +89,7 @@ namespace Binding
 				bind.Write(value1, stream);
 		}
 
-		public Net.Quaternion[] Read(Segment stream)
+		public Net.Quaternion[] Read(ISegment stream)
 		{
 			var count = stream.ReadInt32();
 			var value = new Net.Quaternion[count];
@@ -100,12 +100,12 @@ namespace Binding
 			return value;
 		}
 
-		public void WriteValue(object value, Segment stream)
+		public void WriteValue(object value, ISegment stream)
 		{
 			Write((Net.Quaternion[])value, stream);
 		}
 
-		public object ReadValue(Segment stream)
+		public object ReadValue(ISegment stream)
 		{
 			return Read(stream);
 		}
@@ -115,7 +115,7 @@ namespace Binding
 {
 	public struct NetQuaternionGenericBind : ISerialize<List<Net.Quaternion>>, ISerialize
 	{
-		public void Write(List<Net.Quaternion> value, Segment stream)
+		public void Write(List<Net.Quaternion> value, ISegment stream)
 		{
 			int count = value.Count;
 			stream.Write(count);
@@ -125,7 +125,7 @@ namespace Binding
 				bind.Write(value1, stream);
 		}
 
-		public List<Net.Quaternion> Read(Segment stream)
+		public List<Net.Quaternion> Read(ISegment stream)
 		{
 			var count = stream.ReadInt32();
 			var value = new List<Net.Quaternion>(count);
@@ -136,12 +136,12 @@ namespace Binding
 			return value;
 		}
 
-		public void WriteValue(object value, Segment stream)
+		public void WriteValue(object value, ISegment stream)
 		{
 			Write((List<Net.Quaternion>)value, stream);
 		}
 
-		public object ReadValue(Segment stream)
+		public object ReadValue(ISegment stream)
 		{
 			return Read(stream);
 		}

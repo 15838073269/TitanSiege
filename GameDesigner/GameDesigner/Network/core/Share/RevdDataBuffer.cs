@@ -14,13 +14,13 @@ namespace Net.Share
         /// <summary>
         /// 缓存区
         /// </summary>
-        public Segment buffer;
+        public ISegment buffer;
         /// <summary>
         /// 数据协议
         /// </summary>
         public bool tcp_udp;
 
-        public RevdDataBuffer(object client, Segment buffer, int index, int count, bool tcp_udp)
+        public RevdDataBuffer(object client, ISegment buffer, int index, int count, bool tcp_udp)
         {
             this.client = client;
             this.buffer = buffer;

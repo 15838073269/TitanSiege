@@ -15,6 +15,10 @@ namespace MVC.View
             public string name;
             public string typeName;
             public Object target;
+#if UNITY_EDITOR
+            public int componentIndex;
+            public string[] typeNames;
+#endif
             private Type type;
             public Type Type
             {
@@ -24,18 +28,66 @@ namespace MVC.View
                         type = AssemblyHelper.GetType(typeName);
                     return type;
                 }
-                internal set { type = value; }
+                set { type = value; }
             }
             public T To<T>() where T : Object
             {
                 return target as T;
             }
+
+#if UNITY_EDITOR
+            public void Update()
+            {
+                type = null; //要清空, 后面修改的类型才生效
+                if (target == null)
+                {
+                    typeName = "UnityEngine.Object";
+                    typeNames = new string[] { "UnityEngine.Object" };
+                    type = typeof(Object);
+                    componentIndex = 0;
+                    return;
+                }
+                GameObject gameObject;
+                if (target is Component component)
+                    gameObject = component.gameObject;
+                else
+                    gameObject = target as GameObject;
+                var components = gameObject.GetComponents<Component>();
+                var objects = new List<Object>() { gameObject };
+                objects.AddRange(components);
+                typeNames = new string[objects.Count];
+                for (int a = 0; a < objects.Count; a++)
+                    typeNames[a] = objects[a].GetType().ToString();
+                if (Type == typeof(GameObject) | Type == typeof(Object))
+                {
+                    target = gameObject;
+                    componentIndex = 0;
+                }
+                else
+                {
+                    for (int i = 0; i < components.Length; i++)
+                    {
+                        if (components[i].GetType() == Type) 
+                        {
+                            target = components[i];
+                            componentIndex = i + 1; // +1是前面有gameobject
+                            break;
+                        }
+                    }
+                }
+            }
+#endif
         }
         public string fieldName;
         public List<Field> fields = new List<Field>();
         private readonly Dictionary<string, Object> fieldsDic = new Dictionary<string, Object>();
 #if UNITY_EDITOR
         public int nameIndex;
+        public bool compiling;
+        public int savePathInx;
+        public int savePathExtInx;
+        public bool genericType;
+        public int inheritTypeInx;
 #endif
         private bool init;
         public Field this[int index]

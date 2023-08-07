@@ -53,9 +53,9 @@ namespace Net.UnityComponent
         [HideInInspector] public SyncMode currMode = SyncMode.None;
         internal float sendTime;
         public float interval = 0.5f;
-        internal Net.Vector3 netPosition;
-        internal Net.Quaternion netRotation;
-        internal Net.Vector3 netLocalScale;
+        protected Net.Vector3 netPosition;
+        protected Net.Quaternion netRotation;
+        protected Net.Vector3 netLocalScale;
         public float rate = 30f;//网络帧率, 一秒30次
         public float lerpSpeed = 0.3f;
         public bool fixedSync = true;

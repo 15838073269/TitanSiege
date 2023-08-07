@@ -22,7 +22,7 @@ public class InvokeHelperConfig
     public bool syncVarClientEnable;
     [Header("true:在server启用字段同步帮助类生成的代码 false:运行时动态编译字段同步帮助类")]
     public bool syncVarServerEnable;
-    [Header("前端Rpc收集, 可视化后端Rpc方法")]
+    [Header("收集后端Rpc给前端调用")]
     public bool collectRpc;
     [Header("SyncVar同步字段记录类, 可用于定义字段为基类, 但是赋值却是派生类对象")]
     public bool recordType;
@@ -45,11 +45,9 @@ public class InvokeHelperConfigData
     public string name;
     [Header("VS项目文件路径")]
     public string csprojPath;
-    [Header("生成的脚本存放路径")]
+    [Header("生成的后端脚本存放路径")]
     public string savePath;
-    [Header("读取配置数据路径")]
-    public string readConfigPath;
-    [Header("后端Rpc收集, 可视化前端Rpc方法")]
+    [Header("收集前端Rpc给后端调用")]
     public bool collectRpc;
     [Header("收集程序集路径")]
     public List<string> dllPaths = new List<string>();

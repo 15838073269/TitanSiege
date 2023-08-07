@@ -20,21 +20,17 @@ namespace Net.Component
         public string ip = "127.0.0.1";
         public int port = 9543;
 #if UNITY_EDITOR
-        public bool localTest;//±¾»ú²âÊÔ
+        public bool localTest;//æœ¬æœºæµ‹è¯•
 #endif
         public bool debugRpc = true;
         public bool authorize;
         public bool startConnect = true;
-        public bool md5CRC;
         public bool singleThread;
         public int reconnectCount = 10;
         public int reconnectInterval = 2000;
         public byte heartLimit = 5;
         public int heartInterval = 1000;
-        [Header("ĞòÁĞ»¯ÊÊÅäÆ÷")]
-        public SerializeAdapterType type;
-        public bool isEncrypt = false;//Êı¾İ¼ÓÃÜ?
-        public int password = 758426581;
+        public string scheme = "ws";
 
         public ClientBase Client
         {
@@ -45,16 +41,16 @@ namespace Net.Component
                 var typeName = $"Net.Client.{protocol}Client";
                 var type = AssemblyHelper.GetType(typeName);
                 if (type == null)
-                    throw new Exception($"Çëµ¼Èë:{protocol}Ğ­Òé!!!");
+                    throw new Exception($"è¯·å¯¼å…¥:{protocol}åè®®!!!");
                 _client = Activator.CreateInstance(type, new object[] { true }) as ClientBase;
                 _client.host = ip;
                 _client.port = port;
                 _client.LogRpc = debugRpc;
-                _client.MD5CRC = md5CRC;
                 _client.IsMultiThread = !singleThread;
                 _client.ReconnectCount = reconnectCount;
                 _client.ReconnectInterval = reconnectInterval;
                 _client.SetHeartTime(heartLimit, heartInterval);
+                _client.Scheme = scheme;
                 return _client;
             }
             set { _client = value; }
@@ -72,28 +68,28 @@ namespace Net.Component
             if (localTest) _client.host = "127.0.0.1";
 #endif
             _client.port = port;
-            switch (type)
-            {
-                case SerializeAdapterType.Default:
-                    break;
-                case SerializeAdapterType.PB_JSON_FAST:
-                    _client.AddAdapter(new Adapter.SerializeFastAdapter() { IsEncrypt = isEncrypt, Password = password });
-                    break;
-                case SerializeAdapterType.Binary:
-                    _client.AddAdapter(new Adapter.SerializeAdapter() { IsEncrypt = isEncrypt, Password = password });
-                    break;
-                case SerializeAdapterType.Binary2:
-                    _client.AddAdapter(new Adapter.SerializeAdapter2() { IsEncrypt = isEncrypt, Password = password });
-                    break;
-                case SerializeAdapterType.Binary3:
-                    _client.AddAdapter(new Adapter.SerializeAdapter3() { IsEncrypt = isEncrypt, Password = password });
-                    break;
-            }
+            //switch (type)
+            //{
+            //    case SerializeAdapterType.Default:
+            //        break;
+            //    case SerializeAdapterType.PB_JSON_FAST:
+            //        _client.AddAdapter(new Adapter.SerializeFastAdapter() { IsEncrypt = isEncrypt, Password = password });
+            //        break;
+            //    case SerializeAdapterType.Binary:
+            //        _client.AddAdapter(new Adapter.SerializeAdapter() { IsEncrypt = isEncrypt, Password = password });
+            //        break;
+            //    case SerializeAdapterType.Binary2:
+            //        _client.AddAdapter(new Adapter.SerializeAdapter2() { IsEncrypt = isEncrypt, Password = password });
+            //        break;
+            //    case SerializeAdapterType.Binary3:
+            //        _client.AddAdapter(new Adapter.SerializeAdapter3() { IsEncrypt = isEncrypt, Password = password });
+            //        break;
+            //}
             return _client.Connect(result =>
             {
                 if (result)
                 {
-                    _client.Send(new byte[1]);//·¢ËÍÒ»¸ö×Ö½Ú:µ÷ÓÃ·şÎñÆ÷µÄOnUnClientRequest·½·¨, Èç¹û²»ĞèÒªÕËºÅµÇÂ¼, Ôò»áÖ±½ÓÔÊĞí½øÈë·şÎñÆ÷
+                    _client.Send(new byte[1]);//å‘é€ä¸€ä¸ªå­—èŠ‚:è°ƒç”¨æœåŠ¡å™¨çš„OnUnClientRequestæ–¹æ³•, å¦‚æœä¸éœ€è¦è´¦å·ç™»å½•, åˆ™ä¼šç›´æ¥å…è®¸è¿›å…¥æœåŠ¡å™¨
                 }
             });
         }
@@ -166,7 +162,7 @@ namespace Net.Component
             {
                 if (clients[i]._client == null)
                     continue;
-                clients[i]._client.NetworkTick();
+                clients[i]._client.NetworkUpdate();
             }
         }
 
@@ -210,7 +206,7 @@ namespace Net.Component
         }
 
         /// <summary>
-        /// Ìí¼ÓË÷Òı0µÄ¿Í»§¶Ërpc, Ò²¾ÍÊÇ1µÄ¿Í»§¶Ë
+        /// æ·»åŠ ç´¢å¼•0çš„å®¢æˆ·ç«¯rpc, ä¹Ÿå°±æ˜¯1çš„å®¢æˆ·ç«¯
         /// </summary>
         /// <param name="target"></param>
         public static void AddRpcOne(object target)
@@ -219,7 +215,7 @@ namespace Net.Component
         }
 
         /// <summary>
-        /// Ìí¼ÓË÷Òı1µÄ¿Í»§¶Ë, Ò²¾ÍÊÇ2µÄ¿Í»§¶Ë
+        /// æ·»åŠ ç´¢å¼•1çš„å®¢æˆ·ç«¯, ä¹Ÿå°±æ˜¯2çš„å®¢æˆ·ç«¯
         /// </summary>
         /// <param name="target"></param>
         public static void AddRpcTwo(object target)
@@ -228,7 +224,7 @@ namespace Net.Component
         }
 
         /// <summary>
-        /// Ìí¼ÓÖ¸¶¨Ë÷ÒıµÄ¿Í»§¶Ërpc, Èç¹ûË÷ÒıĞ¡ÓÚ0ÔòÎªÈ«²¿Ìí¼Ó
+        /// æ·»åŠ æŒ‡å®šç´¢å¼•çš„å®¢æˆ·ç«¯rpc, å¦‚æœç´¢å¼•å°äº0åˆ™ä¸ºå…¨éƒ¨æ·»åŠ 
         /// </summary>
         /// <param name="clientIndex"></param>
         /// <param name="target"></param>
@@ -241,7 +237,7 @@ namespace Net.Component
         }
 
         /// <summary>
-        /// ÒÆ³ıË÷Òı0µÄ¿Í»§¶Ërpc, Ò²¾ÍÊÇ1µÄ¿Í»§¶Ë
+        /// ç§»é™¤ç´¢å¼•0çš„å®¢æˆ·ç«¯rpc, ä¹Ÿå°±æ˜¯1çš„å®¢æˆ·ç«¯
         /// </summary>
         /// <param name="target"></param>
         public static void RemoveRpcOne(object target)
@@ -250,7 +246,7 @@ namespace Net.Component
         }
 
         /// <summary>
-        /// ÒÆ³ıË÷Òı1µÄ¿Í»§¶Ërpc, Ò²¾ÍÊÇ2µÄ¿Í»§¶Ë
+        /// ç§»é™¤ç´¢å¼•1çš„å®¢æˆ·ç«¯rpc, ä¹Ÿå°±æ˜¯2çš„å®¢æˆ·ç«¯
         /// </summary>
         /// <param name="target"></param>
         public static void RemoveRpcTwo(object target)
@@ -262,7 +258,7 @@ namespace Net.Component
         }
 
         /// <summary>
-        /// ÒÆ³ıÖ¸¶¨Ë÷ÒıµÄ¿Í»§¶Ërpc, Èç¹ûË÷ÒıĞ¡ÓÚ0ÔòÎªÈ«²¿Ìí¼Ó
+        /// ç§»é™¤æŒ‡å®šç´¢å¼•çš„å®¢æˆ·ç«¯rpc, å¦‚æœç´¢å¼•å°äº0åˆ™ä¸ºå…¨éƒ¨æ·»åŠ 
         /// </summary>
         /// <param name="clientIndex"></param>
         /// <param name="target"></param>

@@ -1,5 +1,6 @@
-#if (UNITY_STANDALONE || UNITY_ANDROID || UNITY_IOS || UNITY_WSA || UNITY_WEBGL) && UNITY_EDITOR
+#if UNITY_EDITOR
 using Net.UnityComponent;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ using UnityEngine;
 public class NetworkObjectEdit : Editor
 {
     private NetworkObject no;
+    private Vector2 scrollPosition;
 
     private void OnEnable()
     {
@@ -18,6 +20,14 @@ public class NetworkObjectEdit : Editor
     {
         base.OnInspectorGUI();
         GUI.enabled = false;
+        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+        var style = new GUIStyle() { richText = true };
+        foreach (var item in no.syncVarInfos.Values)
+        {
+            EditorGUILayout.LabelField(item.ToColorString(item.IsDispose ? "#808080" : "green"), style);
+        }
+        EditorGUILayout.EndScrollView();
+        GUI.color = Color.yellow;
         EditorGUILayout.LabelField("Network Identity", no.Identity.ToString());
         GUI.enabled = true;
     }

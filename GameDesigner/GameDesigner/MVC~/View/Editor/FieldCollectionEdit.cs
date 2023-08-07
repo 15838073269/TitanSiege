@@ -1,4 +1,4 @@
-﻿#if (UNITY_STANDALONE || UNITY_ANDROID || UNITY_IOS || UNITY_WSA || UNITY_WEBGL) && UNITY_EDITOR
+#if (UNITY_STANDALONE || UNITY_ANDROID || UNITY_IOS || UNITY_WSA || UNITY_WEBGL) && UNITY_EDITOR
 namespace MVC.View
 {
     using Net.Helper;
@@ -6,122 +6,129 @@ namespace MVC.View
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
+    using System.Text;
     using UnityEditor;
+    using UnityEditor.Callbacks;
     using UnityEngine;
     using UnityEngine.UI;
+    using Object = UnityEngine.Object;
 
     public class FieldCollectionWindow : EditorWindow
     {
-        private FieldCollectionEdit field;
-        private bool setValue;
-        private bool setName;
-
-        internal static void Init(FieldCollectionEdit field)
+        internal static void Init(FieldCollection field)
         {
-            var win = GetWindow<FieldCollectionWindow>("字段收集器", true);
-            win.field = field;
+            GetWindow<FieldCollectionWindow>("字段收集器", true);
+            FieldCollectionEntity.OnEnable(field);
         }
 
-        void OnGUI() 
+        private void OnEnable()
         {
-            GUILayout.Label("将组件拖到此窗口上! 如果是赋值模式, 拖入的对象将不会显示选择组件!");
-            setValue = GUILayout.Toggle(setValue, "赋值模式/创建模式");
-            setName = GUILayout.Toggle(setName, "设置字段名和赋值对象");
-            if ((Event.current.type == EventType.DragUpdated | Event.current.type == EventType.DragPerform) & !setValue)
-            {
-                DragAndDrop.visualMode = DragAndDropVisualMode.Copy;//拖动时显示辅助图标
-                if (Event.current.type == EventType.DragPerform)
-                {
-                    if (setName)
-                    {
-                        foreach (var obj in DragAndDrop.objectReferences) 
-                        {
-                            field.fieldName = obj.name;
-                            field.selectObject = obj;
-                            field.AddField(obj.GetType().FullName);
-                        }
-                        return;
-                    }
-                    else 
-                    {
-                        field.search1 = "";
-                        field.search = DragAndDrop.objectReferences[0].GetType().Name.ToLower();
-                    }
-                }
-            }
-            try { field.OnInspectorGUI(); } catch { }
+            FieldCollectionEntity.LoadData();
+        }
+
+        private void OnDisable()
+        {
+            FieldCollectionEntity.OnDisable();
+        }
+
+        void OnGUI()
+        {
+            FieldCollectionEntity.OnDragGuiWindow();
+            FieldCollectionEntity.OnDragGUI();
         }
     }
 
     [CustomEditor(typeof(FieldCollection))]
     public class FieldCollectionEdit : Editor
     {
-        private FieldCollection field;
-        private bool selectType;
-        internal string search = "", search1 = "", fieldName = "";
-        private string[] types = new string[0];
-        private DateTime searchTime;
-        private int deleteArrayIndex = -1;
-        private bool doubleClick;
-        private int index;
-        private string savePath;
-        private string selectTypeName;
-        internal UnityEngine.Object selectObject;
-        private JsonSave data = new JsonSave();
-        private Vector2 scrollPosition;
-
-        public class JsonSave 
-        {
-            public string nameSpace;
-            public string savePath;
-            public string csprojFile;
-            public bool fullPath;
-            public string savePathExt;
-            internal string nameSpace1;
-        }
-
         private void OnEnable()
         {
-            field = target as FieldCollection;
-            var objects = Resources.FindObjectsOfTypeAll<UnityEngine.Object>();
-            HashSet<string> types1 = new HashSet<string>();
-            foreach (var obj in objects)
-            {
-                var str = obj.GetType().FullName;
-                if (!types1.Contains(str))
-                    types1.Add(str);
-            }
-            var types2 = typeof(Vector2).Assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(UnityEngine.Object))).ToArray();
-            foreach (var obj in types2)
-            {
-                var str = obj.FullName;
-                if (!types1.Contains(str))
-                    types1.Add(str);
-            }
-            types = types1.ToArray();
-            LoadData();
-            if (string.IsNullOrEmpty(savePath))
-                savePath = Application.dataPath;
+            FieldCollectionEntity.OnEnable(target as FieldCollection);
         }
 
         private void OnDisable()
         {
+            FieldCollectionEntity.OnDisable();
+        }
+
+        public override void OnInspectorGUI()
+        {
+            if (GUILayout.Button("打开收集器界面"))
+                FieldCollectionWindow.Init(target as FieldCollection);
+            FieldCollectionEntity.OnDragGUI();
+        }
+    }
+
+    public class FieldCollectionEntity
+    {
+        private static FieldCollection field;
+        internal static string search = "", search1 = "", fieldName = "";
+        internal static Object selectObject;
+        internal static JsonSave data = new JsonSave();
+        private static Vector2 scrollPosition;
+        private static string searchAssemblies;
+
+        public class JsonSave
+        {
+            public string nameSpace;
+            public List<string> savePath = new List<string>();
+            public List<string> savePathExt = new List<string>();
+            public string csprojFile;
+            public string searchAssemblies = "UnityEngine.CoreModule|Assembly-CSharp|Assembly-CSharp-firstpass";
+            internal string nameSpace1;
+            public bool changeField;
+            public bool addField;
+            public bool seleAddField;
+            internal string addInheritType;
+            public List<string> inheritTypes = new List<string>() { "Net.Component.SingleCase", "UnityEngine.MonoBehaviour" };
+            internal string SavePath(int savePathIndex) => savePath.Count > 0 ? savePath[savePathIndex] : string.Empty;
+            internal string SavePathExt(int savePathExtIndex) => savePathExt.Count > 0 ? savePathExt[savePathExtIndex] : string.Empty;
+            internal string InheritType(int index) => inheritTypes[index];
+        }
+
+        internal static void OnEnable(FieldCollection target)
+        {
+            LoadData();
+            field = target;
+            searchAssemblies = data.searchAssemblies;
+            if (!string.IsNullOrEmpty(searchAssemblies))
+            {
+                var assemblyNames = searchAssemblies.Split('|');
+                var types1 = new List<string>();
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+                foreach (var assemblie in assemblies)
+                {
+                    var name = assemblie.GetName().Name;
+                    if (assemblyNames.Contains(name))
+                    {
+                        var types = assemblie.GetTypes().Where(t => !t.IsAbstract & !t.IsInterface & !t.IsGenericType & !t.IsGenericTypeDefinition);
+                        foreach (var type in types)
+                            types1.Add(type.ToString());
+                    }
+                }
+            }
+        }
+
+        internal static void OnDisable()
+        {
             SaveData();
+            if (field != null)
+                EditorUtility.SetDirty(field);
         }
 
-        void LoadData() 
+        internal static void LoadData()
         {
-            data = PersistHelper.Deserialize<JsonSave>("fcdata.txt");
+            data = PersistHelper.Deserialize<JsonSave>("fcdata.json");
         }
 
-        void SaveData() 
+        static void SaveData()
         {
-            PersistHelper.Serialize(data, "fcdata.txt");
+            PersistHelper.Serialize(data, "fcdata.json");
         }
 
-        internal void AddField(string typeName) 
+        internal static void AddField(string typeName)
         {
-            selectType = true;
             var name = fieldName;
             if (name == "")
                 name = "name" + field.nameIndex++;
@@ -137,419 +144,722 @@ namespace MVC.View
             field.fields.Add(field1);
             if (selectObject != null)
                 field1.target = selectObject;
-            selectTypeName = typeName;
+            field1.Update();
             EditorUtility.SetDirty(field);
         }
 
-        public override void OnInspectorGUI()
+        public static void OnDragGuiWindow()
         {
-            if (GUILayout.Button("打开收集器界面")) 
-                FieldCollectionWindow.Init(this);
-            var so = serializedObject;
-            so.Update();
-            field.fieldName = EditorGUILayout.TextField("收集器名称", field.fieldName);
-            var rect2 = EditorGUILayout.GetControlRect();
-            fieldName = EditorGUI.TextField(rect2, "字段名称", fieldName);
-            if (GUI.Button(new Rect(rect2.x + 100, rect2.y, 20, rect2.height), "+"))
-            {
-                if (string.IsNullOrEmpty(selectTypeName)) 
-                {
-                    Debug.Log("请先选择一次字段类型!");
-                    return;
-                }
-                var name = fieldName;
-                if (name == "")
-                    name = "name" + field.nameIndex++;
-                foreach (var f in field.fields)
-                {
-                    if (f.name == fieldName)
-                    {
-                        name += field.nameIndex++;
-                        break;
-                    }
-                }
-                field.fields.Add(new FieldCollection.Field() { name = name, typeName = selectTypeName });
-                EditorUtility.SetDirty(field);
-                return;
-            }
-            search = EditorGUILayout.TextField("字段类型", search);
-            if (search != search1)
-            {
-                selectType = false;
-                search1 = search;
-                searchTime = DateTime.Now.AddMilliseconds(20);
-            }
-            if (DateTime.Now > searchTime & !selectType & search.Length > 0)
-            {
-                foreach (var type1 in types)
-                {
-                    if (!type1.ToLower().Contains(search))
-                        continue;
-                    if (GUILayout.Button(type1))
-                    {
-                        AddField(type1);
-                        return;
-                    }
-                }
-            }
-            scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true);
-            for (int i = 0; i < field.fields.Count; i++)
-            {
-                try
-                {
-                    if (deleteArrayIndex != -1)
-                    {
-                        field.fields.RemoveAt(deleteArrayIndex);
-                        deleteArrayIndex = -1;
-                        EditorUtility.SetDirty(field);
-                        break;
-                    }
-                    var rect = EditorGUILayout.GetControlRect();
-                    so.FindProperty("fields").GetArrayElementAtIndex(i).FindPropertyRelative("target").objectReferenceValue = EditorGUI.ObjectField(rect, field.fields[i].name, field.fields[i].target, field.fields[i].Type, true);
-                    if (Event.current.type == EventType.ContextClick && rect.Contains(Event.current.mousePosition))//判断鼠标右键事件
-                    {
-                        GenericMenu menu = new GenericMenu();
-                        menu.AddItem(new GUIContent("删除字段"), false, (index) =>
-                        {
-                            deleteArrayIndex = (int)index;
-                        }, i);
-                        menu.ShowAsContext();
-                        Event.current.Use();//设置该事件被使用
-                    }
-                    if (Event.current.clickCount == 2 && rect.Contains(Event.current.mousePosition))//判断鼠标左键事件
-                    {
-                        index = i;
-                        doubleClick = true;
-                    }
-                    if (doubleClick & index == i) 
-                    {
-                        field.fields[i].name = EditorGUI.TextField(rect, field.fields[i].name);
-                        if (Event.current.type == EventType.MouseDown | Event.current.keyCode == KeyCode.Return) 
-                        {
-                            doubleClick = false;
-                            index = -1;
-                            EditorUtility.SetDirty(field);
-                            break;
-                        }
-                    }
-                }
-                catch
-                {
-                }
-            }
-            GUILayout.EndScrollView();
-            if (Event.current.type == EventType.DragUpdated | Event.current.type == EventType.DragPerform)
+            GUILayout.Label("将组件拖到此窗口上! 如果是赋值模式, 拖入的对象将不会显示选择组件!");
+            data.changeField = GUILayout.Toggle(data.changeField, "赋值变量");
+            data.addField = GUILayout.Toggle(data.addField, "直接添加变量");
+            data.seleAddField = GUILayout.Toggle(data.seleAddField, "选择添加变量组件");
+            if ((Event.current.type == EventType.DragUpdated | Event.current.type == EventType.DragPerform) & !data.changeField)
             {
                 DragAndDrop.visualMode = DragAndDropVisualMode.Copy;//拖动时显示辅助图标
                 if (Event.current.type == EventType.DragPerform)
                 {
-                    search1 = "";
-                    search = DragAndDrop.objectReferences[0].GetType().Name.ToLower();
+                    if (data.addField)
+                    {
+                        var componentPriority = new List<Type>()
+                        {
+                            typeof(Button), typeof(Toggle), typeof(Text), typeof(Slider), typeof(Scrollbar), typeof(Dropdown),
+                            typeof(ScrollRect), typeof(InputField), typeof(Image)
+                        };
+                        foreach (var obj in DragAndDrop.objectReferences)
+                        {
+                            fieldName = obj.name.Replace(" ", "").Replace("(", "_").Replace(")", "_");
+                            if (obj is GameObject go)
+                            {
+                                var objects = new List<Object>() { obj };
+                                objects.AddRange(go.GetComponents<Component>());
+                                foreach (var cp in componentPriority)
+                                {
+                                    var components = objects.Where(item => item.GetType() == cp).ToList();
+                                    if (components.Count > 0)
+                                    {
+                                        selectObject = components[0];
+                                        AddField(components[0].GetType().ToString());
+                                        goto J;
+                                    }
+                                }
+                                selectObject = objects[objects.Count - 1];
+                                AddField(objects[objects.Count - 1].GetType().ToString());
+                            }
+                            else if (obj is Component component) 
+                            {
+                                selectObject = component;
+                                AddField(component.GetType().ToString());
+                            }
+                        J:;
+                        }
+                        return;
+                    }
+                    else if (data.seleAddField)
+                    {
+                        var dict = new Dictionary<Type, List<Object[]>>();
+                        foreach (var obj in DragAndDrop.objectReferences)
+                        {
+                            GameObject gameObject;
+                            if (obj is Component component)
+                                gameObject = component.gameObject;
+                            else
+                                gameObject = obj as GameObject;
+                            var objects = new List<Object>() { gameObject };
+                            objects.AddRange(gameObject.GetComponents<Component>());
+                            foreach (var obj1 in objects)
+                            {
+                                var type = obj1.GetType();
+                                if (!dict.TryGetValue(type, out var objects1))
+                                    dict.Add(type, objects1 = new List<Object[]>());
+                                objects1.Add(new Object[] { obj, obj1 });
+                            }
+                        }
+                        var menu = new GenericMenu();
+                        foreach (var item in dict)
+                        {
+                            var typeName = item.Key.ToString();
+                            menu.AddItem(new GUIContent(typeName), false, () =>
+                            {
+                                foreach (var item1 in item.Value)
+                                {
+                                    fieldName = item1[0].name.Replace(" ", "").Replace("(", "_").Replace(")", "_");
+                                    selectObject = item1[1];
+                                    AddField(typeName);
+                                }
+                            });
+                        }
+                        menu.ShowAsContext();
+                        Event.current.Use();
+                        return;
+                    }
+                    else
+                    {
+                        search1 = "";
+                        search = DragAndDrop.objectReferences[0].GetType().Name.ToLower();
+                    }
                 }
             }
-            data.nameSpace = EditorGUILayout.TextField("namespace", data.nameSpace);
-            if (data.nameSpace != data.nameSpace1) 
+        }
+
+        public static void OnDragGUI()
+        {
+            if (field == null)
+                return;
+            field.fieldName = EditorGUILayout.TextField("收集器名称", field.fieldName);
+            data.searchAssemblies = EditorGUILayout.TextField("搜索的程序集", data.searchAssemblies);
+            if (data.searchAssemblies != searchAssemblies)
+            {
+                searchAssemblies = data.searchAssemblies;
+                SaveData();
+            }
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true);
+            for (int i = 0; i < field.fields.Count; i++)
+            {
+                var field1 = field.fields[i];
+                EditorGUILayout.BeginHorizontal();
+                EditorGUI.BeginChangeCheck();
+                field1.name = EditorGUILayout.TextField(field1.name, GUI.skin.label, GUILayout.MaxWidth(100));
+                if (field1.typeNames == null)
+                    field1.Update();
+                field1.componentIndex = EditorGUILayout.Popup(field1.componentIndex, field1.typeNames, GUILayout.MaxWidth(200));
+                field1.typeName = field1.typeNames[field1.componentIndex];
+                field1.target = EditorGUILayout.ObjectField(field1.target, field1.Type, true);
+                if (GUILayout.Button("x", GUILayout.Width(25)))
+                {
+                    field.fields.RemoveAt(i);
+                    EditorUtility.SetDirty(field);
+                }
+                if (EditorGUI.EndChangeCheck())
+                {
+                    field1.Update();
+                    EditorUtility.SetDirty(field);
+                }
+                EditorGUILayout.EndHorizontal();
+            }
+            GUILayout.EndScrollView();
+            data.nameSpace = EditorGUILayout.TextField("命名空间", data.nameSpace);
+            if (data.nameSpace != data.nameSpace1)
             {
                 data.nameSpace1 = data.nameSpace;
                 SaveData();
             }
-            data.fullPath = EditorGUILayout.Toggle("(绝/相)对路径", data.fullPath);
             var rect1 = EditorGUILayout.GetControlRect();
-            EditorGUI.LabelField(rect1, "文件路径:", savePath);
+            field.savePathInx = EditorGUI.Popup(new Rect(rect1.x, rect1.y, rect1.width - 90, rect1.height), "组件生成路径:", field.savePathInx, data.savePath.ToArray());
+            if (GUI.Button(new Rect(rect1.x + rect1.width - 90, rect1.y, 30, rect1.height), "x"))
+            {
+                if (data.savePath.Count > 0)
+                    data.savePath.RemoveAt(field.savePathInx);
+                SaveData();
+            }
             if (GUI.Button(new Rect(rect1.x + rect1.width - 60, rect1.y, 60, rect1.height), "选择"))
             {
-                if (data.fullPath)
+                var path = EditorUtility.OpenFolderPanel("选择保存路径", "", "");
+                //相对于Assets路径
+                var uri = new Uri(Application.dataPath.Replace('/', '\\'));
+                var relativeUri = uri.MakeRelativeUri(new Uri(path));
+                path = relativeUri.ToString();
+                path = path.Replace('/', '\\');
+                if (!data.savePath.Contains(path))
                 {
-                    savePath = EditorUtility.OpenFolderPanel("选择保存路径", "", "");
-                    SaveData();
+                    data.savePath.Add(path);
+                    field.savePathInx = data.savePath.Count - 1;
                 }
-                else 
-                {
-                    savePath = EditorUtility.OpenFolderPanel("选择保存路径", "", "");
-                    var strs = savePath.ToCharArray();
-                    var strs1 = Application.dataPath.Replace("Assets", "").ToCharArray();
-                    int index = 0;
-                    for (int i = 0; i < strs.Length; i++)
-                    {
-                        if (i >= strs1.Length)
-                        {
-                            index = i;
-                            break;
-                        }
-                        if (strs[i] != strs1[i])
-                        {
-                            index = i;
-                            break;
-                        }
-                    }
-                    savePath = savePath.Remove(0, index);
-                    SaveData();
-                }
+                SaveData();
             }
             var rect4 = EditorGUILayout.GetControlRect();
-            EditorGUI.LabelField(rect4, "文件路径扩展:", data.savePathExt);
+            field.savePathExtInx = EditorGUI.Popup(new Rect(rect4.x, rect4.y, rect4.width - 90, rect4.height), "组件扩展路径:", field.savePathExtInx, data.savePathExt.ToArray());
+            if (GUI.Button(new Rect(rect4.x + rect4.width - 90, rect4.y, 30, rect4.height), "x"))
+            {
+                if (data.savePathExt.Count > 0)
+                    data.savePathExt.RemoveAt(field.savePathExtInx);
+                SaveData();
+            }
             if (GUI.Button(new Rect(rect4.x + rect4.width - 60, rect4.y, 60, rect4.height), "选择"))
             {
-                if (data.fullPath)
+                var path = EditorUtility.OpenFolderPanel("选择保存路径", "", "");
+                //相对于Assets路径
+                var uri = new Uri(Application.dataPath.Replace('/', '\\'));
+                var relativeUri = uri.MakeRelativeUri(new Uri(path));
+                path = relativeUri.ToString();
+                path = path.Replace('/', '\\');
+                if (!data.savePathExt.Contains(path))
                 {
-                    data.savePathExt = EditorUtility.OpenFolderPanel("选择保存路径", "", "");
-                    SaveData();
+                    data.savePathExt.Add(path);
+                    field.savePathExtInx = data.savePathExt.Count - 1;
                 }
-                else
-                {
-                    data.savePathExt = EditorUtility.OpenFolderPanel("选择保存路径", "", "");
-                    var strs = data.savePathExt.ToCharArray();
-                    var strs1 = Application.dataPath.Replace("Assets", "").ToCharArray();
-                    int index = 0;
-                    for (int i = 0; i < strs.Length; i++)
-                    {
-                        if (i >= strs1.Length)
-                        {
-                            index = i;
-                            break;
-                        }
-                        if (strs[i] != strs1[i])
-                        {
-                            index = i;
-                            break;
-                        }
-                    }
-                    data.savePathExt = data.savePathExt.Remove(0, index);
-                    SaveData();
-                }
+                SaveData();
             }
             var rect3 = EditorGUILayout.GetControlRect();
             EditorGUI.LabelField(rect3, "csproj文件:", data.csprojFile);
             if (GUI.Button(new Rect(rect3.x + rect3.width - 60, rect3.y, 60, rect3.height), "选择"))
             {
-                if (data.fullPath) 
-                {
-                    data.csprojFile = EditorUtility.OpenFilePanel("选择文件", "", "csproj");
-                    SaveData();
-                }
-                else
-                {
-                    data.csprojFile = EditorUtility.OpenFilePanel("选择文件", "", "csproj");
-                    var strs = data.csprojFile.ToCharArray();
-                    var strs1 = Application.dataPath.Replace("Assets", "").ToCharArray();
-                    int index = 0;
-                    for (int i = 0; i < strs.Length; i++)
-                    {
-                        if (i >= strs1.Length)
-                        {
-                            index = i;
-                            break;
-                        }
-                        if (strs[i] != strs1[i])
-                        {
-                            index = i;
-                            break;
-                        }
-                    }
-                    data.csprojFile = data.csprojFile.Remove(0, index);
-                    SaveData();
-                }
+                var path = EditorUtility.OpenFilePanel("选择文件", "", "csproj");
+                //相对于Assets路径
+                var uri = new Uri(Application.dataPath.Replace('/', '\\'));
+                var relativeUri = uri.MakeRelativeUri(new Uri(path));
+                data.csprojFile = relativeUri.ToString();
+                SaveData();
             }
+            EditorGUILayout.BeginHorizontal();
+            data.addInheritType = EditorGUILayout.TextField("自定义继承类型", data.addInheritType);
+            if (GUILayout.Button("添加", GUILayout.Width(50f)))
+            {
+                if (!data.inheritTypes.Contains(data.addInheritType))
+                    data.inheritTypes.Add(data.addInheritType);
+            }
+            if (GUILayout.Button("删除", GUILayout.Width(50f)))
+            {
+                data.inheritTypes.Remove(data.addInheritType);
+            }
+            EditorGUILayout.EndHorizontal();
+            field.genericType = EditorGUILayout.Toggle("继承泛型", field.genericType);
+            field.inheritTypeInx = EditorGUILayout.Popup("继承类型", field.inheritTypeInx, data.inheritTypes.ToArray());
             if (GUILayout.Button("生成脚本(hotfix)"))
             {
-                bool hasns = data.nameSpace != "";
-                Func<string> action = new Func<string>(()=> {
-                    string str = "";
-                    for (int i = 0; i < field.fields.Count; i++) 
-                    {
-                        str += $"{(hasns ? "\t\t" : "\t")}" + $"public {field.fields[i].Type.Name} {field.fields[i].name};\n";
-                    }
-                    return str + "\n";
-                });
-                Func<string> action1 = new Func<string>(() => {
-                    string str = "";
+                var codeTemplate = @"namespace {nameSpace} 
+{
+--
+    public partial class {typeName} : {inherit}
+    {
+        public UnityEngine.GameObject panel;
+--
+        public {fieldType} {fieldName};
+--
+        public void Init(MVC.View.FieldCollection fc)
+        {
+            panel = fc.gameObject;
+--
+            {fieldName} = fc[""{fieldName}""].target as {fieldType};
+--
+        }
+    }
+--
+}";
+                var codeTemplate1 = @"namespace {nameSpace} 
+{
+--
+    public partial class {typeName}
+    {
+--
+        public void InitListener()
+        {
+--
+            {AddListener}
+--
+        }
+--
+        private void {methodEvent}
+        {
+        }
+--
+    }
+--
+}";
+                string scriptCode;
+                {
+                    var hasns = !string.IsNullOrEmpty(data.nameSpace);
+                    if (string.IsNullOrEmpty(field.fieldName))
+                        field.fieldName = field.name;
+                    codeTemplate = codeTemplate.Replace("{nameSpace}", data.nameSpace);
+                    var typeName = field.fieldName;
+                    codeTemplate = codeTemplate.Replace("{typeName}", typeName);
+                    var inheritType = field.genericType ? $"{data.InheritType(field.inheritTypeInx)}<{typeName}>" : data.InheritType(field.inheritTypeInx);
+                    codeTemplate = codeTemplate.Replace("{inherit}", inheritType);
+                    var codes = codeTemplate.Split(new string[] { "--\r\n" }, StringSplitOptions.None);
+                    var sb = new StringBuilder();
+                    var sb1 = new StringBuilder();
+                    if (hasns)
+                        sb.Append(codes[0]);
+                    sb.Append(codes[1]);
                     for (int i = 0; i < field.fields.Count; i++)
                     {
-                        str += $"{(hasns ? "\t\t\t" : "\t\t")}" + $"{field.fields[i].name} = fc[\"{field.fields[i].name}\"].target as {field.fields[i].Type.Name};\n";
+                        var fieldCode = codes[2].Replace("{fieldType}", field.fields[i].Type.ToString());
+                        fieldCode = fieldCode.Replace("{fieldName}", field.fields[i].name);
+                        sb.Append(fieldCode);
+
+                        fieldCode = codes[4].Replace("{fieldType}", field.fields[i].Type.ToString());
+                        fieldCode = fieldCode.Replace("{fieldName}", field.fields[i].name);
+                        fieldCode = fieldCode.Replace("{index}", i.ToString());
+                        sb1.Append(fieldCode);
                     }
-                    return str;
-                });
-                Func<string> action2 = new Func<string>(() => {
-                    string str = "";
+                    sb.AppendLine();
+                    sb.Append(codes[3]);
+                    sb.Append(sb1.ToString());
+                    sb.Append(codes[5]);
+                    if (hasns)
+                        sb.Append(codes[6]);
+                    scriptCode = sb.ToString();
+                    if (!hasns)
+                    {
+                        var scriptCodes = scriptCode.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                        sb.Clear();
+                        for (int i = 0; i < scriptCodes.Length; i++)
+                        {
+                            if (scriptCodes[i].StartsWith("        "))
+                                scriptCodes[i] = scriptCodes[i].Remove(0, 4);
+                            else if (scriptCodes[i].StartsWith("    "))
+                                scriptCodes[i] = scriptCodes[i].Remove(0, 4);
+                            sb.AppendLine(scriptCodes[i]);
+                        }
+                        scriptCode = sb.ToString();
+                    }
+                    while (scriptCode.EndsWith("\n") | scriptCode.EndsWith("\r"))
+                        scriptCode = scriptCode.Remove(scriptCode.Length - 1, 1);
+                }
+
+                string scriptCode1;
+                {
+                    var hasns = !string.IsNullOrEmpty(data.nameSpace);
+                    if (string.IsNullOrEmpty(field.fieldName))
+                        field.fieldName = field.name;
+                    codeTemplate1 = codeTemplate1.Replace("{nameSpace}", data.nameSpace);
+                    var typeName = field.fieldName;
+                    codeTemplate1 = codeTemplate1.Replace("{typeName}", typeName);
+                    var inheritType = field.genericType ? $"{data.InheritType(field.inheritTypeInx)}<{typeName}>" : data.InheritType(field.inheritTypeInx);
+                    codeTemplate1 = codeTemplate1.Replace("{inherit}", inheritType);
+                    var codes = codeTemplate1.Split(new string[] { "--\r\n" }, StringSplitOptions.None);
+                    var sb = new StringBuilder();
+                    var sb1 = new StringBuilder();
+                    if (hasns)
+                        sb.Append(codes[0]);
+                    sb.Append(codes[1]);
+                    sb.Append(codes[2]);
                     for (int i = 0; i < field.fields.Count; i++)
                     {
                         if (field.fields[i].Type == typeof(Button))
                         {
-                            str += $"{(hasns ? "\t\t\t" : "\t\t")}" + $"{field.fields[i].name}.onClick.AddListener(() => " + "{" + "});\n";
+                            var addListenerText = $"{field.fields[i].name}.onClick.AddListener(On{field.fields[i].name}Click);";
+                            var fieldCode = codes[3].Replace("{AddListener}", addListenerText);
+                            sb.Append(fieldCode);
+
+                            fieldCode = codes[5].Replace("{methodEvent}", $"On{field.fields[i].name}Click()");
+                            sb1.Append(fieldCode);
                         }
                         else if (field.fields[i].Type == typeof(Toggle))
                         {
-                            str += $"{(hasns ? "\t\t\t" : "\t\t")}" + $"{field.fields[i].name}.onValueChanged.AddListener((value) => " + "{" + "});\n";
+                            var addListenerText = $"{field.fields[i].name}.onValueChanged.AddListener(On{field.fields[i].name}Changed);";
+                            var fieldCode = codes[3].Replace("{AddListener}", addListenerText);
+                            sb.Append(fieldCode);
+
+                            fieldCode = codes[5].Replace("{methodEvent}", $"On{field.fields[i].name}Changed(bool isOn)");
+                            sb1.Append(fieldCode);
                         }
                     }
-                    return str;
-                });
-                if (string.IsNullOrEmpty(field.fieldName))
-                    field.fieldName = field.name;
-                var scriptStr = "using MVC.View;\n" +
-                "using UnityEngine;\n" +
-                "using UnityEngine.UI;\n\n" +
-                (hasns ? "namespace " + data.nameSpace + "\n{\n" : "") +
-                $"{(hasns ? "\t" : "")}" + $"//热更新生成的脚本, 请看gitee的mvc模块使用介绍图示\n" +
-                $"{(hasns ? "\t" : "")}" + $"public class {field.fieldName}\n" +
-                $"{(hasns ? "\t" : "")}" + "{\n" +
-                $"{(hasns ? "\t\t" : "\t")}" + $"public static {field.fieldName} Instance = new {field.fieldName}();\n" +
-                $"{(hasns ? "\t\t" : "\t")}" + "public GameObject panel;\n" +
-                action() +
-                $"{(hasns ? "\t\t" : "\t")}" + "public void Init(FieldCollection fc)\n" +
-                $"{(hasns ? "\t\t" : "\t")}" + "{\n" +
-                $"{(hasns ? "\t\t\t" : "\t\t")}" + "panel = fc.gameObject;\n" +
-                action1() +
-                action2() +
-                $"{(hasns ? "\t\t" : "\t")}" + "}\n" +
-                $"{(hasns ? "\t" : "")}" + "}" +
-                (hasns ? "\n}" : "");
-                string path = "";
-                string path1 = "";
-                if (data.fullPath)
-                {
-                    path = savePath + $"/{field.fieldName}.cs";
-                    path1 = data.csprojFile;
-                }
-                else
-                {
-                    path = Application.dataPath.Replace("Assets", "") + savePath + $"/{field.fieldName}.cs";
-                    path1 = Application.dataPath.Replace("Assets", "") + data.csprojFile;
-                }
-                if (File.Exists(path)) 
-                {
-                    if(!EditorUtility.DisplayDialog("写入脚本文件", "脚本已存在, 是否替换? 或 尾部添加?", "替换", "尾部添加"))
-                        File.AppendAllText(path, scriptStr);
-                    else File.WriteAllText(path, scriptStr);
-                } else File.WriteAllText(path, scriptStr);
-                if (File.Exists(path1)) 
-                {
-                    var rows = File.ReadAllLines(path1);
-                    foreach (var row in rows)
+                    sb.Append(codes[4]);
+                    sb.AppendLine();
+                    sb.Append(sb1.ToString());
+                    sb.Append(codes[6]);
+                    if (hasns)
+                        sb.Append(codes[7]);
+                    scriptCode1 = sb.ToString();
+                    if (!hasns)
                     {
-                        if (row.Contains("<Compile Include=\"")) 
+                        var scriptCodes = scriptCode1.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                        sb.Clear();
+                        for (int i = 0; i < scriptCodes.Length; i++)
                         {
-                            var row1 = row.Replace("<Compile Include=\"", "");
-                            row1 = row1.Replace("\" />", "");
-                            var csName = Path.GetFileName(row1);
-                            var csName1 = Path.GetFileName(path);
-                            if (csName == csName1)
+                            if (scriptCodes[i].StartsWith("        "))
+                                scriptCodes[i] = scriptCodes[i].Remove(0, 4);
+                            else if (scriptCodes[i].StartsWith("    "))
+                                scriptCodes[i] = scriptCodes[i].Remove(0, 4);
+                            sb.AppendLine(scriptCodes[i]);
+                        }
+                        scriptCode1 = sb.ToString();
+                    }
+                    while (scriptCode1.EndsWith("\n") | scriptCode1.EndsWith("\r"))
+                        scriptCode1 = scriptCode1.Remove(scriptCode1.Length - 1, 1);
+                }
+
+                var files = Directory.GetFiles("Assets", $"{field.fieldName}.cs", SearchOption.AllDirectories);
+                if (files.Length > 0)
+                {
+                    var path = files[0];
+                    File.WriteAllText(path, scriptCode);
+                    Debug.Log($"生成成功:{path}");
+                }
+                else if (!string.IsNullOrEmpty(data.SavePath(field.savePathInx)))
+                {
+                    var path = data.SavePath(field.savePathInx) + $"/{field.fieldName}.cs";
+                    File.WriteAllText(path, scriptCode);
+                    Debug.Log($"生成成功:{path}");
+                }
+                var path1 = string.Empty;
+                var hasExt = false;
+                files = Directory.GetFiles("Assets", $"{field.fieldName}Ext.cs", SearchOption.AllDirectories);
+                if (files.Length > 0)
+                {
+                    path1 = files[0];
+                    hasExt = true;
+                }
+                else if (!string.IsNullOrEmpty(data.SavePathExt(field.savePathExtInx)))
+                {
+                    path1 = data.SavePathExt(field.savePathExtInx) + $"/{field.fieldName}Ext.cs";
+                    hasExt = true;
+                }
+                if (hasExt)
+                {
+                    if (!File.Exists(path1))
+                    {
+                        File.WriteAllText(path1, scriptCode1);
+                    }
+                    else
+                    {
+                        var code = EditorUtility.DisplayDialogComplex("写入脚本文件", "脚本已存在, 是否替换? 或 尾部添加?", "替换", "忽略", "尾部添加");
+                        switch (code)
+                        {
+                            case 0:
+                                File.WriteAllText(path1, scriptCode1);
+                                break;
+                            case 2:
+                                File.AppendAllText(path1, $"\r\n/*{scriptCode1}*/");
+                                break;
+                            default:
                                 goto J;
                         }
                     }
-                    var cspath = Path.GetDirectoryName(path1).Replace("\\", "/");
-                    var path2 = path.Replace(cspath, "").TrimStart('/').Replace("/", "\\");
-                    List<string> rows1 = new List<string>(rows);
-                    rows1.Insert(rows.Length - 3, $"    <Compile Include=\"{path2}\" />");
-                    File.WriteAllLines(path1, rows1);
+                    Debug.Log($"生成成功:{path1}");
                 }
                 J: AssetDatabase.Refresh();
-                Debug.Log($"生成成功:{path}");
             }
             if (GUILayout.Button("生成脚本(主工程)"))
             {
-                bool hasns = data.nameSpace != "";
-                Func<string> action = new Func<string>(() => {
-                    string str = "";
+                var codeTemplate = @"namespace {nameSpace} 
+{
+--
+    public partial class {typeName} : {inherit}
+    {
+--
+        public {fieldType} {fieldName};
+--
+        void OnValidate()
+        {
+--
+            {fieldName} = transform.GetComponentsInChildren<{fieldType}>(true)[{index}]{extend};
+--
+        }
+    }
+--
+}";
+                var codeTemplate1 = @"namespace {nameSpace} 
+{
+--
+    //项目需要用到UTF8编码进行保存, 默认情况下是中文编码(GB2312), 如果更新MVC后发现脚本的中文乱码则需要处理一下
+    //以下是设置UTF8编码的Url:方法二 安装插件
+    //url:https://blog.csdn.net/hfy1237/article/details/129858976
+    public partial class {typeName}
+    {
+--
+        private void Start()
+        {
+--
+            {AddListener}
+--
+        }
+--
+        private void {methodEvent}
+        {
+        }
+--
+    }
+--
+}";
+                string scriptCode;
+                {
+                    var hasns = !string.IsNullOrEmpty(data.nameSpace);
+                    if (string.IsNullOrEmpty(field.fieldName))
+                        field.fieldName = field.name;
+                    codeTemplate = codeTemplate.Replace("{nameSpace}", data.nameSpace);
+                    var typeName = field.fieldName;
+                    codeTemplate = codeTemplate.Replace("{typeName}", typeName);
+                    var inheritType = field.genericType ? $"{data.InheritType(field.inheritTypeInx)}<{typeName}>" : data.InheritType(field.inheritTypeInx);
+                    codeTemplate = codeTemplate.Replace("{inherit}", inheritType);
+                    var codes = codeTemplate.Split(new string[] { "--\r\n" }, StringSplitOptions.None);
+                    var sb = new StringBuilder();
+                    var sb1 = new StringBuilder();
+                    if (hasns)
+                        sb.Append(codes[0]);
+                    sb.Append(codes[1]);
                     for (int i = 0; i < field.fields.Count; i++)
                     {
-                        str += $"{(hasns ? "\t\t" : "\t")}" + $"public {field.fields[i].Type.Name} {field.fields[i].name};\n";
-                    }
-                    return str;
-                });
-                Func<string> action1 = new Func<string>(() => {
-                    string str = "";
-                    int index = 0;
-                    for (int i = 0; i < field.fields.Count; i++)
-                    {
+                        var fieldCode = codes[2].Replace("{fieldType}", field.fields[i].Type.ToString());
+                        fieldCode = fieldCode.Replace("{fieldName}", field.fields[i].name);
+                        sb.Append(fieldCode);
+
+                        int index = -1;
                         if (field.fields[i].Type == typeof(GameObject))
-                            continue;
-                        if (field.fields[i].Type == typeof(UnityEngine.Object))
-                            continue;
-                        if (!field.fields[i].Type.IsSubclassOf(typeof(Component)))
-                            continue;
-                        var comps = field.transform.GetComponentsInChildren(field.fields[i].Type);
-                        for (int ii = 0; ii < comps.Length; ii++)
                         {
-                            var comp = field.fields[i].target as Component;
-                            if (comp == comps[ii]) {
-                                index = ii;
-                                break;
+                            fieldCode = codes[4].Replace("{fieldType}", "UnityEngine.Transform");
+                            fieldCode = fieldCode.Replace("{extend}", ".gameObject");
+                            var components = field.GetComponentsInChildren(typeof(Transform), true);
+                            for (int x = 0; x < components.Length; x++)
+                            {
+                                if (components[x].gameObject == field.fields[i].target)
+                                {
+                                    index = x;
+                                    break;
+                                }
                             }
                         }
-                        str += $"{(hasns ? "\t\t\t" : "\t\t")}" + $"{field.fields[i].name} = transform.GetComponentsInChildren<{field.fields[i].Type.Name}>()[{index}];\n";
+                        else
+                        {
+                            fieldCode = codes[4].Replace("{fieldType}", field.fields[i].Type.ToString());
+                            fieldCode = fieldCode.Replace("{extend}", "");
+                            var components = field.GetComponentsInChildren(field.fields[i].Type, true);
+                            for (int x = 0; x < components.Length; x++)
+                            {
+                                if (components[x] == field.fields[i].target)
+                                {
+                                    index = x;
+                                    break;
+                                }
+                            }
+                        }
+                        fieldCode = fieldCode.Replace("{fieldName}", field.fields[i].name);
+                        fieldCode = fieldCode.Replace("{index}", index.ToString());
+                        sb1.Append(fieldCode);
                     }
-                    return str;
-                });
-                Func<string> action2 = new Func<string>(() => {
-                    string str = "";
+                    sb.AppendLine();
+                    sb.Append(codes[3]);
+                    sb.Append(sb1.ToString());
+                    sb.Append(codes[5]);
+                    if (hasns)
+                        sb.Append(codes[6]);
+                    scriptCode = sb.ToString();
+                    if (!hasns)
+                    {
+                        var scriptCodes = scriptCode.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                        sb.Clear();
+                        for (int i = 0; i < scriptCodes.Length; i++)
+                        {
+                            if (scriptCodes[i].StartsWith("        "))
+                                scriptCodes[i] = scriptCodes[i].Remove(0, 4);
+                            else if (scriptCodes[i].StartsWith("    "))
+                                scriptCodes[i] = scriptCodes[i].Remove(0, 4);
+                            sb.AppendLine(scriptCodes[i]);
+                        }
+                        scriptCode = sb.ToString();
+                    }
+                    while (scriptCode.EndsWith("\n") | scriptCode.EndsWith("\r"))
+                        scriptCode = scriptCode.Remove(scriptCode.Length - 1, 1);
+                    var files = Directory.GetFiles("Assets", $"{field.fieldName}.cs", SearchOption.AllDirectories);
+                    if (files.Length > 0)
+                    {
+                        var path = files[0];
+                        File.WriteAllText(path, scriptCode);
+                        Debug.Log($"生成成功:{path}");
+                    }
+                    else if (!string.IsNullOrEmpty(data.SavePath(field.savePathInx)))
+                    {
+                        var path = data.SavePath(field.savePathInx) + $"/{field.fieldName}.cs";
+                        File.WriteAllText(path, scriptCode);
+                        Debug.Log($"生成成功:{path}");
+                    }
+                }
+
+                string scriptCode1;
+                {
+                    var hasns = !string.IsNullOrEmpty(data.nameSpace);
+                    if (string.IsNullOrEmpty(field.fieldName))
+                        field.fieldName = field.name;
+                    codeTemplate1 = codeTemplate1.Replace("{nameSpace}", data.nameSpace);
+                    var typeName = field.fieldName;
+                    codeTemplate1 = codeTemplate1.Replace("{typeName}", typeName);
+                    var inheritType = field.genericType ? $"{data.InheritType(field.inheritTypeInx)}<{typeName}>" : data.InheritType(field.inheritTypeInx);
+                    codeTemplate1 = codeTemplate1.Replace("{inherit}", inheritType);
+                    var codes = codeTemplate1.Split(new string[] { "--\r\n" }, StringSplitOptions.None);
+                    var sb = new StringBuilder();
+                    var sb1 = new StringBuilder();
+                    if (hasns)
+                        sb.Append(codes[0]);
+                    sb.Append(codes[1]);
+                    sb.Append(codes[2]);
                     for (int i = 0; i < field.fields.Count; i++)
                     {
                         if (field.fields[i].Type == typeof(Button))
                         {
-                            str += $"{(hasns ? "\t\t\t" : "\t\t")}" + $"{field.fields[i].name}.onClick.AddListener(() => " + "{" + "});\n";
+                            var addListenerText = $"{field.fields[i].name}.onClick.AddListener(On{field.fields[i].name}Click);";
+                            var fieldCode = codes[3].Replace("{AddListener}", addListenerText);
+                            sb.Append(fieldCode);
+
+                            fieldCode = codes[5].Replace("{methodEvent}", $"On{field.fields[i].name}Click()");
+                            sb1.Append(fieldCode);
                         }
                         else if (field.fields[i].Type == typeof(Toggle))
                         {
-                            str += $"{(hasns ? "\t\t\t" : "\t\t")}" + $"{field.fields[i].name}.onValueChanged.AddListener((value) => " + "{" + "});\n";
+                            var addListenerText = $"{field.fields[i].name}.onValueChanged.AddListener(On{field.fields[i].name}Changed);";
+                            var fieldCode = codes[3].Replace("{AddListener}", addListenerText);
+                            sb.Append(fieldCode);
+
+                            fieldCode = codes[5].Replace("{methodEvent}", $"On{field.fields[i].name}Changed(bool isOn)");
+                            sb1.Append(fieldCode);
                         }
                     }
-                    return str;
-                });
-                if (string.IsNullOrEmpty(field.fieldName))
-                    field.fieldName = field.name;
-                var scriptStr = "using Net.Component;\n" +
-                "using UnityEngine;\n" +
-                "using UnityEngine.UI;\n\n" +
-                (hasns ? "namespace " + data.nameSpace + "\n{\n" : "") +
-                $"{(hasns ? "\t" : "")}public partial class {field.fieldName} : SingleCase<{field.fieldName}>\n" +
-                $"{(hasns ? "\t" : "")}" + "{\n" +
-                action() +
-                $"\n{(hasns ? "\t\t" : "\t")}void OnValidate()\n" +
-                $"{(hasns ? "\t\t" : "\t")}" + "{\n" +
-                action1() +
-                $"{(hasns ? "\t\t" : "\t")}" + "}\n" +
-                $"{(hasns ? "\t" : "")}" + "}" +
-                (hasns ? "\n}" : "");
-                string path = "";
-                string path1 = "";
-                if (data.fullPath)
-                {
-                    path = savePath + $"/{field.fieldName}.cs";
-                    path1 = data.savePathExt + $"/{field.fieldName}Ext.cs";
+                    sb.Append(codes[4]);
+                    sb.AppendLine();
+                    sb.Append(sb1.ToString());
+                    sb.Append(codes[6]);
+                    if (hasns)
+                        sb.Append(codes[7]);
+                    scriptCode1 = sb.ToString();
+                    if (!hasns)
+                    {
+                        var scriptCodes = scriptCode1.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                        sb.Clear();
+                        for (int i = 0; i < scriptCodes.Length; i++)
+                        {
+                            if (scriptCodes[i].StartsWith("        "))
+                                scriptCodes[i] = scriptCodes[i].Remove(0, 4);
+                            else if (scriptCodes[i].StartsWith("    "))
+                                scriptCodes[i] = scriptCodes[i].Remove(0, 4);
+                            sb.AppendLine(scriptCodes[i]);
+                        }
+                        scriptCode1 = sb.ToString();
+                    }
+                    while (scriptCode1.EndsWith("\n") | scriptCode1.EndsWith("\r"))
+                        scriptCode1 = scriptCode1.Remove(scriptCode1.Length - 1, 1);
+                    var path1 = string.Empty;
+                    var hasExt = false;
+                    var files = Directory.GetFiles("Assets", $"{field.fieldName}Ext.cs", SearchOption.AllDirectories);
+                    if (files.Length > 0)
+                    {
+                        path1 = files[0];
+                        hasExt = true;
+                        var lines = new List<string>(File.ReadAllLines(path1));
+                        int startIndex = 0;
+                        for (int i = 0; i < lines.Count; i++)
+                        {
+                            if (lines[i].Contains("private void Start()"))
+                            {
+                                startIndex = i + 2;
+                                break;
+                            }
+                        }
+                        for (int i = 0; i < field.fields.Count; i++)
+                        {
+                            var isBtn = field.fields[i].Type == typeof(Button);
+                            var isToggle = field.fields[i].Type == typeof(Toggle);
+                            if (!isBtn & !isToggle)
+                                continue;
+                            var addListenerText = $"{field.fields[i].name}.onClick.AddListener";
+                            if (!Contains(lines, addListenerText))
+                            {
+                                addListenerText = $"{field.fields[i].name}.{(isBtn ? "onClick" : "onValueChanged")}.AddListener(On{field.fields[i].name}{(isBtn ? "Click" : "Changed")});";
+                                lines.Insert(startIndex, (hasns ? "            " : "        ") + addListenerText);
+                                startIndex++;
+                                var fieldCode = codes[5].Replace("{methodEvent}", $"On{field.fields[i].name}{(isBtn ? "Click()" : "Changed(bool isOn)")}");
+                                var fieldCodes = fieldCode.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+                                for (int x = 0; x < fieldCodes.Length; x++)
+                                {
+                                    var fieldCode2 = fieldCodes[x];
+                                    if (!hasns)
+                                    {
+                                        if (fieldCode2.StartsWith("        "))
+                                            fieldCode2 = fieldCode2.Remove(0, 4);
+                                        else if (fieldCode2.StartsWith("    "))
+                                            fieldCode2 = fieldCode2.Remove(0, 4);
+                                    }
+                                    lines.Insert(lines.Count - (hasns ? 2 : 1), fieldCode2);
+                                }
+                            }
+                        }
+                        scriptCode1 = "";
+                        for (int i = 0; i < lines.Count; i++)
+                            scriptCode1 += lines[i] + "\r\n";
+                    }
+                    else if (!string.IsNullOrEmpty(data.SavePathExt(field.savePathExtInx)))
+                    {
+                        path1 = data.SavePathExt(field.savePathExtInx) + $"/{field.fieldName}Ext.cs";
+                        hasExt = true;
+                    }
+                    if (hasExt) 
+                    {
+                        File.WriteAllText(path1, scriptCode1);
+                        Debug.Log($"生成成功:{path1}");
+                    }
                 }
-                else
-                {
-                    path = Application.dataPath.Replace("Assets", "") + savePath + $"/{field.fieldName}.cs";
-                    path1 = Application.dataPath.Replace("Assets", "") + data.savePathExt + $"/{field.fieldName}Ext.cs";
-                }
-                if (File.Exists(path)) 
-                {
-                    if(!EditorUtility.DisplayDialog("写入脚本文件", "脚本已存在, 是否替换? 或 尾部添加?", "替换", "尾部添加"))
-                        File.AppendAllText(path, scriptStr);
-                    else File.WriteAllText(path, scriptStr);
-                } else File.WriteAllText(path, scriptStr);
-                if (!File.Exists(path1))
-                {
-                    var scriptStr1 = "using Net.Component;\n" +
-                    "using UnityEngine;\n" +
-                    "using UnityEngine.UI;\n\n" +
-                    (hasns ? "namespace " + data.nameSpace + "\n{\n" : "") +
-                    $"{(hasns ? "\t" : "")}public partial class {field.fieldName} : SingleCase<{field.fieldName}>\n" +
-                    $"{(hasns ? "\t" : "")}" + "{\n" +
-                    $"\n{(hasns ? "\t\t" : "\t")}void Start()\n" +
-                    $"{(hasns ? "\t\t" : "\t")}" + "{\n" +
-                    action2() +
-                    $"{(hasns ? "\t\t" : "\t")}" + "}\n" +
-                    $"{(hasns ? "\t" : "")}" + "}" +
-                    (hasns ? "\n}" : "");
-                    File.WriteAllText(path1, scriptStr1);
-                }
-                //csproj对主工程无效
                 AssetDatabase.Refresh();
-                Debug.Log($"生成成功:{path}");
+                field.compiling = true;
             }
-            serializedObject.ApplyModifiedProperties();
+        }
+
+        static bool Contains(List<string> list, string text) 
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].Contains(text))
+                    return true;
+            }
+            return false;
+        }
+
+        [DidReloadScripts]
+        static void OnScriptCompilation()
+        {
+            var gameObject = Selection.activeGameObject;
+            if (gameObject == null)
+                return;
+            if (!gameObject.TryGetComponent<FieldCollection>(out var fieldCollection))
+                return;
+            if (fieldCollection.compiling)
+            {
+                fieldCollection.compiling = false;
+                var data = PersistHelper.Deserialize<JsonSave>("fcdata.json");
+                string componentTypeName;
+                if (string.IsNullOrEmpty(data.nameSpace))
+                    componentTypeName = fieldCollection.fieldName;
+                else
+                    componentTypeName = data.nameSpace + "." + fieldCollection.fieldName;
+                var type = AssemblyHelper.GetType(componentTypeName);
+                if (type == null)
+                    return;
+                if (fieldCollection.TryGetComponent(type, out var component))
+                {
+                    component.GetType().GetMethod("OnValidate", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(component, null);
+                    return;
+                }
+                fieldCollection.gameObject.AddComponent(type);
+            }
         }
     }
 }

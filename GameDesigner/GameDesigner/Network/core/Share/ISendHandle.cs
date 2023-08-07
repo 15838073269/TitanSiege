@@ -38,36 +38,6 @@ namespace Net.Share
         void Send(byte cmd, string func, params object[] pars);
 
         /// <summary>
-        /// 远程过程调用 同Send方法
-        /// </summary>
-        /// <param name="func">Call名</param>
-        /// <param name="pars">Call函数</param>
-        void CallRpc(string func, params object[] pars);
-
-        /// <summary>
-        /// 远程过程调用 同Send方法
-        /// </summary>
-        /// <param name="cmd">网络命令，请看NetCmd类定义</param>
-        /// <param name="func">Call名</param>
-        /// <param name="pars">Call函数</param>
-        void CallRpc(byte cmd, string func, params object[] pars);
-
-        /// <summary>
-        /// 网络请求 同Send方法
-        /// </summary>
-        /// <param name="func">Call名</param>
-        /// <param name="pars">Call函数</param>
-        void Request(string func, params object[] pars);
-
-        /// <summary>
-        /// 网络请求 同Send方法
-        /// </summary>
-        /// <param name="cmd">网络命令，请看NetCmd类定义</param>
-        /// <param name="func">Call名</param>
-        /// <param name="pars">Call函数</param>
-        void Request(byte cmd, string func, params object[] pars);
-
-        /// <summary>
         /// 发送网络可靠传输数据, 可以发送大型文件数据
         /// 调用此方法通常情况下是一定把数据发送成功为止
         /// </summary>
@@ -98,47 +68,5 @@ namespace Net.Share
         /// <param name="cmd">网络命令</param>
         /// <param name="buffer"></param>
         void SendRT(byte cmd, byte[] buffer);
-
-        /// <summary>
-        /// 发送请求, 并且监听服务端的回调请求, 服务器回调请求要对应上发送时的回调匿名, 异步回调, 并且在millisecondsDelay时间内要响应, 否则调用outTimeAct
-        /// </summary>
-        /// <param name="func">服务器函数名</param>
-        /// <param name="funcCB">服务器回调函数名</param>
-        /// <param name="callback">回调接收委托</param>
-        /// <param name="pars">远程参数</param>
-        void SendRT(string func, string funcCB, Delegate callback, params object[] pars);
-
-        /// <summary>
-        /// 发送请求, 并且监听服务端的回调请求, 服务器回调请求要对应上发送时的回调匿名, 异步回调, 并且在millisecondsDelay时间内要响应, 否则调用outTimeAct
-        /// </summary>
-        /// <param name="func">服务器函数名</param>
-        /// <param name="funcCB">服务器回调函数名</param>
-        /// <param name="callback">回调接收委托</param>
-        /// <param name="millisecondsDelay">异步时间</param>
-        /// <param name="pars">远程参数</param>
-        void SendRT(string func, string funcCB, Delegate callback, int millisecondsDelay, params object[] pars);
-
-        /// <summary>
-        /// 发送请求, 并且监听服务端的回调请求, 服务器回调请求要对应上发送时的回调匿名, 异步回调, 并且在millisecondsDelay时间内要响应, 否则调用outTimeAct
-        /// </summary>
-        /// <param name="func">服务器函数名</param>
-        /// <param name="funcCB">服务器回调函数名</param>
-        /// <param name="callback">回调接收委托</param>
-        /// <param name="millisecondsDelay">异步时间</param>
-        /// <param name="outTimeAct">异步超时调用</param>
-        /// <param name="pars">远程参数</param>
-        void SendRT(string func, string funcCB, Delegate callback, int millisecondsDelay, Action outTimeAct, params object[] pars);
-
-        /// <summary>
-        /// 发送请求, 并且监听服务端的回调请求, 服务器回调请求要对应上发送时的回调匿名, 异步回调, 并且在millisecondsDelay时间内要响应, 否则调用outTimeAct
-        /// </summary>
-        /// <param name="cmd">指令</param>
-        /// <param name="func">服务器函数名</param>
-        /// <param name="funcCB">服务器回调函数名</param>
-        /// <param name="callback">回调接收委托</param>
-        /// <param name="millisecondsDelay">异步时间</param>
-        /// <param name="outTimeAct">异步超时调用</param>
-        /// <param name="pars">远程参数</param>
-        void SendRT(byte cmd, string func, string funcCB, Delegate callback, int millisecondsDelay, Action outTimeAct, params object[] pars);
     }
 }

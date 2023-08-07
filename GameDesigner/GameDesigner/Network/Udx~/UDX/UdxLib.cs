@@ -1,7 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Runtime.InteropServices;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UDXObj = System.IntPtr;
 
 namespace Udx
@@ -42,24 +44,44 @@ namespace Udx
         public string name;
     };
 
-    public interface IUDX { }
-
+#if UNITY_EDITOR
+    [InitializeOnLoad]
+#endif
     public class UdxLib
     {
 #if __IOS__ || UNITY_IOS && !UNITY_EDITOR
 		public const string nativeLibrary = "__Internal";
 #elif UNITY_ANDROID && !UNITY_EDITOR//宏编译 在安卓编译就是这里
 		public const string nativeLibrary = "udxapi";
-#else //在win, unity编辑器
-        public const string nativeLibrary = "FastUdxApi.dll";
+#else //在win, linux, unity编辑器
+        public const string nativeLibrary = "udxapi";
 #endif
+
         public const int AUDIOFRAME_A = 0;//音频帧
         public const int VIDEOFRAME_I = 1;//I帧
         public const int VIDEOFRAME_P = 2;//P帧
         public const int DATAFRAME_I = 3;//数据帧
 
         public static bool INIT;
-        public static HashSet<IUDX> UDXS = new HashSet<IUDX>();
+
+#if UNITY_EDITOR
+        static UdxLib()
+        {
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+        }
+
+        private static void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            if (state == PlayModeStateChange.EnteredEditMode) //当退出游戏进入编辑器模式时才判断
+            {
+                if (INIT)
+                {
+                    INIT = false;
+                    UUnInit();
+                }
+            }
+        }
+#endif
 
         [DllImport(nativeLibrary, CallingConvention = CallingConvention.StdCall)]
         public static extern void UInit(int threadcout);//UDXAPI初始化，threadcout UDX事件回调事件线程数，如果是客户端，一般设置为2，服务器时CPU*2+2
@@ -98,10 +120,10 @@ namespace Udx
         public static extern bool UIsFullBuffs(IntPtr s); //判断，当前联接,是否已经缓冲满，如果满了，请调用wait或sleep，等待成为非满状态
 
         [DllImport(nativeLibrary, CallingConvention = CallingConvention.StdCall)]
-        public static extern void USetUserData(IntPtr s, IntPtr i64User);  //与联接，关联一个用户自定义的数据对象
+        public static extern void USetUserData(IntPtr s, long i64User);  //与联接，关联一个用户自定义的数据对象
 
         [DllImport(nativeLibrary, CallingConvention = CallingConvention.StdCall)]
-        public static extern IntPtr UGetUserData(IntPtr s);//获取，之前与这个联接关联的，用户自定义的数据对象
+        public static extern long UGetUserData(IntPtr s);//获取，之前与这个联接关联的，用户自定义的数据对象
 
         [DllImport(nativeLibrary, CallingConvention = CallingConvention.StdCall)]
         public static extern int UWait(IntPtr s, int ms); //等联接对象到可发状态

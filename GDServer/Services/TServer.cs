@@ -10,6 +10,7 @@ using Net.Event;
 using Titansiege;
 using Net.MMORPG;
 using cmd;
+using System.IO;
 
 //文件最好与服务器端VisualStudio项目的MyCommand.cs同名且代码一样
 namespace GDServer.Services
@@ -28,6 +29,7 @@ namespace GDServer.Services
             SetHeartTime(5, 300);//我们设置心跳检测时间, 时间越小检测越快, 跳检测时间也不能太小, 太小会直接判断为离线状态
             //加载所有mysql数据
             TitansiegeDB.I.InitData();
+            ThreadManager.Invoke(1f, TitansiegeDB.I.Executed, true);//每秒检查有没有数据需要往mysql数据库更新
         }
         /// <summary>
         /// 接收客户端发过来的请求，当接收到第一个请求时，应该用来处理登录方法

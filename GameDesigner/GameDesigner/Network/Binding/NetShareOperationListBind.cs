@@ -7,7 +7,7 @@ namespace Binding
 {
     public struct NetShareOperationListBind : ISerialize<Net.Share.OperationList>, ISerialize
     {
-        public void Write(Net.Share.OperationList value, Segment stream)
+        public void Write(Net.Share.OperationList value, ISegment stream)
         {
             int pos = stream.Position;
             stream.Position += 1;
@@ -32,7 +32,7 @@ namespace Binding
             stream.Position = pos1;
         }
 		
-		public Net.Share.OperationList Read(Segment stream)
+		public Net.Share.OperationList Read(ISegment stream)
 		{
 			byte[] bits = stream.Read(1);
 			var value = new Net.Share.OperationList();
@@ -49,12 +49,12 @@ namespace Binding
 			return value;
 		}
 
-        public void WriteValue(object value, Segment stream)
+        public void WriteValue(object value, ISegment stream)
         {
             Write((Net.Share.OperationList)value, stream);
         }
 
-        public object ReadValue(Segment stream)
+        public object ReadValue(ISegment stream)
         {
             return Read(stream);
         }
@@ -65,7 +65,7 @@ namespace Binding
 {
 	public struct NetShareOperationListArrayBind : ISerialize<Net.Share.OperationList[]>, ISerialize
 	{
-		public void Write(Net.Share.OperationList[] value, Segment stream)
+		public void Write(Net.Share.OperationList[] value, ISegment stream)
 		{
 			int count = value.Length;
 			stream.Write(count);
@@ -75,7 +75,7 @@ namespace Binding
 				bind.Write(value1, stream);
 		}
 
-		public Net.Share.OperationList[] Read(Segment stream)
+		public Net.Share.OperationList[] Read(ISegment stream)
 		{
 			var count = stream.ReadInt32();
 			var value = new Net.Share.OperationList[count];
@@ -86,12 +86,12 @@ namespace Binding
 			return value;
 		}
 
-		public void WriteValue(object value, Segment stream)
+		public void WriteValue(object value, ISegment stream)
 		{
 			Write((Net.Share.OperationList[])value, stream);
 		}
 
-		public object ReadValue(Segment stream)
+		public object ReadValue(ISegment stream)
 		{
 			return Read(stream);
 		}
@@ -101,7 +101,7 @@ namespace Binding
 {
 	public struct NetShareOperationListGenericBind : ISerialize<List<Net.Share.OperationList>>, ISerialize
 	{
-		public void Write(List<Net.Share.OperationList> value, Segment stream)
+		public void Write(List<Net.Share.OperationList> value, ISegment stream)
 		{
 			int count = value.Count;
 			stream.Write(count);
@@ -111,7 +111,7 @@ namespace Binding
 				bind.Write(value1, stream);
 		}
 
-		public List<Net.Share.OperationList> Read(Segment stream)
+		public List<Net.Share.OperationList> Read(ISegment stream)
 		{
 			var count = stream.ReadInt32();
 			var value = new List<Net.Share.OperationList>(count);
@@ -122,12 +122,12 @@ namespace Binding
 			return value;
 		}
 
-		public void WriteValue(object value, Segment stream)
+		public void WriteValue(object value, ISegment stream)
 		{
 			Write((List<Net.Share.OperationList>)value, stream);
 		}
 
-		public object ReadValue(Segment stream)
+		public object ReadValue(ISegment stream)
 		{
 			return Read(stream);
 		}

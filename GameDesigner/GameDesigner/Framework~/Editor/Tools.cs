@@ -52,9 +52,9 @@ public class Tools
 			}
         }
 		var excelPath1 = path + "GameConfig.xls";
-		if (!File.Exists(excelPath1))//Èç¹û´æÔÚ±íÔò²»ÄÜ¸´ÖÆ½øÈ¥ÁË, ±ÜÃâÊ¹ÓÃÕßÊı¾İ¶ªÊ§
+		if (!File.Exists(excelPath1))//å¦‚æœå­˜åœ¨è¡¨åˆ™ä¸èƒ½å¤åˆ¶è¿›å»äº†, é¿å…ä½¿ç”¨è€…æ•°æ®ä¸¢å¤±
 			File.Copy(excelPath, excelPath1);
-		Debug.Log($"¸´ÖÆÅäÖÃ±í¸ñÎÄ¼şÍê³É:{excelPath1}");
+		Debug.Log($"å¤åˆ¶é…ç½®è¡¨æ ¼æ–‡ä»¶å®Œæˆ:{excelPath1}");
 
 		var paths = new List<string>() { 
 			"Assets/Scripts/Data/DB/", "Assets/Scripts/Data/DBExt/", "Assets/Scripts/Data/Proto/",
@@ -67,7 +67,7 @@ public class Tools
         {
 			if (!Directory.Exists(item))
 				Directory.CreateDirectory(item);
-			Debug.Log($"´´½¨µÄ½Å±¾Â·¾¶:{item}");
+			Debug.Log($"åˆ›å»ºçš„è„šæœ¬è·¯å¾„:{item}");
 		}
 
 		path = "Assets/Plugins/GameDesigner/Framework/Template/Global.txt";
@@ -85,7 +85,12 @@ public class Tools
 		if (!File.Exists(excelPath1))
 			File.Copy(path, excelPath1);
 
-		Debug.Log($"»·¾³°²×°Íê³É!");
+        path = "Assets/Plugins/GameDesigner/Framework/Template/EventCommand.txt";
+        excelPath1 = "Assets/Scripts/Data/EventCommand.cs";
+        if (!File.Exists(excelPath1))
+            File.Copy(path, excelPath1);
+
+        Debug.Log($"ç¯å¢ƒå®‰è£…å®Œæˆ!");
 		AssetDatabase.Refresh();
 	}
 }

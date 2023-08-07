@@ -119,14 +119,21 @@
                 var buffer = new byte[dataLen];
                 Task.Run(()=> 
                 {
-                    while (!cts.IsCancellationRequested) 
+                    for (int i = 0; i < clients.Count; i++)
+                    {
+                        var client = clients[i];
+                        client.OnPingCallback += (d) =>
+                        {
+                            client.delay = d;
+                        };
+                    }
+                    while (!cts.IsCancellationRequested)
                     {
                         Thread.Sleep(1000);
                         fpsAct?.Invoke(clients);
                         for (int i = 0; i < clients.Count; i++)
                         {
-                            clients[i].NetworkFlowHandler();
-                            clients[i].fps = 0;
+                            clients[i].Ping();
                         }
                     }
                 });
@@ -164,7 +171,7 @@
                                 }
                                 catch (Exception ex)
                                 {
-                                    Event.NDebug.LogError(ex);
+                                    NDebug.LogError(ex);
                                 }
                             }
                         }
@@ -180,19 +187,23 @@
         }
     }
 
+    /// <summary>
+    /// Gcp协议
+    /// </summary>
+    public class GcpClient : UdpClient { }
+
     public class UdpClientTest : UdpClient
     {
-        public int fps;
         public int revdSize { get { return receiveCount; } }
         public int sendSize { get { return sendCount; } }
         public int sendNum { get { return sendAmount; } }
         public int revdNum { get { return receiveAmount; } }
-        public int resolveNum { get { return receiveAmount; } }
+        public int resolveNum { get { return resolveAmount; } }
+        public uint delay { get; internal set; }
+
         private byte[] addressBuffer;
         public UdpClientTest()
         {
-            OnReceiveDataHandle += (model) => { fps++; };
-            OnOperationSync += (list) => { fps++; };
         }
         protected override UniTask<bool> ConnectResult(string host, int port, int localPort, Action<bool> result)
         {
@@ -204,21 +215,14 @@
             var socketAddress = Client.RemoteEndPoint.Serialize();
             addressBuffer = (byte[])socketAddress.GetType().GetField("m_Buffer", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(socketAddress);
 #endif
-            rPCModels.Enqueue(new RPCModel(NetCmd.Connect, new byte[0]));
+            RpcModels.Enqueue(new RPCModel(NetCmd.Connect, new byte[0]));
             SendDirect();
             Connected = true;
             result(true);
             return UniTask.FromResult(Connected);
         }
         protected override void StartupThread() { }
-
-        //protected override void OnConnected(bool result) { NetworkState = NetworkState.Connected; }
-
-        //protected override void ResolveBuffer(ref Segment buffer, bool isTcp)
-        //{
-        //    base.ResolveBuffer(ref buffer, isTcp);
-        //}
-        protected unsafe override void SendByteData(byte[] buffer, bool reliable)
+        protected unsafe override void SendByteData(byte[] buffer)
         {
             sendCount += buffer.Length;
             sendAmount++;
@@ -229,14 +233,6 @@
             Client.Send(buffer, 0, buffer.Length, SocketFlags.None);
 #endif
         }
-        //protected internal override byte[] OnSerializeOptInternal(OperationList list)
-        //{
-        //    return new byte[0];
-        //}
-        //protected internal override OperationList OnDeserializeOptInternal(byte[] buffer, int index, int count)
-        //{
-        //    return default;
-        //}
         /// <summary>
         /// 单线程更新，需要开发者自动调用更新
         /// </summary>
@@ -244,9 +240,7 @@
         {
             if (!Connected)
                 return;
-            Receive(false);
-            SendDirect();
-            NetworkTick(); 
+            NetworkTick();
         }
         public override string ToString()
         {

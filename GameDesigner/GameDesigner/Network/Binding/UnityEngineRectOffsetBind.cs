@@ -7,7 +7,7 @@ namespace Binding
 {
     public struct UnityEngineRectOffsetBind : ISerialize<UnityEngine.RectOffset>, ISerialize
     {
-        public void Write(UnityEngine.RectOffset value, Segment stream)
+        public void Write(UnityEngine.RectOffset value, ISegment stream)
         {
             int pos = stream.Position;
             stream.Position += 1;
@@ -43,7 +43,7 @@ namespace Binding
             stream.Position = pos1;
         }
 		
-		public UnityEngine.RectOffset Read(Segment stream)
+		public UnityEngine.RectOffset Read(ISegment stream)
 		{
 			byte[] bits = stream.Read(1);
 			var value = new UnityEngine.RectOffset();
@@ -63,12 +63,12 @@ namespace Binding
 			return value;
 		}
 
-        public void WriteValue(object value, Segment stream)
+        public void WriteValue(object value, ISegment stream)
         {
             Write((UnityEngine.RectOffset)value, stream);
         }
 
-        public object ReadValue(Segment stream)
+        public object ReadValue(ISegment stream)
         {
             return Read(stream);
         }
@@ -79,7 +79,7 @@ namespace Binding
 {
 	public struct UnityEngineRectOffsetArrayBind : ISerialize<UnityEngine.RectOffset[]>, ISerialize
 	{
-		public void Write(UnityEngine.RectOffset[] value, Segment stream)
+		public void Write(UnityEngine.RectOffset[] value, ISegment stream)
 		{
 			int count = value.Length;
 			stream.Write(count);
@@ -89,7 +89,7 @@ namespace Binding
 				bind.Write(value1, stream);
 		}
 
-		public UnityEngine.RectOffset[] Read(Segment stream)
+		public UnityEngine.RectOffset[] Read(ISegment stream)
 		{
 			var count = stream.ReadInt32();
 			var value = new UnityEngine.RectOffset[count];
@@ -100,12 +100,12 @@ namespace Binding
 			return value;
 		}
 
-		public void WriteValue(object value, Segment stream)
+		public void WriteValue(object value, ISegment stream)
 		{
 			Write((UnityEngine.RectOffset[])value, stream);
 		}
 
-		public object ReadValue(Segment stream)
+		public object ReadValue(ISegment stream)
 		{
 			return Read(stream);
 		}
@@ -115,7 +115,7 @@ namespace Binding
 {
 	public struct UnityEngineRectOffsetGenericBind : ISerialize<List<UnityEngine.RectOffset>>, ISerialize
 	{
-		public void Write(List<UnityEngine.RectOffset> value, Segment stream)
+		public void Write(List<UnityEngine.RectOffset> value, ISegment stream)
 		{
 			int count = value.Count;
 			stream.Write(count);
@@ -125,7 +125,7 @@ namespace Binding
 				bind.Write(value1, stream);
 		}
 
-		public List<UnityEngine.RectOffset> Read(Segment stream)
+		public List<UnityEngine.RectOffset> Read(ISegment stream)
 		{
 			var count = stream.ReadInt32();
 			var value = new List<UnityEngine.RectOffset>(count);
@@ -136,12 +136,12 @@ namespace Binding
 			return value;
 		}
 
-		public void WriteValue(object value, Segment stream)
+		public void WriteValue(object value, ISegment stream)
 		{
 			Write((List<UnityEngine.RectOffset>)value, stream);
 		}
 
-		public object ReadValue(Segment stream)
+		public object ReadValue(ISegment stream)
 		{
 			return Read(stream);
 		}

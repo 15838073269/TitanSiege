@@ -1,13 +1,19 @@
 ﻿namespace Net.Server
 {
-    using Net.Share;
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Net;
     using global::System.Net.Sockets;
     using global::System.Threading;
-    using Debug = Event.NDebug;
+    using Net.Share;
     using Net.System;
+    using Debug = Event.NDebug;
+
+    internal class UserToken<Player> where Player : NetPlayer
+    {
+        internal Player client;
+        internal ISegment segment;
+    }
 
     /// <summary>
     /// tcp 输入输出完成端口服务器
@@ -16,93 +22,55 @@
     /// </summary>
     public class TcpServerIocp<Player, Scene> : TcpServer<Player, Scene> where Player : NetPlayer, new() where Scene : NetScene<Player>, new()
     {
-        protected override void StartSocketHandler()
+        protected override void AcceptHander(Player client)
         {
-            AcceptHandler();
+            client.ReceiveArgs = new SocketAsyncEventArgs();
+            var userToken = new UserToken<Player>() { client = client, segment = BufferPool.Take() };
+            client.ReceiveArgs.UserToken = userToken;
+            client.ReceiveArgs.RemoteEndPoint = client.Client.RemoteEndPoint;
+            client.ReceiveArgs.SetBuffer(userToken.segment.Buffer, 0, userToken.segment.Length);
+            client.ReceiveArgs.Completed += OnIOCompleted;
+            if (!client.Client.ReceiveAsync(client.ReceiveArgs))
+                OnIOCompleted(null, client.ReceiveArgs);
         }
 
-        protected override void CreateServerSocket(ushort port)
+        protected override void ResolveDataQueue(Player client, ref bool isSleep, uint tick)
         {
-            Server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            var ip = new IPEndPoint(IPAddress.Any, port);
-            Server.NoDelay = true;
-            Server.Bind(ip);
-            Server.Listen(LineUp);
-        }
-
-        private void AcceptHandler()
-        {
-            try
-            {
-                if (!IsRunServer)
-                    return;
-                if (ServerArgs == null)
-                {
-                    ServerArgs = new SocketAsyncEventArgs();
-                    ServerArgs.Completed += OnIOCompleted;
-                }
-                ServerArgs.AcceptSocket = null;// 重用前进行对象清理
-                if (!Server.AcceptAsync(ServerArgs))
-                    OnIOCompleted(null, ServerArgs);
-            }
-            catch (Exception ex)
-            {
-                Debug.Log($"接受异常:{ex}");
-            }
         }
 
         protected override void OnIOCompleted(object sender, SocketAsyncEventArgs args)
         {
-            Socket clientSocket = null;
+            Socket clientSocket;
             switch (args.LastOperation)
             {
-                case SocketAsyncOperation.Accept:
-                    try
-                    {
-                        clientSocket = args.AcceptSocket;
-                        if (clientSocket.RemoteEndPoint == null)
-                            return;
-                        var client = AcceptHander(clientSocket, clientSocket.RemoteEndPoint);
-                        client.ReceiveArgs = new SocketAsyncEventArgs();
-                        client.ReceiveArgs.UserToken = client;
-                        client.ReceiveArgs.RemoteEndPoint = clientSocket.RemoteEndPoint;
-                        client.ReceiveArgs.SetBuffer(new byte[ushort.MaxValue], 0, ushort.MaxValue);
-                        client.ReceiveArgs.Completed += OnIOCompleted;
-                        if (!clientSocket.ReceiveAsync(client.ReceiveArgs))
-                            OnIOCompleted(null, client.ReceiveArgs);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogError(ex.ToString());
-                    }
-                    finally
-                    {
-                        AcceptHandler();
-                    }
-                    break;
                 case SocketAsyncOperation.Receive:
-                    var client1 = args.UserToken as Player;
+                    var userToken = args.UserToken as UserToken<Player>;
+                    var client = userToken.client;
                     int count = args.BytesTransferred;
-                    if (count > 0 & args.SocketError == SocketError.Success)
+                    var segment = userToken.segment;
+                    segment.Position = args.Offset;
+                    segment.Count = count;
+                    if (count == 0 | args.SocketError != SocketError.Success)
                     {
-                        var buffer = BufferPool.Take();
-                        buffer.Count = count;
-                        Buffer.BlockCopy(args.Buffer, args.Offset, buffer, 0, count);
-                        receiveCount += count;
-                        receiveAmount++;
-                        if (client1.isDispose)
-                        {
-                            BufferPool.Push(buffer);
-                            return;
-                        }
-                        ResolveBuffer(client1, ref buffer);
-                        BufferPool.Push(buffer);
-                        clientSocket = client1.Client;
-                        if (!clientSocket.Connected)
-                            return;
-                        if (!clientSocket.ReceiveAsync(args))
-                            OnIOCompleted(null, args);
+                        segment.Dispose();
+                        args.Dispose();
+                        ConnectLost(client, (uint)Environment.TickCount);
+                        return;
                     }
+                    receiveAmount++;
+                    receiveCount += count;
+                    count = segment.Length;
+                    ResolveBuffer(client, ref segment);
+                    if (count != segment.Length)
+                    {
+                        userToken.segment = segment;
+                        args.SetBuffer(segment.Buffer, 0, segment.Length);
+                    }
+                    clientSocket = client.Client;
+                    if (!clientSocket.Connected)
+                        return;
+                    if (!clientSocket.ReceiveAsync(args))
+                        OnIOCompleted(null, args);
                     break;
             }
         }

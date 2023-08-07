@@ -11,7 +11,6 @@
     using Net.Share;
     using Net.System;
     using Net.Helper;
-    using UnityEngine;
 
     /// <summary>
     /// 网络玩家 - 当客户端连接服务器后都会为每个客户端生成一个网络玩家对象，(玩家对象由服务器管理) 2019.9.9
@@ -89,21 +88,29 @@
         /// 用户唯一身份标识
         /// </summary>
         public int UserID { get; internal set; }
-        internal QueueSafe<RPCModel> tcpRPCModels = new QueueSafe<RPCModel>();
-        internal QueueSafe<RPCModel> udpRPCModels = new QueueSafe<RPCModel>();
-        public QueueSafe<Segment> RevdQueue = new QueueSafe<Segment>();
-        public ThreadGroup Group;
+        internal QueueSafe<RPCModel> RpcModels = new QueueSafe<RPCModel>();
+        public QueueSafe<ISegment> RevdQueue = new QueueSafe<ISegment>();
+        private ThreadGroup group;
+        /// <summary>
+        /// 当前玩家所在的线程组对象
+        /// </summary>
+        public ThreadGroup Group
+        {
+            get => group;
+            set
+            {
+                group?.Remove(this);
+                group = value;
+                group?.Add(this); //当释放后Group = null;
+            }
+        }
         internal int SceneHash;
         public bool Login { get; internal set; }
         public bool isDispose { get; internal set; }
         /// <summary>
-        /// 关闭发送数据, 当关闭发送数据后, 数据将会停止发送
+        /// 是否处于连接
         /// </summary>
-        public bool CloseSend { get; set; }
-        /// <summary>
-        /// 关闭接收数据, 当关闭接收数据后, 数据将会停止接收
-        /// </summary>
-        public bool CloseReceive { get; set; }
+        public bool Connected { get; set; }
         internal MyDictionary<int, FileData> ftpDic = new MyDictionary<int, FileData>();
         private byte[] addressBuffer;
         /// <summary>
@@ -128,9 +135,21 @@
         /// </summary>
         public uint ReconnectTimeout { get; set; }
         /// <summary>
-        /// 是否在发送中, 避免客户端循环压入任务过多导致线程池处理不过来的问题
+        /// 此客户端接收到的字节总量
         /// </summary>
-        internal bool IsSending;
+        public long BytesReceived { get; set; }
+        /// <summary>
+        /// CRC校验错误次数, 如果有错误每秒提示一次
+        /// </summary>
+        public int CRCError { get; set; }
+        /// <summary>
+        /// 发送窗口已满提示次数
+        /// </summary>
+        public int WindowFullError { get; set; }
+        /// <summary>
+        /// 数据大小错误, 数据被拦截修改或者其他问题导致错误
+        /// </summary>
+        public int DataSizeError { get; set; }
 
         #region 创建网络客户端(玩家)
         /// <summary>
@@ -190,14 +209,13 @@
             stack = 0;
             stackIndex = 0;
             stackCount = 0;
-            CloseSend = true;
-            CloseReceive = true;
+            Connected = false;
             heart = 0;
-            tcpRPCModels = new QueueSafe<RPCModel>();
-            udpRPCModels = new QueueSafe<RPCModel>();
+            RpcModels = new QueueSafe<RPCModel>();
             Login = false;
             addressBuffer = null;
-            if (Gcp != null) Gcp.Dispose();
+            Gcp?.Dispose();
+            Group = null;
         }
         #endregion
 
@@ -413,7 +431,7 @@
 
         public override string ToString()
         {
-            return $"玩家ID:{PlayerID} 用户ID:{UserID} 场景ID:{SceneName} 登录:{Login}";
+            return $"玩家ID:{PlayerID} 用户ID:{UserID} IP:{RemotePoint} 场景ID:{SceneName} 登录:{Login}";
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Binding
 {
     public struct NetVector3Bind : ISerialize<Net.Vector3>, ISerialize
     {
-        public void Write(Net.Vector3 value, Segment stream)
+        public void Write(Net.Vector3 value, ISegment stream)
         {
             int pos = stream.Position;
             stream.Position += 1;
@@ -37,7 +37,7 @@ namespace Binding
             stream.Position = pos1;
         }
 		
-		public Net.Vector3 Read(Segment stream)
+		public Net.Vector3 Read(ISegment stream)
 		{
 			byte[] bits = stream.Read(1);
 			var value = new Net.Vector3();
@@ -54,12 +54,12 @@ namespace Binding
 			return value;
 		}
 
-        public void WriteValue(object value, Segment stream)
+        public void WriteValue(object value, ISegment stream)
         {
             Write((Net.Vector3)value, stream);
         }
 
-        public object ReadValue(Segment stream)
+        public object ReadValue(ISegment stream)
         {
             return Read(stream);
         }
@@ -70,7 +70,7 @@ namespace Binding
 {
 	public struct NetVector3ArrayBind : ISerialize<Net.Vector3[]>, ISerialize
 	{
-		public void Write(Net.Vector3[] value, Segment stream)
+		public void Write(Net.Vector3[] value, ISegment stream)
 		{
 			int count = value.Length;
 			stream.Write(count);
@@ -80,7 +80,7 @@ namespace Binding
 				bind.Write(value1, stream);
 		}
 
-		public Net.Vector3[] Read(Segment stream)
+		public Net.Vector3[] Read(ISegment stream)
 		{
 			var count = stream.ReadInt32();
 			var value = new Net.Vector3[count];
@@ -91,12 +91,12 @@ namespace Binding
 			return value;
 		}
 
-		public void WriteValue(object value, Segment stream)
+		public void WriteValue(object value, ISegment stream)
 		{
 			Write((Net.Vector3[])value, stream);
 		}
 
-		public object ReadValue(Segment stream)
+		public object ReadValue(ISegment stream)
 		{
 			return Read(stream);
 		}
@@ -106,7 +106,7 @@ namespace Binding
 {
 	public struct NetVector3GenericBind : ISerialize<List<Net.Vector3>>, ISerialize
 	{
-		public void Write(List<Net.Vector3> value, Segment stream)
+		public void Write(List<Net.Vector3> value, ISegment stream)
 		{
 			int count = value.Count;
 			stream.Write(count);
@@ -116,7 +116,7 @@ namespace Binding
 				bind.Write(value1, stream);
 		}
 
-		public List<Net.Vector3> Read(Segment stream)
+		public List<Net.Vector3> Read(ISegment stream)
 		{
 			var count = stream.ReadInt32();
 			var value = new List<Net.Vector3>(count);
@@ -127,12 +127,12 @@ namespace Binding
 			return value;
 		}
 
-		public void WriteValue(object value, Segment stream)
+		public void WriteValue(object value, ISegment stream)
 		{
 			Write((List<Net.Vector3>)value, stream);
 		}
 
-		public object ReadValue(Segment stream)
+		public object ReadValue(ISegment stream)
 		{
 			return Read(stream);
 		}

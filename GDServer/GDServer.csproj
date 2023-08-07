@@ -21,41 +21,44 @@
     <ProjectReference Include="..\GameDesigner\GameDesigner.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DB\CharactersData.cs">
-      <Link>NetData\DB\CharactersData.cs</Link>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\ProtoType.cs">
+      <Link>NetData\ProtoType.cs</Link>
     </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DB\TitansiegeDB.cs">
-      <Link>NetData\DB\TitansiegeDB.cs</Link>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\Command.cs">
+      <Link>NetData\Command.cs</Link>
     </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DB\TitansiegeDBEvent.cs">
-      <Link>NetData\DB\TitansiegeDBEvent.cs</Link>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeDB.cs">
+      <Link>NetData\TitansiegeDB.cs</Link>
     </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DB\TitansiegeHashProto.cs">
-      <Link>NetData\DB\TitansiegeHashProto.cs</Link>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeDBEvent.cs">
+      <Link>NetData\TitansiegeDBEvent.cs</Link>
     </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DB\UsersData.cs">
-      <Link>NetData\DB\UsersData.cs</Link>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeHashProto.cs">
+      <Link>NetData\TitansiegeHashProto.cs</Link>
+    </Compile>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeDB\CharactersData.cs">
+      <Link>NetData\TitansiegeDB\CharactersData.cs</Link>
+    </Compile>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeDB\ConfigData.cs">
+      <Link>NetData\TitansiegeDB\ConfigData.cs</Link>
+    </Compile>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeDB\UsersData.cs">
+      <Link>NetData\TitansiegeDB\UsersData.cs</Link>
     </Compile>
     <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DBExt\TitanSiegeDBExt.cs">
       <Link>NetData\DBExt\TitanSiegeDBExt.cs</Link>
     </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DB\ConfigData.cs">
-      <Link>NetData\DB\ConfigData.cs</Link>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\BindingExtension.cs">
+      <Link>NetData\BindingExtension.cs</Link>
     </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\ProtoType.cs">
-      <Link>NetData\ProtoType.cs</Link>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\BindingType.cs">
+      <Link>NetData\BindingType.cs</Link>
     </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\Bind\BindingType.cs">
-      <Link>NetData\Bind\BindingType.cs</Link>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeCharactersDataBind.cs">
+      <Link>NetData\TitansiegeCharactersDataBind.cs</Link>
     </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\Bind\TitansiegeCharactersDataBind.cs">
-      <Link>NetData\Bind\TitansiegeCharactersDataBind.cs</Link>
-    </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\Bind\TitansiegeUsersDataBind.cs">
-      <Link>NetData\Bind\TitansiegeUsersDataBind.cs</Link>
-    </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\Command.cs">
-      <Link>NetData\Command.cs</Link>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeUsersDataBind.cs">
+      <Link>NetData\TitansiegeUsersDataBind.cs</Link>
     </Compile>
   </ItemGroup>
 </Project>

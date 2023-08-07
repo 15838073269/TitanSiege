@@ -49,7 +49,7 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
         /// <summary>{KEYNOTE}</summary>
         public {KETTYPE} {KEYNAME2} { get { return {KEYNAME1}; } set { this.{KEYNAME1} = value; } }
 
-    [split]
+    [split] 
         private readonly {FIELDTYPE1} {FIELDNAME1} = new {FIELDTYPE1}("{TYPENAME}_{FIELDNAME1}", {ISATK}, null);
 
         /// <summary>{NOTE4}</summary>
@@ -99,7 +99,7 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
         {
             {FIELDNAME2} = value;
         }
-    [split]
+    [split] 
 
         public {TYPENAME}() { }
 
@@ -132,13 +132,13 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
             RowState = DataRowState.Added;
             {DBNAME}.I.Update(this);
         }
-        public string GetCellNameAndTextLength(int index, out int length)
+        public string GetCellNameAndTextLength(int index, out uint length)
         {
             switch (index)
             {
-    [split]
+    [split] 
                 case {INDEX}: length = {TEXTLENGTH}; return "{INDEXNAME}";
-    [split]
+    [split] 
             }
             throw new Exception("错误");
         }
@@ -150,9 +150,9 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
             {
                 switch (index)
                 {
-    [split]
+    [split] 
                     case {INDEX}: return this.{INDEXNAME};
-    [split]
+    [split] 
                 }
                 throw new Exception("错误");
             }
@@ -160,11 +160,11 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
             {
                 switch (index)
                 {
-    [split]
+    [split] 
                     case {INDEX}:
                         {ADDORCUTROW}
                         break;
-    [split]
+    [split] 
                 }
             }
         }
@@ -230,20 +230,20 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
         public void Update()
         {
             if (RowState == DataRowState.Deleted | RowState == DataRowState.Detached | RowState == DataRowState.Added | RowState == 0) return;
-    [split]
+    [split] 
             RowState = DataRowState.Modified;
             {DBNAME}.I.Update(this);
-    [split]
+    [split] 
         }
     #endif
 
         public void Init(DataRow row)
         {
             RowState = DataRowState.Unchanged;
-    [split]
+    [split] 
             if (row[{INDEX}] is {FIELDTYPE} {FIELDNAME1})
                 {INIT}
-    [split]
+    [split] 
         }
 
         public void AddedSql(StringBuilder sb)
@@ -252,41 +252,7 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
     [TREAT]
             BulkLoaderBuilder(sb);
     [TREAT]
-            string cmdText = "REPLACE INTO {TABLENAME}(";
-            string cmdText1 = "VALUES(";
-            foreach (var column in columns)
-            {
-                var name = GetCellNameAndTextLength(column, out var length);
-                cmdText += $"`{name}`,";
-                var value = this[column];
-                if (value == null) //空的值会导致sql语句错误
-                    continue;
-                if (value is string text)
-                {
-                    CheckStringValue(ref text, length);
-                    cmdText1 += $"'{text}',";
-                }
-                else if (value is DateTime)
-                    cmdText1 += $"'{value}',";
-                else if (value is byte[] buffer)
-                {
-                    if (buffer.Length >= length)
-                    {
-                        NDebug.LogError($"{TABLENAME}表{name}列长度溢出!");
-                        continue;
-                    }
-                    var count = parms.Count;
-                    cmdText1 += $"@buffer{count},";
-                    parms.Add(new {PARAMETER}($"@buffer{count}", buffer));
-                    parmsLen += buffer.Length;
-                }
-                else cmdText1 += $"{value},";
-                columns.Remove(column);
-            }
-            cmdText = cmdText.TrimEnd(',');
-            cmdText1 = cmdText1.TrimEnd(',');
-            cmdText += ")" + cmdText1 + "); ";
-            sb.Append(cmdText);
+
     [TREAT]
             RowState = DataRowState.Unchanged;
     #endif
@@ -316,6 +282,7 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
     #if SERVER
         public void BulkLoaderBuilder(StringBuilder sb)
         {
+[split] 
             for (int i = 0; i < {COUNT}; i++)
             {
                 var name = GetCellNameAndTextLength(i, out var length);
@@ -332,7 +299,7 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
                 }
                 else if (value is DateTime dateTime)
                 {
-                    sb.Append(dateTime.ToString("G") + "|");
+                    sb.Append(dateTime.ToString("yyyy-MM-dd HH:mm:ss") + "|");
                 }
                 else if (value is bool boolVal)
                 {
@@ -343,7 +310,7 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
                     var base64Str = Convert.ToBase64String(buffer, Base64FormattingOptions.None);
                     if (buffer.Length >= length)
                     {
-                        NDebug.LogError($"userinfo表{name}列长度溢出!");
+                        NDebug.LogError($"{TABLENAME}表{name}列长度溢出!");
                         sb.Append(@"\N|");
                         continue;
                     }
@@ -355,6 +322,52 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
                 }
             }
             sb.AppendLine();
+[split] 
+            string keyText = "";
+            string valueText = "";
+            for (int i = 0; i < {COUNT}; i++)
+            {
+                var name = GetCellNameAndTextLength(i, out var length);
+                var value = this[i];
+                if (value == null) //空的值会导致sql语句错误
+                    continue;
+                keyText += $"`{name}`,";
+                if (value is string text)
+                {
+                    {DBNAME}.I.CheckStringValue(ref text, length);
+                    valueText += $"'{text}',";
+                }
+                else if (value is DateTime dateTime)
+                {
+                    valueText += $"'{dateTime.ToString("yyyy-MM-dd HH:mm:ss")}',";
+                }
+                else if (value is bool boolVal)
+                {
+                    valueText += $"'{boolVal}',";
+                }
+                else if (value is byte[] buffer)
+                {
+                    var base64Str = Convert.ToBase64String(buffer, Base64FormattingOptions.None);
+                    if (buffer.Length >= length)
+                    {
+                        NDebug.LogError($"{TABLENAME}表{name}列长度溢出!");
+                        continue;
+                    }
+                    valueText += $"'{base64Str}',";
+                }
+                else 
+                {
+                    valueText += $"{value},";
+                }
+            }
+            keyText = keyText.TrimEnd(',');
+            valueText = valueText.TrimEnd(',');
+            if (!string.IsNullOrEmpty(keyText) & !string.IsNullOrEmpty(valueText))
+            {
+                sb.Append($"REPLACE INTO {TABLENAME} ({keyText}) VALUES ({valueText});");
+                sb.AppendLine();
+            }
+[split] 
         }
     #endif
 
@@ -385,6 +398,11 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
                 RowState = DataRowState.Modified;
             {DBNAME}.I.Update(this);
 #endif
+        }
+
+        public override string ToString()
+        {
+            return $"{TOSTRING}";
         }
     }
 {NAMESPACE_END}

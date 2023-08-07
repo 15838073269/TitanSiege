@@ -1,5 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Net.Helper
 {
@@ -92,6 +96,175 @@ namespace Net.Helper
                     return type;
             }
             return null;
+        }
+
+        /// <summary>
+        /// 获取代码形式的类型名称, 包括泛型,数组
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static string GetTypeName(Type type, 
+            string baseBegin = "", string baseEnd = "",
+            string normalBegin = "", string normalEnd = "",
+            string baseArrayBegin = "", string baseArrayEnd = "",
+            string arrayBegin = "", string arrayEnd = "",
+            string baseGenericBegin = "", string baseGenericEnd = "",
+            string genericBegin = "", string genericEnd = ""
+            )
+        {
+            string typeName;
+            if (type.IsArray)
+            {
+                var type1 = type.GetArrayItemType();
+                var typecode = Type.GetTypeCode(type1);
+                if (typecode == TypeCode.Object)
+                {
+                    var typeName1 = GetTypeName(type1, baseBegin, baseEnd, normalBegin, normalEnd, baseArrayBegin, baseArrayEnd, arrayBegin, arrayEnd, baseGenericBegin, baseGenericEnd, genericBegin, genericEnd);
+                    typeName = arrayBegin + $"{typeName1}[]" + arrayEnd;
+                }
+                else
+                {
+                    typeName = baseArrayBegin + $"{type1}[]" + baseArrayEnd;
+                }
+            }
+            else if (type.IsGenericType)
+            {
+                typeName = type.ToString();
+                var index = typeName.IndexOf("`");
+                var count = typeName.IndexOf("[");
+                typeName = typeName.Remove(index, count + 1 - index);
+                typeName = typeName.Insert(index, "<");
+                typeName = typeName.Substring(0, index + 1);
+                var genericTypes = type.GenericTypeArguments;
+                foreach (var item in genericTypes)
+                {
+                    var typecode = Type.GetTypeCode(item);
+                    if (typecode == TypeCode.Object)
+                    {
+                        var typeName1 = GetTypeName(item, baseBegin, baseEnd, normalBegin, normalEnd, baseArrayBegin, baseArrayEnd, arrayBegin, arrayEnd, baseGenericBegin, baseGenericEnd, genericBegin, genericEnd);
+                        typeName += genericBegin + $"{typeName1}" + genericEnd + ",";
+                    }
+                    else
+                    {
+                        var typeName1 = item.ToString();
+                        typeName += baseGenericBegin + $"{typeName1}" + baseGenericEnd + ",";
+                    }
+                }
+                typeName = typeName.TrimEnd(',') + ">";
+            }
+            else 
+            {
+                typeName = type.ToString();
+                var typecode = Type.GetTypeCode(type);
+                if (typecode == TypeCode.Object)
+                {
+                    typeName = normalBegin + typeName.Replace("+", ".") + normalEnd;
+                }
+                else
+                {
+                    typeName = baseBegin + typeName.Replace("+", ".") + baseEnd;
+                }
+            }
+            return typeName;
+        }
+
+        /// <summary>
+        /// 获取泛型类型ToString成代码形式返回
+        /// </summary>
+        /// <param name="fullName">必须是泛型.ToString() 而不是泛型.FullName</param>
+        /// <returns></returns>
+        public static string GetCodeTypeName(string fullName) 
+        {
+            var sb = new StringBuilder(fullName);
+            for (int i = 0; i < sb.Length; i++)
+            {
+                if (sb[i] == '`')
+                {
+                    sb[i++] = '<';
+                    for (int n = i; n < sb.Length; n++)
+                    {
+                        if (sb[n] != '[')
+                            continue;
+                        if (n + 1 >= sb.Length)
+                            continue;
+                        if (sb[n + 1] != ']')
+                        {
+                            sb.Remove(i, n - i + 1);
+                            break;
+                        }
+                    }
+                    for (int n = i; n < sb.Length; n++) //兼容dnlib库Type.FullName
+                    {
+                        if (sb[n] != '<')
+                            continue;
+                        sb.Remove(i, n - i + 1);
+                        break;
+                    }
+                    for (int n = sb.Length - 1; n >= 0; n--)
+                    {
+                        if (sb[n] != ']')
+                            continue;
+                        if (n - 1 < 0)
+                            continue;
+                        if (sb[n - 1] != '[')
+                        {
+                            sb[n] = '>';
+                            break;
+                        }
+                    }
+                }
+            }
+            return sb.ToString();
+        }
+
+        public static Assembly GetRunAssembly(string assemblyName)
+        {
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var assembly in assemblies)
+            {
+                if (assembly.GetName().Name == assemblyName)
+                    return assembly;
+            }
+            return null;
+        }
+
+        public static List<Type> GetInterfaceTypes(Type interfaceType)
+        {
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var interfaceTypes = new List<Type>();
+            foreach (var assembly in assemblies)
+            {
+                var types = assembly.GetTypes().Where(t => t.IsInterfaceType(interfaceType)).ToList();
+                if (types == null)
+                    continue;
+                if (types.Count > 0)
+                    interfaceTypes.AddRange(types);
+            }
+            return interfaceTypes;
+        }
+
+        public static List<object> GetInterfaceInstances(Type interfaceType)
+        {
+            var types = GetInterfaceTypes(interfaceType);
+            var objs = new List<object>();
+            foreach (var type in types)
+            {
+                var obj = Activator.CreateInstance(type);
+                objs.Add(obj);
+            }
+            return objs;
+        }
+
+        public static List<T> GetInterfaceInstances<T>()
+        {
+            var types = GetInterfaceTypes(typeof(T));
+            var objs = new List<T>();
+            foreach (var type in types)
+            {
+                var obj = (T)Activator.CreateInstance(type);
+                objs.Add(obj);
+            }
+            return objs;
         }
     }
 }

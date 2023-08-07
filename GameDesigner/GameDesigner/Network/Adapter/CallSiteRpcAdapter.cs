@@ -5,12 +5,7 @@ using Net.Server;
 using System.Threading;
 using Net.Event;
 using Net.System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Net.Helper;
-using Net.Client;
-using System.Collections.Concurrent;
-using Cysharp.Threading.Tasks;
 
 namespace Net.Adapter
 {
@@ -18,6 +13,8 @@ namespace Net.Adapter
     {
         public byte cmd;
         public MethodInfo method;
+        public virtual Type GetActionType { get; }
+        public virtual void SetPtr(Delegate ptr) {}
         public virtual void Invoke(object target, object[] pars) {}
     }
     public class RPCPTRMethod : RPCPTR
@@ -30,6 +27,11 @@ namespace Net.Adapter
     public class RPCPTRNull : RPCPTR
     {
         public Action ptr;
+        public override Type GetActionType => typeof(Action);
+        public override void SetPtr(Delegate ptr)
+        {
+            this.ptr = ptr as Action;
+        }
         public override void Invoke(object target, object[] pars)
         {
             ptr();
@@ -38,6 +40,11 @@ namespace Net.Adapter
     public class RPCPTR<T> : RPCPTR
     {
         public Action<T> ptr;
+        public override Type GetActionType => typeof(Action<T>);
+        public override void SetPtr(Delegate ptr)
+        {
+            this.ptr = ptr as Action<T>;
+        }
         public override void Invoke(object target, object[] pars)
         {
             ptr((T)pars[0]);
@@ -46,6 +53,11 @@ namespace Net.Adapter
     public class RPCPTR<T, T1> : RPCPTR
     {
         public Action<T, T1> ptr;
+        public override Type GetActionType => typeof(Action<T, T1>);
+        public override void SetPtr(Delegate ptr)
+        {
+            this.ptr = ptr as Action<T, T1>;
+        }
         public override void Invoke(object target, object[] pars)
         {
             ptr((T)pars[0], (T1)pars[1]);
@@ -54,6 +66,11 @@ namespace Net.Adapter
     public class RPCPTR<T, T1, T2> : RPCPTR
     {
         public Action<T, T1, T2> ptr;
+        public override Type GetActionType => typeof(Action<T, T1, T2>);
+        public override void SetPtr(Delegate ptr)
+        {
+            this.ptr = ptr as Action<T, T1, T2>;
+        }
         public override void Invoke(object target, object[] pars)
         {
             ptr((T)pars[0], (T1)pars[1], (T2)pars[2]);
@@ -62,6 +79,11 @@ namespace Net.Adapter
     public class RPCPTR<T, T1, T2, T3> : RPCPTR
     {
         public Action<T, T1, T2, T3> ptr;
+        public override Type GetActionType => typeof(Action<T, T1, T2, T3>);
+        public override void SetPtr(Delegate ptr)
+        {
+            this.ptr = ptr as Action<T, T1, T2, T3>;
+        }
         public override void Invoke(object target, object[] pars)
         {
             ptr((T)pars[0], (T1)pars[1], (T2)pars[2], (T3)pars[3]);
@@ -70,6 +92,11 @@ namespace Net.Adapter
     public class RPCPTR<T, T1, T2, T3, T4> : RPCPTR
     {
         public Action<T, T1, T2, T3, T4> ptr;
+        public override Type GetActionType => typeof(Action<T, T1, T2, T3, T4>);
+        public override void SetPtr(Delegate ptr)
+        {
+            this.ptr = ptr as Action<T, T1, T2, T3, T4>;
+        }
         public override void Invoke(object target, object[] pars)
         {
             ptr((T)pars[0], (T1)pars[1], (T2)pars[2], (T3)pars[3], (T4)pars[4]);
@@ -78,6 +105,11 @@ namespace Net.Adapter
     public class RPCPTR<T, T1, T2, T3, T4, T5> : RPCPTR
     {
         public Action<T, T1, T2, T3, T4, T5> ptr;
+        public override Type GetActionType => typeof(Action<T, T1, T2, T3, T4, T5>);
+        public override void SetPtr(Delegate ptr)
+        {
+            this.ptr = ptr as Action<T, T1, T2, T3, T4, T5>;
+        }
         public override void Invoke(object target, object[] pars)
         {
             ptr((T)pars[0], (T1)pars[1], (T2)pars[2], (T3)pars[3], (T4)pars[4], (T5)pars[5]);
@@ -86,6 +118,11 @@ namespace Net.Adapter
     public class RPCPTR<T, T1, T2, T3, T4, T5, T6> : RPCPTR
     {
         public Action<T, T1, T2, T3, T4, T5, T6> ptr;
+        public override Type GetActionType => typeof(Action<T, T1, T2, T3, T4, T5, T6>);
+        public override void SetPtr(Delegate ptr)
+        {
+            this.ptr = ptr as Action<T, T1, T2, T3, T4, T5, T6>;
+        }
         public override void Invoke(object target, object[] pars)
         {
             ptr((T)pars[0], (T1)pars[1], (T2)pars[2], (T3)pars[3], (T4)pars[4], (T5)pars[5], (T6)pars[6]);
@@ -94,6 +131,11 @@ namespace Net.Adapter
     public class RPCPTR<T, T1, T2, T3, T4, T5, T6, T7> : RPCPTR
     {
         public Action<T, T1, T2, T3, T4, T5, T6, T7> ptr;
+        public override Type GetActionType => typeof(Action<T, T1, T2, T3, T4, T5, T6, T7>);
+        public override void SetPtr(Delegate ptr)
+        {
+            this.ptr = ptr as Action<T, T1, T2, T3, T4, T5, T6, T7>;
+        }
         public override void Invoke(object target, object[] pars)
         {
             ptr((T)pars[0], (T1)pars[1], (T2)pars[2], (T3)pars[3], (T4)pars[4], (T5)pars[5], (T6)pars[6], (T7)pars[7]);
@@ -102,6 +144,11 @@ namespace Net.Adapter
     public class RPCPTR<T, T1, T2, T3, T4, T5, T6, T7, T8> : RPCPTR
     {
         public Action<T, T1, T2, T3, T4, T5, T6, T7, T8> ptr;
+        public override Type GetActionType => typeof(Action<T, T1, T2, T3, T4, T5, T6, T7, T8>);
+        public override void SetPtr(Delegate ptr)
+        {
+            this.ptr = ptr as Action<T, T1, T2, T3, T4, T5, T6, T7, T8>;
+        }
         public override void Invoke(object target, object[] pars)
         {
             ptr((T)pars[0], (T1)pars[1], (T2)pars[2], (T3)pars[3], (T4)pars[4], (T5)pars[5], (T6)pars[6], (T7)pars[7], (T8)pars[8]);
@@ -110,6 +157,11 @@ namespace Net.Adapter
     public class RPCPTR<T, T1, T2, T3, T4, T5, T6, T7, T8, T9> : RPCPTR
     {
         public Action<T, T1, T2, T3, T4, T5, T6, T7, T8, T9> ptr;
+        public override Type GetActionType => typeof(Action<T, T1, T2, T3, T4, T5, T6, T7, T8, T9>);
+        public override void SetPtr(Delegate ptr)
+        {
+            this.ptr = ptr as Action<T, T1, T2, T3, T4, T5, T6, T7, T8, T9>;
+        }
         public override void Invoke(object target, object[] pars)
         {
             ptr((T)pars[0], (T1)pars[1], (T2)pars[2], (T3)pars[3], (T4)pars[4], (T5)pars[5], (T6)pars[6], (T7)pars[7], (T8)pars[8], (T9)pars[9]);
@@ -118,6 +170,11 @@ namespace Net.Adapter
     public class RPCPTR<T, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> : RPCPTR
     {
         public Action<T, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> ptr;
+        public override Type GetActionType => typeof(Action<T, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>);
+        public override void SetPtr(Delegate ptr)
+        {
+            this.ptr = ptr as Action<T, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>;
+        }
         public override void Invoke(object target, object[] pars)
         {
             ptr((T)pars[0], (T1)pars[1], (T2)pars[2], (T3)pars[3], (T4)pars[4], (T5)pars[5], (T6)pars[6], (T7)pars[7], (T8)pars[8], (T9)pars[9], (T10)pars[10]);
@@ -259,9 +316,8 @@ namespace Net.Adapter
                 else
                     gt = Type.GetType($"Net.Adapter.RPCPTR`{pars.Length}").MakeGenericType(parTypes);
                 var metPtr = (RPCPTR)Activator.CreateInstance(gt);
-                var ptr = metPtr.GetType().GetField("ptr", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
-                var met = Delegate.CreateDelegate(ptr.FieldType, target, method);
-                ptr.SetValue(metPtr, met);
+                var met = Delegate.CreateDelegate(metPtr.GetActionType, target, method);
+                metPtr.SetPtr(met);
                 metPtr.cmd = data.rpc.cmd;
                 data.ptr = metPtr;
             }, (member) => new RPCMethodPtr(target, member.member as MethodInfo, member.rpc.cmd, member.ptr));

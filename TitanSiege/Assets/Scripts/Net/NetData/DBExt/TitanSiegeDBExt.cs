@@ -2,7 +2,7 @@
 
 using Net.Event;
 using Net.System;
-
+using System.Collections.Generic;
 
 namespace Titansiege {
     public partial class TitansiegeDB {

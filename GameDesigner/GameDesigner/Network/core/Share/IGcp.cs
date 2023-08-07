@@ -5,7 +5,7 @@ using System.Net;
 namespace Net.Share 
 {
     /// <summary>
-    /// gcp¿É¿¿Ğ­Òé½Ó¿Ú
+    /// gcpå¯é åè®®æ¥å£
     /// </summary>
     public interface IGcp
     {
@@ -19,32 +19,32 @@ namespace Net.Share
         EndPoint RemotePoint { get; set; }
 
         /// <summary>
-        /// ÅĞ¶ÏÊÇ·ñÓĞ·¢ËÍ£¬±ÈÈçÓĞÄ¿Ç°ÓĞºÜ¶à¸öÊı¾İĞèÒª·¢ËÍ
+        /// åˆ¤æ–­æ˜¯å¦æœ‰å‘é€ï¼Œæ¯”å¦‚æœ‰ç›®å‰æœ‰å¾ˆå¤šä¸ªæ•°æ®éœ€è¦å‘é€
         /// </summary>
         /// <returns></returns>
         bool HasSend();
         /// <summary>
-        /// ÊäÈëÒª·¢ËÍµÄÊı¾İ
+        /// è¾“å…¥è¦å‘é€çš„æ•°æ®
         /// </summary>
         /// <param name="buffer"></param>
         void Input(byte[] buffer);
         /// <summary>
-        /// ¸üĞÂ·¢ËÍºÍ½áÊøÊÂ¼ş
+        /// æ›´æ–°å‘é€å’Œç»“æŸäº‹ä»¶
         /// </summary>
         void Update();
         /// <summary>
-        /// ÕæÕıµÄ½ÓÈë·¢ËÍ½Ó¿Ú
+        /// çœŸæ­£çš„æ¥å…¥å‘é€æ¥å£
         /// </summary>
         /// <param name="buffer"></param>
         void Send(byte[] buffer);
         /// <summary>
-        /// ¼ì²é½ÓÊÕÊÇ·ñÓĞÊı¾İ
+        /// æ£€æŸ¥æ¥æ”¶æ˜¯å¦æœ‰æ•°æ®
         /// </summary>
         /// <param name="buffer"></param>
         /// <returns></returns>
-        int Receive(out Segment buffer);
+        int Receive(out ISegment buffer);
         /// <summary>
-        /// Ê©·Ågcp×ÊÔ´
+        /// æ–½æ”¾gcpèµ„æº
         /// </summary>
         void Dispose();
     }

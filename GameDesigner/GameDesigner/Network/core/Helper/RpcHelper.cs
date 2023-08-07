@@ -36,10 +36,10 @@ namespace Net.Helper
                     var data = new MemberData() { member = info };
                     if (info.MemberType == MemberTypes.Method)
                     {
-                        var attributes = info.GetCustomAttributes(typeof(RPCFun), true);//兼容ILR写法
+                        var attributes = info.GetCustomAttributes(typeof(RPC), true);//兼容ILR写法
                         if (attributes.Length > 0)
                         {
-                            data.rpc = attributes[0] as RPCFun;
+                            data.rpc = attributes[0] as RPC;
                             action?.Invoke(info, data);
                         }
                     }
@@ -132,10 +132,10 @@ namespace Net.Helper
                     return;
                 }
             }
-            uint tick = (uint)Environment.TickCount;
-            while (body.TaskQueue.TryDequeue(out var modelTask))
+            var timeout = (uint)Environment.TickCount;
+            while (body.CallWaitQueue.TryDequeue(out RPCModelTask modelTask))
             {
-                if (tick > modelTask.tick) //超时要移出队列, 检查下一个, 否则一个超时任务把其他Call也搞得超时
+                if (timeout > modelTask.timeout) //超时的等待队列忽略
                     continue;
                 modelTask.model = model;
                 modelTask.IsCompleted = true;

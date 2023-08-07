@@ -20,17 +20,20 @@
     /// <para>Player:当有客户端连接服务器就会创建一个Player对象出来, Player对象和XXXClient是对等端, 每当有数据处理都会通知Player对象. </para>
     /// <para>Scene:你可以定义自己的场景类型, 比如帧同步场景处理, mmorpg场景什么处理, 可以重写Scene的Update等等方法实现每个场景的更新和处理. </para>
     /// </summary>
-    //[Obsolete("尚未实测!遇到问题群里说下，给你解决!", false)]
     public class WebServer<Player, Scene> : ServerBase<Player, Scene> where Player : WebPlayer, new() where Scene : NetScene<Player>, new()
     {
         /// <summary>
         /// webSocket服务器套接字
         /// </summary>
         public new WebSocketServer Server { get; protected set; }
+        /// <summary>
+        /// websocket连接策略, 有wss和ws
+        /// </summary>
+        public string Scheme { get; set; } = "ws";
 
         protected override void CreateServerSocket(ushort port)
         {
-            Server = new WebSocketServer($"ws://{NetPort.GetIP()}:{port}");
+            Server = new WebSocketServer($"{Scheme}://{NetPort.GetIP()}:{port}");
             Server.ListenerSocket.NoDelay = true;
             Server.Start(AcceptConnect);
         }
@@ -57,17 +60,21 @@
                 receiveCount += buffer.Length;
                 receiveAmount++;
                 if (AllClients.TryGetValue(remotePoint, out Player client))//在线客户端  得到client对象
+                {
+                    client.BytesReceived += buffer.Length;
                     WSRevdHandle(client, buffer, message);
+                }
             };
             wsClient1.OnBinary = (buffer) =>
             {
                 var segment = BufferPool.Take(buffer.Length);
-                Buffer.BlockCopy(buffer, 0, segment, 0, buffer.Length);
+                Buffer.BlockCopy(buffer, 0, segment.Buffer, 0, buffer.Length);
                 segment.Count = buffer.Length;
                 receiveCount += buffer.Length;
                 receiveAmount++;
                 if (AllClients.TryGetValue(remotePoint, out Player client))//在线客户端  得到client对象
                 {
+                    client.BytesReceived += buffer.Length;
                     client.RevdQueue.Enqueue(segment);
                 }
             };
@@ -95,7 +102,7 @@
                 var model1 = new RPCModel(model.cmd, model.func, model.GetPars()) {
                     buffer = buffer, count = buffer.Length
                 };
-                DataHandle(client, model1, null);
+                DataHandler(client, model1, null);
             }
             catch (Exception ex)
             {
@@ -106,12 +113,7 @@
             }
         }
 
-        protected override void SendRTDataHandle(Player client, QueueSafe<RPCModel> rtRPCModels)
-        {
-            SendDataHandle(client, rtRPCModels, true);
-        }
-
-        protected override void SendByteData(Player client, byte[] buffer, bool reliable)
+        protected override void SendByteData(Player client, byte[] buffer)
         {
             if (buffer.Length == frame)//解决长度==6的问题(没有数据)
                 return;

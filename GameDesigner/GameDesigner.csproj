@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GameDesigner</RootNamespace>
     <AssemblyName>GameDesigner</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -90,12 +90,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameDesigner\AOI~\Grid.cs" />
-    <Compile Include="GameDesigner\AOI~\GridData.cs" />
     <Compile Include="GameDesigner\AOI~\GridWorld.cs" />
     <Compile Include="GameDesigner\AOI~\IGridActor.cs" />
     <Compile Include="GameDesigner\AOI~\IGridBody.cs" />
     <Compile Include="GameDesigner\Common~\Command.cs" />
     <Compile Include="GameDesigner\Common~\NTransform.cs" />
+    <Compile Include="GameDesigner\Common~\Singleton.cs" />
+    <Compile Include="GameDesigner\Network\Adapter\PackageAdapter.cs" />
+    <Compile Include="GameDesigner\Network\Binding\BindingExtension.cs" />
+    <Compile Include="GameDesigner\Network\core\Serialize\NetConvertHelper.cs" />
+    <Compile Include="GameDesigner\Network\core\Share\SyncVariable.cs" />
+    <Compile Include="GameDesigner\Network\core\System\ISegment.cs" />
+    <Compile Include="GameDesigner\Network\core\System\SafeDictionary.cs" />
+    <Compile Include="GameDesigner\Network\core\System\SystemManager.cs" />
     <Compile Include="GameDesigner\Network\core\Tools\ObjectConverter.cs" />
     <Compile Include="GameDesigner\Common~\RoomData.cs" />
     <Compile Include="GameDesigner\Common~\PropertyObserver.cs" />
@@ -167,7 +174,7 @@
     <Compile Include="GameDesigner\Network\core\Serialize\NetConvertFast2.cs" />
     <Compile Include="GameDesigner\Network\core\Serialize\NonSerialized.cs" />
     <Compile Include="GameDesigner\Network\core\Server\NetPlayer.cs" />
-    <Compile Include="GameDesigner\Network\core\Server\NetPort.cs" />
+    <Compile Include="GameDesigner\Network\core\Share\NetPort.cs" />
     <Compile Include="GameDesigner\Network\core\Server\NetScene.cs" />
     <Compile Include="GameDesigner\Network\core\Server\ServerBase.cs" />
     <Compile Include="GameDesigner\Network\core\Share\AckQueue.cs" />
@@ -246,10 +253,10 @@
     <Compile Include="GameDesigner\Network\core\Tools\Loop.cs" />
     <Compile Include="GameDesigner\Network\core\Tools\OtherExtend.cs" />
     <Compile Include="GameDesigner\Network\core\Tools\RectExt.cs" />
+    <Compile Include="GameDesigner\Network\core\Tools\TypeExtend.cs" />
     <Compile Include="GameDesigner\Network\core\Unity\Color.cs" />
     <Compile Include="GameDesigner\Network\core\Unity\Color32.cs" />
     <Compile Include="GameDesigner\Network\core\Unity\Mathf.cs" />
-    <Compile Include="GameDesigner\Network\core\Unity\Matrix3x3.cs" />
     <Compile Include="GameDesigner\Network\core\Unity\Matrix4Utils.cs" />
     <Compile Include="GameDesigner\Network\core\Unity\Matrix4x4.cs" />
     <Compile Include="GameDesigner\Network\core\Unity\Quaternion.cs" />

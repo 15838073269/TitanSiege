@@ -12,11 +12,16 @@ namespace Net.Share
         /// </summary>
         public bool IsCompleted { get; internal set; }
         /// <summary>
-        /// 对方回应的数据都在这里
+        /// 响应的数据在这里
         /// </summary>
         public RPCModel model;
         internal bool intercept;
         internal Delegate callback;
-        internal uint tick;//会有一个定时事件检查是否内存遗留
+        internal uint timeout;
+
+        public override string ToString()
+        {
+            return $"IsCompleted:{IsCompleted} intercept:{intercept} model:{model}";
+        }
     }
 }

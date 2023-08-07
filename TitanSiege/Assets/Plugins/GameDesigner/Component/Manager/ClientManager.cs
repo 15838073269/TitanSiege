@@ -1,14 +1,14 @@
 ﻿#if UNITY_STANDALONE || UNITY_ANDROID || UNITY_IOS || UNITY_WSA || UNITY_WEBGL
 namespace Net.Component
 {
+    using global::System;
+    using global::System.Threading;
+    using global::System.Net;
     using Net.Client;
     using Net.Event;
     using Net.Share;
-    using global::System;
-    using global::System.Threading;
-    using UnityEngine;
-    using global::System.Net;
     using Net.Helper;
+    using UnityEngine;
     using Cysharp.Threading.Tasks;
 
     public enum TransportProtocol
@@ -60,11 +60,12 @@ namespace Net.Component
         public bool debugRpc = true;
         public bool authorize;
         public bool startConnect = true;
-        public bool md5CRC;
+        public bool singleThread;
         public int reconnectCount = 10;
         public int reconnectInterval = 2000;
         public byte heartLimit = 5;
         public int heartInterval = 1000;
+        public string scheme = "ws";
         public bool dontDestroyOnLoad = true;
 
 #pragma warning disable IDE1006 // 命名样式
@@ -83,10 +84,11 @@ namespace Net.Component
                     _client.host = ip;
                     _client.port = port;
                     _client.LogRpc = debugRpc;
-                    _client.MD5CRC = md5CRC;
+                    _client.IsMultiThread = !singleThread;
                     _client.ReconnectCount = reconnectCount;
                     _client.ReconnectInterval = reconnectInterval;
                     _client.SetHeartTime(heartLimit, heartInterval);
+                    _client.Scheme = scheme;
                 }
                 return _client;
             }
@@ -165,7 +167,7 @@ namespace Net.Component
         {
             if (_client == null)
                 return;
-            _client.NetworkTick();
+            _client.NetworkUpdate();
         }
 
         void OnDestroy()
@@ -244,7 +246,7 @@ namespace Net.Component
             I.client.WorkerQueue.Enqueue(ptr);
         }
 
-#region 发送接口实现
+        #region 发送接口实现
         public void Send(byte[] buffer)
         {
             ((ISendHandle)_client).Send(buffer);
@@ -265,26 +267,6 @@ namespace Net.Component
             ((ISendHandle)_client).Send(cmd, func, pars);
         }
 
-        public void CallRpc(string func, params object[] pars)
-        {
-            ((ISendHandle)_client).CallRpc(func, pars);
-        }
-
-        public void CallRpc(byte cmd, string func, params object[] pars)
-        {
-            ((ISendHandle)_client).CallRpc(cmd, func, pars);
-        }
-
-        public void Request(string func, params object[] pars)
-        {
-            ((ISendHandle)_client).Request(func, pars);
-        }
-
-        public void Request(byte cmd, string func, params object[] pars)
-        {
-            ((ISendHandle)_client).Request(cmd, func, pars);
-        }
-
         public void SendRT(string func, params object[] pars)
         {
             ((ISendHandle)_client).SendRT(func, pars);
@@ -303,56 +285,6 @@ namespace Net.Component
         public void SendRT(byte cmd, byte[] buffer)
         {
             ((ISendHandle)_client).SendRT(cmd, buffer);
-        }
-
-        public void Send(string func, string funcCB, Delegate callback, params object[] pars)
-        {
-            ((ISendHandle)_client).Send(func, funcCB, callback, pars);
-        }
-
-        public void Send(string func, string funcCB, Delegate callback, int millisecondsDelay, params object[] pars)
-        {
-            ((ISendHandle)_client).Send(func, funcCB, callback, millisecondsDelay, pars);
-        }
-
-        public void Send(string func, string funcCB, Delegate callback, int millisecondsDelay, Action outTimeAct, params object[] pars)
-        {
-            ((ISendHandle)_client).Send(func, funcCB, callback, millisecondsDelay, outTimeAct, pars);
-        }
-
-        public void Send(byte cmd, string func, string funcCB, Delegate callback, int millisecondsDelay, Action outTimeAct, params object[] pars)
-        {
-            ((ISendHandle)_client).Send(cmd, func, funcCB, callback, millisecondsDelay, outTimeAct, pars);
-        }
-
-        public void SendRT(string func, string funcCB, Delegate callback, params object[] pars)
-        {
-            ((ISendHandle)_client).SendRT(func, funcCB, callback, pars);
-        }
-
-        public void SendRT(string func, string funcCB, Delegate callback, int millisecondsDelay, params object[] pars)
-        {
-            ((ISendHandle)_client).SendRT(func, funcCB, callback, millisecondsDelay, pars);
-        }
-
-        public void SendRT(string func, string funcCB, Delegate callback, int millisecondsDelay, Action outTimeAct, params object[] pars)
-        {
-            ((ISendHandle)_client).SendRT(func, funcCB, callback, millisecondsDelay, outTimeAct, pars);
-        }
-
-        public void SendRT(byte cmd, string func, string funcCB, Delegate callback, int millisecondsDelay, Action outTimeAct, params object[] pars)
-        {
-            ((ISendHandle)_client).SendRT(cmd, func, funcCB, callback, millisecondsDelay, outTimeAct, pars);
-        }
-
-        public void Send(byte cmd, string func, string funcCB, Delegate callback, int millisecondsDelay, Action outTimeAct, SynchronizationContext context, params object[] pars)
-        {
-            ((ISendHandle)_client).Send(cmd, func, funcCB, callback, millisecondsDelay, outTimeAct, context, pars);
-        }
-
-        public void SendRT(byte cmd, string func, string funcCB, Delegate callback, int millisecondsDelay, Action outTimeAct, SynchronizationContext context, params object[] pars)
-        {
-            ((ISendHandle)_client).SendRT(cmd, func, funcCB, callback, millisecondsDelay, outTimeAct, context, pars);
         }
         #endregion
     }

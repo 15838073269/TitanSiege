@@ -28,7 +28,7 @@ namespace Net.AOI
     public class GridWorld
     {
         public List<Grid> grids = new List<Grid>();
-        public FastList<IGridBody> gridBodies = new FastList<IGridBody>();
+        public FastListSafe<IGridBody> gridBodies = new FastListSafe<IGridBody>();
         public Rect worldSize;
         public GridType gridType = GridType.Horizontal;
 
@@ -56,14 +56,16 @@ namespace Net.AOI
                 }
                 zPos += height;
             }
-            foreach (var item in grids)
+            for (int i = 0; i < grids.Count; i++)
             {
-                var rect = new Rect(item.rect.x - width, item.rect.y - height, width * 3, height * 3);
-                foreach (var item1 in grids)
+                var grid = grids[i];
+                grid.Id = i;
+                var rect = new Rect(grid.rect.x - width, grid.rect.y - height, width * 3, height * 3);
+                foreach (var grid1 in grids)
                 {
-                    if (rect.Contains(item1.rect.position))
+                    if (rect.Contains(grid1.rect.position))
                     {
-                        item.grids.Add(item1);
+                        grid.grids.Add(grid1);
                     }
                 }
             }
@@ -208,6 +210,7 @@ namespace Net.AOI
             }
             currGrid.gridBodies.Remove(body);
             gridBodies.Remove(body);
+            body.Grid = null; //防止执行两次
         }
 
         /// <summary>
@@ -215,8 +218,10 @@ namespace Net.AOI
         /// </summary>
         /// <param name="body"></param>
         /// <param name="other"></param>
-        private void EnterHandler(IGridBody body, IGridBody other) 
+        private static void EnterHandler(IGridBody body, IGridBody other) 
         {
+            if (body == other) //当插入时会偶尔发生相同的玩家通知问题
+                return;
             if (body.MainRole & other.MainRole) //如果两个都是主角, 则相互通知
             {
                 body.OnEnter(other);
@@ -234,8 +239,10 @@ namespace Net.AOI
         /// </summary>
         /// <param name="body"></param>
         /// <param name="other"></param>
-        private void ExitHandler(IGridBody body, IGridBody other)
+        private static void ExitHandler(IGridBody body, IGridBody other)
         {
+            if (body == other) //当插入时会偶尔发生相同的玩家通知问题
+                return;
             if (body.MainRole & other.MainRole) //如果两个都是主角, 则相互通知
             {
                 body.OnExit(other);
@@ -255,8 +262,8 @@ namespace Net.AOI
         {
             foreach (var body in gridBodies)
             {
-                body.OnBodyUpdate();
                 TryGetGrid(body);
+                body.OnBodyUpdate(); //如果OnBodyUpdate放在前面并且调用Remove方法会出现问题
             }
         }
     }

@@ -52,7 +52,7 @@ using Cysharp.Threading.Tasks;
                 conn = new {CONNECT}(connStr); //数据库连接
                 conn.Open();
             }
-            conn.Ping();//长时间没有连接后断开连接检查状态
+            {PING}
             if (conn.State != ConnectionState.Open)
             {
                 conn.Close();
@@ -66,7 +66,7 @@ using Cysharp.Threading.Tasks;
         {
             InitConnection(connLen);
             List<object> list = new List<object>();
-    [split]
+    [split] // -- 1
             var {TABLENAME}Table = ExecuteReader($"SELECT * FROM {TABLENAME}");
             foreach (DataRow row in {TABLENAME}Table.Rows)
             {
@@ -75,7 +75,7 @@ using Cysharp.Threading.Tasks;
                 list.Add(data);
             }
             {TABLENAME}Table.Dispose();
-    [split]
+    [split] // -- 2
             onInit?.Invoke(list);
         }
 
@@ -150,6 +150,8 @@ using Cysharp.Threading.Tasks;
             var array = ExecuteQueryList<T>(cmdText);
             if (array == null)
                 return default;
+            if (array.Length == 0)
+                return default;
             return array[0];
         }
 
@@ -199,6 +201,8 @@ using Cysharp.Threading.Tasks;
         {
             var array = await ExecuteQueryListAsync<T>(cmdText);
             if (array == null)
+                return default;
+            if (array.Length == 0)
                 return default;
             return array[0];
         }
@@ -361,6 +365,7 @@ using Cysharp.Threading.Tasks;
         {
             if (stringBuilder.Length > 0)
             {
+[split] // -- 3
                 var conn = PopConnect();
                 try
                 {
@@ -402,6 +407,12 @@ using Cysharp.Threading.Tasks;
                 {
                     conns.Push(conn);
                 }
+[split] // -- 4
+                var stopwatch = Stopwatch.StartNew();
+                var rowCount = ExecuteNonQuery(stringBuilder.ToString());
+                stopwatch.Stop();
+                if (rowCount > 2000) NDebug.Log($"SQL批处理完成:{rowCount} 用时:{stopwatch.Elapsed}");
+[split] // -- 5
             }
             if (deleteSb.Length > 0)
             {
@@ -412,13 +423,13 @@ using Cysharp.Threading.Tasks;
             }
         }
 
-        public string CheckStringValue(string value, int length)
+        public string CheckStringValue(string value, uint length)
         {
             CheckStringValue(ref value, length);
             return value;
         }
 
-        public void CheckStringValue(ref string value, int length)
+        public void CheckStringValue(ref string value, uint length)
         {
             if (value == null)
                 value = string.Empty;
@@ -426,7 +437,7 @@ using Cysharp.Threading.Tasks;
             value = value.Replace("'", "\\\'"); //出现'时必须转转义成\'
             value = value.Replace("|", "\\|"); //批量分隔符|
             if (value.Length >= length - 3) //必须保留三个字符做最后的判断, 如最后一个字符出现了\或'时出错问题
-                value = value.Substring(0, length);
+                value = value.Substring(0, (int)length);
         }
     }
 {NAMESPACE_END}

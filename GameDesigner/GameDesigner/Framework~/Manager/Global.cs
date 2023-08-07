@@ -18,7 +18,8 @@ namespace Framework
         [SerializeField] protected NetworkManager network;
         [SerializeField] protected Logger logger;
         [SerializeField] protected ObjectPool pool;
-        
+        [SerializeField] protected EventManager @event;
+
         public static ResourcesManager Resources;
         public static UIManager UI;
         public static AssetBundleCheckUpdate CheckUpdate;
@@ -30,6 +31,7 @@ namespace Framework
         public static NetworkManager Network;
         public static Logger Logger;
         public static ObjectPool Pool;
+        public static EventManager Event;
 
         public AssetBundleMode Mode = AssetBundleMode.LocalPath;
         public string entryRes = "Assets/Resources/Prefabs/GameEntry.prefab";
@@ -50,6 +52,7 @@ namespace Framework
             Network = network;
             Logger = logger;
             Pool = pool;
+            Event = @event;
             DontDestroyOnLoad(gameObject);
         }
 

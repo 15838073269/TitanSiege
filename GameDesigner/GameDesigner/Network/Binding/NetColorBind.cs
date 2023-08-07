@@ -7,7 +7,7 @@ namespace Binding
 {
     public struct NetColorBind : ISerialize<Net.Color>, ISerialize
     {
-        public void Write(Net.Color value, Segment stream)
+        public void Write(Net.Color value, ISegment stream)
         {
             int pos = stream.Position;
             stream.Position += 1;
@@ -43,7 +43,7 @@ namespace Binding
             stream.Position = pos1;
         }
 		
-		public Net.Color Read(Segment stream)
+		public Net.Color Read(ISegment stream)
 		{
 			byte[] bits = stream.Read(1);
 			var value = new Net.Color();
@@ -63,12 +63,12 @@ namespace Binding
 			return value;
 		}
 
-        public void WriteValue(object value, Segment stream)
+        public void WriteValue(object value, ISegment stream)
         {
             Write((Net.Color)value, stream);
         }
 
-        public object ReadValue(Segment stream)
+        public object ReadValue(ISegment stream)
         {
             return Read(stream);
         }
@@ -79,7 +79,7 @@ namespace Binding
 {
 	public struct NetColorArrayBind : ISerialize<Net.Color[]>, ISerialize
 	{
-		public void Write(Net.Color[] value, Segment stream)
+		public void Write(Net.Color[] value, ISegment stream)
 		{
 			int count = value.Length;
 			stream.Write(count);
@@ -89,7 +89,7 @@ namespace Binding
 				bind.Write(value1, stream);
 		}
 
-		public Net.Color[] Read(Segment stream)
+		public Net.Color[] Read(ISegment stream)
 		{
 			var count = stream.ReadInt32();
 			var value = new Net.Color[count];
@@ -100,12 +100,12 @@ namespace Binding
 			return value;
 		}
 
-		public void WriteValue(object value, Segment stream)
+		public void WriteValue(object value, ISegment stream)
 		{
 			Write((Net.Color[])value, stream);
 		}
 
-		public object ReadValue(Segment stream)
+		public object ReadValue(ISegment stream)
 		{
 			return Read(stream);
 		}
@@ -115,7 +115,7 @@ namespace Binding
 {
 	public struct NetColorGenericBind : ISerialize<List<Net.Color>>, ISerialize
 	{
-		public void Write(List<Net.Color> value, Segment stream)
+		public void Write(List<Net.Color> value, ISegment stream)
 		{
 			int count = value.Count;
 			stream.Write(count);
@@ -125,7 +125,7 @@ namespace Binding
 				bind.Write(value1, stream);
 		}
 
-		public List<Net.Color> Read(Segment stream)
+		public List<Net.Color> Read(ISegment stream)
 		{
 			var count = stream.ReadInt32();
 			var value = new List<Net.Color>(count);
@@ -136,12 +136,12 @@ namespace Binding
 			return value;
 		}
 
-		public void WriteValue(object value, Segment stream)
+		public void WriteValue(object value, ISegment stream)
 		{
 			Write((List<Net.Color>)value, stream);
 		}
 
-		public object ReadValue(Segment stream)
+		public object ReadValue(ISegment stream)
 		{
 			return Read(stream);
 		}

@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 873117886630732641}
   - component: {fileID: 1357167453226861322}
   - component: {fileID: 7599921650345442015}
+  - component: {fileID: 4587307809564096770}
   m_Layer: 0
   m_Name: Global
   m_TagString: Untagged
@@ -247,6 +248,7 @@ MonoBehaviour:
   network: {fileID: 873117886630732641}
   logger: {fileID: 1357167453226861322}
   pool: {fileID: 7599921650345442015}
+  event: {fileID: 4587307809564096770}
   Mode: 0
   entryRes: Assets/Resources/Prefabs/GameEntry.prefab
 --- !u!114 &4109322260658001646
@@ -412,6 +414,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9380147b8a11ae34499f8c13e6b52abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4587307809564096770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4109322260658001645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bca0bd1ea4bb46f41ab49be18d0a53e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4109322260782628951

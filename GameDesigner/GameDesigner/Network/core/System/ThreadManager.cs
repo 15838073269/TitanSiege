@@ -27,11 +27,13 @@ namespace Net.System
         /// </summary>
         public static bool IsRuning { get; set; }
 
+#if SERVICE
         static ThreadManager()
         {
             Init();
             Start();
         }
+#endif
 
         private static void Init()
         {
@@ -73,11 +75,13 @@ namespace Net.System
                 playerLoop.subSystemList = copyList.ToArray();
                 PlayerLoop.SetPlayerLoop(playerLoop);
             }
+#if !UNITY_WEBGL //在webgl平台下 必须是主线程
             else //解决有的Unity不改代码每次运行不会调用静态构造函数导致的问题
             {
                 Init();
                 Start();
             }
+#endif
         }
 
         private static void Start()
@@ -85,9 +89,10 @@ namespace Net.System
 #if !UNITY_WEBGL
             if (!Config.Config.MainThreadTick)
             {
+                Stop(); //unity出现两个事件线程的问题
                 MainThread = new Thread(Execute)
                 {
-                    Name = "事件线程",
+                    Name = "EventThread",
                     IsBackground = true
                 };
                 MainThread.Start();
@@ -173,5 +178,16 @@ namespace Net.System
         {
             return Event.AddEvent(name, time, ptr, isAsync);
         }
+    }
+
+    /// <summary>
+    /// 事件管理器
+    /// </summary>
+    public class EventManager 
+    {
+        /// <summary>
+        /// 计时事件属性
+        /// </summary>
+        public static TimerEvent Event => ThreadManager.Event;
     }
 }

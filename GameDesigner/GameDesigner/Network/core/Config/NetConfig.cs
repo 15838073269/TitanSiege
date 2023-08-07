@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 
 namespace Net.Config
 {
@@ -54,9 +55,7 @@ namespace Net.Config
             get
             {
 #if UNITY_STANDALONE || UNITY_WSA || UNITY_WEBGL || UNITY_ANDROID || UNITY_IOS
-                var path = Unity.UnitySynchronizationContext.Get(() => {
-                    return UnityEngine.Application.persistentDataPath;
-                });
+                var path = Unity.UnitySynchronizationContext.Get(() => UnityEngine.Application.persistentDataPath);
 #else
                 var path = AppDomain.CurrentDomain.BaseDirectory;
 #endif
@@ -72,13 +71,7 @@ namespace Net.Config
             get 
             {
 #if UNITY_STANDALONE || UNITY_WSA || UNITY_WEBGL || UNITY_ANDROID || UNITY_IOS
-                var path = Unity.UnitySynchronizationContext.Get(() => { //根路径必须保证在项目内, 这样编译之后才能读取
-#if UNITY_STANDALONE || UNITY_WSA || UNITY_WEBGL || UNITY_EDITOR
-                    return UnityEngine.Application.streamingAssetsPath;//在编辑器时都是流路径
-#elif UNITY_ANDROID || UNITY_IOS
-                    return UnityEngine.Application.persistentDataPath;//编译之后才是持久路径
-#endif
-                });
+                var path = Unity.UnitySynchronizationContext.Get(() => UnityEngine.Application.streamingAssetsPath);
 #else
                 var path = AppDomain.CurrentDomain.BaseDirectory;
 #endif
@@ -97,9 +90,7 @@ namespace Net.Config
                 if (!string.IsNullOrEmpty(dataPath))
                     return dataPath;
 #if UNITY_STANDALONE || UNITY_WSA || UNITY_WEBGL || UNITY_ANDROID || UNITY_IOS
-                dataPath = Unity.UnitySynchronizationContext.Get(() => { //根路径必须保证在项目内, 这样编译之后才能读取
-                    return UnityEngine.Application.dataPath;
-                });
+                dataPath = Unity.UnitySynchronizationContext.Get(() => UnityEngine.Application.dataPath); //根路径必须保证在项目内, 这样编译之后才能读取
 #else
                 dataPath = AppDomain.CurrentDomain.BaseDirectory;
 #endif
@@ -133,42 +124,63 @@ namespace Net.Config
                 return;
             init = true;
             var configPath = ConfigPath + "/network.config";
+#if UNITY_STANDALONE || UNITY_WSA || UNITY_WEBGL || UNITY_ANDROID || UNITY_IOS
+            Unity.UnitySynchronizationContext.Post((o) => _ = LoadConfigFile(o.ToString()), configPath);
+#else
             if (File.Exists(configPath))
             {
                 var textRows = File.ReadAllLines(configPath);
-                foreach (var item in textRows)
-                {
-                    if (item.Contains("{"))//旧版本json存储
-                    {
-                        Save();
-                        break;
-                    }
-                    var texts = item.Split('=');
-                    var key = texts[0].Trim().ToLower();
-                    var value = texts[1].Split('#')[0].Trim();
-                    switch (key)
-                    {
-                        case "usememorystream":
-                            if (bool.TryParse(value, out var value1))
-                                useMemoryStream = value1;
-                            else
-                                useMemoryStream = value != "0";
-                            break;
-                        case "basecapacity":
-                            baseCapacity = int.Parse(value);
-                            break;
-                        case "mainthreadtick":
-                            if (bool.TryParse(value, out var value2))
-                                mainThreadTick = value2;
-                            else
-                                mainThreadTick = value != "0";
-                            break;
-                    }
-                }
+                Init(textRows);
             }
             else
             {
                 Save();
+            }
+#endif
+
+        }
+
+#if UNITY_STANDALONE || UNITY_WSA || UNITY_WEBGL || UNITY_ANDROID || UNITY_IOS
+        private static async UniTaskVoid LoadConfigFile(string configPath)
+        {
+            var request = UnityEngine.Networking.UnityWebRequest.Get(configPath);
+            var oper = request.SendWebRequest();
+            while (!oper.isDone)
+                await UniTask.Yield();
+            if (!string.IsNullOrEmpty(request.error))
+            {
+                Net.Event.NDebug.LogError($"初始化配置错误:{request.error} {configPath}");
+                Save();
+                return;
+            }
+            var textRows = request.downloadHandler.text.Split(new string[] { "\r\n" }, 0);
+            Init(textRows);
+        }
+#endif
+
+        private static void Init(string[] textRows)
+        {
+            foreach (var item in textRows)
+            {
+                if (string.IsNullOrEmpty(item))
+                    continue;
+                var texts = item.Split('=');
+                var key = texts[0].Trim().ToLower();
+                var value = texts[1].Split('#')[0].Trim();
+                switch (key)
+                {
+                    case "usememorystream":
+                        if (bool.TryParse(value, out var value1))
+                            useMemoryStream = value1;
+                        break;
+                    case "basecapacity":
+                        baseCapacity = int.Parse(value);
+                        break;
+                    case "mainthreadtick":
+                        if (bool.TryParse(value, out var value2))
+                            mainThreadTick = value2;
+                        break;
+                }
             }
         }
 

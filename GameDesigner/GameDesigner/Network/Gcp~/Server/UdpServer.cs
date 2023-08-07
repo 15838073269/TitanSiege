@@ -1,14 +1,14 @@
 ﻿namespace Net.Server
 {
-    using Net.Share;
     using global::System;
     using global::System.Net;
     using global::System.Net.Sockets;
     using global::System.Threading;
-    using Debug = Event.NDebug;
+    using global::System.Linq;
+    using Net.Share;
     using Net.System;
     using Net.Event;
-    using global::System.Linq;
+    using Debug = Event.NDebug;
 
     /// <summary>
     /// Udp网络服务器
@@ -28,11 +28,6 @@
             uint SIO_UDP_CONNRESET = IOC_IN | IOC_VENDOR | 12;
             Server.IOControl((int)SIO_UDP_CONNRESET, new byte[] { Convert.ToByte(false) }, null);//udp远程关闭现有连接方案
 #endif
-        }
-
-        protected override void OnThreadQueueSet(Player client)
-        {
-            client.Group = ThreadGroupDict[Thread.CurrentThread.ManagedThreadId];
         }
 
         protected override void AcceptHander(Player client)

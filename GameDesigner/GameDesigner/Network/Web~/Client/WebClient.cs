@@ -24,7 +24,7 @@
     public class WebClient : ClientBase
     {
         public WebSocket WSClient { get; private set; }
-
+        
         /// <summary>
         /// 构造不可靠传输客户端
         /// </summary>
@@ -52,8 +52,10 @@
         {
             try
             {
-                bool isConnectFailed = false;
-                WSClient = new WebSocket($"ws://{host}:{port}/");
+                var isConnectFailed = false;
+                if (host == "127.0.0.1" | host == "localhost")
+                    host = NetPort.GetIP();
+                WSClient = new WebSocket($"{Scheme}://{host}:{port}/");
                 WSClient.OnError += (sender, e) =>
                 {
                     NDebug.LogError(e.Exception);
@@ -63,8 +65,7 @@
                     Connected = false;
                     NetworkState = NetworkState.ConnectLost;
                     InvokeInMainThread(OnConnectLostHandle);
-                    rtRPCModels = new QueueSafe<RPCModel>();
-                    rPCModels = new QueueSafe<RPCModel>();
+                    RpcModels = new QueueSafe<RPCModel>();
                     NDebug.Log("websocket关闭！");
                     isConnectFailed = true;
                 };
@@ -84,7 +85,7 @@
                         receiveCount += data.Length;
                         receiveAmount++;
                         var buffer = BufferPool.Take(data.Length);
-                        Buffer.BlockCopy(data, 0, buffer, 0, data.Length);
+                        Buffer.BlockCopy(data, 0, buffer.Buffer, 0, data.Length);
                         buffer.Count = data.Length;
                         ResolveBuffer(ref buffer, false);
                         BufferPool.Push(buffer);
@@ -115,7 +116,7 @@
             }
         }
 
-        public override void Receive(bool isSleep)
+        public override void ReceiveHandler()
         {
         }
 
@@ -134,12 +135,7 @@
             return openClient & CurrReconnect < ReconnectCount;
         }
 
-        protected override void SendRTDataHandle()
-        {
-            SendDataHandle(rtRPCModels, true);
-        }
-
-        protected override void SendByteData(byte[] buffer, bool reliable)
+        protected override void SendByteData(byte[] buffer)
         {
             sendCount += buffer.Length;
             sendAmount++;
@@ -174,8 +170,9 @@
         }
 #endif
 
-        public override void Close(bool await = true, int millisecondsTimeout = 1000)
+        public override void Close(bool await = true, int millisecondsTimeout = 100)
         {
+            var isDispose = openClient;
             Connected = false;
             openClient = false;
             NetworkState = NetworkState.ConnectClosed;
@@ -193,7 +190,7 @@
             CurrReconnect = 0;
             if (Instance == this) Instance = null;
             if (Gcp != null) Gcp.Dispose();
-            NDebug.Log("客户端已关闭！");
+            if (isDispose) NDebug.Log("客户端已关闭！");
         }
 
         /// <summary>

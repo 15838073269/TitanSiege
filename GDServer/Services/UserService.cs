@@ -1,6 +1,7 @@
 ﻿using GDServer.Tools;
 using Net.Event;
 using Net.Share;
+using System;
 using System.Data;
 using System.Diagnostics;
 using Titansiege;
@@ -70,7 +71,7 @@ namespace GDServer.Services
         }
         [Rpc(cmd = NetCmd.SafeCall)]
         private void CreateRole(GDClient client, CharactersData data) {
-            int length = 0;
+            uint length = 0;
             string sqldataname = data.GetCellNameAndTextLength(1,out length);
             CharactersData chongming = CharactersData.Query($"{sqldataname} = '{data[1]}'");
             if (chongming == default) {

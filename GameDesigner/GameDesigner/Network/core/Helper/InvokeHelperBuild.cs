@@ -42,8 +42,12 @@ namespace Net.Helper
         }
     }
 
-    public interface ISyncVarGetSet 
+    public interface ISyncVarHandler
     {
+        /// <summary>
+        /// [SyncVar]字段同步优先级, 只会执行优先级最高的一个, 所以有需要时可继承生成的SyncVarHandlerGenerate类进行额外处理
+        /// </summary>
+        int SortingOrder { get; }
         void Init();
     }
 
@@ -67,45 +71,30 @@ namespace Net.Helper
         [UnityEngine.RuntimeInitializeOnLoadMethod]
         private static void Init()
         {
-            Type type = null;
-            bool hasHelper = false;
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (var assembly in assemblies) //检查是否是静态编译
+            var syncVars = AssemblyHelper.GetInterfaceInstances<ISyncVarHandler>();
+            syncVars.Sort((a, b) => b.SortingOrder.CompareTo(a.SortingOrder));
+            var hasHelper = false;
+            if (syncVars.Count > 0)
             {
-                if (!hasHelper)
-                {
-                    var type1 = assembly.GetType("SyncVarGetSetHelperGenerate");
-                    if (type1 != null)
-                    {
-                        type1.GetMethod("Init", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, null);
-                        hasHelper = true;
-                        continue;
-                    }
-                }
-                if (type == null) 
-                {
-                    var type2 = assembly.GetType("HelperFileInfo");//此类必须在主程序集里面, 否则出问题
-                    if (type2 != null)
-                    {
-                        type = type2;
-                    }
-                }
+                hasHelper = true;
+                syncVars[0].Init();
             }
             if (!hasHelper) //动态编译模式
             {
+                var type = AssemblyHelper.GetTypeNotOptimized("HelperFileInfo");
                 if (type != null)
                 {
                     var path = (string)type.GetMethod("GetPath", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
 #if UNITY_EDITOR
-                    DynamicalCompilation(path, assemblies, type.Assembly, UnityEngine.Debug.Log);
+                    DynamicalCompilation(path, type.Assembly, UnityEngine.Debug.Log);
 #elif SERVICE
-                    DynamicalCompilation(path, assemblies, type.Assembly, Console.WriteLine);
+                    DynamicalCompilation(path, type.Assembly, Console.WriteLine);
 #endif
                 }
             }
         }
 
-        public static void DynamicalCompilation(string path, Assembly[] assemblies, Assembly mainAssembly, Action<object> log)
+        public static void DynamicalCompilation(string path, Assembly mainAssembly, Action<object> log)
         {
             if (File.Exists(path))
             {
@@ -117,8 +106,13 @@ namespace Net.Helper
                     var provider = new CSharpCodeProvider();
                     var parameters = new CompilerParameters();
                     var dict = new Dictionary<string, string>();
+                    var assemblies = AppDomain.CurrentDomain.GetAssemblies();
                     foreach (var assemblie in assemblies)
+                    {
+                        if (assemblie.IsDynamic)
+                            continue;
                         dict.Add(assemblie.GetName().FullName, assemblie.Location);
+                    }
                     var referencedAssemblies = mainAssembly.GetReferencedAssemblies();
                     foreach (var item in referencedAssemblies)
                         if (dict.TryGetValue(item.FullName, out var path2))
@@ -126,7 +120,7 @@ namespace Net.Helper
                     parameters.ReferencedAssemblies.Add(mainAssembly.Location);
                     parameters.GenerateInMemory = false;
                     parameters.GenerateExecutable = false;
-                    parameters.OutputAssembly = "DynamicalAssembly.dll";//编译后的dll库输出的名称，会在bin/Debug下生成Test.dll库
+                    parameters.OutputAssembly = "SyncVarHandler.dll";//编译后的dll库输出的名称，会在bin/Debug下生成Test.dll库
                     parameters.IncludeDebugInformation = true;
                     var results = provider.CompileAssemblyFromSource(parameters, text);
                     if (results.Errors.HasErrors)
@@ -138,9 +132,12 @@ namespace Net.Helper
                     }
                     else
                     {
-                        var type = results.CompiledAssembly.GetType("SyncVarGetSetHelperGenerate");
+                        var type = results.CompiledAssembly.GetType("SyncVarHandlerGenerate");
                         if (type != null)
-                            type.GetMethod("Init", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
+                        {
+                            var obj = Activator.CreateInstance(type) as ISyncVarHandler;
+                            obj?.Init();
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -170,10 +167,12 @@ namespace Net.Helper
 
         public static string SyncVarBuild(List<TypeDef> types, bool recordType)
         {
-            var str = @"/// <summary>此类必须在主项目程序集, 如在unity时必须是Assembly-CSharp程序集, 在控制台项目时必须在Main入口类的程序集</summary>
-internal static class SyncVarGetSetHelperGenerate
+            var codeTemplate = @"/// <summary>此类必须在主项目程序集, 如在unity时必须是Assembly-CSharp程序集, 在控制台项目时必须在Main入口类的程序集</summary>
+internal partial class SyncVarHandlerGenerate : ISyncVarHandler
 {
-    internal static void Init()
+    public virtual int SortingOrder => 0;
+
+    public void Init()
     {
         SyncVarGetSetHelper.Cache.Clear();
 --
@@ -185,12 +184,10 @@ internal static class SyncVarGetSetHelperGenerate
 --
     }
 --
-    internal static void FIELDNAME(this TARGETTYPE self, ref FIELDTYPE FIELDNAME, ushort id, ref Segment segment, bool isWrite, Action<FIELDTYPE, FIELDTYPE> onValueChanged) 
+    internal virtual void FIELDNAME(TARGETTYPE self, ref FIELDTYPE FIELDNAME, ushort id, ref ISegment segment, SyncVarInfo syncVar, bool isWrite, Action<FIELDTYPE, FIELDTYPE> onValueChanged) 
     {
         if (isWrite)
         {
-            if (Equals(self.FIELDNAME, null))
-                return;
             if (JUDGE)
                 return;
             if (segment == null)
@@ -203,24 +200,31 @@ internal static class SyncVarGetSetHelperGenerate
             var end = segment.Position;
             segment.Position = pos;
             FIELDNAME = READVALUE
+            CHECKVALUE
             segment.Position = end;
+            syncVar.writeCount++;
+            syncVar.writeBytes += end - pos;
         }
         else 
         {
             INDEXTOTYPE
             var pos = segment.Position;
             var FIELDNAME1 = READVALUE
+            CHECKVALUE1
             var end = segment.Position;
             segment.Position = pos;
             FIELDNAME = READVALUE
+            CHECKVALUE
             segment.Position = end;
             if (onValueChanged != null)
                 onValueChanged(self.FIELDNAME, FIELDNAME1);
             self.FIELDNAME = FIELDNAME1;
+            syncVar.readCount++;
+            syncVar.readBytes += end - pos;
         }
     }
 --
-    internal static void FIELDNAME(this TARGETTYPE self, ref FIELDTYPE FIELDNAME, ushort id, ref Segment segment, bool isWrite, Action<FIELDTYPE, FIELDTYPE> onValueChanged) 
+    internal virtual void FIELDNAME(TARGETTYPE self, ref FIELDTYPE FIELDNAME, ushort id, ref ISegment segment, SyncVarInfo syncVar, bool isWrite, Action<FIELDTYPE, FIELDTYPE> onValueChanged) 
     {
         if (isWrite)
         {
@@ -248,46 +252,41 @@ internal static class SyncVarGetSetHelperGenerate
         }
     }
 --
+
+--
 }";
 
-            var codes = str.Split(new string[] { "--" }, 0);
+            var codes = codeTemplate.Split(new string[] { "--" }, 0);
             var sb = new StringBuilder();
             var setgetSb = new StringBuilder();
             sb.Append(codes[0]);
+            var equalsSbs = new HashSet<string>();
+            var streams = new Dictionary<string, ModuleDefMD>();
+            var typeLoop = new HashSet<string>();
             foreach (var type in types)
             {
                 var dictSB = new StringBuilder();
                 foreach (var field in type.Fields)//字段里面包含了属性字段
                 {
-                    bool hasAttribute = false;
+                    var hasAttribute = false;
+                    var nonSerialized = false;
                     foreach (var item in field.CustomAttributes)
                     {
                         if (item.TypeFullName == "Net.Share.SyncVar")
-                        {
                             hasAttribute = true;
-                            break;
-                        }
+                        else if (item.TypeFullName == "Net.Serialize.NonSerialized")
+                            nonSerialized = true;
                     }
                     if (!hasAttribute)
+                        continue;
+                    if (nonSerialized)
                         continue;
                     if (field.IsPrivate)
                         continue;
                     TypeSig ft = field.FieldType;
                     var gt = ft as GenericInstSig;
-                    string fieldType = field.FieldType.FullName;
-                    string fieldName = field.Name.String;
-                    if (fieldType.Contains("`"))
-                    {
-                        var fff = fieldType.Split('`');
-                        fff[0] += "<";
-                        foreach (var item in gt.GenericArguments)
-                        {
-                            fff[0] += $"{item.FullName},";
-                        }
-                        fff[0] = fff[0].TrimEnd(',');
-                        fff[0] += ">";
-                        fieldType = fff[0];
-                    }
+                    var fieldType = AssemblyHelper.GetCodeTypeName(field.FieldType.FullName);
+                    var fieldName = field.Name.String;
                     var code = codes[2].Replace("TARGETTYPE", type.FullName);
                     code = code.Replace("FIELDTYPE", fieldType);
                     code = code.Replace("FIELDNAME", fieldName);
@@ -325,6 +324,8 @@ internal static class SyncVarGetSetHelperGenerate
                         code = code.Replace("HANDLER", $"segment.Write(self.{fieldName});");
                         code = code.Replace("READVALUE", $"segment.Read{typeCode}();");
                         code = code.Replace("JUDGE", $"self.{fieldName} == {fieldName}");
+                        code = code.Replace("CHECKVALUE1", "");
+                        code = code.Replace("CHECKVALUE", "");
                     }
                     else if (ft.IsArray | ft.IsSZArray | ft.IsValueArray)
                     {
@@ -337,6 +338,8 @@ internal static class SyncVarGetSetHelperGenerate
                             code = code.Replace("INDEXTOTYPE", "");
                             code = code.Replace("HANDLER", $"segment.Write(self.{fieldName});");
                             code = code.Replace("READVALUE", $"segment.Read{typeCode}Array();");
+                            code = code.Replace("CHECKVALUE1", "");
+                            code = code.Replace("CHECKVALUE", "");
                         }
                         else
                         {
@@ -345,19 +348,20 @@ internal static class SyncVarGetSetHelperGenerate
                                 code = code.Replace("GETTYPE", $"var type = self.{fieldName}.GetType();");
                                 code = code.Replace("TYPETOINDEX", $"segment.Write(NetConvertBinary.TypeToIndex(type));");
                                 code = code.Replace("INDEXTOTYPE", $"var type = NetConvertBinary.IndexToType(segment.ReadUInt16());");
-                                code = code.Replace("HANDLER", $"NetConvertBinary.SerializeObject(segment, self.{fieldName}, {recordType.ToString().ToLower()}, true);");
-                                code = code.Replace("READVALUE", $"NetConvertBinary.DeserializeObject(segment, type, false, {recordType.ToString().ToLower()}, true) as {fieldType};");
                             }
                             else 
                             {
                                 code = code.Replace("GETTYPE", "");
                                 code = code.Replace("TYPETOINDEX", "");
                                 code = code.Replace("INDEXTOTYPE", "");
-                                code = code.Replace("HANDLER", $"NetConvertBinary.SerializeObject(segment, self.{fieldName}, false, true);");
-                                code = code.Replace("READVALUE", $"NetConvertBinary.DeserializeObject<{fieldType}>(segment, false, false, true);");
                             }
+                            code = code.Replace("HANDLER", $"NetConvertBinary.SerializeObject(segment, self.{fieldName}, {(recordType ? "true" : "false")}, true);");
+                            code = code.Replace("READVALUE", $"NetConvertBinary.DeserializeObject<{fieldType}>(segment, {(recordType ? $"type," : "")} false, {(recordType ? "true" : "false")}, true);");
+                            code = code.Replace("CHECKVALUE1", $"if({fieldName}1 == null) {fieldName}1 = new {fieldType}{{}};");
+                            code = code.Replace("CHECKVALUE", $"if({fieldName} == null) {fieldName} = new {fieldType}{{}};");
                         }
-                        code = code.Replace("JUDGE", $"SyncVarHelper.ALEquals(self.{fieldName}, {fieldName})");
+                        code = code.Replace("JUDGE", $"Equals(self.{fieldName}, {fieldName})");
+                        AddArrayOrListEquals(ft, streams, equalsSbs, typeLoop);
                     }
                     else if (ft.IsGenericInstanceType)
                     {
@@ -381,19 +385,18 @@ internal static class SyncVarGetSetHelperGenerate
                                     code = code.Replace("GETTYPE", $"var type = self.{fieldName}.GetType();");
                                     code = code.Replace("TYPETOINDEX", $"segment.Write(NetConvertBinary.TypeToIndex(type));");
                                     code = code.Replace("INDEXTOTYPE", $"var type = NetConvertBinary.IndexToType(segment.ReadUInt16());");
-                                    code = code.Replace("HANDLER", $"NetConvertBinary.SerializeObject(segment, self.{fieldName}, {recordType.ToString().ToLower()}, true);");
-                                    code = code.Replace("READVALUE", $"NetConvertBinary.DeserializeObject(segment, type, false, {recordType.ToString().ToLower()}, true) as {fieldType};");
                                 }
                                 else
                                 {
                                     code = code.Replace("GETTYPE", "");
                                     code = code.Replace("TYPETOINDEX", "");
                                     code = code.Replace("INDEXTOTYPE", "");
-                                    code = code.Replace("HANDLER", $"NetConvertBinary.SerializeObject(segment, self.{fieldName}, false, true);");
-                                    code = code.Replace("READVALUE", $"NetConvertBinary.DeserializeObject<{fieldType}>(segment, false, false, true);");
                                 }
+                                code = code.Replace("HANDLER", $"NetConvertBinary.SerializeObject(segment, self.{fieldName}, {(recordType ? "true" : "false")}, true);");
+                                code = code.Replace("READVALUE", $"NetConvertBinary.DeserializeObject<{fieldType}>(segment, {(recordType ? $"type," : "")} false, {(recordType ? "true" : "false")}, true);");
                             }
-                            code = code.Replace("JUDGE", $"SyncVarHelper.ALEquals(self.{fieldName}, {fieldName})");
+                            code = code.Replace("JUDGE", $"Equals(self.{fieldName}, {fieldName})");
+                            AddArrayOrListEquals(ft, streams, equalsSbs, typeLoop);
                         }
                         else
                         {
@@ -402,18 +405,18 @@ internal static class SyncVarGetSetHelperGenerate
                                 code = code.Replace("GETTYPE", $"var type = self.{fieldName}.GetType();");
                                 code = code.Replace("TYPETOINDEX", $"segment.Write(NetConvertBinary.TypeToIndex(type));");
                                 code = code.Replace("INDEXTOTYPE", $"var type = NetConvertBinary.IndexToType(segment.ReadUInt16());");
-                                code = code.Replace("HANDLER", $"NetConvertBinary.SerializeObject(segment, self.{fieldName}, {recordType.ToString().ToLower()}, true);");
-                                code = code.Replace("READVALUE", $"NetConvertBinary.DeserializeObject(segment, type, false, {recordType.ToString().ToLower()}, true) as {fieldType};");
                             }
                             else
                             {
                                 code = code.Replace("GETTYPE", "");
                                 code = code.Replace("TYPETOINDEX", "");
                                 code = code.Replace("INDEXTOTYPE", "");
-                                code = code.Replace("HANDLER", $"NetConvertBinary.SerializeObject(segment, self.{fieldName}, false, true);");
-                                code = code.Replace("READVALUE", $"NetConvertBinary.DeserializeObject<{fieldType}>(segment, false, false, true);");
                             }
+                            code = code.Replace("HANDLER", $"NetConvertBinary.SerializeObject(segment, self.{fieldName}, {(recordType ? "true" : "false")}, true);");
+                            code = code.Replace("READVALUE", $"NetConvertBinary.DeserializeObject<{fieldType}>(segment, {(recordType ? $"type," : "")} false, {(recordType ? "true" : "false")}, true);");
                         }
+                        code = code.Replace("CHECKVALUE1", "");
+                        code = code.Replace("CHECKVALUE", "");
                     }
                     else if (isUnityObject)
                     {
@@ -423,6 +426,8 @@ internal static class SyncVarGetSetHelperGenerate
                         code = code.Replace("HANDLER", $"segment.Write(UnityEditor.AssetDatabase.GetAssetPath(self.{fieldName}));");
                         code = code.Replace("READVALUE", $"segment.ReadString();");
                         code = code.Replace("JUDGE", $"Equals(self.{fieldName}, {fieldName})");
+                        code = code.Replace("CHECKVALUE1", "");
+                        code = code.Replace("CHECKVALUE", "");
                     }
                     else
                     {
@@ -431,18 +436,19 @@ internal static class SyncVarGetSetHelperGenerate
                             code = code.Replace("GETTYPE", $"var type = self.{fieldName}.GetType();");
                             code = code.Replace("TYPETOINDEX", $"segment.Write(NetConvertBinary.TypeToIndex(type));");
                             code = code.Replace("INDEXTOTYPE", $"var type = NetConvertBinary.IndexToType(segment.ReadUInt16());");
-                            code = code.Replace("HANDLER", $"NetConvertBinary.SerializeObject(segment, self.{fieldName}, {recordType.ToString().ToLower()}, true);");
-                            code = code.Replace("READVALUE", $"NetConvertBinary.DeserializeObject(segment, type, false, {recordType.ToString().ToLower()}, true) as {fieldType};");
                         }
                         else
                         {
                             code = code.Replace("GETTYPE", "");
                             code = code.Replace("TYPETOINDEX", "");
                             code = code.Replace("INDEXTOTYPE", "");
-                            code = code.Replace("HANDLER", $"NetConvertBinary.SerializeObject(segment, self.{fieldName}, false, true);");
-                            code = code.Replace("READVALUE", $"NetConvertBinary.DeserializeObject<{fieldType}>(segment, false, false, true);");
                         }
+                        code = code.Replace("HANDLER", $"NetConvertBinary.SerializeObject(segment, self.{fieldName}, {(recordType ? "true" : "false")}, true);");
+                        code = code.Replace("READVALUE", $"NetConvertBinary.DeserializeObject<{fieldType}>(segment, {(recordType ? $"type," : "")} false, {(recordType ? "true" : "false")}, true);");
                         code = code.Replace("JUDGE", $"Equals(self.{fieldName}, {fieldName})");
+                        code = code.Replace("CHECKVALUE1", "");
+                        code = code.Replace("CHECKVALUE", "");
+                        AddEquals(ft, streams, equalsSbs, typeLoop);
                     }
                     setgetSb.Append(code);
                 }
@@ -458,11 +464,205 @@ internal static class SyncVarGetSetHelperGenerate
                     sb.Append(dictSB1.ToString());
                 }
             }
+
+            var equalsSb = new StringBuilder();
+            equalsSb.AppendLine();
+            foreach (var item in equalsSbs)
+            {
+                equalsSb.AppendLine(item);
+            }
+            codes[7] = equalsSb.ToString();
+
             sb.Append(codes[4]);
             sb.Append(setgetSb.ToString());
-            sb.Append(codes[7]);
+            sb.Append(codes[7]); 
+            sb.Append(codes[8]);
             var text = sb.ToString();
+
+            foreach (var item in streams.Values)
+                item?.Dispose();
+
             return text;
+        }
+
+        private static void AddArrayOrListEquals(TypeSig typeSig, Dictionary<string, ModuleDefMD> streams, HashSet<string> equalsSbs, HashSet<string> typeLoop)
+        {
+            var typeSig1 = typeSig;
+            var typeDef = typeSig.TryGetTypeDef();
+        J: if (typeDef != null)
+            {
+                var equalsSb = new StringBuilder();
+                var fullName = typeSig.FullName.Replace("`1", "");
+                equalsSb.AppendLine($"\tinternal virtual bool Equals({fullName} a, {fullName} b)");
+                equalsSb.AppendLine("\t{");
+                equalsSb.AppendLine($"\t\tif (a == null) return true;");
+                equalsSb.AppendLine($"\t\tif (b == null) return false; //到这里a不可能为null, 但是b如果为null, 就是不相等了");
+                if (typeSig.IsGenericInstanceType)
+                {
+                    equalsSb.AppendLine($"\t\tif (a.Count != b.Count) return false;");
+                    equalsSb.AppendLine($"\t\tfor(int i = 0; i < a.Count; i++)");
+                }
+                else
+                {
+                    equalsSb.AppendLine($"\t\tif (a.Length != b.Length) return false;");
+                    equalsSb.AppendLine($"\t\tfor(int i = 0; i < a.Length; i++)");
+                }
+                equalsSb.AppendLine("\t\t{");
+                equalsSb.AppendLine($"\t\t\tif (!Equals(a[i], b[i])) return false;");
+                typeSig = typeDef.ToTypeSig();
+                if (typeSig != null)
+                {
+                    if (typeLoop.Add(typeSig.FullName)) 
+                    {
+                        if (typeSig.IsArray | typeSig.IsValueArray | typeSig.IsSZArray | typeSig.IsSingleOrMultiDimensionalArray | typeSig.IsGenericInstanceType)
+                            AddArrayOrListEquals(typeSig, streams, equalsSbs, typeLoop);
+                        else
+                            AddEquals(typeSig, streams, equalsSbs, typeLoop);
+                    }
+                }
+                equalsSb.AppendLine("\t\t}");
+                equalsSb.AppendLine("\t\treturn true;");
+                equalsSb.AppendLine("\t}");
+                equalsSbs.Add(equalsSb.ToString());
+            }
+            else if (streams.TryGetValue(typeSig1.DefinitionAssembly.Name, out var module))
+            {
+                string fullName;
+                if (typeSig1.IsArray | typeSig1.IsValueArray | typeSig1.IsSZArray | typeSig1.IsSingleOrMultiDimensionalArray)
+                    fullName = typeSig1.Next.FullName;
+                else if (typeSig1.IsGenericInstanceType)
+                {
+                    var gt = typeSig1 as GenericInstSig;
+                    typeSig1 = gt.GenericArguments[0];
+                    goto J;
+                }
+                else fullName = typeSig1.FullName;
+                typeDef = module.FindReflection(fullName);
+                if (typeDef != null)
+                    goto J;
+            }
+            else
+            {
+                var assembly = AssemblyHelper.GetRunAssembly(typeSig.DefinitionAssembly.Name);
+                if (assembly != null)
+                {
+                    if (assembly.IsDynamic)
+                        return;
+                    if (string.IsNullOrEmpty(assembly.Location))
+                        return;
+                    var path = assembly.Location;
+                    if (File.Exists(path))
+                    {
+                        module = ModuleDefMD.Load(path, typeSig.Module.Context);
+                        streams.Add(typeSig.DefinitionAssembly.Name, module);
+                        var fullName = string.Empty;
+                        if (typeSig.IsArray | typeSig.IsValueArray | typeSig.IsSZArray | typeSig.IsSingleOrMultiDimensionalArray)
+                            fullName = typeSig.Next.FullName;
+                        else if (typeSig.IsGenericInstanceType)
+                        {
+                            var gt = typeSig as GenericInstSig;
+                            var gat = gt.GenericArguments[0];
+                            fullName = gat.FullName;
+                            typeDef = gat.Module.FindReflection(fullName);
+                            if (typeDef != null)
+                                goto J;
+                        }
+                        typeDef = module.FindReflection(fullName);
+                        if (typeDef != null)
+                            goto J;
+                    }
+                }
+            }
+        }
+
+        private static void AddEquals(TypeSig typeSig, Dictionary<string, ModuleDefMD> streams, HashSet<string> equalsSbs, HashSet<string> typeLoop)
+        {
+            if (!typeLoop.Add(typeSig.FullName))
+                return;
+            var typeDef = typeSig.TryGetTypeDef();
+        J: if (typeDef != null)
+            {
+                var equalsSb = new StringBuilder();
+                equalsSb.AppendLine($"\tinternal virtual bool Equals({typeSig.FullName} a, {typeSig.FullName} b)");
+                equalsSb.AppendLine("\t{");
+                if (typeSig.IsClassSig)
+                {
+                    equalsSb.AppendLine($"\t\tif (a == null) return true;");
+                    equalsSb.AppendLine($"\t\tif (b == null) return false; //到这里a不可能为null, 但是b如果为null, 就是不相等了");
+                }
+                else if (GetTypeCode(typeSig) != TypeCode.Object) //基类
+                {
+                    equalsSb.AppendLine($"\t\tif (a != b) return false;");
+                    goto J1;
+                }
+                var nullEquals = true;
+                foreach (var ft1 in typeDef.Fields)
+                {
+                    if (!ft1.IsPublic | ft1.IsStatic)
+                        continue;
+                    var nonSerialized = false;
+                    foreach (var item in ft1.CustomAttributes)
+                        if (item.TypeFullName == "Net.Serialize.NonSerialized")
+                            nonSerialized = true;
+                    if (nonSerialized)
+                        continue;
+                    nullEquals = false;
+                    if (ft1.FieldType.IsPrimitive)
+                    {
+                        if (ft1.Name.EndsWith("value__")) //如果后面包含了value__ 暂时识别为枚举类型
+                            equalsSb.AppendLine($"\t\tif (a != b) return false;");
+                        else
+                            equalsSb.AppendLine($"\t\tif (a.{ft1.Name} != b.{ft1.Name}) return false;");
+                        AddEquals(ft1.FieldType, streams, equalsSbs, typeLoop);
+                    }
+                    else if (ft1.FieldType.IsArray | ft1.FieldType.IsSZArray | ft1.FieldType.IsValueArray | ft1.FieldType.IsSingleOrMultiDimensionalArray)
+                    {
+                        equalsSb.AppendLine($"\t\tif (!Equals(a.{ft1.Name}, b.{ft1.Name})) return false;");
+                        AddArrayOrListEquals(ft1.FieldType, streams, equalsSbs, typeLoop);
+                    }
+                    else if (ft1.FieldType.IsGenericInstanceType) 
+                    {
+                        equalsSb.AppendLine($"\t\tif (!Equals(a.{ft1.Name}, b.{ft1.Name})) return false;");
+                        AddArrayOrListEquals(ft1.FieldType, streams, equalsSbs, typeLoop);
+                    }
+                    else
+                    {
+                        equalsSb.AppendLine($"\t\tif (!Equals(a.{ft1.Name}, b.{ft1.Name})) return false;");
+                        AddEquals(ft1.FieldType, streams, equalsSbs, typeLoop);
+                    }
+                }
+                if (nullEquals)
+                    return;
+                J1: equalsSb.AppendLine("\t\treturn true;");
+                equalsSb.AppendLine("\t}");
+                equalsSbs.Add(equalsSb.ToString());
+            }
+            else if (streams.TryGetValue(typeSig.DefinitionAssembly.Name, out var module))
+            {
+                typeDef = module.FindReflection(typeSig.FullName);
+                if (typeDef != null)
+                    goto J;
+            }
+            else
+            {
+                var assembly = AssemblyHelper.GetRunAssembly(typeSig.DefinitionAssembly.Name);
+                if (assembly != null)
+                {
+                    if (assembly.IsDynamic)
+                        return;
+                    if (string.IsNullOrEmpty(assembly.Location))
+                        return;
+                    var path = assembly.Location;
+                    if (File.Exists(path))
+                    {
+                        module = ModuleDefMD.Load(path, typeSig.Module.Context);
+                        streams.Add(typeSig.DefinitionAssembly.Name, module);
+                        typeDef = module.FindReflection(typeSig.FullName);
+                        if (typeDef != null)
+                            goto J;
+                    }
+                }
+            }
         }
 
         public static string InvokeRpcClientBuild(List<TypeDef> types)
@@ -752,7 +952,11 @@ internal static class SyncVarGetSetHelperGenerate
                     if (sequence == null)// async方法得不到源码行
                         continue;
                     var path = sequence.Document.Url;
-                    path = "Assets" + path.Replace('\\', '/').Split(new string[] { "Assets" }, 0)[1];
+                    //相对于Assets路径
+                    var uri = new Uri(UnityEngine.Application.dataPath);
+                    var relativeUri = uri.MakeRelativeUri(new Uri(path));
+                    path = relativeUri.ToString();
+                    path = path.Replace('\\', '/');
                     cache[type.FullName + "." + method.Name] = new SequencePoint(path, sequence.StartLine - 1);
                 }
                 //状态机部分
@@ -780,7 +984,11 @@ internal static class SyncVarGetSetHelperGenerate
                     if (sequence == null)// async方法得不到源码行
                         continue;
                     var path = sequence.Document.Url;
-                    path = "Assets" + path.Replace('\\', '/').Split(new string[] { "Assets" }, 0)[1];
+                    //相对于Assets路径
+                    var uri = new Uri(UnityEngine.Application.dataPath);
+                    var relativeUri = uri.MakeRelativeUri(new Uri(path));
+                    path = relativeUri.ToString();
+                    path = path.Replace('\\', '/');
                     cache[type.FullName] = new SequencePoint(path, sequence.StartLine - 1);
                 }
             }
@@ -822,6 +1030,7 @@ internal static class SyncVarGetSetHelperGenerate
                     clientTypes.Add(type);
                 }
             }
+
             var serverTypes = new List<List<TypeDef>>();
             foreach (var data in config.rpcConfig)
             {
@@ -876,7 +1085,7 @@ using System.Runtime.CompilerServices;
                 serverTypes3.AddRange(item);
             if(config.collectRpc)
                 text += InvokeRpcClientBuild(serverTypes3) + "\r\n\r\n";//客户端要收集服务器的rpc才能识别
-            text += @"/// <summary>定位辅助类路径</summary>
+            text += @"/// <summary>SyncVar动态编译定位路径</summary>
 internal static class HelperFileInfo 
 {
     internal static string GetPath()
@@ -894,7 +1103,7 @@ internal static class HelperFileInfo
                 goto J;
             if (!Directory.Exists(config.savePath))
                 Directory.CreateDirectory(config.savePath);
-            File.WriteAllText(config.savePath + "/InvokeHelperGenerate.cs", text);
+            File.WriteAllText(config.savePath + "/SyncVarHandlerGenerate.cs", text);
 
             for (int i = 0; i < config.rpcConfig.Count; i++)
             {
@@ -947,8 +1156,15 @@ internal static class HelperFileInfo
     }
 }";
                 var csprojPath = config.rpcConfig[i].csprojPath;
-                var path1 = config.rpcConfig[i].savePath + "/InvokeHelperGenerate.cs";
-                path1 = path1.Replace('/', '\\');
+                csprojPath = Path.GetFullPath(csprojPath.Replace('/', '\\'));
+                var path1 = config.rpcConfig[i].savePath + "/SyncVarHandlerGenerate.cs";
+                path1 = Path.GetFullPath(path1.Replace('/', '\\'));
+
+                //相对于Assets路径
+                var uri = new Uri(csprojPath);
+                var relativeUri = uri.MakeRelativeUri(new Uri(path1));
+                var relativePath = relativeUri.ToString();
+
                 if (!File.Exists(csprojPath))
                     continue;
                 var xml = new XmlDocument();
@@ -968,12 +1184,14 @@ internal static class HelperFileInfo
                     var node_child = node.ChildNodes;
                     foreach (XmlNode child_node in node_child)
                     {
+                        if (child_node.LocalName != "Compile")
+                            continue;
                         var value = child_node.Attributes["Include"].Value;
-                        if (value.Contains("InvokeHelperGenerate.cs"))
+                        if (value.Contains("SyncVarHandlerGenerate.cs"))
                         {
-                            if (value != path1 | !File.Exists(value))
+                            if (value != relativePath | !File.Exists(value))
                             {
-                                child_node.Attributes["Include"].Value = path1;
+                                child_node.Attributes["Include"].Value = relativePath;
                                 xml.Save(csprojPath);
                             }
                             exist = true;
@@ -985,7 +1203,7 @@ internal static class HelperFileInfo
                 {
                     var node = xml.CreateElement("ItemGroup", namespaceURI);
                     var e = xml.CreateElement("Compile", namespaceURI);
-                    e.SetAttribute("Include", path1);
+                    e.SetAttribute("Include", relativePath);
                     node.AppendChild(e);
                     documentElement.AppendChild(node);
                     xml.Save(csprojPath);

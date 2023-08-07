@@ -10,9 +10,10 @@
     using global::System.Reflection;
     using global::System.Collections.Generic;
     using Kcp;
+    using AOT;
     using Net.Share;
     using Net.System;
-    using AOT;
+    using Net.Event;
     using Cysharp.Threading.Tasks;
     using static Kcp.KcpLib;
 
@@ -22,19 +23,12 @@
     [Serializable]
     public unsafe class KcpClient : ClientBase
     {
-        private readonly IntPtr kcp;
-        private readonly outputCallback output;
-        private static readonly Dictionary<IntPtr, KcpClient> KcpDict = new Dictionary<IntPtr, KcpClient>();
+        private IntPtr kcp;
+        private IntPtr user;
+        private outputCallback output;
 
         public KcpClient() : base()
         {
-            kcp = ikcp_create(1400, (IntPtr)1);
-            output = new outputCallback(Output);
-            IntPtr outputPtr = Marshal.GetFunctionPointerForDelegate(output);
-            ikcp_setoutput(kcp, outputPtr);
-            ikcp_wndsize(kcp, ushort.MaxValue, ushort.MaxValue);
-            ikcp_nodelay(kcp, 1, 10, 2, 1);
-            KcpDict[kcp] = this;
         }
 
         public KcpClient(bool useUnityThread) : this()
@@ -44,7 +38,20 @@
 
         ~KcpClient()
         {
-            KcpDict.Remove(kcp);
+            ReleaseKcp();
+        }
+
+        protected override UniTask<bool> ConnectResult(string host, int port, int localPort, Action<bool> result) 
+        {
+            ReleaseKcp();
+            user = Marshal.GetIUnknownForObject(this);
+            kcp = ikcp_create(MTU, user);
+            output = new outputCallback(Output);
+            var outputPtr = Marshal.GetFunctionPointerForDelegate(output);
+            ikcp_setoutput(kcp, outputPtr);
+            ikcp_wndsize(kcp, ushort.MaxValue, ushort.MaxValue);
+            ikcp_nodelay(kcp, 1, 10, 2, 1);
+            return base.ConnectResult(host, port, localPort, result);
         }
 
         private byte[] addressBuffer;
@@ -61,7 +68,7 @@
         [MonoPInvokeCallback(typeof(outputCallback))]
         public static unsafe int Output(IntPtr buf, int len, IntPtr kcp, IntPtr user)
         {
-            var client = KcpDict[kcp];
+            var client = Marshal.GetObjectForIUnknown(user) as KcpClient;
             client.sendCount += len;
             client.sendAmount++;
 #if WINDOWS
@@ -73,18 +80,13 @@
 #endif
         }
 
-        public override void Receive(bool isSleep)
+        public override void ReceiveHandler()
         {
-            if (Client.Poll(1, SelectMode.SelectRead))
+            if (Client.Poll(0, SelectMode.SelectRead))
             {
                 var segment = BufferPool.Take(65507);
-                segment.Count = Client.Receive(segment, 0, segment.Length, SocketFlags.None, out SocketError error);
-                if (error != SocketError.Success)
-                {
-                    BufferPool.Push(segment);
-                    return;
-                }
-                if (segment.Count == 0)
+                segment.Count = Client.Receive(segment.Buffer, 0, segment.Length, SocketFlags.None, out SocketError error);
+                if (error != SocketError.Success | segment.Count == 0)
                 {
                     BufferPool.Push(segment);
                     return;
@@ -94,47 +96,55 @@
                 heart = 0;
                 fixed (byte* p = &segment.Buffer[0])
                     ikcp_input(kcp, p, segment.Count);
-                ikcp_update(kcp, (uint)Environment.TickCount);
-                int len;
-                while ((len = ikcp_peeksize(kcp)) > 0)
-                {
-                    var segment1 = BufferPool.Take(len);
-                    fixed (byte* p1 = &segment1.Buffer[0])
-                    {
-                        segment1.Count = ikcp_recv(kcp, p1, len);
-                        ResolveBuffer(ref segment1, false);
-                        BufferPool.Push(segment1);
-                    }
-                    revdLoopNum++;
-                }
                 BufferPool.Push(segment);
             }
-            else if (isSleep)
+            int len;
+            if ((len = ikcp_peeksize(kcp)) > 0)
             {
-                Thread.Sleep(1);
+                var segment1 = BufferPool.Take(len);
+                fixed (byte* p1 = &segment1.Buffer[0])
+                {
+                    segment1.Count = ikcp_recv(kcp, p1, len);
+                    ResolveBuffer(ref segment1, false);
+                    BufferPool.Push(segment1);
+                }
             }
         }
 
-        protected override void SendByteData(byte[] buffer, bool reliable)
+        public override void OnNetworkTick()
+        {
+            ikcp_update(kcp, (uint)Environment.TickCount);
+        }
+
+        protected override void SendByteData(byte[] buffer)
         {
             fixed (byte* p = &buffer[0])
             {
                 int count = ikcp_send(kcp, p, buffer.Length);
-                ikcp_update(kcp, (uint)Environment.TickCount);
                 if (count < 0)
-                    OnSendErrorHandle?.Invoke(buffer, reliable);
+                    OnSendErrorHandle?.Invoke(buffer);
             }
         }
 
-        protected override void SendRTDataHandle()
-        {
-            SendDataHandle(rtRPCModels, true);
-        }
-
-        public override void Close(bool await = true, int millisecondsTimeout = 1000)
+        public override void Close(bool await = true, int millisecondsTimeout = 100)
         {
             base.Close(await);
             addressBuffer = null;
+            ReleaseKcp();
+        }
+
+        private void ReleaseKcp()
+        {
+            if (kcp != IntPtr.Zero)
+            {
+                ikcp_release(kcp);
+                kcp = IntPtr.Zero;
+            }
+            if (user != IntPtr.Zero)
+            {
+                Marshal.Release(user);
+                user = IntPtr.Zero;
+            }
         }
 
         /// <summary>
@@ -162,14 +172,21 @@
                 var buffer = new byte[dataLen];
                 Task.Run(() =>
                 {
+                    for (int i = 0; i < clients.Count; i++)
+                    {
+                        var client = clients[i];
+                        client.OnPingCallback += (d) =>
+                        {
+                            client.delay = d;
+                        };
+                    }
                     while (!cts.IsCancellationRequested)
                     {
                         Thread.Sleep(1000);
                         fpsAct?.Invoke(clients);
                         for (int i = 0; i < clients.Count; i++)
                         {
-                            clients[i].NetworkFlowHandler();
-                            clients[i].fps = 0;
+                            clients[i].Ping();
                         }
                     }
                 });
@@ -207,7 +224,7 @@
                                 }
                                 catch (Exception ex)
                                 {
-                                    Event.NDebug.LogError(ex);
+                                    NDebug.LogError(ex);
                                 }
                             }
                         }
@@ -225,17 +242,16 @@
 
     public class KcpClientTest : KcpClient
     {
-        public int fps;
         public int revdSize { get { return receiveCount; } }
         public int sendSize { get { return sendCount; } }
         public int sendNum { get { return sendAmount; } }
         public int revdNum { get { return receiveAmount; } }
-        public int resolveNum { get { return receiveAmount; } }
+        public int resolveNum { get { return resolveAmount; } }
+        public uint delay { get; internal set; }
+
         private byte[] addressBuffer;
         public KcpClientTest() : base()
         {
-            OnReceiveDataHandle += (model) => { fps++; };
-            OnOperationSync += (list) => { fps++; };
         }
         protected override UniTask<bool> ConnectResult(string host, int port, int localPort, Action<bool> result)
         {
@@ -247,39 +263,13 @@
             var socketAddress = Client.RemoteEndPoint.Serialize();
             addressBuffer = (byte[])socketAddress.GetType().GetField("m_Buffer", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(socketAddress);
 #endif
-            rPCModels.Enqueue(new RPCModel(NetCmd.Connect, new byte[0]));
+            RpcModels.Enqueue(new RPCModel(NetCmd.Connect, new byte[0]));
             SendDirect();
             Connected = true;
             result(true);
             return UniTask.FromResult(Connected);
         }
         protected override void StartupThread() { }
-
-        //protected override void OnConnected(bool result) { NetworkState = NetworkState.Connected; }
-
-        //protected override void ResolveBuffer(ref Segment buffer, bool isTcp)
-        //{
-        //    base.ResolveBuffer(ref buffer, isTcp);
-        //}
-//        protected unsafe override void SendByteData(byte[] buffer, bool reliable)
-//        {
-//            sendCount += buffer.Length;
-//            sendAmount++;
-//#if WINDOWS
-//            fixed (byte* ptr = buffer)
-//                Win32KernelAPI.sendto(Client.Handle, ptr, buffer.Length, SocketFlags.None, addressBuffer, 16);
-//#else
-//            Client.Send(buffer, 0, buffer.Length, SocketFlags.None);
-//#endif
-//        }
-        //protected internal override byte[] OnSerializeOptInternal(OperationList list)
-        //{
-        //    return new byte[0];
-        //}
-        //protected internal override OperationList OnDeserializeOptInternal(byte[] buffer, int index, int count)
-        //{
-        //    return default;
-        //}
         /// <summary>
         /// 单线程更新，需要开发者自动调用更新
         /// </summary>
@@ -287,8 +277,6 @@
         {
             if (!Connected)
                 return;
-            Receive(false);
-            SendDirect();
             NetworkTick();
         }
         public override string ToString()

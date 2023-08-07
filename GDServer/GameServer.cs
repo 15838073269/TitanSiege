@@ -4,7 +4,9 @@ using GDServer.Services;
 using Net.Event;
 using Net.Share;
 using Net.System;
+using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GDServer
 {
@@ -17,6 +19,12 @@ namespace GDServer
             InitDebuger();
             Debuger.Log("开始创建服务器.....");
             TServer server = new TServer();//创建服务器对象
+            server.OnlineLimit = 24000;//服务器最大运行2500人连接
+            server.LineUp = 24000;
+            server.MaxThread = 10; //增加并发线程
+            server.RTO = 50;
+            server.MTU = 1300;
+            server.MTPS = 2048;
             server.AddAdapter(new Net.Adapter.SerializeAdapter3());//添加极速序列化适配器
             server.Log += Debuger.Log;//打印服务器内部信息
             //server.OnNetworkDataTraffic += (df) => {//当统计网络性能,数据传输量

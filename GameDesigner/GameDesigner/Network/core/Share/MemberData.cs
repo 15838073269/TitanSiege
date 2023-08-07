@@ -7,7 +7,7 @@ namespace Net.Share
     public class MemberData
     {
         public MemberInfo member;
-        public RPCFun rpc;
+        public RPC rpc;
         public SyncVarInfo syncVar;
         public RPCPTR ptr;
 

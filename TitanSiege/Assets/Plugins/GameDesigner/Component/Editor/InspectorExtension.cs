@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
 
 /// <summary>
@@ -30,7 +31,4 @@ public class EnumFlagsDrawer : PropertyDrawer
         property.intValue = EditorGUI.MaskField(position, label, property.intValue, property.enumNames);
     }
 }
-
-
-
-
+#endif

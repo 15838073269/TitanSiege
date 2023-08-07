@@ -1,7 +1,7 @@
 /// <summary>
-/// ui¹ÜÀíÆ÷Àà
+/// uiç®¡ç†å™¨ç±»
 /// </summary>
 public class UIManager : Framework.UIManager
 {
-	//À©Õ¹ÄãµÄUI¹ÜÀíÆ÷´úÂë
+	//æ‰©å±•ä½ çš„UIç®¡ç†å™¨ä»£ç 
 }

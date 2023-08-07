@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Framework
 {
     /// <summary>
-    /// ui¹ÜÀíÆ÷, ÄÚÖÃÁ½¸ö»ù´¡½çÃæ MessageºÍLoading, Çë·ÖĞ´´Ë×é¼ş¶¨ÒåÄãµÄÆäËû½çÃæ
+    /// uiç®¡ç†å™¨, å†…ç½®ä¸¤ä¸ªåŸºç¡€ç•Œé¢ Messageå’ŒLoading, è¯·åˆ†å†™æ­¤ç»„ä»¶å®šä¹‰ä½ çš„å…¶ä»–ç•Œé¢
     /// </summary>
     public class UIManager : MonoBehaviour
     {
@@ -30,7 +30,7 @@ namespace Framework
         }
 
         /// <summary>
-        /// ½«form½çÃæÌí¼Óµ½ËùÓĞ½çÃæ×ÖµäÀïÃæ
+        /// å°†formç•Œé¢æ·»åŠ åˆ°æ‰€æœ‰ç•Œé¢å­—å…¸é‡Œé¢
         /// </summary>
         /// <param name="form"></param>
         public void AddForm(UIFormBase form)
@@ -39,26 +39,39 @@ namespace Framework
         }
 
         /// <summary>
-        /// ´ò¿ªÒ»¸ö½çÃæ, Èç¹û²»´æÔÚÔò´Óab°ü¼ÓÔØ, Èç¹û´æÔÚÖ±½ÓÏÔÊ¾²¢·µ»Ø
+        /// æ‰“å¼€ä¸€ä¸ªç•Œé¢, å¦‚æœä¸å­˜åœ¨åˆ™ä»abåŒ…åŠ è½½, å¦‚æœå­˜åœ¨ç›´æ¥æ˜¾ç¤ºå¹¶è¿”å›
         /// </summary>
-        /// <typeparam name="T">ui±íÁĞµÄÃû³Æ</typeparam>
-        /// <param name="onBack">µ±¹Ø±Õ½çÃæºó»Øµ÷</param>
-        /// <param name="formMode">µ±Ç°½çÃæÏìÓ¦Ä£Ê½</param>
+        /// <typeparam name="T">uiè¡¨åˆ—çš„åç§°</typeparam>
+        /// <param name="onBack">å½“å…³é—­ç•Œé¢åå›è°ƒ</param>
+        /// <param name="formMode">å½“å‰ç•Œé¢å“åº”æ¨¡å¼</param>
         /// <returns></returns>
-        public T OpenForm<T>(Action onBack = null, UIFormMode formMode = UIFormMode.CloseCurrForm) where T : UIFormBase<T>
+        public T OpenForm<T>(Delegate onBack = null, UIFormMode formMode = UIFormMode.CloseCurrForm) where T : UIFormBase<T>
         {
             var formName = typeof(T).Name;
             return OpenForm(formName, onBack, formMode) as T;
         }
 
         /// <summary>
-        /// ´ò¿ªÒ»¸ö½çÃæ, Èç¹û²»´æÔÚÔò´Óab°ü¼ÓÔØ, Èç¹û´æÔÚÖ±½ÓÏÔÊ¾²¢·µ»Ø
+        /// æ‰“å¼€ä¸€ä¸ªç•Œé¢, å¦‚æœä¸å­˜åœ¨åˆ™ä»abåŒ…åŠ è½½, å¦‚æœå­˜åœ¨ç›´æ¥æ˜¾ç¤ºå¹¶è¿”å›
         /// </summary>
-        /// <param name="formName">ui±íÁĞµÄÃû³Æ</param>
-        /// <param name="onBack">µ±¹Ø±Õ½çÃæºó»Øµ÷</param>
-        /// <param name="formMode">µ±Ç°½çÃæÏìÓ¦Ä£Ê½</param>
+        /// <typeparam name="T">uiè¡¨åˆ—çš„åç§°</typeparam>
+        /// <param name="onBack">å½“å…³é—­ç•Œé¢åå›è°ƒ</param>
+        /// <param name="formMode">å½“å‰ç•Œé¢å“åº”æ¨¡å¼</param>
         /// <returns></returns>
-        public UIFormBase OpenForm(string formName, Action onBack = null, UIFormMode formMode = UIFormMode.CloseCurrForm)
+        public void OpenForm(UIFormBase uiForm, Delegate onBack = null, UIFormMode formMode = UIFormMode.CloseCurrForm)
+        {
+            var formName = uiForm.GetType().Name;
+            OpenForm(formName, onBack, formMode);
+        }
+
+        /// <summary>
+        /// æ‰“å¼€ä¸€ä¸ªç•Œé¢, å¦‚æœä¸å­˜åœ¨åˆ™ä»abåŒ…åŠ è½½, å¦‚æœå­˜åœ¨ç›´æ¥æ˜¾ç¤ºå¹¶è¿”å›
+        /// </summary>
+        /// <param name="formName">uiè¡¨åˆ—çš„åç§°</param>
+        /// <param name="onBack">å½“å…³é—­ç•Œé¢åå›è°ƒ</param>
+        /// <param name="formMode">å½“å‰ç•Œé¢å“åº”æ¨¡å¼</param>
+        /// <returns></returns>
+        public UIFormBase OpenForm(string formName, Delegate onBack = null, UIFormMode formMode = UIFormMode.CloseCurrForm)
         {
             if (formDict.TryGetValue(formName, out var form))
                 if (form != null)
@@ -71,20 +84,20 @@ namespace Framework
                 switch (formMode)
                 {
                     case UIFormMode.HideCurrForm:
-                        form1 = formStack.Peek();//Ö»ÊÇÒş²Øµ±Ç°½çÃæ²»ÄÜµ¯³ö
+                        form1 = formStack.Peek();//åªæ˜¯éšè—å½“å‰ç•Œé¢ä¸èƒ½å¼¹å‡º
                         form1.HideUI(false);
                         break;
                     case UIFormMode.CloseCurrForm:
-                        form1 = formStack.Pop();//¹Ø±ÕÉÏÒ»¸ö½çÃæĞèÒªµ¯³ö
+                        form1 = formStack.Pop();//å…³é—­ä¸Šä¸€ä¸ªç•Œé¢éœ€è¦å¼¹å‡º
                         form1.HideUI(false);
                         break;
-                    case UIFormMode.None://²»×öÈÎºÎ¶¯×÷, MessageÏûÏ¢¿ò
+                    case UIFormMode.None://ä¸åšä»»ä½•åŠ¨ä½œ, Messageæ¶ˆæ¯æ¡†
                         break;
                 }
             }
             form.ShowUI(onBack);
             form.transform.SetAsLastSibling();
-            formStack.Push(form);//Èç¹ûÊÇÏûÏ¢¿ò, Ò»¶¨»á¹Ø±ÕÁË²ÅÄÜÔÙ´Î´ò¿ª, ²»´æÔÚ¶à´ÎÑ¹Èë
+            formStack.Push(form);//å¦‚æœæ˜¯æ¶ˆæ¯æ¡†, ä¸€å®šä¼šå…³é—­äº†æ‰èƒ½å†æ¬¡æ‰“å¼€, ä¸å­˜åœ¨å¤šæ¬¡å‹å…¥
             return form;
         }
 
@@ -93,48 +106,48 @@ namespace Framework
             var dataTable = Global.Table.GetTable(sheetName);
             var dataRows = dataTable.Select($"Name = '{formName}'");
             if (dataRows.Length == 0)
-                throw new Exception($"ÕÒ²»µ½½çÃæ:{formName}, ÇëÅäÖÃ!");
+                throw new Exception($"æ‰¾ä¸åˆ°ç•Œé¢:{formName}, è¯·é…ç½®!");
             var path = ObjectConverter.AsString(dataRows[0]["Path"]);
             var level = ObjectConverter.AsInt(dataRows[0]["Level"]);
             var form = Global.Resources.Instantiate<UIFormBase>(path, Levels[level]);
             return form;
         }
 
-        public void CloseForm<T>(bool isBack)
+        public void CloseForm<T>(bool isBack, params object[] pars)
         {
             var formName = typeof(T).Name;
-            CloseForm(formName, isBack);
+            CloseForm(formName, isBack, pars);
         }
 
-        public void CloseForm(string formName, bool isBack = true)
+        public void CloseForm(string formName, bool isBack = true, params object[] pars)
         {
             if (formDict.TryGetValue(formName, out var form))
             {
-                CloseForm(form, isBack);
+                CloseForm(form, isBack, pars);
             }
         }
 
-        public void CloseForm(UIFormBase form, bool isBack = true)
+        public void CloseForm(UIFormBase form, bool isBack = true, params object[] pars)
         {
             if (formStack.Count > 0)
             {
                 if (form != formStack.Peek())
                 {
-                    form.HideUI(isBack);
+                    form.HideUI(isBack, pars);
                     return;
                 }
-                form = formStack.Pop();//µ¯³ö×Ô¼ºµÄÃæ°å
-                form.HideUI(isBack);
+                form = formStack.Pop();//å¼¹å‡ºè‡ªå·±çš„é¢æ¿
+                form.HideUI(isBack, pars);
                 if (formStack.Count > 0)
                 {
-                    form = formStack.Peek();//µ¯³öÉÏÒ»¸ö½çÃæ½øĞĞÏÔÊ¾, µ«²»»áÒÆ³ı
+                    form = formStack.Peek();//å¼¹å‡ºä¸Šä¸€ä¸ªç•Œé¢è¿›è¡Œæ˜¾ç¤º, ä½†ä¸ä¼šç§»é™¤
                     form.ShowUI();
                     form.transform.SetAsLastSibling();
                 }
             }
             else 
             {
-                form.HideUI(isBack);
+                form.HideUI(isBack, pars);
             }
         }
 

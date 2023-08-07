@@ -108,7 +108,7 @@ namespace Net
         // Token: 0x06003EFE RID: 16126 RVA: 0x000716B8 File Offset: 0x0006F8B8
         public static bool operator ==(Color lhs, Color rhs)
         {
-            return lhs == rhs;
+            return lhs.r == rhs.r & lhs.g == rhs.g & lhs.b == rhs.b & lhs.a == rhs.a;
         }
 
         // Token: 0x06003EFF RID: 16127 RVA: 0x000716E0 File Offset: 0x0006F8E0

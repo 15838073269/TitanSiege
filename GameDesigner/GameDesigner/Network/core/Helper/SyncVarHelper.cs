@@ -8,19 +8,43 @@ namespace Net.Helper
 {
     public class SyncVarHelper
     {
-        public static void InitSyncVar(MemberInfo info, object target, Action<SyncVarInfo> onSyncVarCollect)
+        public static void InitSyncVar(MemberInfo member, object target, Action<SyncVarInfo> onSyncVarCollect)
         {
-            var syncVar = info.GetCustomAttribute<SyncVar>();
+            SyncVarInfo syncVarInfo = null;
+            if (member is FieldInfo fieldInfo)
+            {
+                if (fieldInfo.FieldType.IsSubclassOf(typeof(SyncVarInfo)))
+                {
+                    syncVarInfo = Activator.CreateInstance(fieldInfo.FieldType) as SyncVarInfo;
+                    syncVarInfo.SetMemberInfo(member);
+                    onSyncVarCollect(syncVarInfo);
+                    return;
+                }
+            }
+            if (member is PropertyInfo propertyInfo)
+            {
+                if (propertyInfo.PropertyType.IsSubclassOf(typeof(SyncVarInfo)))
+                {
+                    syncVarInfo = Activator.CreateInstance(propertyInfo.PropertyType) as SyncVarInfo;
+                    syncVarInfo.SetMemberInfo(member);
+                    onSyncVarCollect(syncVarInfo);
+                    return;
+                }
+            }
+            var syncVar = member.GetCustomAttribute<SyncVar>();
             if (syncVar == null)
                 return;
             var type = target.GetType();
-            SyncVarInfo syncVarInfo = null;
             if (SyncVarGetSetHelper.Cache.TryGetValue(type, out var dict))
-                dict.TryGetValue(info.Name, out syncVarInfo);
+                dict.TryGetValue(member.Name, out syncVarInfo);
             if (syncVarInfo == null)
                 throw new Exception("请使用unity菜单GameDesigner/Network/InvokeHelper工具生成字段，属性同步辅助类!");
-            if(!string.IsNullOrEmpty(syncVar.hook))
+            if (!string.IsNullOrEmpty(syncVar.hook) & syncVarInfo.onValueChanged == null)
+            {
                 syncVarInfo.onValueChanged = type.GetMethod(syncVar.hook, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+                if (syncVarInfo.onValueChanged.GetParameters().Length != 2)
+                    throw new Exception($"{type}.{syncVarInfo.onValueChanged.Name} 方法必须有两个参数, 第一个是oldValue, 第二个是newValue!");
+            }
             syncVarInfo.id = syncVar.id;
             syncVarInfo.authorize = syncVar.authorize;
             onSyncVarCollect(syncVarInfo);
@@ -51,10 +75,8 @@ namespace Net.Helper
 
         public static bool ALEquals(IList a, IList b)
         {
-            if ((a != null & b == null) | (a == null & b != null))
-                return false;
-            if (a == null & b == null)
-                return true;
+            if (a == null) return true; //a不允许为null
+            if (b == null) return false; //到这里a不可能为null, 但是b如果为null, 就是不相等了
             if (a.Count != b.Count)
                 return false;
             for (int i = 0; i < a.Count; i++)
@@ -65,7 +87,7 @@ namespace Net.Helper
 
         public static byte[] CheckSyncVar(bool isLocal, MyDictionary<ushort, SyncVarInfo> syncVarInfos)
         {
-            Segment segment = null;
+            ISegment segment = null;
             var tick = (uint)Environment.TickCount;
             for (int i = 0; i < syncVarInfos.count; i++)
             {
@@ -83,7 +105,7 @@ namespace Net.Helper
 
         public static void SyncVarHandler(MyDictionary<ushort, SyncVarInfo> syncVarDic, byte[] buffer)
         {
-            var segment1 = new Segment(buffer, false);
+            ISegment segment1 = new Segment(buffer, false);
             while (segment1.Position < segment1.Offset + segment1.Count)
             {
                 var index = segment1.ReadUInt16();

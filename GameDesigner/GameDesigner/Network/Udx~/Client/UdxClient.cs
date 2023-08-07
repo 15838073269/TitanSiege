@@ -1,31 +1,31 @@
 ﻿namespace Net.Client
 {
-    using Net.Event;
-    using Net.Share;
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Runtime.InteropServices;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using Udx;
-    using Net.System;
 #if SERVICE
     using global::System.IO;
     using global::System.Net.Sockets;
     using global::System.Collections.Concurrent;
 #endif
     using Cysharp.Threading.Tasks;
+    using Udx;
+    using Net.System;
+    using Net.Event;
+    using Net.Share;
+    using AOT;
 
     /// <summary>
     /// udx客户端类型 -> 只能300人以下连接, 如果想要300个客户端以上, 请进入udx网址:www.goodudx.com 联系作者下载专业版FastUdxApi.dll, 然后更换下框架内的FastUdxApi.dll即可
     /// 第三版本 2020.9.14
     /// </summary>
-    [Serializable]
-    public class UdxClient : ClientBase, IUDX
+    public class UdxClient : ClientBase
     {
         protected IntPtr udxObj;
-        public IntPtr ClientPtr { get; private set; }
-        protected UDXPRC uDXPRC;
+        protected IntPtr ClientPtr;
+        protected UDXPRC udxPrc;
 
         /// <summary>
         /// 构造可靠传输客户端
@@ -55,15 +55,14 @@
             if (!UdxLib.INIT)
             {
                 UdxLib.INIT = true;
-#if SERVICE
+#if SERVICE && WINDOWS
                 string path = AppDomain.CurrentDomain.BaseDirectory;
-                if (!File.Exists(path + "\\FastUdxApi.dll"))
-                    throw new FileNotFoundException($"FastUdxApi.dll没有在程序根目录中! 请从GameDesigner文件夹下找到 FastUdxApi.dll复制到{path}目录下.");
+                if (!File.Exists(path + "\\udxapi.dll"))
+                    throw new FileNotFoundException($"udxapi.dll没有在程序根目录中! 请从GameDesigner文件夹下找到 udxapi.dll复制到{path}目录下.");
 #endif
                 UdxLib.UInit(1);
                 UdxLib.UEnableLog(false);
             }
-            UdxLib.UDXS.Add(this);
             return base.Connect(host, port, localPort, result);
         }
 
@@ -71,77 +70,107 @@
         {
             try
             {
+                ReleaseUdx();
                 udxObj = UdxLib.UCreateFUObj();
                 UdxLib.UBind(udxObj, null, 0);
-                uDXPRC = new UDXPRC(ProcessReceive);
-                UdxLib.USetFUCB(udxObj, uDXPRC);
-                GC.KeepAlive(uDXPRC);
-                string host1 = host;
-                if (host == "127.0.0.1")
-                    host1 = Server.NetPort.GetIP();
-                UdxLib.UConnect(udxObj, host1, port, 0, false, 0);
+                udxPrc = new UDXPRC(ProcessReceive);
+                UdxLib.USetFUCB(udxObj, udxPrc);
+                GC.KeepAlive(udxPrc);
+                if (host == "127.0.0.1" | host == "localhost")
+                    host = NetPort.GetIP();
+                ClientPtr = UdxLib.UConnect(udxObj, host, port, 0, false, 0);
+                if (ClientPtr != IntPtr.Zero) 
+                {
+                    UdxLib.UDump(ClientPtr);
+                    var handle = GCHandle.Alloc(this);
+                    var user = GCHandle.ToIntPtr(handle);
+                    UdxLib.USetUserData(ClientPtr, user.ToInt64());
+                }
 #if SERVICE
                 return UniTask.Run(() =>
 #else
                 return UniTask.RunOnThreadPool(() =>
 #endif
                 {
-                    var timeout = DateTime.Now.AddSeconds(5);
-                    while (!Connected & DateTime.Now < timeout) { Thread.Sleep(1); }
-                    if (Connected)
-                        StartupThread();
-                    timeout = DateTime.Now.AddSeconds(3);
-                    while (Connected & UID == 0 & DateTime.Now < timeout)
+                    try
                     {
-                        Send(NetCmd.Identify);
-                        Thread.Sleep(200);
-                        if (!openClient)
-                            throw new Exception("客户端调用Close!");
+                        var timeout = DateTime.Now.AddSeconds(5);
+                        while (!Connected & DateTime.Now < timeout) { Thread.Sleep(1); }
+                        if (Connected)
+                            StartupThread();
+                        timeout = DateTime.Now.AddSeconds(3);
+                        while (Connected & UID == 0 & DateTime.Now < timeout)
+                        {
+                            Send(NetCmd.Identify);
+                            Thread.Sleep(200);
+                            if (!openClient)
+                                throw new Exception("客户端调用Close!");
+                        }
+                        if (UID == 0)
+                            throw new Exception("uid赋值失败!");
+                        result(Connected);
+                        return Connected;
                     }
-                    if (UID == 0)
-                        throw new Exception("uid赋值失败!");
-                    result(Connected);
-                    return Connected;
+                    catch (Exception ex)
+                    {
+                        ReleaseUdx();
+                        NDebug.LogError("连接失败原因:" + ex.ToString());
+                        Connected = false;
+                        Client?.Close();
+                        Client = null;
+                        result(false);
+                        return false;
+                    }
                 });
             }
             catch (Exception ex)
             {
+                ReleaseUdx();
                 NDebug.Log("连接错误: " + ex.ToString());
                 result(false);
                 return UniTask.FromResult(false);
             }
         }
 
-        protected void ProcessReceive(UDXEVENT_TYPE type, int erro, IntPtr cli, IntPtr pData, int len)//cb回调
+        public override void ReceiveHandler()
+        {
+        }
+
+        //IL2CPP使用Marshal.GetFunctionPointerForDelegate需要设置委托方法为静态方法，并且要添加上特性MonoPInvokeCallback
+        [MonoPInvokeCallback(typeof(UDXPRC))]
+        protected static void ProcessReceive(UDXEVENT_TYPE type, int erro, IntPtr cli, IntPtr pData, int len)//cb回调
         {
             try
             {
-                heart = 0;
+                var user = UdxLib.UGetUserData(cli);
+                var handle = GCHandle.FromIntPtr(new IntPtr(user));
+                var client = handle.Target as UdxClient;
+                client.heart = 0;
                 switch (type)
                 {
                     case UDXEVENT_TYPE.E_CONNECT:
                         if (erro != 0)
                             return;
-                        ClientPtr = cli;
-                        UdxLib.UDump(cli);
-                        Connected = true;
+                        client.ClientPtr = cli;
+                        client.Connected = true;
                         UdxLib.USetGameMode(cli, true);
                         break;
                     case UDXEVENT_TYPE.E_LINKBROKEN:
-                        Connected = false;
-                        NetworkState = NetworkState.ConnectLost;
-                        InvokeInMainThread(OnConnectLostHandle);
-                        rtRPCModels = new QueueSafe<RPCModel>();
-                        rPCModels = new QueueSafe<RPCModel>();
+                        client.Connected = false;
+                        client.NetworkState = NetworkState.ConnectLost;
+                        client.InvokeInMainThread(client.OnConnectLostHandle);
+                        client.RpcModels = new QueueSafe<RPCModel>();
+                        client.ReleaseUdx();
+                        handle.Free();
                         NDebug.Log("断开连接！");
                         break;
                     case UDXEVENT_TYPE.E_DATAREAD:
                         var buffer = BufferPool.Take(len);
                         buffer.Count = len;
-                        Marshal.Copy(pData, buffer, 0, len);
-                        receiveCount += len;
-                        receiveAmount++;
-                        ResolveBuffer(ref buffer, false);
+                        Marshal.Copy(pData, buffer.Buffer, 0, len);
+                        client.receiveCount += len;
+                        client.receiveAmount++;
+                        client.ResolveBuffer(ref buffer, false);
                         BufferPool.Push(buffer);
                         break;
                 }
@@ -167,27 +196,23 @@
             return openClient & CurrReconnect < ReconnectCount;
         }
 
-        protected override void SendRTDataHandle()
-        {
-            SendDataHandle(rtRPCModels, true);
-        }
-
-        protected unsafe override void SendByteData(byte[] buffer, bool reliable)
+        protected unsafe override void SendByteData(byte[] buffer)
         {
             if (ClientPtr == IntPtr.Zero)
                 return;
-            sendCount += buffer.Length;
             sendAmount++;
-            fixed (byte* ptr = buffer) 
+            sendCount += buffer.Length;
+            fixed (byte* ptr = buffer)
             {
                 int count = UdxLib.USend(ClientPtr, ptr, buffer.Length);
                 if (count <= 0)
-                    OnSendErrorHandle?.Invoke(buffer, reliable);
+                    OnSendErrorHandle?.Invoke(buffer);
             }
         }
 
-        public override void Close(bool await = true, int millisecondsTimeout = 1000)
+        public override void Close(bool await = true, int millisecondsTimeout = 100)
         {
+            var isDispose = openClient;
             Connected = false;
             openClient = false;
             NetworkState = NetworkState.ConnectClosed;
@@ -201,6 +226,12 @@
             CurrReconnect = 0;
             if (Instance == this) Instance = null;
             if (Gcp != null) Gcp.Dispose();
+            ReleaseUdx();
+            if (isDispose) NDebug.Log("客户端已关闭！");
+        }
+
+        protected void ReleaseUdx()
+        {
             if (ClientPtr != IntPtr.Zero)
             {
                 UdxLib.UClose(ClientPtr);
@@ -212,13 +243,6 @@
                 UdxLib.UDestroyFUObj(udxObj);
                 udxObj = IntPtr.Zero;
             }
-            UdxLib.UDXS.Remove(this);
-            if (UdxLib.UDXS.Count == 0 & UdxLib.INIT)
-            {
-                UdxLib.UUnInit();
-                UdxLib.INIT = false;
-            }
-            NDebug.Log("客户端已关闭！");
         }
 
         public static CancellationTokenSource Testing(string ip, int port, int clientLen, int dataLen, int millisecondsTimeout, Action<UdxClientTest> onInit = null, Action<List<UdxClientTest>> fpsAct = null, IAdapter adapter = null)
@@ -228,8 +252,8 @@
                 UdxLib.INIT = true;
 #if SERVICE
                 string path = AppDomain.CurrentDomain.BaseDirectory;
-                if (!File.Exists(path + "\\FastUdxApi.dll"))
-                    throw new FileNotFoundException($"FastUdxApi.dll没有在程序根目录中! 请从GameDesigner文件夹下找到 FastUdxApi.dll复制到{path}目录下.");
+                if (!File.Exists(path + "\\udxapi.dll"))
+                    throw new FileNotFoundException($"udxapi.dll没有在程序根目录中! 请从GameDesigner文件夹下找到 udxapi.dll复制到{path}目录下.");
 #endif
                 UdxLib.UInit(8);
                 UdxLib.UEnableLog(false);
@@ -258,14 +282,21 @@
                 var buffer = new byte[dataLen];
                 Task.Run(() =>
                 {
+                    for (int i = 0; i < clients.Count; i++)
+                    {
+                        var client = clients[i];
+                        client.OnPingCallback += (d)=> 
+                        {
+                            client.delay = d;
+                        };
+                    }
                     while (!cts.IsCancellationRequested)
                     {
                         Thread.Sleep(1000);
                         fpsAct?.Invoke(clients);
                         for (int i = 0; i < clients.Count; i++)
                         {
-                            clients[i].NetworkFlowHandler();
-                            clients[i].fps = 0;
+                            clients[i].Ping();
                         }
                     }
                 });
@@ -298,7 +329,6 @@
                                     {
                                         //client.SendRT(NetCmd.Local, buffer);
                                         client.AddOperation(new Operation(66, buffer));
-                                        client.SendDirect();
                                     }
                                     client.NetworkTick();
                                 }
@@ -322,39 +352,38 @@
 
     public class UdxClientTest : UdxClient
     {
-        public int fps;
         public int revdSize { get { return receiveCount; } }
         public int sendSize { get { return sendCount; } }
         public int sendNum { get { return sendAmount; } }
         public int revdNum { get { return receiveAmount; } }
-        public int resolveNum { get { return receiveAmount; } }
+        public int resolveNum { get { return resolveAmount; } }
+        public uint delay { get; set; }
 
         public UdxClientTest()
         {
-            OnReceiveDataHandle += (model) => { fps++; };
-            OnOperationSync += (list) => { fps++; };
         }
-        protected override UniTask<bool> ConnectResult(string host, int port, int localPort, Action<bool> result)
-        {
-            udxObj = UdxLib.UCreateFUObj();
-            UdxLib.UBind(udxObj, null, 0);
-            uDXPRC = new UDXPRC(ProcessReceive);
-            UdxLib.USetFUCB(udxObj, uDXPRC);
-            GC.KeepAlive(uDXPRC);
-            string host1 = host;
-            if (host == "127.0.0.1")
-                host1 = Server.NetPort.GetIP();
-            UdxLib.UConnect(udxObj, host1, port, 0, false, 0);
-            return UniTask.FromResult(true);
-        }
+        //protected override UniTask<bool> ConnectResult(string host, int port, int localPort, Action<bool> result)
+        //{
+        //    ReleaseUdx();
+        //    udxObj = UdxLib.UCreateFUObj();
+        //    UdxLib.UBind(udxObj, null, 0);
+        //    udxPrc = new UDXPRC(ProcessReceive);
+        //    UdxLib.USetFUCB(udxObj, udxPrc);
+        //    GC.KeepAlive(udxPrc);
+        //    if (host == "127.0.0.1" | host == "localhost")
+        //        host = NetPort.GetIP();
+        //    ClientPtr = UdxLib.UConnect(udxObj, host, port, 0, false, 0);
+        //    if (ClientPtr != IntPtr.Zero)
+        //    {
+        //        UdxLib.UDump(ClientPtr);
+        //        var handle = GCHandle.Alloc(this);
+        //        var user = GCHandle.ToIntPtr(handle);
+        //        UdxLib.USetUserData(ClientPtr, user.ToInt64());
+        //    }
+        //    return UniTask.FromResult(true);
+        //}
         protected override void StartupThread() { }
 
-        //protected override void OnConnected(bool result) { }
-
-        protected unsafe override void SendByteData(byte[] buffer, bool reliable)
-        {
-            base.SendByteData(buffer, reliable);
-        }
         public override string ToString()
         {
             return $"uid:{UID} conv:{Connected}";

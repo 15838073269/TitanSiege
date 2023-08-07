@@ -282,12 +282,12 @@
         /// </summary>
         /// <param name="stream"></param>
         /// <param name="array"></param>
-        private unsafe static void WriteArray(Segment stream, IList array, Type itemType, bool recordType, bool ignore)
+        private unsafe static void WriteArray(ISegment stream, IList array, Type itemType, bool recordType, bool ignore)
         {
             int len = array.Count;
+            stream.Write(len); //必须记录长度 因为它的值不是null 而是 XX[0] 或者 List<XX>()
             if (len == 0)
                 return;
-            stream.Write(len);
             var bitLen = ((len - 1) / 8) + 1;
             byte[] bits = new byte[bitLen];
             int strPos = stream.Position;
@@ -319,8 +319,10 @@
         /// <param name="buffer"></param>
         /// <param name="index"></param>
         /// <param name="array"></param>
-        private unsafe static void ReadArray(Segment segment, ref IList array, Type itemType, bool recordType, bool ignore)
+        private static void ReadArray(ISegment segment, ref IList array, Type itemType, bool recordType, bool ignore)
         {
+            if (array.Count == 0) //如果长度是0就不需要读取字段位字节了
+                return;
             var bitLen = ((array.Count - 1) / 8) + 1;
             byte[] bits = segment.Read(bitLen);
             for (int i = 0; i < array.Count; i++)
@@ -409,16 +411,15 @@
         /// <param name="obj"></param>
         /// <param name="recordType"></param>
         /// <returns></returns>
-        public static Segment Serialize(object obj, bool recordType = false, bool ignore = false)
+        public static ISegment Serialize(object obj, bool recordType = false, bool ignore = false)
         {
             var stream = BufferPool.Take();
             try
             {
                 if (obj == null)
                     return default;
-                Type type = obj.GetType();
-                byte[] typeBytes = BitConverter.GetBytes(TypeToIndex(type));
-                stream.Write(typeBytes, 0, 2);
+                var type = obj.GetType();
+                stream.Write(TypeToIndex(type));
                 WriteObject(stream, type, obj, recordType, ignore);
             }
             catch (Exception ex)
@@ -437,25 +438,11 @@
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static Segment SerializeObject(object obj, bool recordType = false, bool ignore = false)
+        public static ISegment SerializeObject(object obj, bool recordType = false, bool ignore = false)
         {
             var stream = BufferPool.Take();
-            try
-            {
-                if (obj == null)
-                    return stream;
-                var type = obj.GetType();
-                WriteObject(stream, type, obj, recordType, ignore);
-            }
-            catch (Exception ex)
-            {
-                NDebug.LogError("序列化:" + obj + "出错 详细信息:" + ex);
-            }
-            finally 
-            {
-                stream.Count = stream.Position;
-                stream.Position = 0;
-            }
+            SerializeObject(stream, obj, recordType, ignore);
+            stream.Position = 0;
             return stream;
         }
 
@@ -464,13 +451,14 @@
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static void SerializeObject(Segment stream, object obj, bool recordType = false, bool ignore = false)
+        public static void SerializeObject(ISegment stream, object obj, bool recordType = false, bool ignore = false)
         {
             try
             {
                 if (obj == null)
                     return;
                 var type = obj.GetType();
+                if (recordType) stream.Write(TypeToIndex(type));
                 WriteObject(stream, type, obj, recordType, ignore);
             }
             catch (Exception ex)
@@ -502,6 +490,8 @@
             internal Func<object, object> getValue;
             internal Action<object, object> setValue;
 #endif
+            internal MethodInfo convertMethod;
+
             internal virtual object GetValue(object obj)
             {
                 return obj;
@@ -512,9 +502,38 @@
                 obj = v;
             }
 
+            internal virtual void GetValueCall(object callSite) 
+            {
+            }
+
+            internal virtual void SetValueCall(object callSite)
+            {
+            }
+
             public override string ToString()
             {
                 return $"{name} {Type}";
+            }
+
+            internal void ConvertValue(object array1, IList array)
+            {
+                if (convertMethod == null) 
+                {
+                    convertMethod = GetType().GetMethod("ConvertValue1", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+                    convertMethod = convertMethod.MakeGenericMethod(ItemType);
+                }
+                convertMethod.Invoke(this, new object[] { array1, array });
+            }
+
+            internal void ConvertValue1<T>(object array1, IList<T> array) 
+            {
+                if (array1 is ICollection<T> collection)
+                {
+                    for (int i = 0; i < array.Count; i++)
+                    {
+                        collection.Add(array[i]);
+                    }
+                }
             }
         }
 #if SERVICE
@@ -530,6 +549,14 @@
             {
                 setValueCall.Target(setValueCall, obj, (T)v);
             }
+            internal override void GetValueCall(object callSite)
+            {
+                getValueCall = callSite as CallSite<Func<CallSite, object, object>>;
+            }
+            internal override void SetValueCall(object callSite)
+            {
+                setValueCall = callSite as CallSite<Func<CallSite, object, T, object>>;
+            }
         }
         private class FPArrayMember<T> : Member
         {
@@ -542,6 +569,14 @@
             internal override void SetValue(ref object obj, object v)
             {
                 setValueCall.Target(setValueCall, obj, (T[])v);
+            }
+            internal override void GetValueCall(object callSite)
+            {
+                getValueCall = callSite as CallSite<Func<CallSite, object, object>>;
+            }
+            internal override void SetValueCall(object callSite)
+            {
+                setValueCall = callSite as CallSite<Func<CallSite, object, T[], object>>;
             }
         }
 #else
@@ -564,7 +599,7 @@
                 var members1 = new List<Member>();
                 if (type.IsArray | type.IsGenericType) 
                 {
-                    Member member1 = GetFPMember(null, type, type.FullName, false);
+                    var member1 = GetFPMember(null, type, type.FullName, false);
                     members1.Add(member1);
                 }
                 else
@@ -594,7 +629,9 @@
                             var fType = field.FieldType;
                             if (fType.IsArray)
                             {
-                                var arrItemType = fType.GetInterface(typeof(IList<>).FullName).GenericTypeArguments[0];
+                                var arrItemType = fType.GetArrayItemType();
+                                if (arrItemType == null)
+                                    continue;
                                 if (!CanSerialized(arrItemType))
                                     continue;
                             }
@@ -608,8 +645,8 @@
                                 }
                                 else if (fType.GenericTypeArguments.Length == 2)
                                 {
-                                    Type keyType = fType.GenericTypeArguments[0];
-                                    Type valueType = fType.GenericTypeArguments[1];
+                                    var keyType = fType.GenericTypeArguments[0];
+                                    var valueType = fType.GenericTypeArguments[1];
                                     if (!CanSerialized(keyType))
                                         continue;
                                     if (!CanSerialized(valueType))
@@ -638,7 +675,9 @@
                             var pType = property.PropertyType;
                             if (pType.IsArray)
                             {
-                                var arrItemType = pType.GetInterface(typeof(IList<>).FullName).GenericTypeArguments[0];
+                                var arrItemType = pType.GetArrayItemType();
+                                if (arrItemType == null)
+                                    continue;
                                 if (!CanSerialized(arrItemType))
                                     continue;
                             }
@@ -652,8 +691,8 @@
                                 }
                                 else if (pType.GenericTypeArguments.Length == 2)
                                 {
-                                    Type keyType = pType.GenericTypeArguments[0];
-                                    Type valueType = pType.GenericTypeArguments[1];
+                                    var keyType = pType.GenericTypeArguments[0];
+                                    var valueType = pType.GenericTypeArguments[1];
                                     if (!CanSerialized(keyType))
                                         continue;
                                     if (!CanSerialized(valueType))
@@ -687,7 +726,9 @@
             {
                 if (type.IsArray)
                 {
-                    var arrItemType = type.GetInterface(typeof(IList<>).FullName).GenericTypeArguments[0];
+                    var arrItemType = type.GetArrayItemType();
+                    if (arrItemType == null)
+                        return false;
                     return CanSerialized(arrItemType);
                 }
                 else if (type.IsGenericType)
@@ -730,7 +771,7 @@
         private static Member GetFPMember(Type type, Type fpType, string Name, bool isClassField) 
         {
 #if SERVICE
-            object getValueCall = CallSite<Func<CallSite, object, object>>.Create(Binder.GetMember(0, Name, type, new CSharpArgumentInfo[]
+            var getValueCall = CallSite<Func<CallSite, object, object>>.Create(Binder.GetMember(0, Name, type, new CSharpArgumentInfo[]
             {
                 CSharpArgumentInfo.Create(0, null)
             }));
@@ -751,7 +792,7 @@
 #endif
             if (fpType.IsArray)
             {
-                Type itemType = fpType.GetInterface(typeof(IList<>).FullName).GenericTypeArguments[0];
+                var itemType = fpType.GetArrayItemType();
 #if SERVICE
                 if (isClassField)
                 {
@@ -786,21 +827,21 @@
 #endif
                 if (fpType.GenericTypeArguments.Length == 1)
                 {
-                    Type itemType = fpType.GenericTypeArguments[0];
+                    var itemType = fpType.GenericTypeArguments[0];
                     member1.ItemType = itemType;
-                    member1.Intricate = fpType.GetInterface(typeof(IList).Name) == null;
+                    member1.Intricate = fpType.GetGenericArguments() == null;
                     member1.IsPrimitive1 = Type.GetTypeCode(itemType) != TypeCode.Object;
                 }
                 else if (fpType.GenericTypeArguments.Length == 2)
                 {
-                    Type keyType = fpType.GenericTypeArguments[0];
-                    Type valueType = fpType.GenericTypeArguments[1];
+                    var keyType = fpType.GenericTypeArguments[0];
+                    var valueType = fpType.GenericTypeArguments[1];
                     member1.ItemType = keyType;
                     member1.ItemType1 = valueType;
                     member1.IsPrimitive1 = Type.GetTypeCode(keyType) != TypeCode.Object;
                     if (valueType.IsArray)
                     {
-                        var arrItemType = valueType.GetInterface(typeof(IList<>).FullName).GenericTypeArguments[0];
+                        var arrItemType = valueType.GetArrayItemType();
                         member1.IsPrimitive2 = Type.GetTypeCode(arrItemType) != TypeCode.Object;
                         member1.ItemTypes = new Type[] { arrItemType };
                     }
@@ -820,14 +861,12 @@
 #if SERVICE
             if (setValueCall != null & getValueCall != null)
             {
-                var callS = member1.GetType().GetField("setValueCall", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
-                callS.SetValue(member1, setValueCall);
-                var callS1 = member1.GetType().GetField("getValueCall", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
-                callS1.SetValue(member1, getValueCall);
+                member1.GetValueCall(getValueCall);
+                member1.SetValueCall(setValueCall);
             }
 #endif
             member1.name = Name;
-            member1.IsPrimitive = Type.GetTypeCode(fpType) != TypeCode.Object;//.IsPrimitive | (fpType == typeof(string)) | (fpType == typeof(decimal)) | (fpType == typeof(DateTime));
+            member1.IsPrimitive = Type.GetTypeCode(fpType) != TypeCode.Object;
             member1.IsEnum = fpType.IsEnum;
             member1.IsArray = fpType.IsArray;
             member1.IsGenericType = fpType.IsGenericType;
@@ -852,7 +891,7 @@
         /// <param name="target"></param>
         /// <param name="recordType"></param>
         /// <param name="ignore">忽略不使用<see cref="AddBaseType"/>方法也会被序列化</param>
-        private static void WriteObject(Segment segment, Type type, object target, bool recordType, bool ignore)
+        public static void WriteObject(ISegment segment, Type type, object target, bool recordType, bool ignore)
         {
             var members = GetMembers(type);
             var bitLen = ((members.Length - 1) / 8) + 1;
@@ -887,8 +926,7 @@
                 {
                     if (member.ItemType1 == null)
                     {
-                        var array = value as IList;
-                        if (array == null)
+                        if (!(value is IList array))
                         {
                             array = Activator.CreateInstance(typeof(List<>).MakeGenericType(member.ItemType)) as IList;
                             var array1 = value as IEnumerable;
@@ -898,9 +936,7 @@
                                 array.Add(enumerator.Current);
                             }
                         }
-                        if (array.Count == 0)
-                            continue;
-                        SetBit(ref bits[bitPos], bitInx1 + 1, true);
+                        SetBit(ref bits[bitPos], bitInx1 + 1, true); //Count = 0也得记录, 因为它不是null, 而是XX[0] 或者 List<XX>(0)
                         if (member.IsPrimitive1)
                         {
                             if (member.IsArray) segment.WriteArray(array);
@@ -911,9 +947,7 @@
                     else
                     {
                         var dict = (IDictionary)value;
-                        if (dict.Count == 0)
-                            continue;
-                        SetBit(ref bits[bitPos], bitInx1 + 1, true);
+                        SetBit(ref bits[bitPos], bitInx1 + 1, true); //Count = 0也得记录, 因为它不是null, 而是XX[0] 或者 List<XX>(0)
                         if (!member.IsPrimitive1)
                             throw new Exception("字典Key必须是基础类型！");
                         segment.Write(dict.Count);
@@ -978,7 +1012,7 @@
                 var list = new List<object>();
                 while (segment.Position < segment.Offset + segment.Count)
                 {
-                    Type type = IndexToType(segment.ReadUInt16());
+                    var type = IndexToType(segment.ReadUInt16());
                     if (type == null)
                         break;
                     index += 2;
@@ -1042,7 +1076,7 @@
         /// <returns></returns>
         public static T DeserializeObject<T>(byte[] buffer, int index, int count, bool recordType = false, bool ignore = false)
         {
-            return DeserializeObject<T>(new Segment(buffer, index, count), default, recordType, ignore);
+            return DeserializeObject<T>(new Segment(buffer, index, count, false), default, recordType, ignore);
         }
 
         /// <summary>
@@ -1053,9 +1087,24 @@
         /// <param name="recordType"></param>
         /// <param name="ignore">忽略不使用<see cref="AddBaseType"/>方法也会被序列化</param>
         /// <returns></returns>
-        public static T DeserializeObject<T>(Segment segment, bool isPush = true, bool recordType = false, bool ignore = false)
+        public static T DeserializeObject<T>(ISegment segment, bool isPush = true, bool recordType = false, bool ignore = false)
         {
             return (T)DeserializeObject(segment, typeof(T), isPush, recordType, ignore);
+        }
+
+        /// <summary>
+        /// 反序列化 -- 记录类型时用到
+        /// </summary>
+        /// <typeparam name="T">基类或真实类对象</typeparam>
+        /// <param name="segment"></param>
+        /// <param name="type">派生类型</param>
+        /// <param name="isPush"></param>
+        /// <param name="recordType">记录类型?</param>
+        /// <param name="ignore">忽略不使用<see cref="AddBaseType"/>方法也会被序列化</param>
+        /// <returns></returns>
+        public static T DeserializeObject<T>(ISegment segment, Type type, bool isPush = true, bool recordType = false, bool ignore = false)
+        {
+            return (T)DeserializeObject(segment, type, isPush, recordType, ignore);
         }
 
         /// <summary>
@@ -1065,14 +1114,15 @@
         /// <param name="recordType"></param>
         /// <param name="ignore">忽略不使用<see cref="AddBaseType"/>方法也会被序列化</param>
         /// <returns></returns>
-        public static object DeserializeObject(Segment segment, Type type, bool isPush = true, bool recordType = false, bool ignore = false)
+        public static object DeserializeObject(ISegment segment, Type type, bool isPush = true, bool recordType = false, bool ignore = false)
         {
+            if (recordType) type = IndexToType(segment.ReadUInt16());
             var obj = ReadObject(segment, type, recordType, ignore);
             if (isPush) BufferPool.Push(segment);
             return obj;
         }
 
-        public static object Deserialize(Segment segment, bool isPush = true, bool recordType = false, bool ignore = false)
+        public static object Deserialize(ISegment segment, bool isPush = true, bool recordType = false, bool ignore = false)
         {
             object obj = null;
             if (segment.Position < segment.Offset + segment.Count)
@@ -1093,7 +1143,7 @@
         /// <param name="index"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        private static object ReadObject(Segment segment, Type type, bool recordType, bool ignore)
+        public static object ReadObject(ISegment segment, Type type, bool recordType, bool ignore)
         {
             object obj;
             if (type == typeof(string)) obj = string.Empty;
@@ -1152,11 +1202,7 @@
                         else 
                         {
                             var array1 = Activator.CreateInstance(member.Type);
-                            var addMethod = member.Type.GetMethod("Add", new Type[] { member.ItemType });
-                            foreach (var item in array)
-                            {
-                                addMethod.Invoke(array1, new object[] { item });
-                            }
+                            member.ConvertValue(array1, array);
                             member.SetValue(ref obj, array1);
                         }
                     }

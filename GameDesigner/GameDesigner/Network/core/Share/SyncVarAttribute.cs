@@ -3,7 +3,7 @@
 namespace Net.Share
 {
     /// <summary>
-    /// 字段或属性同步
+    /// 字段或属性同步 比SyncVariable同步属性性能要差些
     /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class SyncVar : Attribute

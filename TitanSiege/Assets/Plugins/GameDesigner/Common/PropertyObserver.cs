@@ -2,7 +2,6 @@
 using Net.Share;
 using System;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace Net.Common
 {
@@ -89,6 +88,11 @@ namespace Net.Common
         {
             return Value.Equals(obj.Value);
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
     /// <summary>
@@ -97,9 +101,9 @@ namespace Net.Common
     /// <typeparam name="T"></typeparam>
     public class ObscuredPropertyObserver<T> : IPropertyObserver<T>
     {
-        private string name;
+        private readonly string name;
         private long valueAtk;
-        private long valueAtkKey;
+        private readonly long valueAtkKey;
         private byte crcValue;
         public T Value { get => GetValue(); set => SetValue(value); }
         public Action<T> OnValueChanged { get; set; }
@@ -119,13 +123,13 @@ namespace Net.Common
             var value = valueAtk ^ valueAtkKey;
             var ptr = (byte*)&value;
             var crcIndex = (byte)(valueAtk % 247);
-            crcValue = Net.Helper.CRCHelper.CRC8(ptr, 0, 8, crcIndex);
+            var crcValue = CRCHelper.CRC8(ptr, 0, 8, crcIndex);
+            var value1 = Unsafe.As<long, T>(ref value);
             if (this.crcValue != crcValue)
             {
-                AntiCheatHelper.OnDetected?.Invoke(name, value, value);
-                return default;
+                AntiCheatHelper.OnDetected?.Invoke(name, value1, value1); //因为原值不做记录, 所以原值没有了, 需要在数据库找到原值
+                throw new Exception();
             }
-            var value1 = Unsafe.As<long, T>(ref value);
             return value1;
         }
 
@@ -135,7 +139,7 @@ namespace Net.Common
             valueAtk = value1 ^ valueAtkKey;
             var ptr = (byte*)&value1;
             var crcIndex = (byte)(valueAtk % 247);
-            crcValue = Net.Helper.CRCHelper.CRC8(ptr, 0, 8, crcIndex);
+            crcValue = CRCHelper.CRC8(ptr, 0, 8, crcIndex);
             if (isNotify) OnValueChanged?.Invoke(value);
         }
 
@@ -165,6 +169,11 @@ namespace Net.Common
         {
             return Value.Equals(obj.Value);
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
     /// <summary>
@@ -173,8 +182,7 @@ namespace Net.Common
     /// <typeparam name="T"></typeparam>
     public class PropertyObserverAuto<T> : IPropertyObserver<T>
     {
-        private readonly bool available;
-        private IPropertyObserver<T> binding;
+        private readonly IPropertyObserver<T> binding;
         public T Value { get => GetValue(); set => SetValue(value); }
         public Action<T> OnValueChanged { get => binding.OnValueChanged; set => binding.OnValueChanged = value; }
 
@@ -191,7 +199,6 @@ namespace Net.Common
 
         public PropertyObserverAuto(string name, bool available, T value, Action<T> onValueChanged)
         {
-            this.available = available;
             if (!AntiCheatHelper.IsActive | !available)
                 binding = new PropertyObserver<T>(value, onValueChanged);
             else
@@ -233,6 +240,11 @@ namespace Net.Common
         public bool Equals(PropertyObserverAuto<T> obj)
         {
             return Value.Equals(obj.Value);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

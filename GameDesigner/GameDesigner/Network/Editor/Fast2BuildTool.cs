@@ -50,14 +50,11 @@ public class Fast2BuildTools2 : EditorWindow
     private List<TypeData> AddTypes(Assembly assembly)
     {
         var types1 = new List<TypeData>();
-        var types2 = assembly.GetTypes().Where(t => !t.IsAbstract & !t.IsInterface & !t.IsGenericType & !t.IsGenericType & !t.IsGenericTypeDefinition).ToArray();
-        var types3 = typeof(Vector2).Assembly.GetTypes().Where(t => !t.IsAbstract & !t.IsInterface & !t.IsGenericType & !t.IsGenericType & !t.IsGenericTypeDefinition).ToArray();
-        var typeslist = new List<Type>(types2);
-        typeslist.AddRange(types3);
-        foreach (var obj in typeslist)
+        var types2 = assembly.GetTypes().Where(t => !t.IsAbstract & !t.IsInterface & !t.IsGenericType & !t.IsGenericTypeDefinition).ToArray();
+        foreach (var type in types2)
         {
-            var str = obj.FullName;
-            types1.Add(new TypeData() { name = str, type = obj });
+            var str = type.FullName;
+            types1.Add(new TypeData() { name = str, type = type });
         }
         return types1;
     }
@@ -143,7 +140,7 @@ public class Fast2BuildTools2 : EditorWindow
             AddSerTypeInDirectory(files);
         }
         EditorGUILayout.EndHorizontal();
-        scrollPosition1 = GUILayout.BeginScrollView(scrollPosition1, false, true, GUILayout.MaxHeight(position.height / 2));
+        scrollPosition1 = GUILayout.BeginScrollView(scrollPosition1, false, true, GUILayout.MaxHeight(search.Length > 0 ? position.height / 2 : position.height));
         for (int i = 0; i < data.typeNames.Count; i++)
         {
             var type1 = data.typeNames[i];
@@ -273,7 +270,11 @@ public class Fast2BuildTools2 : EditorWindow
         EditorGUILayout.LabelField("保存路径:", data.savePath);
         if (GUILayout.Button("选择路径", GUILayout.Width(100)))
         {
-            data.savePath = EditorUtility.OpenFolderPanel("保存路径", "", "");
+            var savePath = EditorUtility.OpenFolderPanel("保存路径", "", "");
+            //相对于Assets路径
+            var uri = new Uri(Application.dataPath.Replace('/', '\\'));
+            var relativeUri = uri.MakeRelativeUri(new Uri(savePath));
+            data.savePath = relativeUri.ToString();
             SaveData();
         }
         GUILayout.EndHorizontal();
@@ -293,14 +294,16 @@ public class Fast2BuildTools2 : EditorWindow
                     Debug.Log($"类型:{type1.name}已不存在!");
                     continue;
                 }
-                Fast2BuildMethod.Build(type, data.savePath, serField, serProperty, type1.fields.ConvertAll((item)=> !item.serialize ? item.name : ""), types);
-                Fast2BuildMethod.BuildArray(type, data.savePath);
-                Fast2BuildMethod.BuildGeneric(type, data.savePath);
+                var code = Fast2BuildMethod.BuildNew(type, serField, serProperty, type1.fields.ConvertAll((item) => !item.serialize ? item.name : ""), data.savePath, types);
+                code.AppendLine(Fast2BuildMethod.BuildArray(type).ToString());
+                code.AppendLine(Fast2BuildMethod.BuildGeneric(typeof(List<>).MakeGenericType(type)).ToString());
+                var className = type.ToString().Replace(".", "").Replace("+", "");
+                File.WriteAllText(data.savePath + $"//{className}Bind.cs", code.ToString());
                 types.Add(type);
             }
             if (!string.IsNullOrEmpty(data.typeEntry)) 
             {
-                var types1 = (Type[])AssemblyHelper.GetType(data.typeEntry).GetMethod(data.methodEntry).Invoke(null, null);
+                var types1 = AssemblyHelper.GetType(data.typeEntry).GetMethod(data.methodEntry).Invoke(null, null) as Type[];
                 foreach (var type in types1)
                 {
                     if (type.IsGenericType)
@@ -325,7 +328,8 @@ public class Fast2BuildTools2 : EditorWindow
                     types.Add(type);
                 }
             }
-            Fast2BuildMethod.BuildBindingType(types, data.savePath);
+            Fast2BuildMethod.BuildBindingType(types, data.savePath, 1);
+            Fast2BuildMethod.BuildBindingExtension(types, data.savePath);
             Debug.Log("生成完成.");
             AssetDatabase.Refresh();
         }
@@ -513,7 +517,7 @@ public class Fast2BuildTools2 : EditorWindow
         public string typeEntry;
         public string methodEntry;
         public int showType;
-        public string searchAssemblies = "Assembly-CSharp|Assembly-CSharp-firstpass";
+        public string searchAssemblies = "UnityEngine.CoreModule|Assembly-CSharp|Assembly-CSharp-firstpass";
     }
 }
 #endif

@@ -91,7 +91,7 @@
                         list.Add(null);
                         continue;
                     }
-                    var obj = NetConvertBinary.DeserializeObject(segment, type, false, recordType, true);
+                    var obj = NetConvertBinary.ReadObject(segment, type, recordType, true);
                     list.Add(obj);
                 }
                 fdata.pars = list.ToArray();

@@ -1,7 +1,7 @@
 /// <summary>
-/// GlobalÀ©Õ¹Àà
+/// Globalæ‰©å±•ç±»
 /// </summary>
 public class Global : Framework.Global
 {
-	//À©Õ¹ÄãµÄGlobal¹ÜÀíÆ÷´úÂë
+	//æ‰©å±•ä½ çš„Globalç®¡ç†å™¨ä»£ç 
 }

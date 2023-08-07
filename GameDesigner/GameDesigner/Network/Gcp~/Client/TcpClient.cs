@@ -7,7 +7,6 @@
     using global::System.Net.Sockets;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using global::System.Security.Cryptography;
     using Net.Share;
     using Net.System;
     using Net.Event;
@@ -21,19 +20,6 @@
     [Serializable]
     public class TcpClient : ClientBase
     {
-        /// <summary>
-        /// tcp数据长度(4) + 1CRC协议 = 5
-        /// </summary>
-        protected override int frame { get; set; } = 5;
-        public override bool MD5CRC
-        {
-            get => md5crc;
-            set
-            {
-                md5crc = value;
-                frame = value ? 5 + 16 : 5;
-            }
-        }
         public override int HeartInterval { get; set; } = 1000 * 60 * 10;//10分钟跳一次
         public override byte HeartLimit { get; set; } = 2;//确认两次
 
@@ -82,7 +68,7 @@
                     var tick = Environment.TickCount + 8000;
                     while (UID == 0)
                     {
-                        Receive(true);
+                        NetworkTick();
                         if (Environment.TickCount >= tick)
                             throw new Exception("uid赋值失败!连接超时处理");
                         if (!openClient)
@@ -122,78 +108,41 @@
             return openClient & CurrReconnect < ReconnectCount;
         }
 
-        protected override void SendRTDataHandle()
+        protected override byte[] PackData(ISegment stream)
         {
-            SendDataHandle(rtRPCModels, true);
-        }
-
-        protected override byte[] PackData(Segment stream)
-        {
-            stream.Flush();
-            if (MD5CRC)
-            {
-                MD5 md5 = new MD5CryptoServiceProvider();
-                var head = frame;
-                byte[] retVal = md5.ComputeHash(stream, head, stream.Count - head);
-                EncryptHelper.ToEncrypt(Password, retVal);
-                int len = stream.Count - head;
-                var lenBytes = BitConverter.GetBytes(len);
-                byte crc = CRCHelper.CRC8(lenBytes, 0, lenBytes.Length);
-                stream.Position = 0;
-                stream.Write(lenBytes, 0, 4);
-                stream.WriteByte(crc);
-                stream.Write(retVal, 0, retVal.Length);
-                stream.Position = len + head;
-            }
-            else 
-            {
-                int len = stream.Count - frame;
-                var lenBytes = BitConverter.GetBytes(len);
-                byte retVal = CRCHelper.CRC8(lenBytes, 0, lenBytes.Length);
-                stream.Position = 0;
-                stream.Write(lenBytes, 0, 4);
-                stream.WriteByte(retVal);
-                stream.Position = len + frame;
-            }
+            stream.Flush(false);
+            SetDataHead(stream);
+            PackageAdapter.Pack(stream);
+            var len = stream.Count - frame;
+            var lenBytes = BitConverter.GetBytes(len);
+            var crc = CRCHelper.CRC8(lenBytes, 0, lenBytes.Length);
+            stream.Position = 0;
+            stream.Write(lenBytes, 0, 4);
+            stream.WriteByte(crc);
+            stream.Position += len;
             return stream.ToArray();
         }
-#if TEST1
-        ListSafe<byte> list = new ListSafe<byte>();
-#endif
-        protected override void SendByteData(byte[] buffer, bool reliable)
+
+        protected override void SendByteData(byte[] buffer)
         {
             sendCount += buffer.Length;
             sendAmount++;
-            if (Client.Poll(1, SelectMode.SelectWrite))
+            if (Client.Poll(0, SelectMode.SelectWrite))
             {
-#if TEST1
-                list.AddRange(buffer);
-                do
-                {
-                    var buffer1 = list.GetRemoveRange(0, RandomHelper.Range(0, buffer.Length));
-                    Net.Server.TcpServer.Instance.ReceiveTest(buffer1);
-                }
-                while (rtRPCModels.Count == 0 & list.Count > 0);
-#else
                 int count = Client.Send(buffer, 0, buffer.Length, SocketFlags.None);
                 if (count <= 0)
-                    OnSendErrorHandle?.Invoke(buffer, reliable);
+                    OnSendErrorHandle?.Invoke(buffer);
                 else if (count != buffer.Length)
-                    NDebug.Log($"发送了{buffer.Length - count}个字节失败!");
-#endif
+                    NDebug.LogError($"发送了{buffer.Length - count}个字节失败!");
             }
             else
             {
-                NDebug.Log("缓冲区已满,等待接收中!");
+                NDebug.LogError("发送窗口已满,等待对方接收中!");
             }
         }
 
-        protected override void ResolveBuffer(ref Segment buffer, bool isTcp)
+        protected override void ResolveBuffer(ref ISegment buffer, bool isTcp)
         {
-#if TEST1
-            if (StackStream == null)
-                StackStream = BufferStreamShare.Take();
-#endif
             heart = 0;
             if (stack > 0)
             {
@@ -201,7 +150,7 @@
                 StackStream.Seek(stackIndex, SeekOrigin.Begin);
                 int size = buffer.Count - buffer.Position;
                 stackIndex += size;
-                StackStream.Write(buffer, buffer.Position, size);
+                StackStream.Write(buffer.Buffer, buffer.Position, size);
                 if (stackIndex < stackCount)
                 {
                     InvokeRevdRTProgress(stackIndex, stackCount);
@@ -211,62 +160,61 @@
                 BufferPool.Push(buffer);//要回收掉, 否则会提示内存泄露
                 buffer = BufferPool.Take(count);//ref 才不会导致提示内存泄露
                 StackStream.Seek(0, SeekOrigin.Begin);
-                StackStream.Read(buffer, 0, count);
+                StackStream.Read(buffer.Buffer, 0, count);
                 buffer.Count = count;
             }
             while (buffer.Position < buffer.Count)
             {
-                if (buffer.Position + 5 > buffer.Count)//流数据偶尔小于frame头部字节
+                if (buffer.Position + frame > buffer.Count)//流数据偶尔小于frame头部字节
                 {
                     var position = buffer.Position;
                     var count = buffer.Count - position;
                     stackIndex = count;
                     stackCount = 0;
                     StackStream.Seek(0, SeekOrigin.Begin);
-                    StackStream.Write(buffer, position, count);
+                    StackStream.Write(buffer.Buffer, position, count);
                     stack++;
                     break;
                 }
                 var lenBytes = buffer.Read(4);
-                byte crcCode = buffer.ReadByte();//CRC检验索引
-                byte retVal = CRCHelper.CRC8(lenBytes, 0, 4);
+                var crcCode = buffer.ReadByte();//CRC检验索引
+                var retVal = CRCHelper.CRC8(lenBytes, 0, 4);
                 if (crcCode != retVal)
                 {
                     stack = 0;
                     NDebug.LogError($"[{UID}]CRC校验失败!");
                     return;
                 }
-                int size = BitConverter.ToInt32(lenBytes, 0);
+                var size = BitConverter.ToInt32(lenBytes, 0);
                 if (size < 0 | size > PackageSize)//如果出现解析的数据包大小有问题，则不处理
                 {
                     stack = 0;
                     NDebug.LogError($"[{UID}]数据被拦截修改或数据量太大: size:{size}，如果想传输大数据，请设置PackageSize属性");
                     return;
                 }
-                int value = MD5CRC ? 16 : 0;
-                if (buffer.Position + size + value <= buffer.Count)
+                if (buffer.Position + size <= buffer.Count)
                 {
                     stack = 0;
                     var count = buffer.Count;//此长度可能会有连续的数据(粘包)
-                    buffer.Count = buffer.Position + value + size;//需要指定一个完整的数据长度给内部解析
+                    buffer.Count = buffer.Position + size;//需要指定一个完整的数据长度给内部解析
                     base.ResolveBuffer(ref buffer, true);
                     buffer.Count = count;//解析完成后再赋值原来的总长
                 }
                 else
                 {
-                    var position = buffer.Position - 5;
+                    var position = buffer.Position - frame;
                     var count = buffer.Count - position;
                     stackIndex = count;
                     stackCount = size;
                     StackStream.Seek(0, SeekOrigin.Begin);
-                    StackStream.Write(buffer, position, count);
+                    StackStream.Write(buffer.Buffer, position, count);
                     stack++;
                     break;
                 }
             }
         }
 
-        public override void Close(bool await = true, int millisecondsTimeout = 1000)
+        public override void Close(bool await = true, int millisecondsTimeout = 100)
         {
             SendRT(NetCmd.Disconnect, new byte[0]);
             SendDirect();
@@ -320,14 +268,21 @@
                 var buffer = new byte[dataLen];
                 Task.Run(() =>
                 {
+                    for (int i = 0; i < clients.Count; i++)
+                    {
+                        var client = clients[i];
+                        client.OnPingCallback += (d) =>
+                        {
+                            client.delay = d;
+                        };
+                    }
                     while (!cts.IsCancellationRequested)
                     {
                         Thread.Sleep(1000);
                         fpsAct?.Invoke(clients);
                         for (int i = 0; i < clients.Count; i++)
                         {
-                            clients[i].NetworkFlowHandler();
-                            clients[i].fps = 0;
+                            clients[i].Ping();
                         }
                     }
                 });
@@ -360,19 +315,10 @@
                                         continue;
                                     if (!client.Client.Connected)
                                         continue;
-                                    if (client.Client.Poll(0, SelectMode.SelectRead))
-                                    {
-                                        var buffer1 = BufferPool.Take(65535);
-                                        buffer1.Count = client.Client.Receive(buffer1, 0, ushort.MaxValue, SocketFlags.None, out var errorCode);
-                                        if(errorCode == SocketError.Success)
-                                            client.ResolveBuffer(ref buffer1, false);
-                                        BufferPool.Push(buffer1);
-                                    }
                                     if (canSend)
                                     {
-                                        client.SendRT(NetCmd.Local, buffer);
-                                        //client.AddOperation(new Operation(66, buffer));
-                                        client.SendDirect();
+                                        //client.SendRT(NetCmd.Local, buffer);
+                                        client.AddOperation(new Operation(66, buffer));
                                     }
                                     client.NetworkTick();
                                 }
@@ -396,17 +342,15 @@
 
     public class TcpClientTest : TcpClient
     {
-        public int fps;
         public int revdSize { get { return receiveCount; } }
         public int sendSize { get { return sendCount; } }
         public int sendNum { get { return sendAmount; } }
         public int revdNum { get { return receiveAmount; } }
-        public int resolveNum { get { return receiveAmount; } }
+        public int resolveNum { get { return resolveAmount; } }
+        public uint delay { get; internal set; }
 
         public TcpClientTest()
         {
-            OnReceiveDataHandle += (model) => { fps++; };
-            OnOperationSync += (list) => { fps++; };
         }
         protected override UniTask<bool> ConnectResult(string host, int port, int localPort, Action<bool> result)
         {
@@ -423,14 +367,7 @@
             return UniTask.FromResult(Connected);
         }
         protected override void StartupThread() { }
-
-        //protected override void OnConnected(bool result) { }
-
-        //protected override void ResolveBuffer(ref Segment buffer, bool isTcp)
-        //{
-        //    base.ResolveBuffer(ref buffer, isTcp);
-        //}
-        protected unsafe override void SendByteData(byte[] buffer, bool reliable)
+        protected unsafe override void SendByteData(byte[] buffer)
         {
             sendCount += buffer.Length;
             sendAmount++;
@@ -441,14 +378,6 @@
                 Client.Send(buffer, 0, buffer.Length, SocketFlags.None);
 #endif
         }
-        //protected internal override byte[] OnSerializeOptInternal(OperationList list)
-        //{
-        //    return new byte[0];
-        //}
-        //protected internal override OperationList OnDeserializeOptInternal(byte[] buffer, int index, int count)
-        //{
-        //    return default;
-        //}
         public override string ToString()
         {
             return $"uid:{UID} conv:{Connected}";

@@ -48,7 +48,7 @@ namespace Net.Plugins
 
     class DataPackage 
     {
-        internal Segment revderBuffer;
+        internal ISegment revderBuffer;
         internal int revderFrameEnd;
         internal byte[] revderHash;
         internal int revderHashCount;
@@ -64,7 +64,7 @@ namespace Net.Plugins
         private uint senderPackage;
         private uint revderPackage;
         private readonly Queue<byte[]> senderQueue = new Queue<byte[]>();
-        private readonly Queue<Segment> revderQueue = new Queue<Segment>();
+        private readonly Queue<ISegment> revderQueue = new Queue<ISegment>();
         public Action<byte[]> OnSender { get; set; }
         public Action<RTProgress> OnSendProgress { get; set; }
         public Action<RTProgress> OnRevdProgress { get; set; }
@@ -110,7 +110,7 @@ namespace Net.Plugins
                 }
             }
         }
-        public int Receive(out Segment segment)
+        public int Receive(out ISegment segment)
         {
             lock (SyncRoot)
             {
@@ -183,7 +183,7 @@ namespace Net.Plugins
                     {
                         dp.revderHashCount++;
                         dp.revderHash[serialNo] = 1;
-                        Buffer.BlockCopy(segment, segment.Position, dp.revderBuffer, (int)(serialNo * MTU), segment.Count - segment.Position);
+                        Buffer.BlockCopy(segment, segment.Position, dp.revderBuffer.Buffer, (int)(serialNo * MTU), segment.Count - segment.Position);
                         if (dp.revderHashCount >= dp.revderFrameEnd)
                             dp.finish = true;
                     }

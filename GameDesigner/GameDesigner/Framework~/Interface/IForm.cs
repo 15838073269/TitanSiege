@@ -3,39 +3,39 @@ using System;
 namespace Framework 
 {
     /// <summary>
-    /// ½çÃæ½Ó¿Ú
+    /// ç•Œé¢æ¥å£
     /// </summary>
     public interface IForm
     {
         /// <summary>
-        /// ÏÔÊ¾Ò»¸öui½çÃæ
+        /// æ˜¾ç¤ºä¸€ä¸ªuiç•Œé¢
         /// </summary>
         /// <param name="onBack"></param>
-        void ShowUI(Action onBack = null);
+        void ShowUI(Delegate onBack = null);
         /// <summary>
-        /// ÆÁÄ»ÖĞ¼äÌáÊ¾
+        /// å±å¹•ä¸­é—´æç¤º
         /// </summary>
         /// <param name="info"></param>
         void ShowUI(string info);
         /// <summary>
-        /// ÏÔÊ¾Ò»¸öui½çÃæ, ´øÏûÏ¢ÌáÊ¾ĞÅÏ¢²ÎÊı
+        /// æ˜¾ç¤ºä¸€ä¸ªuiç•Œé¢, å¸¦æ¶ˆæ¯æç¤ºä¿¡æ¯å‚æ•°
         /// </summary>
         /// <param name="title"></param>
         /// <param name="info"></param>
         /// <param name="action"></param>
         /// <param name="onBack"></param>
-        void ShowUI(string title, string info, Action<bool> action = null, Action onBack = null);
+        void ShowUI(string title, string info, Action<bool> action = null, Delegate onBack = null);
         /// <summary>
-        /// ÏÔÊ¾Ò»¸ö½çÃæ, ´ø½ø¶È¼ÓÔØĞÅÏ¢
+        /// æ˜¾ç¤ºä¸€ä¸ªç•Œé¢, å¸¦è¿›åº¦åŠ è½½ä¿¡æ¯ æˆ–è€… å±å¹•ä¸­é—´æç¤ºå»¶è¿Ÿæ˜¾ç¤º
         /// </summary>
         /// <param name="title"></param>
-        /// <param name="progress"></param>
+        /// <param name="value">å¦‚æœæ˜¯åŠ è½½ç•Œé¢åˆ™å½“ä½œè¿›åº¦å€¼, å¦‚æœæ˜¯ä¿¡æ¯æç¤ºå¯å½“ä½œå»¶è¿Ÿæ˜¾ç¤º</param>
         /// <param name="onBack"></param>
-        void ShowUI(string title, float progress, Action onBack = null);
+        void ShowUI(string title, float value, Delegate onBack = null);
         /// <summary>
-        /// ¹Ø±ÕÒ»¸ö½çÃæ, Ò²¾ÍÊÇÒş²Ø½çÃæ
+        /// å…³é—­ä¸€ä¸ªç•Œé¢, ä¹Ÿå°±æ˜¯éšè—ç•Œé¢
         /// </summary>
         /// <param name="isBack"></param>
-        void HideUI(bool isBack = false);
+        void HideUI(bool isBack = false, params object[] pars);
     }
 }

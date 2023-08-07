@@ -45,13 +45,9 @@
         /// </summary>
         public int resolveNumber;
         /// <summary>
-        /// 发送线程循环次数(FPS)
+        /// FPS
         /// </summary>
-        public int sendLoopNum;
-        /// <summary>
-        /// 接收线程循环次数(FPS)
-        /// </summary>
-        public int revdLoopNum;
+        public int FPS;
         /// <summary>
         /// 从启动到现在总流出的数据流量
         /// </summary>

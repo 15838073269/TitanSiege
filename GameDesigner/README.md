@@ -192,6 +192,16 @@ Fast2BuildMethod.DynamicBuild(BindingEntry.GetBindTypes());//动态编译指定�
 ```
 详细信息请打开案例: GameDesigner\Example\SerializeTest\Scenes\example3.unity 查看
 
+## 序列化片断Segment2
+序列化片断2类中压缩率和proto3一样, 体积很小, 在性能测试方面, 循环1000万次可见segment2要比proto3快了4秒, 前提是要开启gdnet库项目的优化编码. 
+
+Segment2的序列化压缩采用了位记录, 比如ushort值, 只需要用一个byte的8位中的两位来记录, 也就是一个byte可以记录ushort的4个值, int值需要占用3个二进制位 即 2 ^ 3 = 8个数才能记录int的4个byte字节值, long值需要占用4个二进制位, 即 2 ^ 4 = 16个才能记录8个byte是否存在值, 为什么不用 2 ^ 3 = 8记录? 因为 2 ^ 3 = 8 - 1 最大值是7, 没到8, 所以需要用4个二进制位
+
+如果要开启Segment2的序列化,则需要在初始化方法设置为序列化版本2
+```
+BufferPool.Version = SegmentVersion.Version2;
+```
+
 ## ECS模块
 ECS模块类似unity的gameObject->component模式, 在ecs中gameObject=entity, component=component, system类执行, ecs跟gameObject模式基本流程是一样的, 只是ecs中的组件可以复用, 而gameObject的component则不能复用, 在创建上万个对象时, gameObject就得重新new出来对象和组件, 而ecs调用Destroy时是把entity或component压入对象池, 等待下一次复用.实际上对象没有被释放,所以性能高于gameObject的原因
 
@@ -242,13 +252,10 @@ mvc模块:模型,控制,视图分离, mvc模块适应于帧同步游戏, model�
 
 热更新案例文档:[案例2热更新](https://docs.qq.com/doc/DS3FXbERiUXZnWHVx)
 
-## UNet&Mirror设计模式
+## [SyncVar]字段或属性同步特性
 
 <br>变量同步案例:Assets/GameDesigner/Example/Example1/Scenes/SyncVarDemo.unity</br>
-<br>可以同步C#基础单元结构体: byte, sbyte, short, ushort, char, int, uint, float, long, ulong, double, DateTime, decimal, string类型</br>
-<br>同步自定义结构体: 纯包含基元类型, 不需要任何额外处理</br>
-<br>同步自定义结构体,包含类型字段: 需要重写Equals额外处理字段对等</br>
-<br>同步类型:需要重写Equals额外处理字段对等</br>
+<br>可以同步大部分类型, 基元类型和普通类型, 泛型的只支持List和Dictionary, 如果想要支持更多, 则需要额外处理, 分写SyncVarHandlerGenerate或继承</br>
 
 <br>与场景内的玩家进行变量同步: 原理是检查字段值有没有改变, 改变了就会往服务器发送, 服务器转发给场景内的所有客户端, 以identiy值取到对应的对象, 进行变量设置, 达到变量同步效果!</br>
 <br>客户端与服务器进行变量同步: 原理是检查字段值改变后, 发送字段的id和值到服务器, 服务器检查NetPlayer的变量管理列表取出对应的对象, 进行变量设置, 达到p2p变量同步效果</br>
@@ -256,6 +263,34 @@ mvc模块:模型,控制,视图分离, mvc模块适应于帧同步游戏, model�
 <br>[SyncVar]//在字段定义这个特性, 则为玩家之间变量</br>
 <br>[SyncVar(authorize = false)]//这是你实例化的网络物体, 其他玩家不能改变你的对象变量, 即使改变了也不会发生同步给其他玩家, 只能由自己控制变量变化后才会同步给其他玩家</br>
 <br>[SyncVar(id = 1)]//这是p2p 客户端只与服务器的netplayer之间变量同步, 开发者要保证id必须是唯一的 详情请看案例1的Example1.Client类定义</br>
+
+<br>如果使用[SyncVar]则需要在Unity点击菜单GameDesigner/Network/InvokeHepler打开调用帮助窗口, 启用OnReloadInvoke</br>
+<br>以下代码是[SyncVar]额外写的代码案例, 可进行参考</br>
+
+```
+using UnityEngine;
+
+internal partial class SyncVarHandlerGenerate
+{
+    internal virtual bool Equals(Rect a, Rect b) //[syncvar] Rect类型时没有判断Equals, 所以需要自己写一下
+    {
+        if (a.x != b.x) return false;
+        if (a.y != b.y) return false;
+        if (a.width != b.width) return false;
+        if (a.height != b.height) return false;
+        return true;
+    }
+}
+
+internal class SyncVarHandler : SyncVarHandlerGenerate
+{
+    //只执行最大值的对象, 也就是SyncVarHandler类被执行, SyncVarHandlerGenerate类将不会执行
+    public override int SortingOrder => 100;
+
+    //如果生成的Equals方法代码不对, 你可以在下面重写已生成的Equals方法, 自己进行判断
+}
+```
+
 
 ## 百万级别RPC小数据测试
 这里我们测试了100万次从客户端到服务器的请求并响应, 所需要的时间是4.67秒
@@ -388,6 +423,15 @@ static void Main(string[] args)
 <br>6.[无限升级](https://www.taptap.cn/app/241449)</br>
 <br>7.[零灵：天运防线](https://www.taptap.cn/app/269522)</br>
 <br>8.[神之刃](https://www.taptap.cn/app/243180)</br>
+<br>9.[无敌从木鱼开始](https://www.taptap.cn/app/315187)</br>
+<br>10.[挂了个机](https://www.taptap.cn/app/3191)</br>
+<br>11.[放置武界](https://www.taptap.cn/app/314773)</br>
+<br>12.[吞噬修仙](https://www.taptap.cn/app/352549)</br>
+<br>12.[吞噬修仙](https://www.taptap.cn/app/352549)</br>
+<br>13.[武界传说](https://www.taptap.cn/app/381982/review)</br>
+
+## Steam游戏
+<br>1.[CubeSquad:Zero](https://store.steampowered.com/app/2505450/CubeSquadZero/)</br>
 
 ## 使用到的第三方库和一些推荐的库
 <br>1.udx: 超强的一个udp可靠协议库,实力大于名气 www.goodudx.com</br>

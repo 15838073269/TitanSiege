@@ -1,11 +1,13 @@
 #if (UNITY_STANDALONE || UNITY_ANDROID || UNITY_IOS || UNITY_WSA || UNITY_WEBGL) && UNITY_EDITOR
 using Net;
 using Net.Helper;
+using System;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Callbacks;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
+using Rect = UnityEngine.Rect;
 using Vector2 = UnityEngine.Vector2;
 
 public class InvokeHelperTools : EditorWindow, IPostprocessBuildWithReport, IPreprocessBuildWithReport
@@ -27,45 +29,54 @@ public class InvokeHelperTools : EditorWindow, IPostprocessBuildWithReport, IPre
 
     private void OnGUI()
     {
+        if (serializedObject == null)
+            return;
         EditorGUI.BeginChangeCheck();
         serializedObject.Update();
         scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true, GUILayout.MaxHeight(position.height));
         var configProperty = serializedObject.FindProperty("Config");
-
+        SerializedProperty property;
+        Rect rect;
         EditorGUI.indentLevel = 0;
-        var rect = EditorGUILayout.GetControlRect();
-        EditorGUI.Foldout(rect, true, "Config");
+        EditorGUILayout.Foldout(true, "Config");
         EditorGUI.indentLevel = 1;
-        rect = EditorGUILayout.GetControlRect(true, 45f);
-        EditorGUI.PropertyField(rect, configProperty.FindPropertyRelative("onReloadInvoke"));
-        rect = EditorGUILayout.GetControlRect(true, 45f);
-        EditorGUI.PropertyField(rect, configProperty.FindPropertyRelative("syncVarClientEnable"));
-        rect = EditorGUILayout.GetControlRect(true, 45f);
-        EditorGUI.PropertyField(rect, configProperty.FindPropertyRelative("syncVarServerEnable"));
-        rect = EditorGUILayout.GetControlRect(true, 45f, GUILayout.Width(position.width - 130f));
-        EditorGUI.PropertyField(rect, configProperty.FindPropertyRelative("collectRpc"));
-        rect = EditorGUILayout.GetControlRect(true, 45f, GUILayout.Width(position.width - 130f));
-        EditorGUI.PropertyField(rect, configProperty.FindPropertyRelative("recordType"));
-        rect = EditorGUILayout.GetControlRect(true, 45f, GUILayout.Width(position.width - 130f));
+        EditorGUILayout.PropertyField(configProperty.FindPropertyRelative("onReloadInvoke"));
+        EditorGUILayout.PropertyField(configProperty.FindPropertyRelative("syncVarClientEnable"));
+        EditorGUILayout.PropertyField(configProperty.FindPropertyRelative("syncVarServerEnable"));
+        EditorGUILayout.PropertyField(configProperty.FindPropertyRelative("collectRpc"));
+        EditorGUILayout.PropertyField(configProperty.FindPropertyRelative("recordType"));
+        rect = EditorGUILayout.GetControlRect(true, 45f, GUILayout.Width(position.width - 100f));
         EditorGUI.PropertyField(rect, configProperty.FindPropertyRelative("savePath"));
-        rect.position = new Vector2(rect.position.x + (position.width - 120f), rect.position.y + 25f);
-        rect.size = new Vector2(100f, 20f);
+        rect.position = new Vector2(rect.position.x + (position.width - 90f), rect.position.y + 25f);
+        rect.size = new Vector2(70f, 20f);
         if (GUI.Button(rect, "选择路径"))
         {
             var path = EditorUtility.OpenFolderPanel("选择路径", "", "");
             if (!string.IsNullOrEmpty(path))
-                Config.savePath = path;
+            {
+                //相对于Assets路径
+                var uri = new Uri(Application.dataPath.Replace('/', '\\'));
+                var relativeUri = uri.MakeRelativeUri(new Uri(path));
+                Config.savePath = relativeUri.ToString();
+            }
             SaveData();
         }
-        rect = EditorGUILayout.GetControlRect(true, 60f + (Config.dllPaths.Count * 20f), GUILayout.Width(position.width - 130f));
-        EditorGUI.PropertyField(rect, configProperty.FindPropertyRelative("dllPaths"), true);
-        rect.position = new Vector2(rect.position.x + (position.width - 120f), rect.position.y + 25f);
-        rect.size = new Vector2(100f, 20f);
+        property = configProperty.FindPropertyRelative("dllPaths");
+        float propertyHeight = EditorGUI.GetPropertyHeight(property, true);
+        rect = EditorGUILayout.GetControlRect(GUILayout.Width(position.width - 100f), GUILayout.Height(propertyHeight));
+        EditorGUI.PropertyField(rect, property, true);
+        rect.position = new Vector2(rect.position.x + (position.width - 90f), rect.position.y + 25f);
+        rect.size = new Vector2(70f, 20f);
         if (GUI.Button(rect, "选择文件"))
         {
             var path = EditorUtility.OpenFilePanelWithFilters("选择文件", "", new string[] { "dll files", "dll,exe", "All files", "*" });
             if (!string.IsNullOrEmpty(path))
-                Config.dllPaths.Add(path);
+            {
+                //相对于Assets路径
+                var uri = new Uri(Application.dataPath.Replace('/', '\\'));
+                var relativeUri = uri.MakeRelativeUri(new Uri(path));
+                Config.dllPaths.Add(relativeUri.ToString());
+            }
             SaveData();
         }
         rect = EditorGUILayout.GetControlRect();
@@ -75,7 +86,7 @@ public class InvokeHelperTools : EditorWindow, IPostprocessBuildWithReport, IPre
         if (Config.foldout)
         {
             EditorGUI.indentLevel = 2;
-            rect = EditorGUILayout.GetControlRect();
+            rect = EditorGUILayout.GetControlRect(GUILayout.Width(position.width - 100f));
             Config.rpcConfigSize = EditorGUI.DelayedIntField(rect, "Size", Config.rpcConfigSize);
             if (Config.rpcConfigSize != Config.rpcConfig.Count)
             {
@@ -107,65 +118,71 @@ public class InvokeHelperTools : EditorWindow, IPostprocessBuildWithReport, IPre
                 if (rpc.foldout)
                 {
                     EditorGUI.indentLevel = 3;
-                    rect = EditorGUILayout.GetControlRect(true, 20, GUILayout.Width(position.width - 130f));
+                    rect = EditorGUILayout.GetControlRect(true, 20, GUILayout.Width(position.width - 100f));
                     EditorGUI.PropertyField(rect, arrayElement.FindPropertyRelative("name"), false);
 
-                    rect = EditorGUILayout.GetControlRect(true, 45f, GUILayout.Width(position.width - 130f));
+                    rect = EditorGUILayout.GetControlRect(true, 45f, GUILayout.Width(position.width - 100f));
                     EditorGUI.PropertyField(rect, arrayElement.FindPropertyRelative("csprojPath"));
-                    rect.position = new Vector2(rect.position.x + (position.width - 120f), rect.position.y + 25f);
-                    rect.size = new Vector2(100f, 20f);
+                    rect.position = new Vector2(rect.position.x + (position.width - 90f), rect.position.y + 25f);
+                    rect.size = new Vector2(70f, 20f);
                     if (GUI.Button(rect, "选择文件"))
                     {
                         var path = EditorUtility.OpenFilePanel("选择文件", "", "csproj");
                         if (!string.IsNullOrEmpty(path))
-                            rpc.csprojPath = path;
+                        {
+                            //相对于Assets路径
+                            var uri = new Uri(Application.dataPath.Replace('/', '\\'));
+                            var relativeUri = uri.MakeRelativeUri(new Uri(path));
+                            rpc.csprojPath = relativeUri.ToString();
+                        }
                         SaveData();
                     }
 
-                    rect = EditorGUILayout.GetControlRect(true, 45f, GUILayout.Width(position.width - 130f));
+                    rect = EditorGUILayout.GetControlRect(true, 45f, GUILayout.Width(position.width - 100f));
                     EditorGUI.PropertyField(rect, arrayElement.FindPropertyRelative("savePath"));
-                    rect.position = new Vector2(rect.position.x + (position.width - 120f), rect.position.y + 25f);
-                    rect.size = new Vector2(100f, 20f);
+                    rect.position = new Vector2(rect.position.x + (position.width - 90f), rect.position.y + 25f);
+                    rect.size = new Vector2(70f, 20f);
                     if (GUI.Button(rect, "选择路径"))
                     {
                         var path = EditorUtility.OpenFolderPanel("选择路径", "", "");
                         if (!string.IsNullOrEmpty(path))
-                            rpc.savePath = path;
+                        {
+                            //相对于Assets路径
+                            var uri = new Uri(Application.dataPath.Replace('/', '\\'));
+                            var relativeUri = uri.MakeRelativeUri(new Uri(path));
+                            rpc.savePath = relativeUri.ToString();
+                        }
                         SaveData();
                     }
 
-                    rect = EditorGUILayout.GetControlRect(true, 45f, GUILayout.Width(position.width - 130f));
-                    EditorGUI.PropertyField(rect, arrayElement.FindPropertyRelative("readConfigPath"));
-                    rect.position = new Vector2(rect.position.x + (position.width - 120f), rect.position.y + 25f);
-                    rect.size = new Vector2(100f, 20f);
-                    if (GUI.Button(rect, "选择路径"))
-                    {
-                        var path = EditorUtility.OpenFolderPanel("选择路径", "", "");
-                        if (!string.IsNullOrEmpty(path))
-                            rpc.readConfigPath = path;
-                        SaveData();
-                    }
-
-                    rect = EditorGUILayout.GetControlRect(true, 45f, GUILayout.Width(position.width - 130f));
+                    rect = EditorGUILayout.GetControlRect(true, 45f, GUILayout.Width(position.width - 100f));
                     EditorGUI.PropertyField(rect, arrayElement.FindPropertyRelative("collectRpc"));
-                    
-                    rect = EditorGUILayout.GetControlRect(true, 100f + (rpc.dllPaths.Count * 20f), GUILayout.Width(position.width - 130f));
-                    EditorGUI.PropertyField(rect, arrayElement.FindPropertyRelative("dllPaths"), true);
-                    rect.position = new Vector2(rect.position.x + (position.width - 120f), rect.position.y + 25f);
-                    rect.size = new Vector2(100f, 20f);
+
+                    property = arrayElement.FindPropertyRelative("dllPaths");
+                    propertyHeight = EditorGUI.GetPropertyHeight(property, true);
+                    rect = EditorGUILayout.GetControlRect(GUILayout.Width(position.width - 100f), GUILayout.Height(propertyHeight));
+                    EditorGUI.PropertyField(rect, property, true);
+                    rect.position = new Vector2(rect.position.x + (position.width - 90f), rect.position.y + 25f);
+                    rect.size = new Vector2(70f, 20f);
                     if (GUI.Button(rect, "选择文件"))
                     {
                         var path = EditorUtility.OpenFilePanelWithFilters("选择文件", "", new string[] { "dll files", "dll,exe", "All files", "*" });
                         if (!string.IsNullOrEmpty(path))
-                            rpc.dllPaths.Add(path);
+                        {
+                            //相对于Assets路径
+                            var uri = new Uri(Application.dataPath.Replace('/', '\\'));
+                            var relativeUri = uri.MakeRelativeUri(new Uri(path));
+                            rpc.dllPaths.Add(relativeUri.ToString());
+                        }
                         SaveData();
                     }
                     EditorGUI.indentLevel = 2;
                 }
             }
         }
-        EditorGUILayout.GetControlRect(true, 50f);
         EditorGUI.indentLevel = 0;
+        EditorGUILayout.GetControlRect(GUILayout.Height(10));
+        GUILayout.EndScrollView();
         if (GUILayout.Button("保存配置", GUILayout.Height(30)))
         {
             SaveData();
@@ -182,7 +199,6 @@ public class InvokeHelperTools : EditorWindow, IPostprocessBuildWithReport, IPre
         {
             Debug.Log(Net.Config.Config.BasePath);
         }
-        GUILayout.EndScrollView();
         if (EditorGUI.EndChangeCheck())
             SaveData();
         serializedObject.ApplyModifiedProperties();
@@ -216,14 +232,14 @@ public class InvokeHelperTools : EditorWindow, IPostprocessBuildWithReport, IPre
     {
         LoadData();
         int change = 0;
-        var path = Application.dataPath + "/Scripts/Helper/";
+        var path = "Assets/Scripts/Helper/";
         if (string.IsNullOrEmpty(Config.savePath))
         {
             Config.savePath = path;
             change++;
         }
         bool contains = false;
-        path = Application.dataPath + "/../Library/ScriptAssemblies/Assembly-CSharp.dll";
+        path = "Library/ScriptAssemblies/Assembly-CSharp.dll";
         foreach (var dllPath in Config.dllPaths)
         {
             if (dllPath.Contains("Assembly-CSharp.dll"))//如果没有这个程序集就需要添加, 这个是默认的, 如果克隆了项目或者移植项目出现路径不对需要移除清除dllPaths

@@ -1,7 +1,7 @@
 /// <summary>
-/// table¹ÜÀíÆ÷Àà
+/// tableç®¡ç†å™¨ç±»
 /// </summary>
 public class TableManager : Framework.TableManager
 {
-	//À©Õ¹ÄãµÄtable¹ÜÀíÆ÷´úÂë
+	//æ‰©å±•ä½ çš„tableç®¡ç†å™¨ä»£ç 
 }

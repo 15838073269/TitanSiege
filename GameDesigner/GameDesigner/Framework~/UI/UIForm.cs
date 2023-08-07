@@ -5,33 +5,33 @@ using UnityEngine;
 namespace Framework
 {
     /// <summary>
-    /// ½çÃæ´ò¿ª²Ù×÷Ä£Ê½
+    /// ç•Œé¢æ‰“å¼€æ“ä½œæ¨¡å¼
     /// </summary>
     public enum UIFormMode 
     {
         /// <summary>
-        /// ²»×öÈÎºÎÏìÓ¦
+        /// ä¸åšä»»ä½•å“åº”
         /// </summary>
         None,
         /// <summary>
-        /// ¹Ø±Õµ±Ç°½çÃæ, ²¢´ò¿ªĞÂµÄ½çÃæ
+        /// å…³é—­å½“å‰ç•Œé¢, å¹¶æ‰“å¼€æ–°çš„ç•Œé¢
         /// </summary>
         CloseCurrForm,
         /// <summary>
-        /// Ö»Òş²Øµ±Ç°½çÃæ, È»ºó´ò¿ªĞÂµÄ½çÃæ
+        /// åªéšè—å½“å‰ç•Œé¢, ç„¶åæ‰“å¼€æ–°çš„ç•Œé¢
         /// </summary>
         HideCurrForm,
     }
 
 
     /// <summary>
-    /// UI½çÃæ»ùÀà
+    /// UIç•Œé¢åŸºç±»
     /// </summary>
     public class UIFormBase : MonoBehaviour, IForm
     {
-        public Action onBack;
+        public Delegate onBack;
 
-        public void ShowUI(Action onBack = null)
+        public void ShowUI(Delegate onBack = null)
         {
             gameObject.SetActive(true);
             transform.SetAsLastSibling();
@@ -44,48 +44,48 @@ namespace Framework
             ShowUI(string.Empty, info, null, null);
         }
 
-        public void ShowUI(string title, string info, Action<bool> action, Action onBack = null)
+        public void ShowUI(string title, string info, Action<bool> action, Delegate onBack = null)
         {
             ShowUI(onBack);
             OnShowUI(title, info, action);
         }
 
-        public void ShowUI(string title, float progress, Action onBack = null)
+        public void ShowUI(string title, float progress, Delegate onBack = null)
         {
             ShowUI(onBack);
             OnShowUI(title, progress);
         }
 
-        public void HideUI(bool isBack = true)
+        public void HideUI(bool isBack = true, params object[] pars)
         {
             gameObject.SetActive(false);
             if (isBack & onBack != null)
             {
-                onBack();
+                onBack?.DynamicInvoke(pars);
                 onBack = null;
             }
         }
 
         public virtual void OnShowUI(string title, string info, Action<bool> action)
         {
-            throw new Exception($"ÇëÖØĞ´OnShowUI·½·¨´¦ÀíÄãµÄÏûÏ¢ÌáÊ¾");
+            throw new Exception($"è¯·é‡å†™OnShowUIæ–¹æ³•å¤„ç†ä½ çš„æ¶ˆæ¯æç¤º");
         }
 
         public virtual void OnShowUI(string title, float progress)
         {
-            throw new Exception($"ÇëÖØĞ´OnShowUI·½·¨´¦ÀíÄãµÄ½ø¶È¼ÓÔØ½çÃæ");
+            throw new Exception($"è¯·é‡å†™OnShowUIæ–¹æ³•å¤„ç†ä½ çš„è¿›åº¦åŠ è½½ç•Œé¢");
         }
     }
 
     /// <summary>
-    /// UI½çÃæ»ùÀà
+    /// UIç•Œé¢åŸºç±»
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class UIFormBase<T> : UIFormBase where T : UIFormBase<T>
     {
         public static T I => Global.UI.GetFormOrCreate<T>();
 
-        public static T Show(Action onBack = null, UIFormMode formMode = UIFormMode.CloseCurrForm)
+        public static T Show(Delegate onBack = null, UIFormMode formMode = UIFormMode.CloseCurrForm)
         {
             var form = Global.UI.OpenForm<T>(onBack, formMode);
             return form;
@@ -97,14 +97,14 @@ namespace Framework
             i.OnShowUI(title, info, result);
         }
 
-        public static void Hide(bool isBack = true)
+        public static void Hide(bool isBack = true, params object[] pars)
         {
-            Global.UI.CloseForm<T>(isBack);
+            Global.UI.CloseForm<T>(isBack, pars);
         }
     }
 
     /// <summary>
-    /// UI½çÃæ»ùÀà
+    /// UIç•Œé¢åŸºç±»
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class UIFormBase<T, Item> : UIFormBase<T> where T : UIFormBase<T, Item>
@@ -115,7 +115,7 @@ namespace Framework
     }
 
     /// <summary>
-    /// UI½çÃæ»ùÀà
+    /// UIç•Œé¢åŸºç±»
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class UIFormBase1<T, Item> : UIFormBase<T> where T : UIFormBase1<T, Item>
@@ -126,7 +126,7 @@ namespace Framework
     }
 
     /// <summary>
-    /// UI½çÃæ»ùÀà
+    /// UIç•Œé¢åŸºç±»
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class NetworkOneUIFormBase<T> : UIFormBase<T> where T : NetworkOneUIFormBase<T>
@@ -143,7 +143,7 @@ namespace Framework
     }
 
     /// <summary>
-    /// UI½çÃæ»ùÀà
+    /// UIç•Œé¢åŸºç±»
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class NetworkTwoUIFormBase<T> : UIFormBase<T> where T : NetworkTwoUIFormBase<T>
@@ -160,7 +160,7 @@ namespace Framework
     }
 
     /// <summary>
-    /// UI½çÃæ»ùÀà
+    /// UIç•Œé¢åŸºç±»
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class NetworkAllUIFormBase<T> : UIFormBase<T> where T : NetworkAllUIFormBase<T>

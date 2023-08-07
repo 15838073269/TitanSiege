@@ -156,7 +156,8 @@ namespace MySqlDataBuild
                 var sb3 = new StringBuilder();
                 var sb4 = new StringBuilder();
                 var sb5 = new StringBuilder();
-                
+                var sb6 = new StringBuilder();
+
                 for (int i = 0; i < table.Columns.Count; i++)
                 {
                     var cell = table.Columns[i];
@@ -190,6 +191,8 @@ namespace MySqlDataBuild
                     indexCode4 = indexCode4.Replace("{FIELDNAME1}", $"{fieldName1}");
                     indexCode4 = indexCode4.Replace("{INIT}", isKey ? $"this.{fieldName1} = {fieldName1};" : $"Check{fieldName2}{(isArray ? "Bytes" : "")}Value({(isArray ? $"Convert.FromBase64String(Encoding.ASCII.GetString({fieldName1}))" : $"{fieldName1}")}, -1);");
                     sb5.Append(indexCode4);
+
+                    sb6.Append($"{fieldName2}:{{{fieldName2}}} ");
 
                     if (isKey)
                         continue;
@@ -226,6 +229,8 @@ namespace MySqlDataBuild
                     sb.Append(fieldCode);
                 }
 
+                codeTexts[15] = codeTexts[15].Replace("{TOSTRING}", sb6.ToString());
+
                 sb.Append(codeTexts[2]);
                 sb.Append(sb1);
                 sb.Append(codeTexts[4]);
@@ -238,6 +243,8 @@ namespace MySqlDataBuild
                 sb.Append(codeTexts[10]);
                 sb.Append(sb5);
                 sb.Append(codeTexts[12]);
+                sb.Append(codeTexts[13]);
+                sb.Append(codeTexts[15]);
 
                 var codeText1 = sb.ToString();
 
@@ -356,6 +363,7 @@ NAMESPACE_END";
             codeText = codeText.Replace("{CONNECT}", "MySqlConnection");
             codeText = codeText.Replace("{COMMAND}", "MySqlCommand");
             codeText = codeText.Replace("{TRANSACTION}", "MySqlTransaction");
+            codeText = codeText.Replace("{PING}", "conn.Ping();//长时间没有连接后断开连接检查状态");
 
             var codeTexts = codeText.Split(new string[] { "[split]" }, 0);
 
@@ -374,6 +382,8 @@ NAMESPACE_END";
 
             sb.Append(sb2);
             sb.Append(codeTexts[2]);
+            sb.Append(codeTexts[3]);
+            sb.Append(codeTexts[5]);
 
             codeText15 = codeText15.Replace("SYNC_KEY", sb3.ToString());
 

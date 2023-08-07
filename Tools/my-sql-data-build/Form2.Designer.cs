@@ -29,29 +29,32 @@ namespace MySqlDataBuild
         /// </summary>
         private void InitializeComponent()
         {
-            this.path = new System.Windows.Forms.TextBox();
+            this.pathCb = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.button3 = new System.Windows.Forms.Button();
-            this.dbtext = new System.Windows.Forms.TextBox();
+            this.dbcb = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.nameSpaceText = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // path
+            // pathCb
             // 
-            this.path.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pathCb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.path.Location = new System.Drawing.Point(77, 72);
-            this.path.Name = "path";
-            this.path.Size = new System.Drawing.Size(286, 21);
-            this.path.TabIndex = 11;
-            this.path.TextChanged += new System.EventHandler(this.path_TextChanged);
+            this.pathCb.Location = new System.Drawing.Point(77, 72);
+            this.pathCb.Name = "pathCb";
+            this.pathCb.Size = new System.Drawing.Size(286, 21);
+            this.pathCb.TabIndex = 11;
+            this.pathCb.TextChanged += new System.EventHandler(this.path_TextChanged);
             // 
             // label6
             // 
@@ -95,15 +98,15 @@ namespace MySqlDataBuild
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // dbtext
+            // dbcb
             // 
-            this.dbtext.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dbcb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dbtext.Location = new System.Drawing.Point(77, 34);
-            this.dbtext.Name = "dbtext";
-            this.dbtext.Size = new System.Drawing.Size(286, 21);
-            this.dbtext.TabIndex = 15;
-            this.dbtext.TextChanged += new System.EventHandler(this.dbtext_TextChanged);
+            this.dbcb.Location = new System.Drawing.Point(77, 34);
+            this.dbcb.Name = "dbcb";
+            this.dbcb.Size = new System.Drawing.Size(286, 21);
+            this.dbcb.TabIndex = 15;
+            this.dbcb.TextChanged += new System.EventHandler(this.dbtext_TextChanged);
             // 
             // label1
             // 
@@ -150,20 +153,54 @@ namespace MySqlDataBuild
             this.label7.TabIndex = 18;
             this.label7.Text = "命名空间:";
             // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(5, 166);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(84, 16);
+            this.checkBox3.TabIndex = 25;
+            this.checkBox3.Tag = "";
+            this.checkBox3.Text = "新增DB路径";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(91, 166);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(84, 16);
+            this.checkBox1.TabIndex = 24;
+            this.checkBox1.Text = "清除旧文件";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(291, 166);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(72, 16);
+            this.checkBox2.TabIndex = 26;
+            this.checkBox2.Text = "兼容类名";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(456, 207);
+            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.checkBox3);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.nameSpaceText);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.dbtext);
+            this.Controls.Add(this.dbcb);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.path);
+            this.Controls.Add(this.pathCb);
             this.Controls.Add(this.label6);
             this.Name = "Form2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -174,18 +211,21 @@ namespace MySqlDataBuild
         }
 
         #endregion
-        private System.Windows.Forms.TextBox path;
+        private System.Windows.Forms.TextBox pathCb;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox dbtext;
+        private System.Windows.Forms.TextBox dbcb;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TextBox nameSpaceText;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }
 

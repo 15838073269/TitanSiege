@@ -11,7 +11,7 @@ using Cysharp.Threading.Tasks;
 namespace Framework
 {
     /// <summary>
-    /// ´«ÊäĞ­Òé
+    /// ä¼ è¾“åè®®
     /// </summary>
     public enum TransportProtocol
     {
@@ -22,33 +22,33 @@ namespace Framework
     {
         None,
         /// <summary>
-        /// ÏûÏ¢Êä³ö, ¾¯¸æÊä³ö, ´íÎóÊä³ö, ÈıÖÖÄ£Ê½¸÷×ÔÊä³ö
+        /// æ¶ˆæ¯è¾“å‡º, è­¦å‘Šè¾“å‡º, é”™è¯¯è¾“å‡º, ä¸‰ç§æ¨¡å¼å„è‡ªè¾“å‡º
         /// </summary>
         Default,
         /// <summary>
-        /// ËùÓĞÏûÏ¢Êä³ö¶¼ÒÔ°×É«ÏûÏ¢Êä³ö
+        /// æ‰€æœ‰æ¶ˆæ¯è¾“å‡ºéƒ½ä»¥ç™½è‰²æ¶ˆæ¯è¾“å‡º
         /// </summary>
         LogAll,
         /// <summary>
-        /// ¾¯¸æĞÅÏ¢ºÍÏûÏ¢Ò»ÆğÊä³öÎª°×É«
+        /// è­¦å‘Šä¿¡æ¯å’Œæ¶ˆæ¯ä¸€èµ·è¾“å‡ºä¸ºç™½è‰²
         /// </summary>
         LogAndWarning,
         /// <summary>
-        /// ¾¯¸æºÍ´íÎó¶¼Êä³öÎªºìÉ«ÌáÊ¾
+        /// è­¦å‘Šå’Œé”™è¯¯éƒ½è¾“å‡ºä¸ºçº¢è‰²æç¤º
         /// </summary>
         WarnAndError,
     }
 
     /// <summary>
-    /// ÍøÂç½âÎöÊÊÅäÆ÷
+    /// ç½‘ç»œè§£æé€‚é…å™¨
     /// </summary>
     public enum SerializeAdapterType
     {
-        Default,//Ä¬ÈÏĞòÁĞ»¯, protobuff + json
-        PB_JSON_FAST,//¿ìËÙĞòÁĞ»¯ protobuff + json
-        Binary,//¿ìËÙĞòÁĞ»¯ ĞèÒª×¢²áÔ¶³ÌÀàĞÍ
-        Binary2,//¼«ËÙĞòÁĞ»¯ Binary + Binary2 ĞèÒªÉú³ÉĞòÁĞ»¯ÀàĞÍ, ²Ëµ¥GameDesigner/Netowrk/Fast2BuildTools
-        Binary3//¼«ËÙĞòÁĞ»¯ ĞèÒªÉú³ÉĞòÁĞ»¯ÀàĞÍ, ²Ëµ¥GameDesigner/Netowrk/Fast2BuildTools
+        Default,//é»˜è®¤åºåˆ—åŒ–, protobuff + json
+        PB_JSON_FAST,//å¿«é€Ÿåºåˆ—åŒ– protobuff + json
+        Binary,//å¿«é€Ÿåºåˆ—åŒ– éœ€è¦æ³¨å†Œè¿œç¨‹ç±»å‹
+        Binary2,//æé€Ÿåºåˆ—åŒ– Binary + Binary2 éœ€è¦ç”Ÿæˆåºåˆ—åŒ–ç±»å‹, èœå•GameDesigner/Netowrk/Fast2BuildTools
+        Binary3//æé€Ÿåºåˆ—åŒ– éœ€è¦ç”Ÿæˆåºåˆ—åŒ–ç±»å‹, èœå•GameDesigner/Netowrk/Fast2BuildTools
     }
 
     [Serializable]
@@ -59,15 +59,15 @@ namespace Framework
         public TransportProtocol protocol = TransportProtocol.Gcp;
         public string ip = "127.0.0.1";
         public int port = 9543;
-        public bool localTest;//±¾»ú²âÊÔ
+        public bool localTest;//æœ¬æœºæµ‹è¯•
         public bool debugRpc = true;
         public bool authorize;
         public bool startConnect = true;
-        public bool md5CRC;
         public int reconnectCount = 10;
         public int reconnectInterval = 2000;
         public byte heartLimit = 5;
         public int heartInterval = 1000;
+        public string scheme = "ws";
 
         public ClientBase Client
         {
@@ -78,15 +78,15 @@ namespace Framework
                 var typeName = $"Net.Client.{protocol}Client";
                 var type = AssemblyHelper.GetType(typeName);
                 if (type == null)
-                    throw new Exception($"Çëµ¼Èë:{protocol}Ğ­Òé!!!");
+                    throw new Exception($"è¯·å¯¼å…¥:{protocol}åè®®!!!");
                 _client = Activator.CreateInstance(type, new object[] { true }) as ClientBase;
                 _client.host = ip;
                 _client.port = port;
                 _client.LogRpc = debugRpc;
-                _client.MD5CRC = md5CRC;
                 _client.ReconnectCount = reconnectCount;
                 _client.ReconnectInterval = reconnectInterval;
                 _client.SetHeartTime(heartLimit, heartInterval);
+                _client.Scheme = scheme;
                 return _client;
             }
             set { _client = value; }
@@ -109,7 +109,7 @@ namespace Framework
             {
                 if (result)
                 {
-                    _client.Send(new byte[1]);//·¢ËÍÒ»¸ö×Ö½Ú:µ÷ÓÃ·şÎñÆ÷µÄOnUnClientRequest·½·¨, Èç¹û²»ĞèÒªÕËºÅµÇÂ¼, Ôò»áÖ±½ÓÔÊĞí½øÈë·şÎñÆ÷
+                    _client.Send(new byte[1]);//å‘é€ä¸€ä¸ªå­—èŠ‚:è°ƒç”¨æœåŠ¡å™¨çš„OnUnClientRequestæ–¹æ³•, å¦‚æœä¸éœ€è¦è´¦å·ç™»å½•, åˆ™ä¼šç›´æ¥å…è®¸è¿›å…¥æœåŠ¡å™¨
                 }
             });
         }
@@ -168,7 +168,7 @@ namespace Framework
             {
                 if (clients[i]._client == null)
                     continue;
-                clients[i]._client.NetworkTick();
+                clients[i]._client.NetworkUpdate();
             }
         }
 
@@ -206,7 +206,7 @@ namespace Framework
         }
 
         /// <summary>
-        /// Ìí¼ÓË÷Òı0µÄ¿Í»§¶Ërpc, Ò²¾ÍÊÇ1µÄ¿Í»§¶Ë
+        /// æ·»åŠ ç´¢å¼•0çš„å®¢æˆ·ç«¯rpc, ä¹Ÿå°±æ˜¯1çš„å®¢æˆ·ç«¯
         /// </summary>
         /// <param name="target"></param>
         public void AddRpcOne(object target)
@@ -215,7 +215,7 @@ namespace Framework
         }
 
         /// <summary>
-        /// Ìí¼ÓË÷Òı1µÄ¿Í»§¶Ë, Ò²¾ÍÊÇ2µÄ¿Í»§¶Ë
+        /// æ·»åŠ ç´¢å¼•1çš„å®¢æˆ·ç«¯, ä¹Ÿå°±æ˜¯2çš„å®¢æˆ·ç«¯
         /// </summary>
         /// <param name="target"></param>
         public void AddRpcTwo(object target)
@@ -224,7 +224,7 @@ namespace Framework
         }
 
         /// <summary>
-        /// Ìí¼ÓÖ¸¶¨Ë÷ÒıµÄ¿Í»§¶Ërpc, Èç¹ûË÷ÒıĞ¡ÓÚ0ÔòÎªÈ«²¿Ìí¼Ó
+        /// æ·»åŠ æŒ‡å®šç´¢å¼•çš„å®¢æˆ·ç«¯rpc, å¦‚æœç´¢å¼•å°äº0åˆ™ä¸ºå…¨éƒ¨æ·»åŠ 
         /// </summary>
         /// <param name="clientIndex"></param>
         /// <param name="target"></param>
@@ -237,7 +237,7 @@ namespace Framework
         }
 
         /// <summary>
-        /// ÒÆ³ıË÷Òı0µÄ¿Í»§¶Ërpc, Ò²¾ÍÊÇ1µÄ¿Í»§¶Ë
+        /// ç§»é™¤ç´¢å¼•0çš„å®¢æˆ·ç«¯rpc, ä¹Ÿå°±æ˜¯1çš„å®¢æˆ·ç«¯
         /// </summary>
         /// <param name="target"></param>
         public void RemoveRpcOne(object target)
@@ -246,7 +246,7 @@ namespace Framework
         }
 
         /// <summary>
-        /// ÒÆ³ıË÷Òı1µÄ¿Í»§¶Ërpc, Ò²¾ÍÊÇ2µÄ¿Í»§¶Ë
+        /// ç§»é™¤ç´¢å¼•1çš„å®¢æˆ·ç«¯rpc, ä¹Ÿå°±æ˜¯2çš„å®¢æˆ·ç«¯
         /// </summary>
         /// <param name="target"></param>
         public void RemoveRpcTwo(object target)
@@ -255,7 +255,7 @@ namespace Framework
         }
 
         /// <summary>
-        /// ÒÆ³ıÖ¸¶¨Ë÷ÒıµÄ¿Í»§¶Ërpc, Èç¹ûË÷ÒıĞ¡ÓÚ0ÔòÎªÈ«²¿ÒÆ³ı
+        /// ç§»é™¤æŒ‡å®šç´¢å¼•çš„å®¢æˆ·ç«¯rpc, å¦‚æœç´¢å¼•å°äº0åˆ™ä¸ºå…¨éƒ¨ç§»é™¤
         /// </summary>
         /// <param name="clientIndex"></param>
         /// <param name="target"></param>

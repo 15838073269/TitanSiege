@@ -1,15 +1,15 @@
 ﻿namespace Net.Server
 {
-    using Kcp;
-    using Net.Share;
     using global::System;
     using global::System.IO;
     using global::System.Net;
     using global::System.Runtime.InteropServices;
     using global::System.Threading;
-    using static Kcp.KcpLib;
-    using Net.System;
     using global::System.Net.Sockets;
+    using Kcp;
+    using Net.Share;
+    using Net.System;
+    using static Kcp.KcpLib;
 
     /// <summary>
     /// kcp服务器
@@ -31,7 +31,6 @@
                 throw new FileNotFoundException($"kcp.dll没有在程序根目录中! 请从GameDesigner文件夹下找到kcp.dll复制到{path}目录下.");
 #endif
             base.Start(port);
-
             ikcp_Malloc = Ikcp_malloc_hook;
             ikcp_Free = Ikcp_Free;
             var mallocPtr = Marshal.GetFunctionPointerForDelegate(ikcp_Malloc);
@@ -65,7 +64,7 @@
         protected override void AcceptHander(Player client)
         {
             client.Server = Server;
-            var kcp = ikcp_create(1400, (IntPtr)1);
+            var kcp = ikcp_create(MTU, (IntPtr)1);
             var output = Marshal.GetFunctionPointerForDelegate(client.output);
             ikcp_setoutput(kcp, output);
             ikcp_wndsize(kcp, ushort.MaxValue, ushort.MaxValue);
@@ -75,37 +74,34 @@
 
         protected unsafe override void ResolveDataQueue(Player client, ref bool isSleep, uint tick)
         {
-            while (client.RevdQueue.TryDequeue(out var segment))
+            if (client.RevdQueue.TryDequeue(out var segment))
             {
                 fixed (byte* p = &segment.Buffer[0])
-                {
                     ikcp_input(client.Kcp, p, segment.Count);
-                }
-                ikcp_update(client.Kcp, tick);
-                int len;
-                while ((len = ikcp_peeksize(client.Kcp)) > 0)
-                {
-                    var segment1 = BufferPool.Take(len);
-                    fixed (byte* p1 = &segment1.Buffer[0])
-                    {
-                        segment1.Count = ikcp_recv(client.Kcp, p1, len);
-                        DataCRCHandle(client, segment1, false);
-                        BufferPool.Push(segment1);
-                    }
-                }
                 BufferPool.Push(segment);
                 client.heart = 0;
             }
+            int len;
+            if ((len = ikcp_peeksize(client.Kcp)) > 0)
+            {
+                var segment1 = BufferPool.Take(len);
+                fixed (byte* p1 = &segment1.Buffer[0])
+                {
+                    segment1.Count = ikcp_recv(client.Kcp, p1, len);
+                    DataCRCHandler(client, segment1, false);
+                    BufferPool.Push(segment1);
+                }
+            }
         }
 
-        protected override void SendRTDataHandle(Player client, QueueSafe<RPCModel> rtRPCModels)
+        protected override void OnClientTick(Player client, uint tick)
         {
-            SendDataHandle(client, rtRPCModels, true);
+            ikcp_update(client.Kcp, tick);
         }
 
-        protected unsafe override void SendByteData(Player client, byte[] buffer, bool reliable)
+        protected unsafe override void SendByteData(Player client, byte[] buffer)
         {
-            if (client.CloseSend)
+            if (!client.Connected)
                 return;
             if (buffer.Length == frame)//解决长度==6的问题(没有数据)
                 return;
@@ -114,9 +110,8 @@
             fixed (byte* p = &buffer[0])
             {
                 int count = ikcp_send(client.Kcp, p, buffer.Length);
-                ikcp_update(client.Kcp, (uint)Environment.TickCount);
                 if (count < 0)
-                    OnSendErrorHandle?.Invoke(client, buffer, reliable);
+                    OnSendErrorHandle?.Invoke(client, buffer);
             }
         }
     }

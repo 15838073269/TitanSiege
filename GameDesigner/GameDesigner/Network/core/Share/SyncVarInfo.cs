@@ -1,33 +1,49 @@
 ﻿using Net.System;
 using System;
 using System.Reflection;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Net.Share
 {
+    public delegate void SyncVarInfoDelegate<T, V>(T t, ref V v, ushort id, ref ISegment segment, SyncVarInfo syncVar, bool isWrite, Action<V, V> onValueChanged);
+
     [Serializable]
     public class SyncVarInfo
     {
         public ushort id;
         public bool authorize;
-        public MethodInfo onValueChanged;
-        public bool isDispose;
-        public uint tick;
+        internal MethodInfo onValueChanged;
+        internal bool isDispose;
+        internal uint tick;
+        public int writeCount;
+        public int readCount;
+        public int writeBytes;
+        public int readBytes;
 
-        public virtual void SetTarget(object target) { }
+        public bool IsDispose => isDispose;
+
+        internal virtual void SetTarget(object target) { }
         public virtual void SetDefaultValue() { }
-        public virtual void CheckHandlerValue(ref Segment segment, bool isWrite)
+        internal virtual void CheckHandlerValue(ref ISegment segment, bool isWrite)
         {
         }
-        public virtual SyncVarInfo Clone(object target)
+        internal virtual SyncVarInfo Clone(object target)
         {
             return null;
         }
-        public virtual bool EqualsTarget(object target)
+        internal virtual bool EqualsTarget(object target)
         {
             return false;
         }
+        internal virtual void SetMemberInfo(MemberInfo memberInfo) { }
+        public virtual void Set() { }
+
+        public virtual string ToColorString(string colorName)
+        {
+            return $"<color={colorName}>{ToString()}</color>";
+        }
     }
-    public delegate void SyncVarInfoDelegate<T, V>(T t, ref V v, ushort id, ref Segment segment, bool isWrite, Action<V, V> onValueChanged);
+    
     public class SyncVarInfoPtr<T, V> : SyncVarInfo
     {
         internal T target;
@@ -40,14 +56,14 @@ namespace Net.Share
             this.action = action;
         }
 
-        public override SyncVarInfo Clone(object target)
+        internal override SyncVarInfo Clone(object target)
         {
             Action<V, V> action2 = null;
             if (onValueChanged != null)
                 action2 = (Action<V, V>)onValueChanged.CreateDelegate(typeof(Action<V, V>), target);
             var segment = BufferPool.Take();
             V value1 = default;
-            action((T)target, ref value1, id, ref segment, true, action2);
+            action((T)target, ref value1, id, ref segment, this, true, action2);
             segment.Dispose();
             return new SyncVarInfoPtr<T, V>(action) 
             {
@@ -55,7 +71,7 @@ namespace Net.Share
             };
         }
 
-        public override void SetTarget(object target)
+        internal override void SetTarget(object target)
         {
             this.target = (T)target;
         }
@@ -65,14 +81,24 @@ namespace Net.Share
             value = default;
         }
 
-        public override void CheckHandlerValue(ref Segment segment, bool isWrite)
+        internal override void CheckHandlerValue(ref ISegment segment, bool isWrite)
         {
-            action(target, ref value, id, ref segment, isWrite, action1);
+            action(target, ref value, id, ref segment, this, isWrite, action1);
         }
 
-        public override bool EqualsTarget(object target)
+        internal override bool EqualsTarget(object target)
         {
             return this.target.Equals(target);
+        }
+
+        public override string ToString()
+        {
+            return $"ID: {id} authorize: {authorize} target: {target.GetType().Name}.{action.Method.Name} writeCount: {writeCount} writeBytes: {writeBytes} readCount: {readCount} readBytes: {readBytes}";
+        }
+
+        public override string ToColorString(string colorName)
+        {
+            return $"<color={colorName}>ID:{id} {target.GetType().Name}.{action.Method.Name}</color> <color=#B78024>writeCount:{writeCount} writeBytes:{writeBytes} readCount:{readCount} readBytes:{readBytes}</color>";
         }
     }
 }

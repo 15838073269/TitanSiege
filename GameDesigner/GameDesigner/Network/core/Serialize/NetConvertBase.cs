@@ -1,6 +1,7 @@
 ﻿namespace Net.Serialize
 {
     using global::System;
+    using global::System.Runtime.CompilerServices;
     using UnityEngine;
 
     /// <summary>
@@ -16,54 +17,7 @@
         /// <returns></returns>
         public static object StringToValue(Type type, string value)
         {
-            switch (type.FullName)
-            {
-                case "System.Int32":
-                    return Convert.ToInt32(value);
-                case "System.Single":
-                    return Convert.ToSingle(value);
-                case "System.String":
-                    return value;
-                case "System.Boolean":
-                    return Convert.ToBoolean(value);
-                case "System.Char":
-                    return Convert.ToChar(value);
-                case "System.Int16":
-                    return Convert.ToInt16(value);
-                case "System.Int64":
-                    return Convert.ToInt64(value);
-                case "System.UInt16":
-                    return Convert.ToUInt16(value);
-                case "System.UInt32":
-                    return Convert.ToUInt32(value);
-                case "System.UInt64":
-                    return Convert.ToUInt64(value);
-                case "System.Double":
-                    return Convert.ToDouble(value);
-                case "System.Byte":
-                    return Convert.ToByte(value);
-                case "System.SByte":
-                    return Convert.ToSByte(value);
-                case "UnityEngine.Vector2":
-                    return ToVector2_3_4(type.FullName, value);
-                case "UnityEngine.Vector3":
-                    return ToVector2_3_4(type.FullName, value);
-                case "UnityEngine.Vector4":
-                    return ToVector2_3_4(type.FullName, value);
-                case "UnityEngine.Quaternion":
-                    return ToQuaternion(type.FullName, value);
-                case "UnityEngine.Rect":
-                    return ToRect(type.FullName, value);
-                case "UnityEngine.Color":
-                    return ToColor(type.FullName, value);
-                case "UnityEngine.Color32":
-                    return ToColor(type.FullName, value);
-                default:
-                    if (type.IsEnum)
-                        return Enum.Parse(type, value);
-                    break;
-            }
-            return null;
+            return StringToValue(type.ToString(), value);
         }
 
         /// <summary>
@@ -175,38 +129,79 @@
             return null;
         }
 
-        public static void SetBit(ref byte data, int index, bool flag)
+        /// <summary>
+        /// 设置二进制数据
+        /// </summary>
+        /// <param name="data">要修改的数据</param>
+        /// <param name="startBit">开始位,从1-8</param>
+        /// <param name="endBit">结束位</param>
+        /// <param name="value">设置的值从1位开始读取到设置的长度</param>
+        public static void SetByteBits(ref byte data, byte startBit, byte endBit, byte value)
         {
-            int v = index < 2 ? index : (2 << (index - 2));
-            data = flag ? (byte)(data | v) : (byte)(data & ~v);
+            byte index = 1; //value必须是从1位到n位写入
+            for (byte i = startBit; i < endBit; i++)
+            {
+                var flag = GetBit(value, index); //获取的位也是从1开始
+                SetBit(ref data, i, flag); //写入的位从1开始
+                index++;
+            }
         }
 
-        public static bool GetBit(byte data, byte index)
-        {
-            byte v = index < 2 ? index : (byte)(2 << (index - 2));
-            return (data & v) == v;
-        }
-
-        public static byte GetBitArray(byte data, byte index = 1, byte count = 5, byte bitPos = 1)
+        /// <summary>
+        /// 获取二进制数据
+        /// </summary>
+        /// <param name="data">原值</param>
+        /// <param name="startBit">开始位,从1-8</param>
+        /// <param name="endBit">结束位</param>
+        /// <returns>返回开始位-结束位组成的byte值</returns>
+        public static byte GetByteBits(byte data, byte startBit, byte endBit)
         {
             byte result = 0;
-            for (byte i = index; i < count; i++)
+            byte index = 1; //设置新的byte必须是从1位到n位写入
+            for (byte i = startBit; i < endBit; i++)
             {
                 var flag = GetBit(data, i);
-                SetBit(ref result, bitPos, flag);
-                bitPos++;
+                SetBit(ref result, index, flag);
+                index++;
             }
             return result;
         }
 
-        public static void SetBitArray(ref byte data, byte bitPos, byte value, byte index = 1, byte count = 5)
+        /// <summary>
+        /// 设置二进制值
+        /// </summary>
+        /// <param name="data">要修改的数据</param>
+        /// <param name="index">索引从1-8</param>
+        /// <param name="flag">填二进制的0或1</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static void SetBit(ref byte data, int index, bool flag)
+        //{
+        //    int mask = index < 2 ? index : (2 << (index - 2));
+        //    data = flag ? (byte)(data | mask) : (byte)(data & ~mask);
+        //}
+        public static void SetBit(ref byte data, int index, bool flag)
         {
-            for (byte i = index; i < count; i++)
-            {
-                var flag = GetBit(value, i);
-                SetBit(ref data, bitPos, flag);
-                bitPos++;
-            }
+            if (flag)
+                data |= (byte)(1 << (8 - index));
+            else
+                data &= (byte)~(1 << (8 - index));
+        }
+
+        /// <summary>
+        /// 获取二进制值
+        /// </summary>
+        /// <param name="data">要获取的数据</param>
+        /// <param name="index">索引从1-8</param>
+        /// <returns>返回二进制的0或1</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static bool GetBit(byte data, byte index)
+        //{
+        //    byte mask = index < 2 ? index : (byte)(2 << (index - 2));
+        //    return (data & mask) == mask;
+        //}
+        public static bool GetBit(byte data, byte index)
+        {
+            return ((data >> (8 - index)) & 1) == 1;
         }
     }
 }

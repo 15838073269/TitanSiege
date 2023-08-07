@@ -6,7 +6,7 @@
     /// 标注为远程过程调用函数
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public class RPCFun : Attribute
+    public class RPC : Attribute
     {
         /// <summary>
         /// 网络命令
@@ -25,13 +25,13 @@
         /// <summary>
         /// 构造RPCFun函数特性
         /// </summary>
-        public RPCFun() { }
+        public RPC() { }
 
         /// <summary>
         /// 构造RPCFun函数特性
         /// </summary>
         /// <param name="cmd">自定义的网络命令</param>
-        public RPCFun(byte cmd)
+        public RPC(byte cmd)
         {
             this.cmd = cmd;
         }
@@ -40,7 +40,7 @@
     /// <summary>
     /// 标注为远程过程调用函数 (简型)
     /// </summary>
-    public class Rpc : RPCFun
+    public class Rpc : RPC
     {
         /// <summary>
         /// 构造Rpc函数特性
@@ -60,7 +60,7 @@
     /// <summary>
     /// 标注为远程过程调用函数 (偷懒型) 安卓上有出现找不到问题, 出现此问题请使用 Rpc(第一个大写) 标签 
     /// </summary>
-    public class rpc : RPCFun
+    public class rpc : RPC
     {
         /// <summary>
         /// 构造rpc函数特性

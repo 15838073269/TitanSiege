@@ -1,5 +1,5 @@
 using Cysharp.Threading.Tasks;
-using Net.Share;
+using Net.Helper;
 using System.Collections;
 using System.IO;
 using UnityEngine;
@@ -38,8 +38,8 @@ namespace Framework
             yield return request.SendWebRequest();
             if (!string.IsNullOrEmpty(request.error))
             {
-                Debug.LogError($"{versionUrl} »ñÈ¡Ê§°Ü:" + request.error);
-                Global.UI.Message.ShowUI("×ÊÔ´ÇëÇó", "°æ±¾ĞÅÏ¢ÇëÇóÊ§°Ü!", result =>
+                Debug.LogError($"{versionUrl} è·å–å¤±è´¥:" + request.error);
+                Global.UI.Message.ShowUI("èµ„æºè¯·æ±‚", "ç‰ˆæœ¬ä¿¡æ¯è¯·æ±‚å¤±è´¥!", result =>
                 {
 #if UNITY_EDITOR
                     UnityEditor.EditorApplication.isPlaying = false;
@@ -57,7 +57,7 @@ namespace Framework
             {
                 bool msgClose = false;
                 bool msgResult = false;
-                Global.UI.Message.ShowUI("×ÊÔ´ÇëÇó", "ÓĞ°æ±¾ĞèÒª¸üĞÂ", result =>
+                Global.UI.Message.ShowUI("èµ„æºè¯·æ±‚", "æœ‰ç‰ˆæœ¬éœ€è¦æ›´æ–°", result =>
                 {
                     msgClose = true;
                     msgResult = result;
@@ -86,7 +86,7 @@ namespace Framework
                     yield return request.SendWebRequest();
                     if (!string.IsNullOrEmpty(request.error))
                     {
-                        Debug.LogError($"{abUrl} »ñÈ¡×ÊÔ´Ê§°Ü:" + request.error);
+                        Debug.LogError($"{abUrl} è·å–èµ„æºå¤±è´¥:" + request.error);
                         yield break;
                     }
                     ulong totalLength = ulong.Parse(request.GetResponseHeader("Content-Length"));
@@ -97,11 +97,11 @@ namespace Framework
                     string name = Path.GetFileName(item.Key);
                     while (!request.isDone)
                     {
-                        progressText = $"{name}ÏÂÔØ½ø¶È:{ByteHelper.ToString(request.downloadedBytes)}/{ByteHelper.ToString(totalLength)}";
+                        progressText = $"{name}ä¸‹è½½è¿›åº¦:{ByteHelper.ToString(request.downloadedBytes)}/{ByteHelper.ToString(totalLength)}";
                         Global.UI.Loading.ShowUI(progressText, request.downloadProgress);
                         yield return null;
                     }
-                    progressText = $"{name}ÏÂÔØÍê³É!";
+                    progressText = $"{name}ä¸‹è½½å®Œæˆ!";
                     Global.UI.Loading.ShowUI(progressText, request.downloadProgress);
                     request.Dispose();
                 }
@@ -112,8 +112,8 @@ namespace Framework
         }
 
         /// <summary>
-        /// Îªaot assembly¼ÓÔØÔ­Ê¼metadata£¬ Õâ¸ö´úÂë·Åaot»òÕßÈÈ¸üĞÂ¶¼ĞĞ¡£
-        /// Ò»µ©¼ÓÔØºó£¬Èç¹ûAOT·ºĞÍº¯Êı¶ÔÓ¦nativeÊµÏÖ²»´æÔÚ£¬Ôò×Ô¶¯Ìæ»»Îª½âÊÍÄ£Ê½Ö´ĞĞ
+        /// ä¸ºaot assemblyåŠ è½½åŸå§‹metadataï¼Œ è¿™ä¸ªä»£ç æ”¾aotæˆ–è€…çƒ­æ›´æ–°éƒ½è¡Œã€‚
+        /// ä¸€æ—¦åŠ è½½åï¼Œå¦‚æœAOTæ³›å‹å‡½æ•°å¯¹åº”nativeå®ç°ä¸å­˜åœ¨ï¼Œåˆ™è‡ªåŠ¨æ›¿æ¢ä¸ºè§£é‡Šæ¨¡å¼æ‰§è¡Œ
         /// </summary>
         private static void LoadMetadataForAOTAssemblies()
         {
@@ -123,8 +123,8 @@ namespace Framework
                 path = Application.streamingAssetsPath + "/AssetBundles/Hotfix/";
             else
                 path = Application.persistentDataPath + "/AssetBundles/Hotfix/";
-            /// ×¢Òâ£¬²¹³äÔªÊı¾İÊÇ¸øAOT dll²¹³äÔªÊı¾İ£¬¶ø²»ÊÇ¸øÈÈ¸üĞÂdll²¹³äÔªÊı¾İ¡£
-            /// ÈÈ¸üĞÂdll²»È±ÔªÊı¾İ£¬²»ĞèÒª²¹³ä£¬Èç¹ûµ÷ÓÃLoadMetadataForAOTAssembly»á·µ»Ø´íÎó
+            /// æ³¨æ„ï¼Œè¡¥å……å…ƒæ•°æ®æ˜¯ç»™AOT dllè¡¥å……å…ƒæ•°æ®ï¼Œè€Œä¸æ˜¯ç»™çƒ­æ›´æ–°dllè¡¥å……å…ƒæ•°æ®ã€‚
+            /// çƒ­æ›´æ–°dllä¸ç¼ºå…ƒæ•°æ®ï¼Œä¸éœ€è¦è¡¥å……ï¼Œå¦‚æœè°ƒç”¨LoadMetadataForAOTAssemblyä¼šè¿”å›é”™è¯¯
             /// 
             if (!Directory.Exists(path))
                 return;
@@ -135,7 +135,7 @@ namespace Framework
                 //if (dllPath.Contains("Assembly-CSharp.dll.bytes"))
                 //    continue;
                 var dllBytes = File.ReadAllBytes(dllPath);
-                // ¼ÓÔØassembly¶ÔÓ¦µÄdll£¬»á×Ô¶¯ÎªËühook¡£Ò»µ©aot·ºĞÍº¯ÊıµÄnativeº¯Êı²»´æÔÚ£¬ÓÃ½âÊÍÆ÷°æ±¾´úÂë
+                // åŠ è½½assemblyå¯¹åº”çš„dllï¼Œä¼šè‡ªåŠ¨ä¸ºå®ƒhookã€‚ä¸€æ—¦aotæ³›å‹å‡½æ•°çš„nativeå‡½æ•°ä¸å­˜åœ¨ï¼Œç”¨è§£é‡Šå™¨ç‰ˆæœ¬ä»£ç 
                 var err = RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, mode);
                 Debug.Log($"LoadMetadataForAOTAssembly:{dllPath}. mode:{mode} ret:{err}");
             }

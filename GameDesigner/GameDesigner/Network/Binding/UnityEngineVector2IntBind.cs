@@ -7,7 +7,7 @@ namespace Binding
 {
     public struct UnityEngineVector2IntBind : ISerialize<UnityEngine.Vector2Int>, ISerialize
     {
-        public void Write(UnityEngine.Vector2Int value, Segment stream)
+        public void Write(UnityEngine.Vector2Int value, ISegment stream)
         {
             int pos = stream.Position;
             stream.Position += 1;
@@ -31,7 +31,7 @@ namespace Binding
             stream.Position = pos1;
         }
 		
-		public UnityEngine.Vector2Int Read(Segment stream)
+		public UnityEngine.Vector2Int Read(ISegment stream)
 		{
 			byte[] bits = stream.Read(1);
 			var value = new UnityEngine.Vector2Int();
@@ -45,12 +45,12 @@ namespace Binding
 			return value;
 		}
 
-        public void WriteValue(object value, Segment stream)
+        public void WriteValue(object value, ISegment stream)
         {
             Write((UnityEngine.Vector2Int)value, stream);
         }
 
-        public object ReadValue(Segment stream)
+        public object ReadValue(ISegment stream)
         {
             return Read(stream);
         }
@@ -61,7 +61,7 @@ namespace Binding
 {
 	public struct UnityEngineVector2IntArrayBind : ISerialize<UnityEngine.Vector2Int[]>, ISerialize
 	{
-		public void Write(UnityEngine.Vector2Int[] value, Segment stream)
+		public void Write(UnityEngine.Vector2Int[] value, ISegment stream)
 		{
 			int count = value.Length;
 			stream.Write(count);
@@ -71,7 +71,7 @@ namespace Binding
 				bind.Write(value1, stream);
 		}
 
-		public UnityEngine.Vector2Int[] Read(Segment stream)
+		public UnityEngine.Vector2Int[] Read(ISegment stream)
 		{
 			var count = stream.ReadInt32();
 			var value = new UnityEngine.Vector2Int[count];
@@ -82,12 +82,12 @@ namespace Binding
 			return value;
 		}
 
-		public void WriteValue(object value, Segment stream)
+		public void WriteValue(object value, ISegment stream)
 		{
 			Write((UnityEngine.Vector2Int[])value, stream);
 		}
 
-		public object ReadValue(Segment stream)
+		public object ReadValue(ISegment stream)
 		{
 			return Read(stream);
 		}
@@ -97,7 +97,7 @@ namespace Binding
 {
 	public struct UnityEngineVector2IntGenericBind : ISerialize<List<UnityEngine.Vector2Int>>, ISerialize
 	{
-		public void Write(List<UnityEngine.Vector2Int> value, Segment stream)
+		public void Write(List<UnityEngine.Vector2Int> value, ISegment stream)
 		{
 			int count = value.Count;
 			stream.Write(count);
@@ -107,7 +107,7 @@ namespace Binding
 				bind.Write(value1, stream);
 		}
 
-		public List<UnityEngine.Vector2Int> Read(Segment stream)
+		public List<UnityEngine.Vector2Int> Read(ISegment stream)
 		{
 			var count = stream.ReadInt32();
 			var value = new List<UnityEngine.Vector2Int>(count);
@@ -118,12 +118,12 @@ namespace Binding
 			return value;
 		}
 
-		public void WriteValue(object value, Segment stream)
+		public void WriteValue(object value, ISegment stream)
 		{
 			Write((List<UnityEngine.Vector2Int>)value, stream);
 		}
 
-		public object ReadValue(Segment stream)
+		public object ReadValue(ISegment stream)
 		{
 			return Read(stream);
 		}

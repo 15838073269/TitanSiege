@@ -189,7 +189,7 @@
                 }
                 type = obj.GetType();
                 segment.Write(GetTypeHash(type));
-                NetConvertBinary.SerializeObject(segment, obj, recordType, true);
+                NetConvertBinary.WriteObject(segment, type, obj, recordType, true);
             }
             return segment.ToArray(true);
         }
@@ -198,7 +198,7 @@
         {
             if (Types1.TryGetValue(type, out var typeHash))
                 return typeHash;
-            throw new IOException($"参数类型:[{type}]没有被注册! 请使用NetConvertFast.AddNetworkType<{type}>()添加序列化类型! 双端都要添加");
+            throw new IOException($"参数类型:[{type}]没有被注册! 请使用NetConvertFast.AddSerializeType<{type}>()添加序列化类型! 双端都要添加");
         }
 
         public static Type GetTypeHash(ushort hashCode)
@@ -237,7 +237,7 @@
                         list.Add(null);
                         continue;
                     }
-                    var obj = NetConvertBinary.DeserializeObject(segment, type, false, recordType, true);
+                    var obj = NetConvertBinary.ReadObject(segment, type, recordType, true);
                     list.Add(obj);
                 }
                 fdata.pars = list.ToArray();

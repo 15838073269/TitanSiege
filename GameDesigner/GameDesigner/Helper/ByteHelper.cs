@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Net.Share
+namespace Net.Helper
 {
     public static class ByteHelper
     {

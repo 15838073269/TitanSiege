@@ -35,6 +35,7 @@ namespace Net.UnityComponent
         public bool onExitDelectAll = true;
         internal List<WaitDestroy> waitDestroyList = new List<WaitDestroy>();
         protected ClientBase client; //当多场景时, 退出战斗场景, 回主场景时, 先进入主场景再卸载战斗场景, 而ClientBase.Instance被赋值到其他多连接客户端对象上就会出现OnDestry时没有正确移除OnOperationSync事件
+        protected Queue<Action> waitNetworkIdentityQueue = new Queue<Action>();
 
         public virtual void Start()
         {
@@ -63,11 +64,25 @@ namespace Net.UnityComponent
             OnConnected();
             client = ClientBase.Instance;
             client.OnOperationSync += OperationSync;
+            while (waitNetworkIdentityQueue.Count > 0)
+                waitNetworkIdentityQueue.Dequeue()?.Invoke();
         }
 
         public virtual void OnConnected()
         {
             NetworkObject.Init(5000);
+        }
+
+        /// <summary>
+        /// 等待网络标识初始化, 当标识初始化完成调用onInitComplete委托
+        /// </summary>
+        /// <param name="onInitComplete"></param>
+        public virtual void WaitNetworkIdentityInit(Action onInitComplete)
+        {
+            if (NetworkObject.IsInitIdentity)
+                onInitComplete?.Invoke();
+            else
+                waitNetworkIdentityQueue.Enqueue(onInitComplete);
         }
 
         public virtual void Update() 
@@ -179,6 +194,8 @@ namespace Net.UnityComponent
             if (identity.IsDispose)
                 return;
             var nb = identity.networkBehaviours[opt.index1];
+            if (nb == null)
+                return;
             nb.OnNetworkOperationHandler(opt);
         }
 
@@ -290,11 +307,9 @@ namespace Net.UnityComponent
         /// </summary>
         public void ExitSceneHandler()
         {
-            var transforms = FindObjectsOfType<NetworkTransformBase>();
-            foreach (var identity in transforms)
+            foreach (var identity in identitys)
             {
-                identity.currMode = SyncMode.None;
-                identity.netObj.Identity = -1;
+                identity.Value.Identity = -1;
             }
         }
 

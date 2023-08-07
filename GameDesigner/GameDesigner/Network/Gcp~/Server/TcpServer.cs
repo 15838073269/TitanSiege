@@ -1,14 +1,15 @@
 ﻿namespace Net.Server
 {
-    using Net.Share;
     using global::System;
     using global::System.Net;
     using global::System.Net.Sockets;
     using global::System.Threading;
-    using Debug = Event.NDebug;
-    using Net.System;
     using global::System.Security.Cryptography;
+    using Net.Share;
+    using Net.System;
     using Net.Helper;
+    using Debug = Event.NDebug;
+    using global::System.Drawing;
 
     /// <summary>
     /// TCP服务器类型
@@ -18,19 +19,6 @@
     /// </summary>
     public class TcpServer<Player, Scene> : ServerBase<Player, Scene> where Player : NetPlayer, new() where Scene : NetScene<Player>, new()
     {
-        /// <summary>
-        /// tcp数据长度(4) + 1CRC协议 = 5
-        /// </summary>
-        protected override byte frame { get; set; } = 5;
-        public override bool MD5CRC
-        {
-            get => md5crc;
-            set
-            {
-                md5crc = value;
-                frame = (byte)(value ? 5 + 16 : 5);
-            }
-        }
         public override int HeartInterval { get; set; } = 1000 * 60 * 10;//10分钟跳一次
         public override byte HeartLimit { get; set; } = 2;//确认两次
         
@@ -93,7 +81,7 @@
                 {
                     using (var segment = BufferPool.Take())
                     {
-                        segment.Count = client.Receive(segment, 0, segment.Length, SocketFlags.None, out var error);
+                        segment.Count = client.Receive(segment.Buffer, 0, segment.Length, SocketFlags.None, out var error);
                         if (segment.Count == 0 | error != SocketError.Success) //当等待10秒超时
                         {
                             client.Close();
@@ -110,6 +98,7 @@
                         if (!client1.Client.Connected) //防止出错或者假冒的客户端设置, 导致直接替换真实的客户端
                         {
                             client1.Client = client;
+                            client1.Connected = true;
                             SetClientIdentity(client1);
                             client1.OnReconnecting();
                             OnReconnecting(client1);
@@ -121,45 +110,52 @@
             }
         }
 
-        protected override void OnThreadQueueSet(Player client)
-        {
-            var value = threadNum++;
-            client.Group = ThreadGroups[value % ThreadGroups.Count];
-        }
-
-        protected override void OnSceneGroupSet(Scene scene)
-        {
-            var value = threadNum++;
-            scene.Group = ThreadGroups[value % ThreadGroups.Count];
-        }
-
         protected override void ResolveDataQueue(Player client, ref bool isSleep, uint tick)
         {
-            if (!client.Client.Connected) //当socket断开后, 需要重连, 所以会等待一段重连时间
-            {
-                if (tick >= client.ReconnectTimeout)
-                    RemoveClient(client);
+            if (!client.Client.Connected)
                 return;
-            }
             if (client.Client.Poll(0, SelectMode.SelectRead))
             {
                 var segment = BufferPool.Take();
-                segment.Count = client.Client.Receive(segment, 0, segment.Length, SocketFlags.None, out SocketError error);
+                segment.Count = client.Client.Receive(segment.Buffer, 0, segment.Length, SocketFlags.None, out SocketError error);
                 if (segment.Count == 0 | error != SocketError.Success)
                 {
                     BufferPool.Push(segment);
-                    client.Client.Disconnect(false);//标记为断开状态
-                    client.ReconnectTimeout = tick + ReconnectionTimeout;
-                    client.OnConnectLost();
-                    OnConnectLost(client);
+                    ConnectLost(client, tick);
                     return;
                 }
-                receiveCount += segment.Count;
                 receiveAmount++;
+                receiveCount += segment.Count;
+                client.BytesReceived += segment.Count;
                 ResolveBuffer(client, ref segment);
                 BufferPool.Push(segment);
                 isSleep = false;
             }
+        }
+
+        protected override bool CheckIsConnected(Player client, uint tick)
+        {
+            if (!client.Connected)
+            {
+                if (tick >= client.ReconnectTimeout)
+                    RemoveClient(client);
+                return false;
+            }
+            if (!client.Client.Connected)
+            {
+                ConnectLost(client, tick);
+                return false;
+            }
+            return true;
+        }
+
+        protected void ConnectLost(Player client, uint tick)
+        {
+            client.Connected = false;
+            //client.Client?.Disconnect(false);//标记为断开状态
+            client.ReconnectTimeout = tick + ReconnectionTimeout;
+            client.OnConnectLost();
+            OnConnectLost(client);
         }
 
         protected override void ReceiveProcessed(EndPoint remotePoint, ref bool isSleep)
@@ -173,51 +169,31 @@
             return false;
         }
 
-        protected override byte[] PackData(Segment stream)
+        protected override byte[] PackData(ISegment stream)
         {
-            stream.Flush();
-            if (MD5CRC)
-            {
-                MD5 md5 = new MD5CryptoServiceProvider();
-                var head = frame;
-                byte[] retVal = md5.ComputeHash(stream, head, stream.Count - head);
-                EncryptHelper.ToEncrypt(Password, retVal);
-                int len = stream.Count - head;
-                var lenBytes = BitConverter.GetBytes(len);
-                byte crc = CRCHelper.CRC8(lenBytes, 0, lenBytes.Length);
-                stream.Position = 0;
-                stream.Write(lenBytes, 0, 4);
-                stream.WriteByte(crc);
-                stream.Write(retVal, 0, retVal.Length);
-                stream.Position = len + head;
-            }
-            else
-            {
-                int len = stream.Count - frame;
-                var lenBytes = BitConverter.GetBytes(len);
-                byte crc = CRCHelper.CRC8(lenBytes, 0, lenBytes.Length);
-                stream.Position = 0;
-                stream.Write(lenBytes, 0, 4);
-                stream.WriteByte(crc);
-                stream.Position = len + frame;
-            }
+            stream.Flush(false);
+            SetDataHead(stream);
+            PackageAdapter.Pack(stream);
+            var len = stream.Count - frame;
+            var lenBytes = BitConverter.GetBytes(len);
+            var crc = CRCHelper.CRC8(lenBytes, 0, lenBytes.Length);
+            stream.Position = 0;
+            stream.Write(lenBytes, 0, 4);
+            stream.WriteByte(crc);
+            stream.Position += len;
             return stream.ToArray();
         }
 
-        protected override void SendRTDataHandle(Player client, QueueSafe<RPCModel> rtRPCModels)
-        {
-            SendDataHandle(client, rtRPCModels, true);
-        }
 #if TEST1
         ListSafe<byte> list = new ListSafe<byte>();
 #endif
-        protected override void SendByteData(Player client, byte[] buffer, bool reliable)
+        protected override void SendByteData(Player client, byte[] buffer)
         {
             if (!client.Client.Connected)
                 return;
             if (buffer.Length <= frame)//解决长度==6的问题(没有数据)
                 return;
-            if (client.Client.Poll(1, SelectMode.SelectWrite))
+            if (client.Client.Poll(0, SelectMode.SelectWrite))
             {
 #if TEST1
                 list.AddRange(buffer);
@@ -231,29 +207,38 @@
                 int count1 = client.Client.Send(buffer, 0, buffer.Length, SocketFlags.None, out SocketError error);
                 if (error != SocketError.Success | count1 <= 0)
                 {
-                    OnSendErrorHandle?.Invoke(client, buffer, true);
+                    OnSendErrorHandle?.Invoke(client, buffer);
                     return;
                 }
                 else if (count1 != buffer.Length)
-                    Debug.Log($"发送了{buffer.Length - count1}个字节失败!");
+                    Debug.LogError($"发送了{buffer.Length - count1}个字节失败!");
                 sendAmount++;
                 sendCount += buffer.Length;
 #endif
             }
             else
             {
-                Debug.LogError($"[{client}]发送缓冲列表已经超出限制!");
+                client.WindowFullError++;
+            }
+        }
+
+        protected override void OnCheckPerSecond(Player client)
+        {
+            base.OnCheckPerSecond(client);
+            if (client.WindowFullError > 0)
+            {
+                Debug.LogError($"[{client}]发送窗口已满,等待对方接收中! {client.WindowFullError}/秒");
+                client.WindowFullError = 0;
+            }
+            if (client.DataSizeError > 0)
+            {
+                Debug.LogError($"[{client}]数据被拦截修改或数据量太大, 如果想传输大数据, 请设置PackageSize属性! {client.DataSizeError}/秒");
+                client.DataSizeError = 0;
             }
         }
 
         protected override void CheckHeart(Player client, uint tick)
         {
-            if (!client.Client.Connected)
-            {
-                if (tick >= client.ReconnectTimeout)
-                    RemoveClient(client);
-                return;
-            }
             if (client.heart > HeartLimit * 5)
             {
                 client.Redundant = true;

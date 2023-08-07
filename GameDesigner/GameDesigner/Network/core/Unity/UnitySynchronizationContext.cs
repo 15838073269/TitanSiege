@@ -33,8 +33,7 @@ namespace Net.Unity
         private static void InitializeSynchronizationContext()
         {
             Context = SynchronizationContext.Current;
-            if (Context == null)
-                Context = new SynchronizationContext();
+            Context ??= new SynchronizationContext();
             mainThreadId = Thread.CurrentThread.ManagedThreadId;
         }
 
@@ -52,19 +51,19 @@ namespace Net.Unity
         /// 在主线程调用, 并返回结果到此线程, 如果此线程是主线程, 则直接调用并返回
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="d"></param>
+        /// <param name="ptr"></param>
         /// <returns></returns>
-        public static T Get<T>(Func<T> d) 
+        public static T Get<T>(Func<T> ptr)
         {
             if (Thread.CurrentThread.ManagedThreadId == mainThreadId)
-                return d();
+                return ptr();
             bool complete = false;
             T result = default;
-            Context.Post(new SendOrPostCallback((o)=> 
+            Context.Post(new SendOrPostCallback((o) =>
             {
-                try { result = d(); }
+                try { result = ((Func<T>)o).Invoke(); }
                 finally { complete = true; }
-            }), null);
+            }), ptr);
             while (!complete)
                 Thread.Sleep(1);
             return result;

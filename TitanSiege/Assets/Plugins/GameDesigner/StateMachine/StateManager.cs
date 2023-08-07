@@ -230,6 +230,12 @@
                 for (int i = 0; i < s.behaviours.Count; i++)
                 {
                     var type = AssemblyHelper.GetType(s.behaviours[i].name);
+                    if (type == null)
+                    {
+                        s.behaviours.RemoveAt(i);
+                        if (i >= 0) i--;
+                        continue;
+                    }
                     var metadatas = new List<Metadata>(s.behaviours[i].metadatas);
                     var active = s.behaviours[i].Active;
                     var show = s.behaviours[i].show;
@@ -244,6 +250,12 @@
                     for (int i = 0; i < t.behaviours.Count; i++)
                     {
                         var type = AssemblyHelper.GetType(t.behaviours[i].name);
+                        if (type == null)
+                        {
+                            t.behaviours.RemoveAt(i);
+                            if (i >= 0) i--;
+                            continue;
+                        }
                         var metadatas = new List<Metadata>(t.behaviours[i].metadatas);
                         var active = t.behaviours[i].Active;
                         var show = t.behaviours[i].show;
@@ -259,6 +271,12 @@
                     for (int i = 0; i < a.behaviours.Count; i++)
                     {
                         var type = AssemblyHelper.GetType(a.behaviours[i].name);
+                        if (type == null)
+                        {
+                            a.behaviours.RemoveAt(i);
+                            if (i >= 0) i--;
+                            continue;
+                        }
                         var metadatas = new List<Metadata>(a.behaviours[i].metadatas);
                         var active = a.behaviours[i].Active;
                         var show = a.behaviours[i].show;

@@ -28,23 +28,25 @@ namespace Net.UnityComponent
         public int registerObjectIndex;
         [SerializeField] internal bool isLocal = true;
         internal List<NetworkBehaviour> networkBehaviours = new List<NetworkBehaviour>();
-        internal MyDictionary<ushort, SyncVarInfo> syncVarInfos = new MyDictionary<ushort, SyncVarInfo>();
-        private int syncVarID = 1;
-        internal bool isInit;
+        public MyDictionary<ushort, SyncVarInfo> syncVarInfos = new MyDictionary<ushort, SyncVarInfo>();
+        [Tooltip("是否初始化? 如果不想让Identity在Start被自动分配ID, 则可以设置此字段为true")]
+        [SerializeField] internal bool isInit;
         public bool IsDispose { get; internal set; }
         /// <summary>
         /// 此物体是否是本机实例化？
         /// </summary>
-        public bool IsLocal { get { return isLocal; } set { isLocal = value; } }
+        public bool IsLocal { get => isLocal; set => isLocal = value; }
 
         /// <summary>
         /// 每个网络对象的唯一标识
         /// </summary>
-        public int Identity
-        {
-            get{ return m_identity; }
-            set { m_identity = value; }
-        }
+        public int Identity { get => m_identity; set => m_identity = value; }
+
+        /// <summary>
+        /// 获取或设置是否初始化
+        /// </summary>
+        public bool IsInitialize { get => isInit; set => isInit = value; }
+
         public virtual void Start()
         {
             Init();
@@ -113,17 +115,23 @@ namespace Net.UnityComponent
         public void InitAll(Operation opt = default)
         {
             Init();
-            var nbs = GetComponentsInChildren<NetworkBehaviour>();
+            var nbs = GetComponentsInChildren<NetworkBehaviour>(true);
             foreach (var np in nbs)
             {
                 np.Init(opt);
             }
         }
-        internal void InitSyncVar(object target)
+        /// <summary>
+        /// 添加字段和属性同步
+        /// </summary>
+        /// <param name="networkBehaviour"></param>
+        /// <param name="target"></param>
+        public void AddSyncVar(NetworkBehaviour networkBehaviour, object target)
         {
+            int syncVarID = networkBehaviour.NetComponentID * 50; //每个组件和定义[SyncVar]同步字段和属性最多50个
             ClientBase.Instance.AddRpcHandle(target, false, (info) =>
             {
-                info.id = (ushort)syncVarID++;
+                info.id = (ushort)(syncVarID + networkBehaviour.SyncVarID++);
                 syncVarInfos.Add(info.id, info);
                 if (!isLocal)
                 {
@@ -172,6 +180,8 @@ namespace Net.UnityComponent
             for (int i = 0; i < networkBehaviours.Count; i++)
             {
                 var networkBehaviour = networkBehaviours[i];
+                if (networkBehaviour == null)
+                    continue;
                 if (!networkBehaviour.CheckEnabled())
                     continue;
                 networkBehaviour.OnPropertyAutoCheck();

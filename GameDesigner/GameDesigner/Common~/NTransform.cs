@@ -1,7 +1,6 @@
 ﻿namespace Net.Component
 {
     using global::System;
-    using global::System.ComponentModel;
     using UnityEngine;
     using Matrix4x4 = Matrix4x4;
     using Quaternion = Quaternion;
@@ -13,36 +12,25 @@
     /// 后期修改:龙兄 QQ:1752062104
     /// </summary>
     [Serializable]
-    public class NTransform
+    public class EntityTransform
     {
         public Matrix4x4 matrix;
+
         public Vector3 position
         {
-            get { return matrix.GetPosition(); }
-            set
-            {
-                matrix = Matrix4Utils.GetPosition(value);
-                matrix *= Matrix4x4.Rotate(rotation);
-            }
+            get => matrix.GetPosition();
+            set => Matrix4Utils.SetPosition(ref matrix, value);
         }
+
         public Quaternion rotation
         {
-            get { return matrix.GetRotation(); }
-            set
-            {
-                matrix = Matrix4Utils.GetPosition(position);
-                matrix *= Matrix4x4.Rotate(value);
-            }
+            get => matrix.GetRotation();
+            set => Matrix4Utils.Rotate(ref matrix, value);
         }
 
         public UnityEngine.Vector3 localScale
         {
-            get { return matrix.GetScale(); }
-            set 
-            {
-                matrix = Matrix4Utils.GetPosition(position);
-                matrix *= Matrix4x4.Scale(value);
-            }
+            get => matrix.GetScale();
         }
 
         public UnityEngine.Quaternion localRotation
@@ -51,15 +39,57 @@
             set { rotation = value; }
         }
 
-        public NTransform()
+        public Vector3 eulerAngles
+        {
+            get => rotation.eulerAngles;
+            set => rotation = Quaternion.Euler(value);
+        }
+
+        public Vector3 left
+        {
+            get => matrix.left;
+            set => matrix.left = value;
+        }
+
+        public Vector3 right
+        {
+            get => matrix.right;
+            set => matrix.right = value;
+        }
+
+        public Vector3 up
+        {
+            get => matrix.up;
+            set => matrix.up = value;
+        }
+
+        public Vector3 down
+        {
+            get => matrix.down;
+            set => matrix.down = value;
+        }
+
+        public Vector3 forward
+        {
+            get => matrix.forward;
+            set => matrix.forward = value;
+        }
+
+        public Vector3 back
+        {
+            get => matrix.back;
+            set => matrix.back = value;
+        }
+
+        public EntityTransform()
         {
             matrix = Matrix4Utils.GetPosition(Vector3.zero);
         }
 
-        public NTransform(Vector3 position, Quaternion rotation)
+        public EntityTransform(Vector3 position, Quaternion rotation)
         {
-            matrix = Matrix4Utils.GetPosition(position);
-            matrix *= Matrix4x4.Rotate(rotation);
+            Matrix4Utils.SetPosition(ref matrix, position);
+            Matrix4Utils.Rotate(ref matrix, rotation);
         }
 
         public void Translate(float x, float y, float z)
@@ -69,46 +99,10 @@
 
         public void Translate(Vector3 direction)
         {
-            matrix *= Matrix4x4.Translate(direction);
+            Translate(direction, Space.Self);
         }
 
-        public Vector3 right
-        {
-            get
-            {
-                return rotation * Vector3.right;
-            }
-            set
-            {
-                rotation = Quaternion.FromToRotation(Vector3.right, value);
-            }
-        }
-
-        public Vector3 up
-        {
-            get
-            {
-                return rotation * Vector3.up;
-            }
-            set
-            {
-                rotation = Quaternion.FromToRotation(Vector3.up, value);
-            }
-        }
-
-        public Vector3 forward
-        {
-            get
-            {
-                return rotation * Vector3.forward;
-            }
-            set
-            {
-                rotation = Quaternion.LookRotation(value, Vector3.up);
-            }
-        }
-
-        public void Translate(Vector3 translation, [DefaultValue("Space.Self")] Space relativeTo)
+        public void Translate(Vector3 translation, Space relativeTo)
         {
             if (relativeTo == Space.World)
             {
@@ -120,9 +114,9 @@
             }
         }
 
-        public void Rotate(Vector3 eulers, [DefaultValue("Space.Self")] Space relativeTo)
+        public void Rotate(Vector3 eulers, Space relativeTo)
         {
-            Quaternion rhs = Quaternion.Euler(eulers.x, eulers.y, eulers.z);
+            var rhs = Quaternion.Euler(eulers.x, eulers.y, eulers.z);
             if (relativeTo == Space.Self)
             {
                 matrix *= Matrix4x4.Rotate(rhs);
@@ -138,7 +132,7 @@
             Rotate(eulers, Space.Self);
         }
 
-        public void Rotate(float xAngle, float yAngle, float zAngle, [DefaultValue("Space.Self")] Space relativeTo)
+        public void Rotate(float xAngle, float yAngle, float zAngle, Space relativeTo)
         {
             Rotate(new Vector3(xAngle, yAngle, zAngle), relativeTo);
         }
@@ -148,10 +142,22 @@
             Rotate(new Vector3(xAngle, yAngle, zAngle), Space.Self);
         }
 
-        public void LookAt(Vector3 position)
+        public void LookAt(Vector3 worldPosition)
         {
-            var normalized = (position - this.position).normalized;
-            forward = normalized;
+            LookAt(worldPosition, Vector3.up);
         }
+
+        public void LookAt(Vector3 worldPosition, Vector3 worldUp)
+        {
+            rotation = Quaternion.LookRotation(position, worldPosition, worldUp);
+        }
+    }
+
+    [Serializable]
+    public class NTransform : EntityTransform 
+    {
+        public NTransform() : base() { }
+
+        public NTransform(Vector3 position, Quaternion rotation) : base(position, rotation) { }
     }
 }
