@@ -80,6 +80,7 @@
     <Compile Include="Assets\Plugins\GameDesigner\Common\Command.cs" />
     <Compile Include="Assets\Standard Assets\ImageEffects\Scripts\Bloom.cs" />
     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\ColorCorrectionEffect.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\Common\Singleton.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\StateMachine\TransitionModel.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Component\Core\NetworkSceneManager.cs" />
     <Compile Include="Assets\Standard Assets\Water (Pro Only)\Sources\Scripts\Water.cs" />
@@ -129,7 +130,6 @@
     <Compile Include="Assets\Plugins\GameDesigner\StateMachine\StateManager.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\ECS\Component.cs" />
     <Compile Include="Assets\Standard Assets\ImageEffects\Scripts\ContrastEnhance.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\AOI\GridData.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Component\Core\NetworkTransformBase.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\StateMachine\BehaviourBase.cs" />
     <Compile Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Scripts\Displace.cs" />

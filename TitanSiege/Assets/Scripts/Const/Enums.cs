@@ -18,12 +18,13 @@ namespace GF.Const {
     /// </summary>
     public enum SkillEventType { 
         none=0,
-        playaudio,
-        showeff,
-        hiddeneff,
-        attack,
-        weiyi,//此处的位移事件并不是技能第一次位移，而是针对二段冲锋这种多次位移的情况
-        shake,//屏幕震动
+        playaudio=1,
+        showeff=2,
+        hiddeneff=3,
+        attack=4,
+        weiyi=5,//此处的位移事件并不是技能第一次位移，而是针对二段冲锋这种多次位移的情况
+        shake=6,//屏幕震动
+        stopweiyi=7,//停止技能移动，一般用于提前停止
     }
     /// <summary>
     /// 关系枚举

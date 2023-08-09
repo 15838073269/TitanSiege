@@ -134,7 +134,7 @@ public class MyAcitonCore : ActionBehaviour {
                                             if (go != null) go.SetActive(false);
                                         });
                                     }
-                                } else {
+                                } else if (activeMode == ActiveMode.Active) {
                                     effectSpwan.gameObject.SetActive(true);
                                     SetPosition(stateManager, effectSpwan.gameObject);
                                 }
@@ -180,8 +180,8 @@ public class MyAcitonCore : ActionBehaviour {
                 go.transform.SetParent(null);
                 break;
             case SpwanMode.ActiveLocalPosition:
-                go.transform.localPosition = effectPostion;
-                go.transform.localEulerAngles = effectEulerAngles;
+                //go.transform.localPosition = effectPostion;
+                //go.transform.localEulerAngles = effectEulerAngles;
                 break;
         }
     }

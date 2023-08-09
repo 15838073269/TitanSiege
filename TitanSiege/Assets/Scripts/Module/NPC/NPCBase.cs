@@ -42,7 +42,6 @@ namespace GF.MainGame.Module.NPC {
         public GameObject m_Selected;//角色脚下的选中目标
         private NPCBase m_AttackTarget = null;//攻击的目标
 
-
         public bool isPlaySkill = false;//是否正在播放技能
         public NPCBase AttackTarget {
             set {

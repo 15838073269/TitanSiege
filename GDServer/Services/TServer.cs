@@ -107,11 +107,6 @@ namespace GDServer.Services
         protected override void OnStartupCompleted() {
             base.OnStartupCompleted();
             RemoveScene(MainSceneName, false);
-            //#if !UNITY_EDITOR
-            //            var path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\";
-            //#else
-            //            var path = UnityEngine.Application.dataPath+"\\SceneData\\";
-            //#endif
             var path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\";
             Debuger.Log(path);
             var files = Directory.GetFiles(path, "*.mapData");
