@@ -122,7 +122,7 @@ namespace GF.MainGame.Module {
                 } else {
                     Dictionary<int, Monster> monsters = c.m_MonsterDics;
                     if (monsters != null && monsters.Count > 0) {//场景内有怪物再计算伤害
-                        //提前预算一下，距离玩家15以外的怪物就不再计算了，节省性能，15是本项目最大技能范围，一般技能范围不会超过15
+                        //提前预算一下
                         List<CountSkillArg> tempmonstersarg = new List<CountSkillArg>();
                         foreach (KeyValuePair<int, Monster> m in monsters) {
                             float dis = Vector3.Distance(m.Value.transform.position, npc.transform.position);
@@ -170,8 +170,8 @@ namespace GF.MainGame.Module {
         /// <param name="npc"></param>
         /// <param name="monstersarg"></param>
         private void CountData(SkillDataBase sb, Player npc, List<CountSkillArg> monstersarg, bool usecollider = false) { //实际计算的方法
-            int damage = 0;
             for (int j = 0; j < monstersarg.Count; j++) {
+                int damage = 0;
                 DamageArg damagearg = new DamageArg();
                 if (usecollider) {
                     damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, npc, monstersarg[j].monster, out damagearg.damagetype);
@@ -180,6 +180,7 @@ namespace GF.MainGame.Module {
                     if (damage != 0) {
                         //切换怪物受击状态
                         // AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, monstersarg[j].monster, AniState.hurt);
+                        monstersarg[j].monster.transform.position += (npc.transform.forward * 0.318f);//朝玩家攻击方向的后退一点，模拟击退效果
                         Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}对{monstersarg[j].monster.Data.Name}{monstersarg[j].monster.m_GDID}造成了{damage}点伤害");
                     } else {
                         Debuger.Log($"{monstersarg[j].monster.Data.Name}闪避了{UserService.GetInstance.m_CurrentChar.Name}的攻击");
@@ -187,13 +188,14 @@ namespace GF.MainGame.Module {
                 } else {
                     //计算是否在技能的攻击角度内,距离小于1.5，就默认能打到，不用计算角度了，离得太近
                     float angle = GetAngle(npc.transform, monstersarg[j].monster.transform);
-                    if (monstersarg[j].dis <= AppConfig.AttackRange && InAngle(angle, sb.angle)) { //空留给角度计算
+                    if (monstersarg[j].dis <= AppConfig.AttackRange || InAngle(angle, sb.angle)) { //空留给角度计算
                         damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, npc, monstersarg[j].monster, out damagearg.damagetype);
                         damagearg.damage = damage;
                         damagearg.npc = monstersarg[j].monster;
                         if (damage != 0) {
                             //切换怪物受击状态
                             // AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, monstersarg[j].monster, AniState.hurt);
+                            monstersarg[j].monster.transform.position += (npc.transform.forward * 0.318f);//朝玩家攻击方向的后退一点，模拟击退效果
                             Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}对{monstersarg[j].monster.Data.Name}{monstersarg[j].monster.m_GDID}造成了{damage}点伤害");
                         } else {
                             Debuger.Log($"{monstersarg[j].monster.Data.Name}闪避了{UserService.GetInstance.m_CurrentChar.Name}的攻击");
@@ -247,7 +249,7 @@ namespace GF.MainGame.Module {
             DamageArg damagearg = new DamageArg();
             //计算是否在技能的攻击角度内,距离小于1.5，就默认能打到，不用计算角度了，离得太近
             float angle = GetAngle(m.transform, p.transform);
-            if (dis <= AppConfig.AttackRange && InAngle(angle, sb.angle)) { //空留给角度计算
+            if (dis <= AppConfig.AttackRange || InAngle(angle, sb.angle)) { //空留给角度计算
                 damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, m, p, out damagearg.damagetype);
                 damagearg.damage = damage;
                 damagearg.npc = p;

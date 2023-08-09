@@ -78,6 +78,7 @@ namespace GF.MainGame.Module {
         /// <param name="arg"></param>
         public void ShowDamgeTxt(DamageArg arg) {
             DamageUIWidget hpui = null;
+            Debuger.Log(arg.npc);
             m_HPDic.TryGetValue(arg.npc, out hpui);
             if (hpui != null) {
                 hpui.SetAndShowDamgeTxt(arg.damage, arg.damagetype);

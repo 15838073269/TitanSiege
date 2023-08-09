@@ -1,11 +1,7 @@
 ﻿
 using Net.Server;
 using Net.Share;
-using System.Data;
 using Net.System;
-using System.Linq;
-using System;
-using System.Numerics;
 using Net.Event;
 using Titansiege;
 using Net.MMORPG;
@@ -17,8 +13,6 @@ namespace GDServer.Services
 {
     public class TServer : TcpServer<GDClient, GDScene>//服务器类
     {
-
-        
         /// <summary>
         /// 当开始服务器的时候
         /// </summary>

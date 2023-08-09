@@ -3,7 +3,7 @@
 	作者：昔莘
     邮箱: 304183153@qq.com
     日期：2021/11/29 15:36:19
-	功能：Nothing
+	功能：玩家技能处理脚本，继承个人魔改GDNET的AcitonCore
 *****************************************************/
 using GF.ConfigTable;
 using GF.Const;
@@ -151,7 +151,8 @@ public class PSkillAction : MyAcitonCore {
                         default: break;
                     }
                 } else { //不使用碰撞
-                    AppTools.Send((int)SkillEvent.CountSkillHurt, m_SData, m_Self);//发送消息让技能模块计算伤害
+                   
+                    AppTools.Send<SkillDataBase, NPCBase,List<NPCBase>>((int)SkillEvent.CountSkillHurt, m_SData, m_Self,null);//发送消息让技能模块计算伤害
                 }
                 break;
             case SkillEventType.weiyi:
