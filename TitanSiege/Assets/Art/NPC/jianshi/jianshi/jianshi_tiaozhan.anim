@@ -46453,25 +46453,4 @@ AnimationClip:
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.7056106
-    functionName: CountHurt
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.7138614
-    functionName: Shake
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0.8
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.7267327
-    functionName: StopMove
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

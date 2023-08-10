@@ -40,7 +40,7 @@ namespace GDServer.Services
                 case "Register":
                     if (model.pars.Count() != 3 || model.pars[0] == null || model.pars[1] == null || model.pars[2] == null)
                     {//参数不足，就直接返回false,禁止登录
-                        NDebug.Log("注册参数不足！");
+                        Debuger.Log("注册参数不足！");
                         break;
                     }
                     UserService.GetInstance.Register(unClient, model.pars[0].ToString(), model.pars[1].ToString(), model.pars[2].ToString());

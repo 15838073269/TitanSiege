@@ -43,6 +43,7 @@ namespace GF.MainGame.Module.NPC {
         private NPCBase m_AttackTarget = null;//攻击的目标
 
         public bool isPlaySkill = false;//是否正在播放技能
+        public Transform m_SkilleffectParent;//角色技能特效的父物体，所有技能特效都在这个物体下，需要丢出的技能特效重置回来时也需要用它
         public NPCBase AttackTarget {
             set {
                 m_AttackTarget = value;
@@ -97,6 +98,9 @@ namespace GF.MainGame.Module.NPC {
             m_Character = GetComponent<CharacterController>();
             m_State = GetComponent<StateManager>();
             m_AllStateID = new Dictionary<string, int>();
+            if (m_SkilleffectParent==null) {
+                m_SkilleffectParent = transform.Find("skilleffect");
+            }
             //获取所有状态标志，方便切换状态使用
             if (m_State!=null) {
                 for (int i = 0; i < m_State.stateMachine.states.Count; i++) {

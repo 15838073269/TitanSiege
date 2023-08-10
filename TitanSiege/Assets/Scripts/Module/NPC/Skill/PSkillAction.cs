@@ -52,7 +52,7 @@ public class PSkillAction : MyAcitonCore {
                 }
                 animEventList.Add(e);
             }
-        } 
+        }
         //冲锋技能特殊处理，寻找附近最近的怪物
         if (m_WeiyiArg != null && m_WeiyiDis != 0) {
             if (m_Self.AttackTarget == null) { //如果玩家没有冲锋对象，就寻找最近的怪物目标
@@ -97,7 +97,7 @@ public class PSkillAction : MyAcitonCore {
                     //理论上，这个射线本质上永远能碰撞到怪物，因为最起码能碰撞到原有的目标怪物，所以不用else
                 }
             }
-        }
+        } 
 
     }
     /// <summary>
@@ -155,11 +155,10 @@ public class PSkillAction : MyAcitonCore {
                     AppTools.Send<SkillDataBase, NPCBase,List<NPCBase>>((int)SkillEvent.CountSkillHurt, m_SData, m_Self,null);//发送消息让技能模块计算伤害
                 }
                 break;
-            case SkillEventType.weiyi:
-                float sec = m_Self.GetAnimatorSeconds(m_Self.m_Nab.m_ani, m_SData.texiao);
-                m_Self.isPlaySkill = true;
+            case SkillEventType.weiyi://位移的值只要不为0，就会移动，为0就是禁止移动，如果没有写这一条，那技能就是允许施法时移动
+                m_Self.isPlaySkill = true;//通知开始播放技能，其实就是禁止移动，所以如果没有设置这个事件，就不会禁止移动
                 if (m_Self.m_GDID == ClientBase.Instance.UID) {//如果不是网络对象，就自行控制特效移动
-                    if (eventarg.eventeff > 0) {//速度只要不为0，就会移动
+                    if (eventarg.eventeff > 0) {//速度只要不为0，就会移动，为0就是禁止移动
                         float tempdis = 0;
                         if (m_WeiyiDis != 0f && m_WeiyiMonster != null && m_WeiyiDis <= eventarg.eventeff) {//判断一下是否有目标怪物，如果有，就只移动到怪物处
                             if (m_WeiyiDis < AppConfig.AttackRange) { //如果小于攻击范围，就不用位移了
@@ -170,6 +169,7 @@ public class PSkillAction : MyAcitonCore {
                         } else {
                             tempdis = eventarg.eventeff;
                         }
+                        float sec = m_Self.GetAnimatorSeconds(m_Self.m_Nab.m_ani, m_SData.texiao);
                         float t = tempdis / sec;
                         AppTools.Send<float, bool>((int)MoveEvent.SetSkillMove, t, true);
                     } else { //速度如果为0，就是发送不能移动的命令
@@ -178,6 +178,7 @@ public class PSkillAction : MyAcitonCore {
                 }
                 break;
             case SkillEventType.stopweiyi://停止技能移动，一般用于提前停止
+                m_Self.isPlaySkill = false;
                 AppTools.Send<float, bool>((int)MoveEvent.SetSkillMove, 0f, false);
                 break;
             default:
@@ -187,14 +188,19 @@ public class PSkillAction : MyAcitonCore {
     }
     public override void OnExit(StateAction action) {
         base.OnExit(action);
+        if (spwanmode == SpwanMode.SetParent) {
+            effectSpwan.transform.SetParent(m_Self.m_SkilleffectParent);
+        }
         if (activeMode == ActiveMode.Active) {//如果是隐藏显示模式的，就手动隐藏一下，其他模式不需要，因为有计时器销毁
             effectSpwan.gameObject.SetActive(false);
         }
-        m_Self.isPlaySkill = false;
         m_WeiyiMonster = null;
         //m_WeiyiDis = 0f;
         //m_WeiyiArg = null;
         m_Self.m_CurrentSkillId = -1;
-        AppTools.Send<float, bool>((int)MoveEvent.SetSkillMove, 0f, false);
+        if (m_Self.isPlaySkill ==true) {//可能提前停止技能控制，所以这里判断一下
+            m_Self.isPlaySkill = false;
+            AppTools.Send<float, bool>((int)MoveEvent.SetSkillMove, 0f, false);
+        }
     }
 }

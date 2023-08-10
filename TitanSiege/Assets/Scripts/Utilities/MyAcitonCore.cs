@@ -73,6 +73,9 @@ public class MyAcitonCore : ActionBehaviour {
     public int audioIndex = 0;
 
     public override void OnEnter(StateAction action) {
+        if (parent == null) {
+            parent = AppMain.GetInstance.SceneTransform;    
+        }
         if (effectSpwan!=null) {
             spwanTime = effectSpwan.m_Particle.main.duration;
         }
