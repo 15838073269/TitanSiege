@@ -177,11 +177,12 @@ MonoBehaviour:
   debugRpc: 1
   authorize: 0
   startConnect: 1
-  md5CRC: 0
+  singleThread: 0
   reconnectCount: 10
   reconnectInterval: 2000
   heartLimit: 5
   heartInterval: 1000
+  scheme: ws
   dontDestroyOnLoad: 1
 --- !u!1 &1716370124
 GameObject:

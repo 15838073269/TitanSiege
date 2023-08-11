@@ -77,24 +77,32 @@ public class PSkillAction : MyAcitonCore {
                     m_Self.transform.LookAt(m_WeiyiMonster.transform.position);
                 }
             } else {
-                //有攻击对象的话，需要先判断一下位移路径上有没有其他怪物阻挡，如果有，就切换为其他怪物 
-                float dis = Vector3.Distance(m_Self.transform.position, m_Self.AttackTarget.transform.position);
-                RaycastHit hit;
-                //发射一条射线到目标怪物，看看路径上有没有其他怪物,这个射线本质上永远能碰撞到怪物，因为最起码能碰撞到原有的目标怪物,
-                if (Physics.Raycast(m_Self.transform.position, (m_Self.AttackTarget.transform.position - m_Self.transform.position), out hit, dis, LayerMask.GetMask("npc"))) {
-                    Monster m = hit.transform.GetComponent<Monster>();
-                    if (m == null || m == m_Self.AttackTarget) {//如果射线碰撞还是自己，或者碰撞的物体不是怪物，那还是直接赋值
-                        m_WeiyiMonster = m_Self.AttackTarget;
-                        m_WeiyiDis = dis;
-                    } else {//如果射线是别的怪物，那就更换冲锋目标
-                        m_WeiyiMonster = m;
-                        m_WeiyiDis = Vector3.Distance(m.transform.position, m_Self.transform.position);
-                        m_Self.AttackTarget = m;//有冲锋对象，就把攻击目标给玩家
-                        AppTools.Send<NPCBase>((int)NpcEvent.ChangeSelected, m);
+                //有攻击对象的话，就要先判断一下是否是多攻击（range!=0）还是单体攻击(range=0),多攻击就不需要哦按段位移路径有没有阻挡，单体攻击需要先判断一下位移路径上有没有其他怪物阻挡，如果有，就切换为其他怪物 
+                if (m_SData.range == 0) {
+                    float dis = Vector3.Distance(m_Self.transform.position, m_Self.AttackTarget.transform.position);
+                    RaycastHit hit;
+                    //发射一条射线到目标怪物，看看路径上有没有其他怪物,这个射线本质上永远能碰撞到怪物，因为最起码能碰撞到原有的目标怪物,
+                    if (Physics.Raycast(m_Self.transform.position, (m_Self.AttackTarget.transform.position - m_Self.transform.position), out hit, dis, LayerMask.GetMask("npc"))) {
+                        Monster m = hit.transform.GetComponent<Monster>();
+                        if (m == null || m == m_Self.AttackTarget) {//如果射线碰撞还是自己，或者碰撞的物体不是怪物，那还是直接赋值
+                            m_WeiyiMonster = m_Self.AttackTarget;
+                            m_WeiyiDis = dis;
+                        } else {//如果射线是别的怪物，那就更换冲锋目标
+                            m_WeiyiMonster = m;
+                            m_WeiyiDis = Vector3.Distance(m.transform.position, m_Self.transform.position);
+                            m_Self.AttackTarget = m;//有冲锋对象，就把攻击目标给玩家
+                            AppTools.Send<NPCBase>((int)NpcEvent.ChangeSelected, m);
+                        }
+                        Vector3 pos = new Vector3(m_WeiyiMonster.transform.position.x, m_Self.transform.position.y, m_WeiyiMonster.transform.position.z);
+                        m_Self.transform.LookAt(pos);
+                    } else {
+                        //理论上，这个射线本质上永远能碰撞到怪物，因为最起码能碰撞到原有的目标怪物，所以不用else
                     }
-                    m_Self.transform.LookAt(m_WeiyiMonster.transform.position);
                 } else {
-                    //理论上，这个射线本质上永远能碰撞到怪物，因为最起码能碰撞到原有的目标怪物，所以不用else
+                    m_WeiyiMonster = m_Self.AttackTarget;
+                    Vector3 pos = new Vector3(m_WeiyiMonster.transform.position.x, m_Self.transform.position.y, m_WeiyiMonster.transform.position.z);
+                    m_Self.transform.LookAt(pos);
+                    m_WeiyiDis = m_SData.range;
                 }
             }
         } 
@@ -108,35 +116,26 @@ public class PSkillAction : MyAcitonCore {
         switch (eventarg.eventType) {
             case SkillEventType.hiddeneff://隐藏游戏特效，这里主要是需要提前隐藏的情况，正常情况下，游戏特效播放结束后，系统会控制自动隐藏
                 effectSpwan.gameObject.SetActive(false);
-                //EffectArg arg = obj as EffectArg;
-                //if (arg != null) {
-                //    if (arg.CurrentEffect != null) {
-                //        if (!arg.CurrentEffect.m_IsFollow) {
-                //            arg.CurrentEffect.transform.parent = m_EffectFather;
-                //            arg.CurrentEffect.transform.localPosition = arg.LastEffectLocalPos;
-                //            arg.CurrentEffect.transform.localRotation = arg.LastEffectLocalRotate;
-                //        }
-                //        arg.CurrentEffect.gameObject.SetActive(false);
-                //    }
-                //}
                 break;
             case SkillEventType.attack:
                 if (m_SData.usecollider != 0) {//使用碰撞
                     switch ((SkillColliderType)m_SData.usecollider) {
                         case SkillColliderType.box:
-                            if (m_WeiyiArg != null) {//如果是位移技能，且有位移目标
+                            if ((m_WeiyiArg != null) && (m_SData.range == 0)) {//如果是位移技能，且有位移目标,并且是单体攻击
                                 if (m_WeiyiMonster != null) {//如果是位移技能，没有目标就不计算伤害，说明是空放技能
                                     m_WeiyiMonster.transform.position += (m_Self.transform.forward * 0.318f);//朝玩家攻击方向的后退一点，模拟击退效果
                                     AppTools.Send((int)SkillEvent.CountSkillHurtWithOne, m_SData, m_Self, m_WeiyiMonster as Monster);//发送消息让技能模块计算伤害
                                 }
-                            } else {//不是位移技能
-                                    //位移的时候发送一条射线过去，碰到谁，就执行掉血
-                                RaycastHit[] hitarr = Physics.BoxCastAll(m_Self.transform.position, new Vector3(2f, 2f, 2f), m_Self.transform.forward, Quaternion.identity, 5f);
-                                Debuger.Log("hit"+hitarr.Length);
+                            } else {//不是位移技能，或者是位移技能，但是是多体攻击
+                                //触发攻击时候发送一条射线过去，碰到谁，就执行掉血
+                                RaycastHit[] hitarr = Physics.BoxCastAll(m_Self.transform.position, new Vector3(1f, 1f, 1f), m_Self.transform.forward, Quaternion.identity, m_SData.range);
                                 if (hitarr.Length > 0) {
                                     List<NPCBase> mlist = new List<NPCBase>();
-                                    for (int j = 0; j < hitarr.Length; j++) {
-                                        mlist.Add(hitarr[j].transform.GetComponent<Monster>());
+                                    for (int j = 0; j < hitarr.Length; j++) {//判断一下攻击到的是否是怪物
+                                        Monster m = hitarr[j].transform.GetComponent<Monster>();
+                                        if (m!=null) {
+                                            mlist.Add(m);
+                                        }
                                     }
                                     AppTools.Send((int)SkillEvent.CountSkillHurt, m_SData, m_Self, mlist);//发送消息让技能模块计算伤害
                                 }
@@ -177,9 +176,11 @@ public class PSkillAction : MyAcitonCore {
                     }
                 }
                 break;
-            case SkillEventType.stopweiyi://停止技能移动，一般用于提前停止
-                m_Self.isPlaySkill = false;
-                AppTools.Send<float, bool>((int)MoveEvent.SetSkillMove, 0f, false);
+            case SkillEventType.stopweiyi://停止技能移动，一般用于提前停止,主要用于冲锋技能的提前终止，终止后，正常技能还没播放完，所以还是不能移动，所以发送还是不能移动的命令
+                AppTools.Send<float, bool>((int)MoveEvent.SetSkillMove, 0f, true);
+                break;
+            case SkillEventType.addHeight://增加高度，用于跳跃技能
+                m_Self.transform.position += new Vector3(0, eventarg.eventeff, 0);
                 break;
             default:
 
@@ -188,10 +189,7 @@ public class PSkillAction : MyAcitonCore {
     }
     public override void OnExit(StateAction action) {
         base.OnExit(action);
-        if (spwanmode == SpwanMode.SetParent) {
-            effectSpwan.transform.SetParent(m_Self.m_SkilleffectParent);
-        }
-        if (activeMode == ActiveMode.Active) {//如果是隐藏显示模式的，就手动隐藏一下，其他模式不需要，因为有计时器销毁
+        if ((activeMode == ActiveMode.Active)&&(spwanmode!=SpwanMode.SetParent)) {//如果是隐藏显示模式的，就手动隐藏一下，其他模式不需要，因为有计时器销毁
             effectSpwan.gameObject.SetActive(false);
         }
         m_WeiyiMonster = null;

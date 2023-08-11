@@ -256,7 +256,7 @@ namespace GF.MainGame.Module.NPC {
         /// <param name="action"></param>
         public override void OnAnimationEvent(StateAction action) {
             if (!m_Self.m_IsDie) {
-                m_Self.transform.LookAt(m_Self.AttackTarget.transform.position);//攻击前，先转向
+                m_Self.transform.LookAt(new Vector3(m_Self.AttackTarget.transform.position.x, m_Self.transform.position.y, m_Self.AttackTarget.transform.position.z));//攻击前，先转向
                 //gd的状态机已经调用了动作，不用再写攻击部分了
                 AppTools.Send<SkillDataBase, NPCBase>((int)SkillEvent.CountSkillHurt, m_SData, m_Self);
                 

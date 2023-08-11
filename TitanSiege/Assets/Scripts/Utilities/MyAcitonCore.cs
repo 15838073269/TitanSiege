@@ -43,9 +43,9 @@ public class MyAcitonCore : ActionBehaviour {
     /// </summary>
     public SpwanMode spwanmode = SpwanMode.localPosition;
     /// <summary>
-    /// 作为粒子挂载的父对象 或 作为粒子生成在此parent对象的位置
+    /// 作为粒子挂载的父对象 或 作为粒子生成在此parent对象的位置,这里的父对象是默认的粒子的父对象，在本游戏就是角色下skilleffect物体
     /// </summary>
-    public Transform parent = null;
+    public Transform effectparent = null;
     /// <summary>
     /// 粒子出生位置
     /// </summary>
@@ -53,7 +53,7 @@ public class MyAcitonCore : ActionBehaviour {
     /// <summary>
     /// 粒子角度
     /// </summary>
-    public Vector3 effectEulerAngles;
+    public Quaternion effectRotation;
     /// <summary>
     /// 是否播放音效
     /// </summary>
@@ -73,8 +73,8 @@ public class MyAcitonCore : ActionBehaviour {
     public int audioIndex = 0;
 
     public override void OnEnter(StateAction action) {
-        if (parent == null) {
-            parent = AppMain.GetInstance.SceneTransform;    
+        if (effectparent == null) {
+            effectparent = transform.Find("skilleffect");    
         }
         if (effectSpwan!=null) {
             spwanTime = effectSpwan.m_Particle.main.duration;
@@ -139,7 +139,20 @@ public class MyAcitonCore : ActionBehaviour {
                                     }
                                 } else if (activeMode == ActiveMode.Active) {
                                     effectSpwan.gameObject.SetActive(true);
+                                    if (spwanmode == SpwanMode.SetParent) {//先把位置记录一下
+                                        effectPostion = effectSpwan.transform.localPosition;
+                                        effectRotation = effectSpwan.transform.localRotation;
+                                    }
                                     SetPosition(stateManager, effectSpwan.gameObject);
+                                    if (spwanmode == SpwanMode.SetParent) {
+                                        GameDesigner.StateEvent.AddEvent(spwanTime, () =>
+                                        {
+                                            if (effectSpwan != null) effectSpwan.gameObject.SetActive(false);
+                                            effectSpwan.transform.SetParent(effectparent);
+                                            effectSpwan.transform.localPosition = effectPostion;
+                                            effectSpwan.transform.localRotation = effectRotation;
+                                        });
+                                    }
                                 }
                             }
                             break;
@@ -167,19 +180,19 @@ public class MyAcitonCore : ActionBehaviour {
         switch (spwanmode) {
             case SpwanMode.localPosition:
                 go.transform.localPosition = stateManager.transform.TransformPoint(effectPostion);
-                go.transform.eulerAngles = stateManager.transform.eulerAngles + effectEulerAngles;
+                //go.transform.eulerAngles = stateManager.transform.eulerAngles + effectRotation;
                 break;
             case SpwanMode.SetParent:
-                parent = parent ? parent : stateManager.transform;
-                go.transform.SetParent(parent);
-                go.transform.position = parent.TransformPoint(effectPostion);
-                go.transform.eulerAngles = parent.eulerAngles + effectEulerAngles;
+                //parent = parent ? parent : stateManager.transform;
+                go.transform.SetParent(AppMain.GetInstance.SceneTransform);
+                //go.transform.position = parent.TransformPoint(effectPostion);
+                //go.transform.eulerAngles = parent.eulerAngles + effectEulerAngles;
                 break;
             case SpwanMode.SetInTargetPosition:
-                parent = parent ? parent : stateManager.transform;
-                go.transform.SetParent(parent);
-                go.transform.position = parent.TransformPoint(effectPostion);
-                go.transform.eulerAngles = parent.eulerAngles + effectEulerAngles;
+                //effectSpwan_parent = effectSpwan_parent ? effectSpwan_parent : stateManager.transform;
+                go.transform.SetParent(effectparent);
+                go.transform.position = effectparent.TransformPoint(effectPostion);
+                //go.transform.eulerAngles = effectparent.eulerAngles + effectRotation;
                 go.transform.SetParent(null);
                 break;
             case SpwanMode.ActiveLocalPosition:

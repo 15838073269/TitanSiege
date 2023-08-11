@@ -102,8 +102,7 @@ namespace GF.MainGame.Module {
         /// </summary>
         public void CountSkillHurt(SkillDataBase sb, NPCBase npc,List<NPCBase> mlist = null) {
             if (npc.m_NpcType == NpcType.player) {//玩家攻击怪物的情况
-                ClientSceneManager c = ClientSceneManager.I as ClientSceneManager;
-                if (mlist != null) {
+                if (mlist != null) {//说明使用了碰撞判定，那就直接处理怪物即可
                     List<CountSkillArg> tempmonstersarg = new List<CountSkillArg>();
                     for (int i = 0; i < mlist.Count; i++) {
                         float dis = Vector3.Distance(mlist[i].transform.position, npc.transform.position);
@@ -120,6 +119,7 @@ namespace GF.MainGame.Module {
                         Debuger.Log("本次技能没有打到任何怪物");
                     }
                 } else {
+                    ClientSceneManager c = ClientSceneManager.I as ClientSceneManager;
                     Dictionary<int, Monster> monsters = c.m_MonsterDics;
                     if (monsters != null && monsters.Count > 0) {//场景内有怪物再计算伤害
                         //提前预算一下
