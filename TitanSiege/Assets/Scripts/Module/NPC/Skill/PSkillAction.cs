@@ -86,23 +86,24 @@ public class PSkillAction : MyAcitonCore {
                         Monster m = hit.transform.GetComponent<Monster>();
                         if (m == null || m == m_Self.AttackTarget) {//如果射线碰撞还是自己，或者碰撞的物体不是怪物，那还是直接赋值
                             m_WeiyiMonster = m_Self.AttackTarget;
-                            m_WeiyiDis = dis;
+                            m_WeiyiDis = dis>m_WeiyiDis? m_WeiyiDis:dis;
                         } else {//如果射线是别的怪物，那就更换冲锋目标
                             m_WeiyiMonster = m;
-                            m_WeiyiDis = Vector3.Distance(m.transform.position, m_Self.transform.position);
+                            float dis1 = Vector3.Distance(m.transform.position, m_Self.transform.position);
+                            m_WeiyiDis = dis1 > m_WeiyiDis ? m_WeiyiDis : dis1;
                             m_Self.AttackTarget = m;//有冲锋对象，就把攻击目标给玩家
                             AppTools.Send<NPCBase>((int)NpcEvent.ChangeSelected, m);
                         }
                         Vector3 pos = new Vector3(m_WeiyiMonster.transform.position.x, m_Self.transform.position.y, m_WeiyiMonster.transform.position.z);
                         m_Self.transform.LookAt(pos);
                     } else {
+                        Debuger.Log("false hit");
                         //理论上，这个射线本质上永远能碰撞到怪物，因为最起码能碰撞到原有的目标怪物，所以不用else
                     }
                 } else {
                     m_WeiyiMonster = m_Self.AttackTarget;
                     Vector3 pos = new Vector3(m_WeiyiMonster.transform.position.x, m_Self.transform.position.y, m_WeiyiMonster.transform.position.z);
                     m_Self.transform.LookAt(pos);
-                    m_WeiyiDis = m_SData.range;
                 }
             }
         } 
@@ -124,20 +125,26 @@ public class PSkillAction : MyAcitonCore {
                             if ((m_WeiyiArg != null) && (m_SData.range == 0)) {//如果是位移技能，且有位移目标,并且是单体攻击
                                 if (m_WeiyiMonster != null) {//如果是位移技能，没有目标就不计算伤害，说明是空放技能
                                     m_WeiyiMonster.transform.position += (m_Self.transform.forward * 0.318f);//朝玩家攻击方向的后退一点，模拟击退效果
-                                    AppTools.Send((int)SkillEvent.CountSkillHurtWithOne, m_SData, m_Self, m_WeiyiMonster as Monster);//发送消息让技能模块计算伤害
+                                    AppTools.Send<SkillDataBase, NPCBase,Monster>((int)SkillEvent.CountSkillHurtWithOne, m_SData, m_Self, m_WeiyiMonster as Monster);//发送消息让技能模块计算伤害
                                 }
                             } else {//不是位移技能，或者是位移技能，但是是多体攻击
                                 //触发攻击时候发送一条射线过去，碰到谁，就执行掉血
-                                RaycastHit[] hitarr = Physics.BoxCastAll(m_Self.transform.position, new Vector3(1f, 1f, 1f), m_Self.transform.forward, Quaternion.identity, m_SData.range);
-                                if (hitarr.Length > 0) {
+                                Collider[] hitarr = new Collider[8];
+                                int hitnum = Physics.OverlapBoxNonAlloc(m_Self.transform.position, new Vector3(1f, 1f, m_SData.range), hitarr, m_Self.transform.rotation, LayerMask.GetMask("npc"));
+                                if (hitnum > 0) {
                                     List<NPCBase> mlist = new List<NPCBase>();
-                                    for (int j = 0; j < hitarr.Length; j++) {//判断一下攻击到的是否是怪物
+                                    for (int j = 0; j  < hitnum; j++) {//判断一下攻击到的是否是怪物
+                                        if (hitarr[j].name == m_Self.name) {
+                                            continue;
+                                        }
                                         Monster m = hitarr[j].transform.GetComponent<Monster>();
-                                        if (m!=null) {
+                                        if (m != null) {
                                             mlist.Add(m);
                                         }
                                     }
-                                    AppTools.Send((int)SkillEvent.CountSkillHurt, m_SData, m_Self, mlist);//发送消息让技能模块计算伤害
+                                    if (mlist.Count>0) {
+                                        AppTools.Send<SkillDataBase, NPCBase, List<NPCBase>>((int)SkillEvent.CountSkillHurt, m_SData, m_Self, mlist);//发送消息让技能模块计算伤害
+                                    }
                                 }
                             }
                             break;
@@ -150,7 +157,6 @@ public class PSkillAction : MyAcitonCore {
                         default: break;
                     }
                 } else { //不使用碰撞
-                   
                     AppTools.Send<SkillDataBase, NPCBase,List<NPCBase>>((int)SkillEvent.CountSkillHurt, m_SData, m_Self,null);//发送消息让技能模块计算伤害
                 }
                 break;
@@ -179,7 +185,7 @@ public class PSkillAction : MyAcitonCore {
             case SkillEventType.stopweiyi://停止技能移动，一般用于提前停止,主要用于冲锋技能的提前终止，终止后，正常技能还没播放完，所以还是不能移动，所以发送还是不能移动的命令
                 AppTools.Send<float, bool>((int)MoveEvent.SetSkillMove, 0f, true);
                 break;
-            case SkillEventType.addHeight://增加高度，用于跳跃技能
+            case SkillEventType.addheight://增加高度，用于跳跃技能
                 m_Self.transform.position += new Vector3(0, eventarg.eventeff, 0);
                 break;
             default:

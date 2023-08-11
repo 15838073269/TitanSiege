@@ -107,7 +107,7 @@ namespace GF.MainGame.Module {
                     for (int i = 0; i < mlist.Count; i++) {
                         float dis = Vector3.Distance(mlist[i].transform.position, npc.transform.position);
                         Debuger.Log(dis + ":" + mlist[i].m_GDID);
-                        if (dis <= sb.range && !mlist[i].m_IsDie) {
+                        if (!mlist[i].m_IsDie) {
                             CountSkillArg temp = new CountSkillArg(mlist[i] as Monster, dis);
                             tempmonstersarg.Add(temp);
                         }
