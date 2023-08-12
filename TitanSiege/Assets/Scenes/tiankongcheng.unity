@@ -8350,7 +8350,7 @@ Transform:
   m_GameObject: {fileID: 672652072}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2019454434}
@@ -26255,6 +26255,7 @@ MonoBehaviour:
   - {fileID: 266317919319279106, guid: ae17654fa4a4e3d47911d9d6d62066cd, type: 3}
   - {fileID: 6915668610306464295, guid: 70c432ab727a7df4f91e5ae82d5a1910, type: 3}
   onExitDelectAll: 1
+  m_MonsterPrefabList: []
 --- !u!23 &1850715380
 MeshRenderer:
   m_ObjectHideFlags: 0

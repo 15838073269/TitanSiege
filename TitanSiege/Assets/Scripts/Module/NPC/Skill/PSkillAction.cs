@@ -16,12 +16,13 @@ using Net.Client;
 using System.Collections.Generic;
 using UnityEngine;
 using GameDesigner;
+using System.Drawing.Imaging;
 
 public class PSkillAction : MyAcitonCore {
     private Player m_Self;
     private SkillDataBase m_SData = null;
     private NPCBase m_WeiyiMonster = null;//位移技能的目标怪物
-    private float m_WeiyiDis = 0f;//位移的距离
+    private float m_WeiyiDis = 0f;//位移的距离-
     private EventArg m_WeiyiArg = null;//位移技能的参数
     public override void OnInit() {
         m_Self = transform.GetComponent<Player>();
@@ -34,11 +35,11 @@ public class PSkillAction : MyAcitonCore {
         if (m_Self.m_CurrentSkillId == -1) {//如果没有技能id，就直接返回
             m_Self.m_State.StatusEntry(m_Self.m_AllStateID["fightidle"]);
         }
+        
         if (m_SData == null || (m_SData.id != m_Self.m_CurrentSkillId)) {//减少重复获取数据
             m_SData = ConfigerManager.m_SkillData.FindNPCByID(m_Self.m_CurrentSkillId);
             animEventList.Clear();//因为减少数据获取，所以事件的清理要放在这里
             m_WeiyiArg = null;
-            m_WeiyiDis = 0f;
             // 初始化技能配置表中的事件
             for (int i = 0; i < m_SData.skilleventlist.Count; i++) {
                 EventArg e = new EventArg();
@@ -52,6 +53,9 @@ public class PSkillAction : MyAcitonCore {
                 }
                 animEventList.Add(e);
             }
+        }
+        if (m_WeiyiArg != null) {
+            m_WeiyiDis = m_WeiyiArg.eventeff;//位移数据每次重置，因为重复技能释放时，技能数据不会重置，所以要记录一下最初的eventeff（位移距离），m_WeiyiDis是每次改变的，不能作为位移最初数据
         }
         //冲锋技能特殊处理，寻找附近最近的怪物
         if (m_WeiyiArg != null && m_WeiyiDis != 0) {
@@ -97,11 +101,16 @@ public class PSkillAction : MyAcitonCore {
                         Vector3 pos = new Vector3(m_WeiyiMonster.transform.position.x, m_Self.transform.position.y, m_WeiyiMonster.transform.position.z);
                         m_Self.transform.LookAt(pos);
                     } else {
-                        Debuger.Log("false hit");
                         //理论上，这个射线本质上永远能碰撞到怪物，因为最起码能碰撞到原有的目标怪物，所以不用else
+                        //这个理论错误，还是有概率碰不到任何东西的
+                        m_WeiyiMonster = m_Self.AttackTarget;
+                        Vector3 pos = new Vector3(m_WeiyiMonster.transform.position.x, m_Self.transform.position.y, m_WeiyiMonster.transform.position.z);
+                        m_Self.transform.LookAt(pos);
                     }
                 } else {
                     m_WeiyiMonster = m_Self.AttackTarget;
+                    //float dis= Vector3.Distance(m_WeiyiMonster.transform.position, m_Self.transform.position);//限制距离会产生bug，这个bug是由碰撞产生的，不想再费心思了，就改一下技能机制不会被限制距离吧
+                    //m_WeiyiDis = dis > m_WeiyiDis ? m_WeiyiDis : dis;
                     Vector3 pos = new Vector3(m_WeiyiMonster.transform.position.x, m_Self.transform.position.y, m_WeiyiMonster.transform.position.z);
                     m_Self.transform.LookAt(pos);
                 }
@@ -125,12 +134,13 @@ public class PSkillAction : MyAcitonCore {
                             if ((m_WeiyiArg != null) && (m_SData.range == 0)) {//如果是位移技能，且有位移目标,并且是单体攻击
                                 if (m_WeiyiMonster != null) {//如果是位移技能，没有目标就不计算伤害，说明是空放技能
                                     m_WeiyiMonster.transform.position += (m_Self.transform.forward * 0.318f);//朝玩家攻击方向的后退一点，模拟击退效果
-                                    AppTools.Send<SkillDataBase, NPCBase,Monster>((int)SkillEvent.CountSkillHurtWithOne, m_SData, m_Self, m_WeiyiMonster as Monster);//发送消息让技能模块计算伤害
+                                    AppTools.Send<SkillDataBase,Player,Monster>((int)SkillEvent.CountSkillHurtWithOne, m_SData, m_Self, m_WeiyiMonster as Monster);//发送消息让技能模块计算伤害,不知道为什么这里写上泛型会发布出去消息，有时候不写泛型发不出消息，很奇怪
                                 }
                             } else {//不是位移技能，或者是位移技能，但是是多体攻击
                                 //触发攻击时候发送一条射线过去，碰到谁，就执行掉血
-                                Collider[] hitarr = new Collider[8];
-                                int hitnum = Physics.OverlapBoxNonAlloc(m_Self.transform.position, new Vector3(1f, 1f, m_SData.range), hitarr, m_Self.transform.rotation, LayerMask.GetMask("npc"));
+                                Collider[] hitarr = new Collider[6];
+                                Vector3 center = new Vector3(m_Self.transform.position.x, m_Self.transform.position.y, m_Self.transform.position.z + (m_SData.range / 2));
+                                int hitnum = Physics.OverlapBoxNonAlloc(center, new Vector3(1f, 1f, m_SData.range), hitarr, m_Self.transform.rotation, LayerMask.GetMask("npc"));
                                 if (hitnum > 0) {
                                     List<NPCBase> mlist = new List<NPCBase>();
                                     for (int j = 0; j  < hitnum; j++) {//判断一下攻击到的是否是怪物
@@ -143,7 +153,7 @@ public class PSkillAction : MyAcitonCore {
                                         }
                                     }
                                     if (mlist.Count>0) {
-                                        AppTools.Send<SkillDataBase, NPCBase, List<NPCBase>>((int)SkillEvent.CountSkillHurt, m_SData, m_Self, mlist);//发送消息让技能模块计算伤害
+                                        AppTools.Send<SkillDataBase, NPCBase, List<NPCBase>>((int)SkillEvent.CountSkillHurt, m_SData, m_Self, mlist);//发送消息让技能模块计算伤害，不知道为什么这里不写上泛型会发布出去消息，
                                     }
                                 }
                             }
@@ -165,17 +175,18 @@ public class PSkillAction : MyAcitonCore {
                 if (m_Self.m_GDID == ClientBase.Instance.UID) {//如果不是网络对象，就自行控制特效移动
                     if (eventarg.eventeff > 0) {//速度只要不为0，就会移动，为0就是禁止移动
                         float tempdis = 0;
-                        if (m_WeiyiDis != 0f && m_WeiyiMonster != null && m_WeiyiDis <= eventarg.eventeff) {//判断一下是否有目标怪物，如果有，就只移动到怪物处
+                        if (m_SData.range == 0) {
                             if (m_WeiyiDis < AppConfig.AttackRange) { //如果小于攻击范围，就不用位移了
                                 tempdis = 0f;
                             } else {
                                 tempdis = m_WeiyiDis;
                             }
                         } else {
-                            tempdis = eventarg.eventeff;
+                            tempdis = m_WeiyiDis;
                         }
                         float sec = m_Self.GetAnimatorSeconds(m_Self.m_Nab.m_ani, m_SData.texiao);
                         float t = tempdis / sec;
+                        Debuger.Log(t);
                         AppTools.Send<float, bool>((int)MoveEvent.SetSkillMove, t, true);
                     } else { //速度如果为0，就是发送不能移动的命令
                         AppTools.Send<float, bool>((int)MoveEvent.SetSkillMove, 0f, true);
