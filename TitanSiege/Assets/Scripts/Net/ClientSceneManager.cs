@@ -54,7 +54,8 @@ namespace GF.NetWork {
                     if (identitys.TryGetValue(opt.identity, out var t)) {
                         var p = t.GetComponent<Player>();
                         if (p.m_GDID!=ClientBase.Instance.UID) {//不是本地的
-                            Debuger.Log($"{opt.identity}释放技能{opt.index1}");
+                            Debuger.Log($"{opt.identity}释放技能{opt.index2}");
+                            p.m_CurrentSkillId = opt.index2;
                             p.m_State.StatusEntry(opt.index1);
                         }
                     }

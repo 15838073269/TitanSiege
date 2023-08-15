@@ -66,19 +66,19 @@ namespace GF.MainGame.Module {
                     break;
                 case 1://技能1
                     npc.m_CurrentSkillId = npc.m_SkillId[1];
-                    npc.ChangeState(npc.m_AllStateID["skill1"]);
+                    npc.ChangeState(npc.m_AllStateID["skill1"], npc.m_CurrentSkillId);
                     break;
                 case 2://技能2
                     npc.m_CurrentSkillId = npc.m_SkillId[2];
-                    npc.ChangeState(npc.m_AllStateID["skill2"]);
+                    npc.ChangeState(npc.m_AllStateID["skill2"], npc.m_CurrentSkillId);
                     break;
                 case 3://技能3
                     npc.m_CurrentSkillId = npc.m_SkillId[3];
-                    npc.ChangeState(npc.m_AllStateID["skill3"]);
+                    npc.ChangeState(npc.m_AllStateID["skill3"], npc.m_CurrentSkillId);
                     break;
                 case 4://技能4
                     npc.m_CurrentSkillId = npc.m_SkillId[4];
-                    npc.ChangeState(npc.m_AllStateID["skill4"]);
+                    npc.ChangeState(npc.m_AllStateID["skill4"], npc.m_CurrentSkillId);
                     break;
                 default:
                     break;

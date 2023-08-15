@@ -226,12 +226,16 @@ namespace GF.MainGame.Module.NPC {
         /// 玩家角色切换角色动画使用，需要判断一下是不是本机，如果不是，发通知通知服务器切换动画
         /// </summary>
         /// <param name="stateid"></param>
-        public void ChangeState(int stateid) {
+        public void ChangeState(int stateid,int skillid = -1) {
             if (m_State.stateMachine.currState.ID!= stateid) {//判断当前状态，节省带宽
-                m_State.StatusEntry(stateid);
                 if (m_GDID == ClientBase.Instance.UID) {
-                    ClientBase.Instance.AddOperation(new Operation(Command.SwitchState, m_GDID) { index1 = stateid });
+                    if (skillid == -1) {
+                        ClientBase.Instance.AddOperation(new Operation(Command.SwitchState, m_GDID) { index1 = stateid });
+                    } else {
+                        ClientBase.Instance.AddOperation(new Operation(Command.Skill, m_GDID) { index1 = stateid,index2 = skillid });
+                    }
                 }
+                m_State.StatusEntry(stateid);
             }
         }
         /// <summary>

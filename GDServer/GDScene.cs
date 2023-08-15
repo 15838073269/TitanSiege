@@ -76,7 +76,7 @@ namespace GDServer {
                     case Command.Skill:
                         for (int n = 0; n < Clients.Count; n++) {
                             if (Clients[n].UserID == opt.identity) {
-                                Debuger.Log($"{Clients[n].PlayerID},{Clients[n].UserID}使用了技能{opt.index1}");
+                                Debuger.Log($"{Clients[n].PlayerID},{Clients[n].UserID}使用了技能{opt.index2}");
                                 AddOperation(opt);
                                 break;
                             }
@@ -90,15 +90,8 @@ namespace GDServer {
                                 monster.PatrolCall();//发送怪物死亡命令
                             }
                         }
-                        //for (int n = 0; n < Clients.Count; n++) {
-                        //    if (Clients[n].UserID == opt.identity) {
-                        //        Debuger.Log($"{Clients[n].PlayerID},{Clients[n].UserID}造成伤害{opt.index}");
-                        //        AddOperation(opt);
-                        //        break;
-                        //    }
-                        //}
                         break;
-                    case Command.EnemyAttack://怪物攻击玩家时，
+                    case Command.EnemyAttack://怪物攻击玩家时
                         var players = Clients;
                         for (int n = 0; n < players.Count; n++) {
                             if (players[n].UserID == opt.identity) {
