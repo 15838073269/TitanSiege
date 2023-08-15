@@ -41,7 +41,7 @@ namespace GF.MainGame.Module.NPC {
             if (FightHP<=0 &&!m_IsDie) { //服务器同步的血量已经小于等于0了。此时客户端还没死掉
                 m_IsDie = true;
                 FightHP = 0;
-                m_State.StatusEntry(m_AllStateID["die"]);
+                ChangeState(m_AllStateID["die"]);
             }
         }
         // <summary>

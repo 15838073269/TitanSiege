@@ -33,7 +33,7 @@ public class PSkillAction : MyAcitonCore {
         m_WeiyiMonster = null;
         m_Self.m_Resetidletime = AppConfig.FightReset;
         if (m_Self.m_CurrentSkillId == -1) {//如果没有技能id，就直接返回
-            m_Self.m_State.StatusEntry(m_Self.m_AllStateID["fightidle"]);
+            m_Self.ChangeState(m_Self.m_AllStateID["fightidle"]);
         }
         
         if (m_SData == null || (m_SData.id != m_Self.m_CurrentSkillId)) {//减少重复获取数据

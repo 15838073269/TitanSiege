@@ -227,9 +227,9 @@ namespace GF.MainGame.Module {
             //}
             if ((m_MoveObj.m_State.stateMachine.currState.ID == m_MoveObj.m_AllStateID["fightidle"] || m_MoveObj.m_State.stateMachine.currState.ID == m_MoveObj.m_AllStateID["idle"]) &&(m_IsSkill==false)) {
                 if (m_MoveObj.IsFight) {
-                    m_MoveObj.m_State.StatusEntry(m_MoveObj.m_AllStateID["fightrun"]);
+                    m_MoveObj.ChangeState(m_MoveObj.m_AllStateID["fightrun"]);
                 } else {
-                    m_MoveObj.m_State.StatusEntry(m_MoveObj.m_AllStateID["run"]);
+                    m_MoveObj.ChangeState(m_MoveObj.m_AllStateID["run"]);
                 }
             }
         }
@@ -257,9 +257,9 @@ namespace GF.MainGame.Module {
             //}
             if (m_MoveObj.m_State.stateMachine.currState.ID == m_MoveObj.m_AllStateID["run"] || m_MoveObj.m_State.stateMachine.currState.ID == m_MoveObj.m_AllStateID["fightrun"]) {
                 if (m_MoveObj.IsFight) {
-                    m_MoveObj.m_State.StatusEntry(m_MoveObj.m_AllStateID["fightidle"]);
+                    m_MoveObj.ChangeState(m_MoveObj.m_AllStateID["fightidle"]);
                 } else {
-                    m_MoveObj.m_State.StatusEntry(m_MoveObj.m_AllStateID["idle"]);
+                    m_MoveObj.ChangeState(m_MoveObj.m_AllStateID["idle"]);
                 }
             }
         }

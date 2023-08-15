@@ -100,7 +100,7 @@ namespace GDServer.Services
         
         protected override void OnStartupCompleted() {
             base.OnStartupCompleted();
-            RemoveScene(MainSceneName, false);
+            //RemoveScene(MainSceneName, false);
             var path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\";
             Debuger.Log(path);
             var files = Directory.GetFiles(path, "*.mapData");
@@ -111,20 +111,21 @@ namespace GDServer.Services
                 gdscene.Init();
                 Debuger.Log("创建地图:" + gdscene.Name);
             }
-            //主场景天空城没有怪物，所以没战斗数据
+            //天空城没有怪物，所以没战斗数据
             GDScene scene = CreateScene("tiankongcheng");
             scene.Init();
             Debuger.Log("创建地图:" + scene.Name);
-            MainSceneName = "tiankongcheng";//指定你的主战斗场景名称, 根据unity的主战斗场景名称设置
-            Debuger.Log("主地图名称:tiankongcheng");
+            MainSceneName = "SelectRole";//指定你的主场景名称, 根据unity的主战斗场景名称设置
+            Debuger.Log("主地图名称:SelectRole");
         }
         /// <summary>
         /// 当添加默认场景的时候
         /// </summary>
         /// <returns></returns>
         protected override GDScene OnAddDefaultScene() {
-            //创建了一个名为 "天空城" 的一个场景对象, 并且可以容纳1000的场景
-            return new GDScene() { Name = "tiankongcheng", sceneCapacity = 1000 };
+            //创建了一个名为 "SelectRole" 的一个场景对象, 并且可以容纳1000的场景
+            Debuger.Log("创建默认场景:SelectRole");
+            return new GDScene() { Name = "SelectRole", sceneCapacity = 1000 };
         }
 
         /// <summary>
@@ -134,7 +135,7 @@ namespace GDServer.Services
         protected override void OnAddPlayerToScene(GDClient client)
         {
             base.OnAddPlayerToScene(client);//如果不允许登录成功加入主大厅场景, 注释这行代码即可
-            //JoinScene(client,"tiankongcheng");
+            JoinScene(client, "SelectRole");
         }
 
         protected override void OnOperationSync(GDClient client, OperationList list)

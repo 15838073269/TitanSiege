@@ -222,7 +222,18 @@ namespace GF.MainGame.Module.NPC {
             }
            
         }
-
+        /// <summary>
+        /// 玩家角色切换角色动画使用，需要判断一下是不是本机，如果不是，发通知通知服务器切换动画
+        /// </summary>
+        /// <param name="stateid"></param>
+        public void ChangeState(int stateid) {
+            if (m_State.stateMachine.currState.ID!= stateid) {//判断当前状态，节省带宽
+                m_State.StatusEntry(stateid);
+                if (m_GDID == ClientBase.Instance.UID) {
+                    ClientBase.Instance.AddOperation(new Operation(Command.SwitchState, m_GDID) { index1 = stateid });
+                }
+            }
+        }
         /// <summary>
         /// 正常情况下，进入战斗状态的函数也不在这里，应该是点击切换战斗，或者触发战斗时调用的
         /// </summary>
@@ -237,12 +248,7 @@ namespace GF.MainGame.Module.NPC {
             } else {
                 stateid = m_AllStateID["idle"];
             }
-            m_State.StatusEntry(stateid);
-            if (m_GDID == ClientBase.Instance.UID) {//如果不是网络对象，就发送操作命令给服务器
-                Operation cmd = new Operation(Command.SwitchState, ClientBase.Instance.UID);
-                cmd.index1 = stateid;
-                ClientBase.Instance.AddOperation(cmd);
-            }
+            ChangeState(stateid);
             //开一个计时器，如果一段时间之内没有发动任何技能或者收到任何伤害，就切换为非战斗状态。
             //任意的技能和伤害都会重置这个时间
             if (fight&& iswaitidle==false) {
