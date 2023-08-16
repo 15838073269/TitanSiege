@@ -32,10 +32,11 @@ namespace GDServer {
             if (scene == null && current == null) {
                 return;
             }
-            scene.AddOperation(new Operation(Command.PlayerState, UserID) {
-                index = FightHP,
-                index1 = FightMagic,
-            });
+            //不打算每桢同步，而是血量变化后同步
+            //scene.AddOperation(new Operation(Command.PlayerState, UserID) {
+            //    index = FightHP,
+            //    index1 = FightMagic,
+            //});
         }
 
         internal void BeAttacked(int damage) {
@@ -45,11 +46,16 @@ namespace GDServer {
             if (FightHP<=0&& !m_IsDie) {
                 m_IsDie = true;
             }
+            scene.AddOperation(new Operation(Command.PlayerState, UserID) {
+                index = FightHP,
+                index1 = FightMagic,
+            });
         }
 
         public void Resurrection() {
             //数据库中不设置最大生命，而是根据等级+装备来计算
             FightHP = m_MaxFightHP;
+            FightMagic = m_MaxFightMagic;
             m_IsDie = false;
         }
         public override void Dispose() {
@@ -117,10 +123,14 @@ namespace GDServer {
             Dodge = jcDodge + (float)current.Minjie / 1000f >= 0.3f ? 0.3f : (float)current.Minjie / 1000f;//属性加成的闪避
             Crit = jcCrit + (float)current.Xingyun * jcCrit >= 0.5f ? 0.5f : (float)current.Xingyun * jcCrit;//暴击率
             FightHP = current.Shengming + current.Tizhi * 10;
-            Debuger.Log(FightHP);
+            Debuger.Log("生命："+FightHP);
             m_MaxFightHP = FightHP;
             FightMagic = current.Fali + current.Moli * 10;
             m_MaxFightMagic = FightMagic;
+            scene.AddOperation(new Operation(Command.PlayerState, UserID) {
+                index = FightHP,
+                index1 = FightMagic,
+            });
         }
         #region 战斗属性
         public int m_MaxFightHP =0;

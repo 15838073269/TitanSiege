@@ -36,16 +36,18 @@ namespace Net.UnityComponent
         /// 此物体是否是本机实例化？
         /// </summary>
         public bool IsLocal { get => isLocal; set => isLocal = value; }
-
         /// <summary>
         /// 每个网络对象的唯一标识
         /// </summary>
         public int Identity { get => m_identity; set => m_identity = value; }
-
         /// <summary>
         /// 获取或设置是否初始化
         /// </summary>
         public bool IsInitialize { get => isInit; set => isInit = value; }
+        /// <summary>
+        /// 是否可以发送销毁指令给服务器
+        /// </summary>
+        public bool CanDestroy { get; set; } = true;
 
         public virtual void Start()
         {
@@ -204,10 +206,17 @@ namespace Net.UnityComponent
                 return;
             }
             sm.waitDestroyList.Add(new WaitDestroy(m_identity, true, Time.time + 1f));
+            if (!CanDestroy)
+                return;
             if (ClientBase.Instance == null)
                 return;
             if (!ClientBase.Instance.Connected)
                 return;
+            SendDestroyCommand();
+        }
+
+        public void SendDestroyCommand()
+        {
             ClientBase.Instance.AddOperation(new Operation(Command.Destroy, m_identity));
         }
 

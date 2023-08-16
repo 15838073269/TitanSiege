@@ -46,19 +46,19 @@ namespace Framework
     public enum AssetBundleMode
     {
         /// <summary>
-        /// ±¾»úÂ·¾¶, Ò²¾ÍÊÇ±à¼­Æ÷Â·¾¶
+        /// æœ¬æœºè·¯å¾„, ä¹Ÿå°±æ˜¯ç¼–è¾‘å™¨è·¯å¾„
         /// </summary>
         LocalPath,
         /// <summary>
-        /// Á÷Â·¾¶, ²»ĞèÒªÍøÂçÏÂÔØµÄÄ£Ê½
+        /// æµè·¯å¾„, ä¸éœ€è¦ç½‘ç»œä¸‹è½½çš„æ¨¡å¼
         /// </summary>
         StreamingAssetsPath,
         /// <summary>
-        /// HFS·şÎñÆ÷ÏÂÔØ×ÊÔ´¸üĞÂ
+        /// HFSæœåŠ¡å™¨ä¸‹è½½èµ„æºæ›´æ–°
         /// </summary>
         HFSPath,
         /// <summary>
-        /// ÄÚ²¿×ÊÔ´¼ÓÔØÄ£Ê½
+        /// å†…éƒ¨èµ„æºåŠ è½½æ¨¡å¼
         /// </summary>
         Resources,
     }
@@ -110,46 +110,51 @@ namespace Framework
                 return assetObj;
 #endif
             var path = assetPath;
-            for (int i = assetPath.Length - 1; i >= 0; i--)
-            {
-                if (path[i] == '.')
-                {
-                    path = path.Substring(0, i);
-                    break;
-                }
-            }
+            var index = path.LastIndexOf('.');
+            if (index >= 0)
+                path = path.Remove(index, path.Length - index);
+            index = path.IndexOf("Resources/");
+            if (index >= 0)
+                path = path.Remove(0, index + 10);
             assetObj = Resources.Load<T>(path);
             if (assetObj != null)
                 return assetObj;
-            throw new Exception("ÕÒ²»µ½×ÊÔ´:" + assetPath);
+            throw new Exception("æ‰¾ä¸åˆ°èµ„æº:" + assetPath);
         }
 
         /// <summary>
-        /// ¼ÓÔØ×ÊÔ´£¬±éÀúËùÓĞ×ÊÔ´½øĞĞ²éÕÒ³¢ÊÔ¼ÓÔØ×ÊÔ´£¬ Èç¹û³É¹¦ÔòÖ±½Ó·µ»Ø
+        /// åŠ è½½èµ„æºï¼Œéå†æ‰€æœ‰èµ„æºè¿›è¡ŒæŸ¥æ‰¾å°è¯•åŠ è½½èµ„æºï¼Œ å¦‚æœæˆåŠŸåˆ™ç›´æ¥è¿”å›
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="assetPath"></param>
         /// <returns></returns>
         public T LoadAssetWithAll<T>(string assetPath) where T : Object
         {
+            T assetObj;
             foreach (var assetBundleInfo in assetBundleInfos)
             {
-                if (assetBundleInfo.assetBundle != null)
-                {
-                    var assetObj = assetBundleInfo.assetBundle.LoadAsset<T>(assetPath);
-                    if (assetObj != null)
-                        return assetObj;
-                }
-                if (assetPath.Contains("Resources/"))
-                {
-                    var path = assetPath.Split(new string[] { "Resources/" }, 0);
-                    var resPath = path[1].Split('.');
-                    var resObj = Resources.Load<T>(resPath[0]);
-                    if (resObj != null)
-                        return resObj;
-                }
+                if (assetBundleInfo.assetBundle == null)
+                    continue;
+                assetObj = assetBundleInfo.assetBundle.LoadAsset<T>(assetPath);
+                if (assetObj != null)
+                    return assetObj;
             }
-            throw new Exception("ÕÒ²»µ½×ÊÔ´:" + assetPath);
+#if UNITY_EDITOR
+            assetObj = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(assetPath);
+            if (assetObj != null)
+                return assetObj;
+#endif
+            var path = assetPath;
+            var index = path.LastIndexOf('.');
+            if (index >= 0)
+                path = path.Remove(index, path.Length - index);
+            index = path.IndexOf("Resources/");
+            if (index >= 0)
+                path = path.Remove(0, index + 10);
+            assetObj = Resources.Load<T>(path);
+            if (assetObj != null)
+                return assetObj;
+            throw new Exception("æ‰¾ä¸åˆ°èµ„æº:" + assetPath);
         }
 
         public GameObject Instantiate(string assetPath, Transform parent = null)
@@ -172,7 +177,7 @@ namespace Framework
             var assetObj = LoadAsset<GameObject>(type, assetPath);
             if (assetObj == null)
             {
-                Global.Logger.LogError($"×ÊÔ´¼ÓÔØÊ§°Ü:{assetPath}");
+                Global.Logger.LogError($"èµ„æºåŠ è½½å¤±è´¥:{assetPath}");
                 return null;
             }
             var obj = Instantiate(assetObj, parent);

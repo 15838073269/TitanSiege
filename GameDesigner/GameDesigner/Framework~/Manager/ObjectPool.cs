@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Object = UnityEngine.Object;
 using UnityEngine;
+using Framework;
 
 namespace Framework 
 {
@@ -54,5 +55,55 @@ namespace Framework
                 pool.Add(type, queue = new Queue<Object>());
             queue.Enqueue(obj);
         }
+    }
+}
+
+public static class ObjectPoolExt
+{
+    public static void RecyclingObjects<T>(this List<T> self) where T : Object
+    {
+        for (int i = 0; i < self.Count; i++)
+        {
+            if (self[i] != null)
+            {
+                Global.Pool.Recycling(self[i]);
+                if (self[i] is GameObject go)
+                    go.SetActive(false);
+                else if (self[i] is Component com)
+                    com.gameObject.SetActive(false);
+            }
+        }
+        self.Clear();
+    }
+
+    public static void RecyclingObjects<T>(this T[] self) where T : Object
+    {
+        for (int i = 0; i < self.Length; i++)
+        {
+            if (self[i] != null)
+            {
+                Global.Pool.Recycling(self[i]);
+                if (self[i] is GameObject go)
+                    go.SetActive(false);
+                else if (self[i] is Component com)
+                    com.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public static void RecyclingObjects<Key, Value>(this Dictionary<Key, Value> self) where Value : Object
+    {
+        foreach (var item in self)
+        {
+            if (item.Value != null)
+            {
+                Global.Pool.Recycling(item.Value);
+                if (item.Value is GameObject go)
+                    go.SetActive(false);
+                else if (item.Value is Component com)
+                    com.gameObject.SetActive(false);
+            }
+        }
+        self.Clear();
     }
 }

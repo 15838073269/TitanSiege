@@ -1,5 +1,6 @@
 ﻿using Net.System;
 using Net.Serialize;
+using System;
 
 namespace Binding
 {
@@ -526,6 +527,46 @@ namespace Binding
             return stream.ReadDateTimeOffset();
         }
     }
+    public readonly struct SystemDBNullBind : ISerialize<System.DBNull>, ISerialize //这个类用作Null参数, 不需要写入和返回null即可
+    {
+        public void Write(System.DBNull value, ISegment stream)
+        {
+        }
+        public System.DBNull Read(ISegment stream)
+        {
+            return null;
+        }
+
+        public void WriteValue(object value, ISegment stream)
+        {
+        }
+
+        object ISerialize.ReadValue(ISegment stream)
+        {
+            return null;
+        }
+    }
+    public readonly struct SystemEnumBind<T> : ISerialize<T>, ISerialize where T : System.Enum
+    {
+        public void Write(T value, ISegment stream)
+        {
+            stream.Write(value);
+        }
+        public T Read(ISegment stream)
+        {
+            return stream.ReadEnum<T>();
+        }
+
+        public void WriteValue(object value, ISegment stream)
+        {
+            stream.Write((T)value);
+        }
+
+        object ISerialize.ReadValue(ISegment stream)
+        {
+            return stream.ReadEnum<T>();
+        }
+    }
     #endregion
 
     #region "基元类型数组绑定"
@@ -927,6 +968,56 @@ namespace Binding
             return Read(stream);
         }
     }
+    public readonly struct SystemDBNullArrayBind : ISerialize<System.DBNull[]>, ISerialize //这个类用作Null参数, 不需要写入和返回null即可
+    {
+        public void Write(System.DBNull[] value, ISegment stream)
+        {
+        }
+        public System.DBNull[] Read(ISegment stream)
+        {
+            return null;
+        }
+
+        public void WriteValue(object value, ISegment stream)
+        {
+        }
+
+        object ISerialize.ReadValue(ISegment stream)
+        {
+            return null;
+        }
+    }
+    public readonly struct SystemEnumArrayBind<T> : ISerialize<T[]>, ISerialize where T : System.Enum
+    {
+        public void Write(T[] value, ISegment stream)
+        {
+            stream.Write(value.Length);
+            for (int i = 0; i < value.Length; i++)
+            {
+                stream.Write(value[i]);
+            }
+        }
+        public T[] Read(ISegment stream)
+        {
+            var count = stream.ReadInt32();
+            var value = new T[count];
+            for (int i = 0; i < count; i++)
+            {
+                value[i] = stream.ReadEnum<T>();
+            }
+            return value;
+        }
+
+        public void WriteValue(object value, ISegment stream)
+        {
+            Write((T[])value, stream);
+        }
+
+        object ISerialize.ReadValue(ISegment stream)
+        {
+            return Read(stream);
+        }
+    }
     #endregion
 
     #region "基元类型List绑定"
@@ -1324,6 +1415,56 @@ namespace Binding
         }
 
         public object ReadValue(ISegment stream)
+        {
+            return Read(stream);
+        }
+    }
+    public readonly struct SystemCollectionsGenericListSystemDBNullBind : ISerialize<System.Collections.Generic.List<System.DBNull>>, ISerialize //这个类用作Null参数, 不需要写入和返回null即可
+    {
+        public void Write(System.Collections.Generic.List<System.DBNull> value, ISegment stream)
+        {
+        }
+        public System.Collections.Generic.List<System.DBNull> Read(ISegment stream)
+        {
+            return null;
+        }
+
+        public void WriteValue(object value, ISegment stream)
+        {
+        }
+
+        object ISerialize.ReadValue(ISegment stream)
+        {
+            return null;
+        }
+    }
+    public readonly struct SystemCollectionsGenericListSystemEnumBind<T> : ISerialize<System.Collections.Generic.List<T>>, ISerialize where T : System.Enum
+    {
+        public void Write(System.Collections.Generic.List<T> value, ISegment stream)
+        {
+            stream.Write(value.Count);
+            for (int i = 0; i < value.Count; i++)
+            {
+                stream.Write(value[i]);
+            }
+        }
+        public System.Collections.Generic.List<T> Read(ISegment stream)
+        {
+            var count = stream.ReadInt32();
+            var value = new System.Collections.Generic.List<T>(count);
+            for (int i = 0; i < count; i++)
+            {
+                value.Add(stream.ReadEnum<T>());
+            }
+            return value;
+        }
+
+        public void WriteValue(object value, ISegment stream)
+        {
+            Write((System.Collections.Generic.List<T>)value, stream);
+        }
+
+        object ISerialize.ReadValue(ISegment stream)
         {
             return Read(stream);
         }

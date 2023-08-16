@@ -5,13 +5,20 @@ using UnityEngine;
 using System;
 using System.Data;
 using System.Text;
+using Framework;
 
 public class ExcelTools
 {
     [MenuItem("GameDesigner/Framework/GenerateExcelData", priority = 2)]
-    public static void GenerateExcelData()
+    public static void GenerateExcelData(AssetBundleMode mode)
     {
-        string path = "AssetBundles/Table/GameConfig.json";
+        string path;
+        if (mode == AssetBundleMode.LocalPath)
+            path = Directory.GetCurrentDirectory() + $"/AssetBundles/Table/GameConfig.json";
+        else if (mode == AssetBundleMode.StreamingAssetsPath)
+            path = Application.streamingAssetsPath + $"/AssetBundles/Table/GameConfig.json";
+        else
+            path = Application.persistentDataPath + $"/AssetBundles/Table/GameConfig.json";
         if (!Directory.Exists(Path.GetDirectoryName(path)))
             Directory.CreateDirectory(Path.GetDirectoryName(path));
         string excelPath = "Tools/Excel/GameConfig.xls";
@@ -26,7 +33,7 @@ public class ExcelTools
                     var dataSet = reader.AsDataSet();
                     var jsonStr = Newtonsoft_X.Json.JsonConvert.SerializeObject(dataSet);
                     File.WriteAllText(path, jsonStr);
-                    Debug.Log("Éú³É±í¸ñÊı¾İÍê³É! " + Environment.CurrentDirectory + "/" + path);
+                    Debug.Log("ç”Ÿæˆè¡¨æ ¼æ•°æ®å®Œæˆ! " + Environment.CurrentDirectory + "/" + path);
                 }
             }
         }
@@ -93,9 +100,9 @@ public class ExcelTools
                         sb.Append(text2[4]);
                         var text5 = sb.ToString();
                         File.WriteAllText($"Assets/Scripts/Data/Config/{table.TableName}DataConfig.cs", text5);
-                        Debug.Log($"Éú³É±í:{table.TableName}Íê³É!");
+                        Debug.Log($"ç”Ÿæˆè¡¨:{table.TableName}å®Œæˆ!");
                     }
-                    Debug.Log("È«²¿±íÉú³ÉÍê±Ï!");
+                    Debug.Log("å…¨éƒ¨è¡¨ç”Ÿæˆå®Œæ¯•!");
                     AssetDatabase.Refresh();
                 }
             }
@@ -107,9 +114,11 @@ public class ExcelTools
     }
 
     [MenuItem("GameDesigner/Framework/GenerateExcelDataAll", priority = 4)]
-    public static void GenerateExcelDataAll() 
+    public static void GenerateExcelDataAll()
     {
-        GenerateExcelData();
+        GenerateExcelData(AssetBundleMode.LocalPath);
+        GenerateExcelData(AssetBundleMode.StreamingAssetsPath);
+        GenerateExcelData(AssetBundleMode.HFSPath);
         GenerateExcelDataToCs();
     }
 }

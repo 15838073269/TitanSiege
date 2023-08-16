@@ -24,6 +24,7 @@ namespace Net.Share
 
     public struct RPCMethodPtr : IRPCMethod
     {
+        public string Name => method.ToString();
         public byte cmd { get; set; }
         public object target { get; set; }
         public MethodInfo method { get; set; }
@@ -51,32 +52,31 @@ namespace Net.Share
     public struct RPCDataPtr : IRPCData 
     {
         /// <summary>
-        /// º¯ÊıºÍ²ÎÊıµÄÃû³Æ
+        /// å‡½æ•°å’Œå‚æ•°çš„åç§°
         /// </summary>
-        public string name;
+        public string name => method.ToString();
         /// <summary>
-        /// ´æ´¢·â°ü·´ĞòÁĞ»¯³öÀ´µÄ¶ÔÏó
+        /// å­˜å‚¨å°åŒ…ååºåˆ—åŒ–å‡ºæ¥çš„å¯¹è±¡
         /// </summary>
         public object target { get; set; }
         /// <summary>
-        /// ´æ´¢·´ĞòÁĞ»¯µÄº¯Êı
+        /// å­˜å‚¨ååºåˆ—åŒ–çš„å‡½æ•°
         /// </summary>
         public MethodInfo method { get; set; }
         public RPCPTR ptr;
         /// <summary>
-        /// ´æ´¢·´ĞòÁĞ»¯²ÎÊı
+        /// å­˜å‚¨ååºåˆ—åŒ–å‚æ•°
         /// </summary>
         public object[] pars;
 
         /// <summary>
-        /// ¹¹Ôìº¯Êı
+        /// æ„é€ å‡½æ•°
         /// </summary>
-        /// <param name="target">Ô¶³Ìµ÷ÓÃ¶ÔÏó</param>
-        /// <param name="method">Ô¶³Ìµ÷ÓÃ·½·¨</param>
-        /// <param name="pars">Ô¶³Ìµ÷ÓÃ²ÎÊı</param>
+        /// <param name="target">è¿œç¨‹è°ƒç”¨å¯¹è±¡</param>
+        /// <param name="method">è¿œç¨‹è°ƒç”¨æ–¹æ³•</param>
+        /// <param name="pars">è¿œç¨‹è°ƒç”¨å‚æ•°</param>
         public RPCDataPtr(object target, MethodInfo method, RPCPTR ptr, params object[] pars)
         {
-            name = method.ToString();
             this.target = target;
             this.method = method;
             this.pars = pars;
@@ -84,7 +84,7 @@ namespace Net.Share
         }
 
         /// <summary>
-        /// µ÷ÓÃ·½·¨
+        /// è°ƒç”¨æ–¹æ³•
         /// </summary>
         /// <returns></returns>
         public void Invoke()

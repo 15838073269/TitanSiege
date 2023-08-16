@@ -9,6 +9,7 @@ public class ImportSettingWindow : EditorWindow
 {
     private Vector2 scrollPosition;
     private Data data;
+    private readonly string[] displayedOptions = new string[] { "使用者", "开发者" };
 
     public class Data 
     {
@@ -43,7 +44,7 @@ public class ImportSettingWindow : EditorWindow
         PersistHelper.Serialize(data, "importdata.json");
     }
 
-    private void DrawGUI(string path, string name, string sourceProtocolName, string copyToProtocolName, Action import = null, string pluginsPath = "Assets/Plugins/GameDesigner/") 
+    private void DrawGUI(string path, string name, string sourceProtocolName, string copyToProtocolName, Action import /*= null*/, string pluginsPath /*= "Assets/Plugins/GameDesigner/"*/) 
     {
         if (Directory.Exists(path))
         {
@@ -74,8 +75,6 @@ public class ImportSettingWindow : EditorWindow
             Import(sourceProtocolName, copyToProtocolName, pluginsPath);
         }
     }
-
-    private readonly string[] displayedOptions = new string[] { "使用者", "开发者" };
 
     private void OnGUI()
     {
@@ -119,7 +118,7 @@ public class ImportSettingWindow : EditorWindow
         EditorGUILayout.HelpBox("NetworkComponents模块 封装了一套完整的客户端网络组件", MessageType.Info);
         path = data.path + "/Component";
         DrawGUI(path, "NetworkComponent", "Component~", "Component", ()=> {
-            Import("Common~", "Common");//依赖
+            Import("Common~", "Common", data.path + "/");//依赖
         }, data.path + "/");
 
         EditorGUILayout.HelpBox("MVC模块 可用于帧同步设计，视图，逻辑分离", MessageType.Info);
@@ -137,7 +136,7 @@ public class ImportSettingWindow : EditorWindow
         EditorGUILayout.HelpBox("MMORPG模块 用于MMORPG设计怪物点, 巡逻点, 地图数据等", MessageType.Info);
         path = data.path + "/MMORPG";
         DrawGUI(path, "MMORPG", "MMORPG~", "MMORPG", () => {
-            Import("AOI~", "AOI");//依赖
+            Import("AOI~", "AOI", data.path + "/");//依赖
         }, data.path + "/");
 
         EditorGUILayout.HelpBox("AOI模块 可用于MMORPG大地图同步方案，九宫格同步， 或者单机大地图分割显示", MessageType.Info);
@@ -250,7 +249,7 @@ public class ImportSettingWindow : EditorWindow
         GUILayout.Space(10);
     }
 
-    private static void ReImport(string sourceProtocolName, string copyToProtocolName, string pluginsPath = "Assets/Plugins/GameDesigner/")
+    private static void ReImport(string sourceProtocolName, string copyToProtocolName, string pluginsPath /*= "Assets/Plugins/GameDesigner/"*/)
     {
         var rootPath = "Packages/com.gamedesigner.network";//包的根路径
         if (!Directory.Exists(rootPath))
@@ -263,10 +262,11 @@ public class ImportSettingWindow : EditorWindow
         var path = $"{pluginsPath}{copyToProtocolName}/";
         if (!Directory.Exists(path))
             return;
+        Directory.Delete(path, true); //删除原文件再导入新文件
         Import(sourceProtocolName, copyToProtocolName, pluginsPath);
     }
 
-    private static void Import(string sourceProtocolName, string copyToProtocolName, string pluginsPath = "Assets/Plugins/GameDesigner/")
+    private static void Import(string sourceProtocolName, string copyToProtocolName, string pluginsPath /*= "Assets/Plugins/GameDesigner/"*/)
     {
         var rootPath = "Packages/com.gamedesigner.network";//包的根路径
         if (!Directory.Exists(rootPath))
@@ -297,7 +297,7 @@ public class ImportSettingWindow : EditorWindow
         AssetDatabase.Refresh();
     }
 
-    private static void ReverseImport(string sourceProtocolName, string copyToProtocolName, string pluginsPath = "Assets/Plugins/GameDesigner/")
+    private static void ReverseImport(string sourceProtocolName, string copyToProtocolName, string pluginsPath /*= "Assets/Plugins/GameDesigner/"*/)
     {
         var rootPath = "Packages/com.gamedesigner.network";//包的根路径
         if (!Directory.Exists(rootPath))

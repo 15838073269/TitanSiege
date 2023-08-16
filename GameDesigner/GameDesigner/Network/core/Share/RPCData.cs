@@ -20,7 +20,7 @@
         /// <summary>
         /// 函数和参数的名称
         /// </summary>
-        public string name;
+        public string name => method.ToString();
         /// <summary>
         /// 存储封包反序列化出来的对象
         /// </summary>
@@ -42,7 +42,6 @@
         /// <param name="pars">远程调用参数</param>
         public RPCData(object target, MethodInfo method, params object[] pars)
         {
-            name = method.ToString();
             this.target = target;
             this.method = method;
             this.pars = pars;

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Framework
 {
-    public class UI_Message : UIFormBase<UI_Message>
+    public class UI_Message : UIBase<UI_Message>
     {
         public Text title, info;
         public Button confirm, cancel;

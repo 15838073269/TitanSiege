@@ -6,7 +6,7 @@
     using Net.System;
     using Net.Share;
     using Net.Event;
-    using Binding;
+    using Net.Helper;
 
     /// <summary>
     /// 快速序列化2接口--动态匹配
@@ -215,7 +215,17 @@
             var hashType = (ushort)Types.Count;
             Types.Add(hashType, type);
             Types1.Add(type, hashType);
-            Types2.Add(type, Activator.CreateInstance(typeof(BaseBind<>).MakeGenericType(type)) as ISerialize);
+            Type bindType;
+            if (type.IsEnum)
+            {
+                bindType = typeof(Binding.SystemEnumBind<>).MakeGenericType(type);
+            }
+            else
+            {
+                var typeName = "Binding." + type.ToString().Replace(".", "") + "Bind";
+                bindType = AssemblyHelper.GetTypeNotOptimized(typeName);
+            }
+            Types2.Add(type, Activator.CreateInstance(bindType) as ISerialize);
         }
 
         private static void AddBaseArrayType(Type type, Type itemType)
@@ -225,7 +235,17 @@
             var hashType = (ushort)Types.Count;
             Types.Add(hashType, type);
             Types1.Add(type, hashType);
-            Types2.Add(type, Activator.CreateInstance(typeof(BaseArrayBind<>).MakeGenericType(itemType)) as ISerialize);
+            Type bindType;
+            if (itemType.IsEnum)
+            {
+                bindType = typeof(Binding.SystemEnumArrayBind<>).MakeGenericType(itemType);
+            }
+            else
+            {
+                var typeName = "Binding." + type.ToString().Replace(".", "").Replace("[]", "") + "ArrayBind";
+                bindType = AssemblyHelper.GetTypeNotOptimized(typeName);
+            }
+            Types2.Add(type, Activator.CreateInstance(bindType) as ISerialize);
         }
 
         private static void AddBaseListType(Type type, Type itemType)
@@ -235,7 +255,19 @@
             var hashType = (ushort)Types.Count;
             Types.Add(hashType, type);
             Types1.Add(type, hashType);
-            Types2.Add(type, Activator.CreateInstance(typeof(BaseListBind<>).MakeGenericType(itemType)) as ISerialize);
+            Type bindType;
+            if (itemType.IsEnum)
+            {
+                bindType = typeof(Binding.SystemCollectionsGenericListSystemEnumBind<>).MakeGenericType(itemType);
+            }
+            else
+            {
+                var typeName = AssemblyHelper.GetCodeTypeName(type.ToString());
+                typeName = typeName.Replace(".", "").Replace("+", "").Replace("<", "").Replace(">", "");
+                typeName = "Binding." + typeName + "Bind";
+                bindType = AssemblyHelper.GetTypeNotOptimized(typeName);
+            }
+            Types2.Add(type, Activator.CreateInstance(bindType) as ISerialize);
         }
 
         public static void InitBindInterfaces()
@@ -415,9 +447,7 @@
                     type = obj.GetType();
                     stream.Write(TypeToIndex(type));
                     if (Types2.TryGetValue(type, out ISerialize bind))
-                    {
                         bind.WriteValue(obj, stream);
-                    }
                     else throw new Exception($"请注册或绑定:{type}类型后才能序列化!");
                 }
                 buffer1 = stream.ToArray(true);

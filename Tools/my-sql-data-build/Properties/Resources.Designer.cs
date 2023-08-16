@@ -19,7 +19,7 @@ namespace MySqlDataBuild.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -68,23 +68,24 @@ namespace MySqlDataBuild.Properties {
         ///using System.Diagnostics;
         ///using System.Text;
         ///using System.Threading;
-        ///using System.Threading.Tasks;
+        ///using System.IO;
         ///using {USING};
         ///using Net.Event;
         ///using Net.System;
         ///using Net.Share;
         ///using System.Collections.Concurrent;
+        ///using Cysharp.Threading.Tasks;
         ///
         ///{NAMESPACE_BEGIN}
         ///    /// &lt;summary&gt;
         ///    /// {DBNAME}数据库管理类
         ///    /// 此类由MySqlDataBuild工具生成, 请不要在此类编辑代码! 请新建一个类文件进行分写
         ///    /// &lt;para&gt;MySqlDataBuild工具提供Rpc自动同步到mysql数据库的功能, 提供数据库注释功能&lt;/para&gt;
-        ///    /// MySqlDataBuild工具gi [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///    /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string db_source {
+        internal static string databaseTemplate {
             get {
-                return ResourceManager.GetString("db_source", resourceCulture);
+                return ResourceManager.GetString("databaseTemplate", resourceCulture);
             }
         }
         
@@ -111,31 +112,25 @@ namespace MySqlDataBuild.Properties {
         /// <summary>
         ///   查找类似 using System;
         ///using System.Data;
-        ///using System.Threading.Tasks;
-        ///using Net.System;
         ///using System.Collections.Generic;
         ///using System.Text;
         ///using Net.Share;
+        ///using Net.Event;
         ///#if SERVER
+        ///using Net.System;
+        ///using Cysharp.Threading.Tasks;
         ///using {USING};
         ///#endif
-        ///
-        ///#if ANTICHEAT
-        ///using Boolean = CodeStage.AntiCheat.ObscuredTypes.ObscuredBool;
-        ///#else
-        ///using Boolean = System.Boolean;
-        ///#endif
-        ///#if ANTICHEAT
-        ///using Char = CodeStage.AntiCheat.ObscuredTypes.ObscuredChar;
-        ///#else
-        ///using Char = System.Char;
-        ///#endif
-        ///#if ANTICHEAT
-        ///using SByte = CodeStage.AntiCheat.ObscuredTypes.Obscur [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///using BooleanObs = Net.Common.PropertyObserverAuto&lt;bool&gt;;
+        ///using ByteObs = Net.Common.PropertyObserverAuto&lt;byte&gt;;
+        ///using SByteObs = Net.Common.PropertyObserverAuto&lt;sbyte&gt;;
+        ///using Int16Obs = Net.Common.PropertyObserverAuto&lt;short&gt;;
+        ///using UInt16Obs = Net.Common.PropertyObserverAuto&lt;ushort&gt;;
+        ///using Ch [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string source_code {
+        internal static string tableTemplate {
             get {
-                return ResourceManager.GetString("source_code", resourceCulture);
+                return ResourceManager.GetString("tableTemplate", resourceCulture);
             }
         }
     }

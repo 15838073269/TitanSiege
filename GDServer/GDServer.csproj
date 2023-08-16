@@ -27,24 +27,6 @@
     <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\Command.cs">
       <Link>NetData\Command.cs</Link>
     </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeDB.cs">
-      <Link>NetData\TitansiegeDB.cs</Link>
-    </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeDBEvent.cs">
-      <Link>NetData\TitansiegeDBEvent.cs</Link>
-    </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeHashProto.cs">
-      <Link>NetData\TitansiegeHashProto.cs</Link>
-    </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeDB\CharactersData.cs">
-      <Link>NetData\TitansiegeDB\CharactersData.cs</Link>
-    </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeDB\ConfigData.cs">
-      <Link>NetData\TitansiegeDB\ConfigData.cs</Link>
-    </Compile>
-    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeDB\UsersData.cs">
-      <Link>NetData\TitansiegeDB\UsersData.cs</Link>
-    </Compile>
     <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DBExt\TitanSiegeDBExt.cs">
       <Link>NetData\DBExt\TitanSiegeDBExt.cs</Link>
     </Compile>
@@ -59,6 +41,24 @@
     </Compile>
     <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeUsersDataBind.cs">
       <Link>NetData\TitansiegeUsersDataBind.cs</Link>
+    </Compile>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DB\TitansiegeDB.cs">
+      <Link>NetData\DB\TitansiegeDB.cs</Link>
+    </Compile>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DB\TitansiegeDBEvent.cs">
+      <Link>NetData\DB\TitansiegeDBEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DB\TitansiegeHashProto.cs">
+      <Link>NetData\DB\TitansiegeHashProto.cs</Link>
+    </Compile>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DB\TitansiegeDB\CharactersData.cs">
+      <Link>NetData\DB\TitansiegeDB\CharactersData.cs</Link>
+    </Compile>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DB\TitansiegeDB\ConfigData.cs">
+      <Link>NetData\DB\TitansiegeDB\ConfigData.cs</Link>
+    </Compile>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DB\TitansiegeDB\UsersData.cs">
+      <Link>NetData\DB\TitansiegeDB\UsersData.cs</Link>
     </Compile>
   </ItemGroup>
 </Project>

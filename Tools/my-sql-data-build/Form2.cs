@@ -91,7 +91,7 @@ namespace MySqlDataBuild
                 //{
                 //    table1.Load(sdr);
                 //}
-                var codeText = Properties.Resources.source_code;
+                var codeText = Properties.Resources.tableTemplate;
                 var treats = codeText.Split(new string[] { "[TREAT]" }, StringSplitOptions.RemoveEmptyEntries);
                 codeText = treats[0] + treats[1] + treats[3];
                 if (comboBox1.SelectedIndex == 1)
@@ -321,7 +321,7 @@ namespace MySqlDataBuild
     }}
 NAMESPACE_END";
             var db1 = db + "DB";
-            var codeText = Properties.Resources.db_source;
+            var codeText = Properties.Resources.databaseTemplate;
             if (comboBox1.SelectedIndex == 1)
             {
                 codeText = codeText.Replace("{NAMESPACE_BEGIN}", $"namespace {db}\r\n{{");

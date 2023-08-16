@@ -1,4 +1,5 @@
 ﻿//using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Relational;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -78,6 +79,16 @@ namespace MySqlDataBuild
             {
                 dbTable.Load(sdr);
             }
+            string createStatement = "";
+            cmd.CommandText = $"SHOW CREATE DATABASE `{dbName}`";
+            cmd.Connection = connect;
+            using (var sdr = cmd.ExecuteReader())
+            {
+                while (sdr.Read())
+                {
+                    createStatement = sdr.GetString(1);
+                }
+            }
             var tableNames = new List<StringEntiy>();
             foreach (DataRow row in dbTable.Rows)
             {
@@ -86,10 +97,12 @@ namespace MySqlDataBuild
                 tableNames.Add(new StringEntiy(des, des1));
             }
             var rpcMaskDic = new Dictionary<string, Dictionary<string, string[]>>();
+            var createTableSqls = new List<DataRow>();
             foreach (var tableName in tableNames)
             {
                 var table = new DataTable();
                 var table1 = new DataTable();
+                var table2 = new DataTable();
                 cmd.CommandText = $"SELECT * FROM {tableName.source} limit 0;";
                 cmd.Connection = connect;
                 using (var sdr = cmd.ExecuteReader())
@@ -102,7 +115,13 @@ namespace MySqlDataBuild
                 {
                     table1.Load(sdr);
                 }
-                var codeText = Properties.Resources.source_code;
+                cmd.CommandText = $"SHOW CREATE TABLE {tableName.source}";
+                cmd.Connection = connect;
+                using (var sdr = cmd.ExecuteReader())
+                {
+                    table2.Load(sdr);
+                }
+                var codeText = Properties.Resources.tableTemplate;
                 var treats = codeText.Split(new string[] { "[TREAT]" }, StringSplitOptions.RemoveEmptyEntries);
                 codeText = treats[0] + treats[1] + treats[3];
                 if (comboBox1.SelectedIndex == 1)
@@ -144,6 +163,11 @@ namespace MySqlDataBuild
                     var length = item.ItemArray[2].ToString();
                     if (string.IsNullOrEmpty(length)) length = "0";
                     dic[item.ItemArray[0].ToString()] = new string[] { item.ItemArray[1].ToString(), length };
+                }
+
+                foreach (DataRow item in table2.Rows)
+                {
+                    createTableSqls.Add(item);
                 }
 
                 codeTexts[0] = codeTexts[0].Replace("{KEYNOTE}", $"{dic[pkeys[0].ColumnName][0]}");
@@ -260,7 +284,7 @@ namespace MySqlDataBuild
                 path += "\\" + (checkBox2.Checked ? dbUpp + "_" : "") + tableName.newString + "Data.cs";
                 File.WriteAllText(path, sb.ToString());
             }
-            BuildDBNew(dbUpp, tableNames, rpcMaskDic);
+            BuildDBNew(dbUpp, tableNames, rpcMaskDic, createTableSqls, createStatement);
         }
 
         private string GetCodeType(Type type)
@@ -281,7 +305,7 @@ namespace MySqlDataBuild
             return type.FullName;
         }
 
-        public void BuildDBNew(string db, List<StringEntiy> tableNames, Dictionary<string, Dictionary<string, string[]>> rpcMaskDic)
+        public void BuildDBNew(string db, List<StringEntiy> tableNames, Dictionary<string, Dictionary<string, string[]>> rpcMaskDic, List<DataRow> createTableSqls, string createStatement)
         {
             var sb1 = new StringBuilder();
             sb1.AppendLine($"public enum {db}HashProto : ushort");
@@ -331,7 +355,7 @@ namespace MySqlDataBuild
     }}
 NAMESPACE_END";
             var db1 = db + "DB";
-            var codeText = Properties.Resources.db_source;
+            var codeText = Properties.Resources.databaseTemplate;
             if (comboBox1.SelectedIndex == 1)
             {
                 codeText = codeText.Replace("{NAMESPACE_BEGIN}", $"namespace {db}\r\n{{");
@@ -364,12 +388,14 @@ NAMESPACE_END";
             codeText = codeText.Replace("{COMMAND}", "MySqlCommand");
             codeText = codeText.Replace("{TRANSACTION}", "MySqlTransaction");
             codeText = codeText.Replace("{PING}", "conn.Ping();//长时间没有连接后断开连接检查状态");
+            codeText = codeText.Replace("{DATABASENAME}", db);
 
             var codeTexts = codeText.Split(new string[] { "[split]" }, 0);
 
             var sb = new StringBuilder(codeTexts[0]);
             var sb2 = new StringBuilder();
             var sb3 = new StringBuilder();
+            var sb4 = new StringBuilder();
 
             foreach (var tableName in tableNames)
             {
@@ -380,10 +406,22 @@ NAMESPACE_END";
                 sb3.Append($"/// <summary>{tableName.newString}Data类对象属性同步id索引</summary>\r\n\t\tpublic static int {tableName.newString}Data_SyncID = 0;\r\n\t\t");
             }
 
+            foreach (var item in createTableSqls)
+            {
+                var text = codeTexts[6].Replace("{TABLENAME}", item.ItemArray[0].ToString());
+                text = text.Replace("{DATABASENAME}", db);
+                text = text.Replace("{CREATETABLESQL}", item.ItemArray[1].ToString());
+                sb4.Append(text);
+            }
+
+            codeTexts[5] = codeTexts[5].Replace("{CREATEDATABASESQL}", createStatement);
+
             sb.Append(sb2);
             sb.Append(codeTexts[2]);
             sb.Append(codeTexts[3]);
             sb.Append(codeTexts[5]);
+            sb.Append(sb4);
+            sb.Append(codeTexts[7]);
 
             codeText15 = codeText15.Replace("SYNC_KEY", sb3.ToString());
 

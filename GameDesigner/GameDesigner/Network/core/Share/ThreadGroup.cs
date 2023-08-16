@@ -9,6 +9,7 @@ namespace Net.Share
     {
         public int Id;
         public Thread Thread;
+        public int FPS;
 
         public virtual void Add(NetPlayer client)
         {

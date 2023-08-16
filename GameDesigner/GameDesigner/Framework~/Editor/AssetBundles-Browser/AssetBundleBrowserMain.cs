@@ -49,7 +49,7 @@ namespace AssetBundleBrowser
         const float k_ToolbarPadding = 15;
         const float k_MenubarPadding = 32;
 
-        [MenuItem("GameDesigner/Framework/AssetBundle Browser", priority = 5)]
+        [MenuItem("GameDesigner/Framework/AssetBundle Browser", priority = 6)]
         static void ShowWindow()
         {
             s_instance = null;

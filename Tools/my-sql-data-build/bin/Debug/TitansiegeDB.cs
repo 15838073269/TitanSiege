@@ -114,6 +114,12 @@ namespace Titansiege
             return CheckConn(conn1);
         }
 
+        public void CloseConnect()
+        {
+            while (conns.TryPop(out MySqlConnection conn))
+                conn.Close();
+        }
+
         public DataTable ExecuteReader(string cmdText)
         {
             var conn = PopConnect();
@@ -304,6 +310,38 @@ namespace Titansiege
             return -1;
         }
 
+        public T ExecuteScalar<T>(string cmdText)
+        {
+            var conn = PopConnect();
+            var pars = new IDbDataParameter[0];
+            var count = ExecuteScalar<T>(conn, cmdText, pars);
+            conns.Push(conn);
+            return count;
+        }
+
+        private T ExecuteScalar<T>(MySqlConnection conn, string cmdText, IDbDataParameter[] parameters)
+        {
+            try
+            {
+                using (MySqlCommand cmd = new MySqlCommand())
+                {
+                    cmd.CommandText = cmdText;
+                    cmd.Connection = conn;
+                    cmd.CommandTimeout = CommandTimeout;//避免死锁一直无畏的等待, 在30秒内必须完成
+                    cmd.Parameters.AddRange(parameters);
+                    var count = (T)cmd.ExecuteScalar();
+                    QueryCount++;
+                    return count;
+                }
+            }
+            catch (Exception ex)
+            {
+                cmdText = GetCommandText(cmdText, parameters);
+                NDebug.LogError(cmdText + " 发生错误,如果有必要,请将sql语句复制到Navicat的查询窗口执行: " + ex);
+            }
+            return default;
+        }
+
         private static string GetCommandText(string cmdText, IDbDataParameter[] parameters) 
         {
             for (int i = 0; i < parameters.Length; i++)
@@ -452,6 +490,107 @@ namespace Titansiege
             value = value.Replace("|", "\\|"); //批量分隔符|
             if (value.Length >= length - 3) //必须保留三个字符做最后的判断, 如最后一个字符出现了\或'时出错问题
                 value = value.Substring(0, (int)length);
+        }
+
+        /// <summary>
+        /// 当项目在其他电脑上使用时可快速还原数据库信息和所有数据表
+        /// </summary>
+        public void CreateTables()
+        {
+            connStr = @"Data Source='127.0.0.1';Port=3306;User Id='root';Password='titansiege';charset='utf8mb4';pooling=true;useCompression=true;allowBatch=true;connectionTimeout=60;allowloadlocalinfile=true;";
+            InitConnection();
+            int count = (int)ExecuteScalar<long>($"SELECT COUNT(*) FROM information_schema.schemata WHERE schema_name = 'Titansiege'");
+            if (count <= 0) 
+            {
+                count = ExecuteNonQuery(@"CREATE DATABASE `titansiege` /*!40100 DEFAULT CHARACTER SET latin1 */");
+                NDebug.Log($"创建数据库:Titansiege{(count >= 0 ? "成功" : "失败")}!");
+                if (count <= 0)
+                    return;
+                CloseConnect();
+                connStr = @"Database='titansiege';Data Source='127.0.0.1';Port=3306;User Id='root';Password='titansiege';charset='utf8mb4';pooling=true;useCompression=true;allowBatch=true;connectionTimeout=60;allowloadlocalinfile=true;";
+                InitConnection();
+ // -- 6
+                count = (int)ExecuteScalar<long>($"SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'Titansiege' AND table_name = 'characters'");
+                if (count <= 0)
+                {
+                    count = ExecuteNonQuery(@"CREATE TABLE `characters` (
+  `ID` bigint(11) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Zhiye` tinyint(4) NOT NULL DEFAULT '0' COMMENT '职业',
+  `Level` tinyint(4) NOT NULL DEFAULT '1' COMMENT '等级',
+  `Exp` int(11) NOT NULL DEFAULT '0' COMMENT '经验',
+  `Shengming` int(11) NOT NULL DEFAULT '100' COMMENT '生命',
+  `Fali` int(11) NOT NULL DEFAULT '100' COMMENT '法力',
+  `Tizhi` smallint(6) NOT NULL DEFAULT '1' COMMENT '体质',
+  `Liliang` smallint(6) NOT NULL DEFAULT '1' COMMENT '力量',
+  `Minjie` smallint(6) NOT NULL DEFAULT '1' COMMENT '敏捷',
+  `Moli` smallint(6) NOT NULL DEFAULT '1' COMMENT '魔力',
+  `Meili` smallint(6) NOT NULL DEFAULT '1' COMMENT '魅力',
+  `Xingyun` smallint(6) NOT NULL DEFAULT '1' COMMENT '幸运',
+  `Lianjin` smallint(6) NOT NULL DEFAULT '0' COMMENT '炼金',
+  `Duanzao` smallint(6) NOT NULL DEFAULT '0' COMMENT '锻造',
+  `Jinbi` int(11) NOT NULL DEFAULT '0' COMMENT '金币',
+  `Zuanshi` int(11) NOT NULL DEFAULT '0' COMMENT '钻石',
+  `Chenghao` varchar(50) DEFAULT NULL COMMENT '称号',
+  `Friends` varchar(400) DEFAULT NULL COMMENT '亲朋',
+  `Skills` varchar(200) DEFAULT NULL COMMENT '技能',
+  `Prefabpath` varchar(100) DEFAULT NULL COMMENT '预制体路径',
+  `Headpath` varchar(100) DEFAULT NULL COMMENT '头像路径',
+  `Lihuipath` varchar(100) DEFAULT NULL COMMENT '立绘路径',
+  `Wuqi` smallint(6) NOT NULL DEFAULT '-1' COMMENT '武器',
+  `Toukui` smallint(6) NOT NULL DEFAULT '-1' COMMENT '头盔',
+  `Yifu` smallint(6) NOT NULL DEFAULT '-1' COMMENT '衣服',
+  `Xiezi` smallint(6) NOT NULL DEFAULT '-1' COMMENT '鞋子',
+  `MapID` int(11) NOT NULL DEFAULT '0',
+  `MapPosX` int(11) NOT NULL DEFAULT '0',
+  `MapPosY` int(11) NOT NULL DEFAULT '0',
+  `MapPosZ` int(11) NOT NULL DEFAULT '0',
+  `Uid` bigint(11) NOT NULL,
+  `LastDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后登录时间',
+  `DelRole` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ID` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+                    NDebug.Log($"创建数据表:characters{(count >= 0 ? "成功" : "失败")}!");
+                }
+                else NDebug.Log($"数据表:characters已存在!");
+ // -- 6
+                count = (int)ExecuteScalar<long>($"SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'Titansiege' AND table_name = 'config'");
+                if (count <= 0)
+                {
+                    count = ExecuteNonQuery(@"CREATE TABLE `config` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '表id',
+  `tname` varchar(20) CHARACTER SET utf8mb4 NOT NULL COMMENT '表名称',
+  `count` int(11) NOT NULL COMMENT '表计数',
+  `describle` varchar(200) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '表描述',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='配置表，将数据库所有数据表配置到这里面备用'");
+                    NDebug.Log($"创建数据表:config{(count >= 0 ? "成功" : "失败")}!");
+                }
+                else NDebug.Log($"数据表:config已存在!");
+ // -- 6
+                count = (int)ExecuteScalar<long>($"SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'Titansiege' AND table_name = 'users'");
+                if (count <= 0)
+                {
+                    count = ExecuteNonQuery(@"CREATE TABLE `users` (
+  `ID` bigint(20) NOT NULL,
+  `Username` varchar(50) NOT NULL,
+  `Password` varchar(50) NOT NULL,
+  `RegisterDate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `Email` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ID` (`ID`),
+  UNIQUE KEY `Username_2` (`Username`),
+  UNIQUE KEY `Email` (`Email`),
+  KEY `Username` (`Username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+                    NDebug.Log($"创建数据表:users{(count >= 0 ? "成功" : "失败")}!");
+                }
+                else NDebug.Log($"数据表:users已存在!");
+ // -- 7
+            }
+            else NDebug.Log($"数据库:Titansiege已存在!");
         }
     }
 }

@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Framework
 {
-    public class UI_Tips : UIFormBase<UI_Tips, TipsItem>
+    public class UI_Tips : UIBase<UI_Tips, TipsItem>
     {
         public float hideTime = 1.5f;
 

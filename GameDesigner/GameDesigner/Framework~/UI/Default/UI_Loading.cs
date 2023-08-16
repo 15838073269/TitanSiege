@@ -2,7 +2,7 @@ using UnityEngine.UI;
 
 namespace Framework
 {
-    public class UI_Loading : UIFormBase<UI_Loading>
+    public class UI_Loading : UIBase<UI_Loading>
     {
         public Text title;
         public Slider progress;

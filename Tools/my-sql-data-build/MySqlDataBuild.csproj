@@ -173,8 +173,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\source code.txt" />
-    <None Include="Resources\db source.txt" />
+    <None Include="Resources\tableTemplate.txt" />
+    <None Include="Resources\databaseTemplate.txt" />
     <Content Include="使用的包.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

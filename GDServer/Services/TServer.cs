@@ -106,7 +106,7 @@ namespace GDServer.Services
             var files = Directory.GetFiles(path, "*.mapData");
             foreach (var flie in files) {
                 var mapData = MapData.ReadData(flie);
-                GDScene gdscene = CreateScene(mapData.name);
+                GDScene gdscene = CreateScene(mapData.name); 
                 gdscene.mapData = mapData;
                 gdscene.Init();
                 Debuger.Log("创建地图:" + gdscene.Name);

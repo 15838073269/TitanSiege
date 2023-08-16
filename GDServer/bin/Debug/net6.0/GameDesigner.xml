@@ -712,7 +712,6 @@
             封包
             </summary>
             <param name="stream"></param>
-            <param name="frame"></param>
         </member>
         <member name="M:Net.Share.IPackageAdapter.Unpack(Net.System.ISegment,System.Int32,System.Int32)">
             <summary>
@@ -1342,7 +1341,7 @@
             <param name="kernel">内核? 你包装的数据在客户端是否被内核NetConvert反序列化?</param>
             <param name="serialize">序列化? 你包装的数据是否在服务器即将发送时NetConvert序列化?</param>
         </member>
-        <member name="F:Net.Share.RPCDataPtr.name">
+        <member name="P:Net.Share.RPCDataPtr.name">
             <summary>
             函数和参数的名称
             </summary>
@@ -1665,7 +1664,7 @@
             远程过程调用方法
             </summary>
         </member>
-        <member name="F:Net.Share.RPCMethod.Name">
+        <member name="P:Net.Share.RPCMethod.Name">
             <summary>
             委托函数名
             </summary>
@@ -1809,11 +1808,6 @@
             解析RPC函数次数
             </summary>
         </member>
-        <member name="F:Net.Share.Dataflow.FPS">
-            <summary>
-            FPS
-            </summary>
-        </member>
         <member name="F:Net.Share.Dataflow.outflowTotal">
             <summary>
             从启动到现在总流出的数据流量
@@ -1823,6 +1817,22 @@
             <summary>
             从启动到现在总流入的数据流量
             </summary>
+        </member>
+        <member name="F:Net.Share.Dataflow.FPS">
+            <summary>
+            只适应于客户端, 服务器无效
+            </summary>
+        </member>
+        <member name="F:Net.Share.Dataflow.FPSArray">
+            <summary>
+            所有网络线程组的FPS, 适用于服务器
+            </summary>
+        </member>
+        <member name="M:Net.Share.Dataflow.FPSToString">
+            <summary>
+            显示所有线程组的FPS
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Net.Share.Operation">
             <summary>
@@ -2252,7 +2262,7 @@
             网络接收缓存结构体
             </summary>
         </member>
-        <member name="F:Net.Share.RPCData.name">
+        <member name="P:Net.Share.RPCData.name">
             <summary>
             函数和参数的名称
             </summary>
@@ -6627,11 +6637,6 @@
         <member name="F:Net.Server.ServerBase`2.receiveCount">
             <summary>
             网络统计接收长度/秒
-            </summary>
-        </member>
-        <member name="F:Net.Server.ServerBase`2.FPS">
-            <summary>
-            FPS
             </summary>
         </member>
         <member name="F:Net.Server.ServerBase`2.outflowTotal">

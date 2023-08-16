@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenProShortcuts.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\ConfigData.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraComponent\ImageEffects\XftGlow.cs" />
     <Compile Include="Assets\Scripts\UIModule\MapBtn.cs" />
     <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenTextMeshPro.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets03\Cartoon FX\Demo\Assets\CFX3_AutoStopLoopedEffect.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Affectors\DragAffector.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Cone.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\CharactersData.cs" />
     <Compile Include="Assets\Scripts\Module\Fight\FightScene.cs" />
     <Compile Include="Assets\Scripts\Data\NameData.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets02\Cartoon FX\Scripts\CFX_AutoRotate.cs" />
@@ -105,7 +107,6 @@
     <Compile Include="Assets\Scripts\Module\NPC\PlayerAnimator.cs" />
     <Compile Include="Assets\Scripts\ConfigTable\ExcelBase.cs" />
     <Compile Include="Assets\Ultimate 10 Plus Shaders\Shaders\Plexus\Plexus.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\TitansiegeDB.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Component\SimpleRotate.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\FT_Slasher_volume01\SampleScene\Scripts\Button.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Tutorial\API Usage\MagicChain\XftMagicChainDemo.cs" />
@@ -131,7 +132,6 @@
     <Compile Include="Assets\Scripts\Game\GlobalEvent.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraComponent\ImageEffects\XftColorInverse.cs" />
     <Compile Include="Assets\Hovl Studio\Sword slash VFX\Demo scene\CameraHolder.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\TitansiegeDB\CharactersData.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\XftTools.cs" />
     <Compile Include="Assets\Scripts\Module\CreateAndSelectModule.cs" />
     <Compile Include="Assets\Scripts\Module\Fight\Effect\EffectBase.cs" />
@@ -149,6 +149,7 @@
     <Compile Include="Assets\Scripts\Module\Bulid\BulidBase.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Component\XffectComponent.cs" />
     <Compile Include="Assets\Scripts\Module\SceneModule\ChuanSong.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\UsersData.cs" />
     <Compile Include="Assets\Scripts\Module\SceneModule\SceneBase.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\XftEventComponent.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Cartoon FX\Scripts\CFX_ShurikenThreadFix.cs" />
@@ -170,9 +171,7 @@
     <Compile Include="Assets\Scripts\Module\MainUIModule.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Demo\Assets\WFX_Demo_DeleteAfterDelay.cs" />
     <Compile Include="Assets\XWeaponTrail\Scripts\SplineControlPoint.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\TitansiegeDBEvent.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\VertexPool.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\TitansiegeHashProto.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Cartoon FX\Demo\Assets\CFX_Demo_RotateCamera.cs" />
     <Compile Include="Assets\Ultimate 10 Plus Shaders\Scripts\U10PS_MouseRotation.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Demo\Assets\WFX_Demo_RandomDir.cs" />
@@ -182,6 +181,7 @@
     <Compile Include="Assets\XWeaponTrail\Scripts\XWeaponTrailDemo.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\TimeScaleEvent.cs" />
     <Compile Include="Assets\XWeaponTrail\Scripts\Spline.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeHashProto.cs" />
     <Compile Include="Assets\Scripts\Module\VersionModule.cs" />
     <Compile Include="Assets\Scripts\Game\MessageDef.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Affectors\SineAffector.cs" />
@@ -190,8 +190,9 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Scripts\WFX_ParticleMeshBillboard.cs" />
     <Compile Include="Assets\Scripts\Module\Fight\State\DieState.cs" />
     <Compile Include="Assets\Scripts\UIModule\CreatePlayerPage.cs" />
-    <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Tutorial\RopeRenderer\XftRopeDemo.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDBEvent.cs" />
     <Compile Include="Assets\Scripts\Const\Enums.cs" />
+    <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Tutorial\RopeRenderer\XftRopeDemo.cs" />
     <Compile Include="Assets\Scripts\Utilities\MyAcitonCore.cs" />
     <Compile Include="Assets\Scripts\Data\TaskData.cs" />
     <Compile Include="Assets\RealToon\RealToon Tools\CustomShadowResolution.cs" />
@@ -227,11 +228,9 @@
     <Compile Include="Assets\Scripts\ConfigTable\ConfigerManager.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Scripts\WFX_AutoDestructShuriken.cs" />
     <Compile Include="Assets\Scripts\Module\NPC\NPCModule.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\TitansiegeDB\UsersData.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraEffects\GlowPerObjEvent.cs" />
     <Compile Include="Assets\Scripts\Module\NPC\Monster.cs" />
     <Compile Include="Assets\Scripts\Module\BulidModule.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\TitansiegeDB\ConfigData.cs" />
     <Compile Include="Assets\Scripts\Game\AppTools.cs" />
     <Compile Include="Assets\Ultimate 10 Plus Shaders\Scripts\U10PS_SnowOverTime.cs" />
     <Compile Include="Assets\Scripts\Utilities\TestScene.cs" />
@@ -245,6 +244,7 @@
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Affectors\AirFieldAffector.cs" />
     <Compile Include="Assets\Scripts\Game\AppConfig.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
     <Compile Include="Assets\Scripts\ConfigTable\BinarySerializeOpt.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\SpriteMaker\SpriteMaker.cs" />

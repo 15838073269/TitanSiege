@@ -12,12 +12,12 @@ namespace Framework
         public Transform UIRoot;
         public Transform[] Levels;
         public string sheetName = "UI";
-        public Dictionary<string, UIFormBase> formDict = new Dictionary<string, UIFormBase>();
-        public Stack<UIFormBase> formStack = new Stack<UIFormBase>();
-        public IForm Loading, Message, Tips;
-        [SerializeField] private UIFormBase _Loading;
-        [SerializeField] private UIFormBase _Message;
-        [SerializeField] private UIFormBase _Tips;
+        public Dictionary<string, UIBase> formDict = new Dictionary<string, UIBase>();
+        public Stack<UIBase> formStack = new Stack<UIBase>();
+        public IUserInterface Loading, Message, Tips;
+        [SerializeField] private UIBase _Loading;
+        [SerializeField] private UIBase _Message;
+        [SerializeField] private UIBase _Tips;
 
         public virtual void Awake()
         {
@@ -33,7 +33,7 @@ namespace Framework
         /// 将form界面添加到所有界面字典里面
         /// </summary>
         /// <param name="form"></param>
-        public void AddForm(UIFormBase form)
+        public void AddForm(UIBase form)
         {
             formDict[form.GetType().Name] = form;
         }
@@ -45,10 +45,10 @@ namespace Framework
         /// <param name="onBack">当关闭界面后回调</param>
         /// <param name="formMode">当前界面响应模式</param>
         /// <returns></returns>
-        public T OpenForm<T>(Delegate onBack = null, UIFormMode formMode = UIFormMode.CloseCurrForm) where T : UIFormBase<T>
+        public T OpenForm<T>(Delegate onBack = null, UIMode formMode = UIMode.CloseCurrUI, params object[] pars) where T : UIBase<T>
         {
             var formName = typeof(T).Name;
-            return OpenForm(formName, onBack, formMode) as T;
+            return OpenForm(formName, onBack, formMode, pars) as T;
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Framework
         /// <param name="onBack">当关闭界面后回调</param>
         /// <param name="formMode">当前界面响应模式</param>
         /// <returns></returns>
-        public void OpenForm(UIFormBase uiForm, Delegate onBack = null, UIFormMode formMode = UIFormMode.CloseCurrForm)
+        public void OpenForm(UIBase uiForm, Delegate onBack = null, UIMode formMode = UIMode.CloseCurrUI, params object[] pars)
         {
             var formName = uiForm.GetType().Name;
             OpenForm(formName, onBack, formMode);
@@ -71,7 +71,7 @@ namespace Framework
         /// <param name="onBack">当关闭界面后回调</param>
         /// <param name="formMode">当前界面响应模式</param>
         /// <returns></returns>
-        public UIFormBase OpenForm(string formName, Delegate onBack = null, UIFormMode formMode = UIFormMode.CloseCurrForm)
+        public UIBase OpenForm(string formName, Delegate onBack = null, UIMode formMode = UIMode.CloseCurrUI, params object[] pars)
         {
             if (formDict.TryGetValue(formName, out var form))
                 if (form != null)
@@ -80,28 +80,28 @@ namespace Framework
             formDict[formName] = form;
         J: if (formStack.Count > 0)
             {
-                UIFormBase form1;
+                UIBase form1;
                 switch (formMode)
                 {
-                    case UIFormMode.HideCurrForm:
+                    case UIMode.HideCurrUI:
                         form1 = formStack.Peek();//只是隐藏当前界面不能弹出
                         form1.HideUI(false);
                         break;
-                    case UIFormMode.CloseCurrForm:
+                    case UIMode.CloseCurrUI:
                         form1 = formStack.Pop();//关闭上一个界面需要弹出
                         form1.HideUI(false);
                         break;
-                    case UIFormMode.None://不做任何动作, Message消息框
+                    case UIMode.None://不做任何动作, Message消息框
                         break;
                 }
             }
-            form.ShowUI(onBack);
-            form.transform.SetAsLastSibling();
+            form.ShowUI(onBack, pars);
+            //form.transform.SetAsLastSibling(); //showui已经处理
             formStack.Push(form);//如果是消息框, 一定会关闭了才能再次打开, 不存在多次压入
             return form;
         }
 
-        private UIFormBase InstantiateForm(string formName) 
+        private UIBase InstantiateForm(string formName) 
         {
             var dataTable = Global.Table.GetTable(sheetName);
             var dataRows = dataTable.Select($"Name = '{formName}'");
@@ -109,7 +109,7 @@ namespace Framework
                 throw new Exception($"找不到界面:{formName}, 请配置!");
             var path = ObjectConverter.AsString(dataRows[0]["Path"]);
             var level = ObjectConverter.AsInt(dataRows[0]["Level"]);
-            var form = Global.Resources.Instantiate<UIFormBase>(path, Levels[level]);
+            var form = Global.Resources.Instantiate<UIBase>(path, Levels[level]);
             return form;
         }
 
@@ -127,7 +127,7 @@ namespace Framework
             }
         }
 
-        public void CloseForm(UIFormBase form, bool isBack = true, params object[] pars)
+        public void CloseForm(UIBase form, bool isBack = true, params object[] pars)
         {
             if (formStack.Count > 0)
             {
@@ -151,25 +151,25 @@ namespace Framework
             }
         }
 
-        public T GetForm<T>() where T : UIFormBase
+        public T GetForm<T>() where T : UIBase
         {
             var formName = typeof(T).Name;
             return GetForm(formName) as T;
         }
 
-        public UIFormBase GetForm(string formName) 
+        public UIBase GetForm(string formName) 
         {
             formDict.TryGetValue(formName, out var form);
             return form;
         }
 
-        public T GetFormOrCreate<T>(bool isShow = false) where T : UIFormBase
+        public T GetFormOrCreate<T>(bool isShow = false) where T : UIBase
         {
             var formName = typeof(T).Name;
             return GetFormOrCreate(formName, isShow) as T;
         }
 
-        public UIFormBase GetFormOrCreate(string formName, bool isShow = false)
+        public UIBase GetFormOrCreate(string formName, bool isShow = false)
         {
             var form = GetForm(formName);
             if (form != null)

@@ -95,6 +95,12 @@ using Cysharp.Threading.Tasks;
             return CheckConn(conn1);
         }
 
+        public void CloseConnect()
+        {
+            while (conns.TryPop(out MySqlConnection conn))
+                conn.Close();
+        }
+
         public DataTable ExecuteReader(string cmdText)
         {
             var conn = PopConnect();
@@ -285,6 +291,38 @@ using Cysharp.Threading.Tasks;
             return -1;
         }
 
+        public T ExecuteScalar<T>(string cmdText)
+        {
+            var conn = PopConnect();
+            var pars = new IDbDataParameter[0];
+            var count = ExecuteScalar<T>(conn, cmdText, pars);
+            conns.Push(conn);
+            return count;
+        }
+
+        private T ExecuteScalar<T>(MySqlConnection conn, string cmdText, IDbDataParameter[] parameters)
+        {
+            try
+            {
+                using (MySqlCommand cmd = new MySqlCommand())
+                {
+                    cmd.CommandText = cmdText;
+                    cmd.Connection = conn;
+                    cmd.CommandTimeout = CommandTimeout;//避免死锁一直无畏的等待, 在30秒内必须完成
+                    cmd.Parameters.AddRange(parameters);
+                    var count = (T)cmd.ExecuteScalar();
+                    QueryCount++;
+                    return count;
+                }
+            }
+            catch (Exception ex)
+            {
+                cmdText = GetCommandText(cmdText, parameters);
+                NDebug.LogError(cmdText + " 发生错误,如果有必要,请将sql语句复制到Navicat的查询窗口执行: " + ex);
+            }
+            return default;
+        }
+
         private static string GetCommandText(string cmdText, IDbDataParameter[] parameters) 
         {
             for (int i = 0; i < parameters.Length; i++)
@@ -438,6 +476,36 @@ using Cysharp.Threading.Tasks;
             value = value.Replace("|", "\\|"); //批量分隔符|
             if (value.Length >= length - 3) //必须保留三个字符做最后的判断, 如最后一个字符出现了\或'时出错问题
                 value = value.Substring(0, (int)length);
+        }
+
+        /// <summary>
+        /// 当项目在其他电脑上使用时可快速还原数据库信息和所有数据表
+        /// </summary>
+        public void CreateTables()
+        {
+            connStr = @"Data Source='{DS}';Port={PORT};User Id='{IDNAME}';Password='{IDPWD}';charset='utf8mb4';pooling=true;useCompression=true;allowBatch=true;connectionTimeout=60;allowloadlocalinfile=true;";
+            InitConnection();
+            int count = (int)ExecuteScalar<long>($"SELECT COUNT(*) FROM information_schema.schemata WHERE schema_name = '{DATABASENAME}'");
+            if (count <= 0) 
+            {
+                count = ExecuteNonQuery(@"{CREATEDATABASESQL}");
+                NDebug.Log($"创建数据库:{DATABASENAME}{(count >= 0 ? "成功" : "失败")}!");
+                if (count <= 0)
+                    return;
+                CloseConnect();
+                connStr = @"Database='{DBNAME1}';Data Source='{DS}';Port={PORT};User Id='{IDNAME}';Password='{IDPWD}';charset='utf8mb4';pooling=true;useCompression=true;allowBatch=true;connectionTimeout=60;allowloadlocalinfile=true;";
+                InitConnection();
+[split] // -- 6
+                count = (int)ExecuteScalar<long>($"SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '{DATABASENAME}' AND table_name = '{TABLENAME}'");
+                if (count <= 0)
+                {
+                    count = ExecuteNonQuery(@"{CREATETABLESQL}");
+                    NDebug.Log($"创建数据表:{TABLENAME}{(count >= 0 ? "成功" : "失败")}!");
+                }
+                else NDebug.Log($"数据表:{TABLENAME}已存在!");
+[split] // -- 7
+            }
+            else NDebug.Log($"数据库:{DATABASENAME}已存在!");
         }
     }
 {NAMESPACE_END}

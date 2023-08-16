@@ -1,4 +1,6 @@
-﻿namespace Net.Share
+﻿using System;
+
+namespace Net.Share
 {
     /// <summary>
     /// 网络流量数据统计
@@ -45,10 +47,6 @@
         /// </summary>
         public int resolveNumber;
         /// <summary>
-        /// FPS
-        /// </summary>
-        public int FPS;
-        /// <summary>
         /// 从启动到现在总流出的数据流量
         /// </summary>
         public long outflowTotal;
@@ -56,5 +54,37 @@
         /// 从启动到现在总流入的数据流量
         /// </summary>
         public long inflowTotal;
+        /// <summary>
+        /// 只适应于客户端, 服务器无效
+        /// </summary>
+        public int FPS;
+        /// <summary>
+        /// 所有网络线程组的FPS, 适用于服务器
+        /// </summary>
+        public FPSEntity[] FPSArray;
+
+        /// <summary>
+        /// 显示所有线程组的FPS
+        /// </summary>
+        /// <returns></returns>
+        public string FPSToString()
+        {
+            var text = string.Empty;
+            for (int i = 0; i < FPSArray.Length; i++)
+                text += $"FPS{FPSArray[i].Id}:{FPSArray[i].FPS} ";
+            return text;
+        }
+    }
+
+    public struct FPSEntity 
+    {
+        public int Id;
+        public int FPS;
+
+        public FPSEntity(int id, int fps)
+        {
+            Id = id;
+            FPS = fps;
+        }
     }
 }

@@ -5,7 +5,6 @@ namespace Net.UnityComponent
     using Net.Component;
     using Net.Share;
     using UnityEngine;
-    using UnityEngine.UIElements;
 
     public enum SyncMode
     {
@@ -61,6 +60,12 @@ namespace Net.UnityComponent
         public bool fixedSync = true;
         public float fixedSendTime = 1f;//固定发送时间
         internal float fixedTime;
+
+        public override void Start()
+        {
+            base.Start();
+            netObj.CanDestroy = false;
+        }
 
         // Update is called once per frame
         public virtual void Update()
@@ -193,9 +198,13 @@ namespace Net.UnityComponent
             base.OnDestroy();
             if (ClientBase.Instance == null)
                 return;
+            if (!ClientBase.Instance.Connected)
+                return;
+            if (netObj.Identity == -1)
+                return;
             //如果在退出游戏或者退出场景后不让物体被销毁，则需要查找netobj组件设置Identity等于-1，或者查找此组件设置currMode等于None，或者在点击处理的时候调用ClientBase.Instance.Close方法
-            if ((currMode == SyncMode.SynchronizedAll | currMode == SyncMode.Control) & netObj.Identity != -1 & ClientBase.Instance.Connected)
-                ClientBase.Instance.AddOperation(new Operation(Command.Destroy, netObj.Identity));
+            if (currMode == SyncMode.SynchronizedAll | currMode == SyncMode.Control | currMode == SyncMode.Local)
+                netObj.SendDestroyCommand();
         }
     }
 }

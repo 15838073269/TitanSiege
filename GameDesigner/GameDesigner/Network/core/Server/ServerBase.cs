@@ -187,10 +187,6 @@ namespace Net.Server
         /// </summary>
         protected int receiveCount;
         /// <summary>
-        /// FPS
-        /// </summary>
-        public int FPS;
-        /// <summary>
         /// 从启动到现在总流出的数据流量
         /// </summary>
         protected long outflowTotal;
@@ -823,8 +819,11 @@ namespace Net.Server
         {
             try
             {
-                outflowTotal += (long)sendCount;
-                inflowTotal += (long)receiveCount;
+                outflowTotal += sendCount;
+                inflowTotal += receiveCount;
+                var entities = new FPSEntity[ThreadGroups.Count];
+                for (int i = 0; i < ThreadGroups.Count; i++)
+                    entities[i] = new FPSEntity(ThreadGroups[i].Id, ThreadGroups[i].FPS);
                 OnNetworkDataTraffic?.Invoke(new Dataflow()
                 {
                     sendCount = sendCount,
@@ -832,9 +831,9 @@ namespace Net.Server
                     receiveNumber = receiveAmount,
                     receiveCount = receiveCount,
                     resolveNumber = resolveAmount,
-                    FPS = FPS,
                     outflowTotal = outflowTotal,
                     inflowTotal = inflowTotal,
+                    FPSArray = entities,
                 });
             }
             catch (Exception ex)
@@ -848,7 +847,8 @@ namespace Net.Server
                 resolveAmount = 0;
                 receiveAmount = 0;
                 receiveCount = 0;
-                FPS = 0;
+                for (int i = 0; i < ThreadGroups.Count; i++)
+                    ThreadGroups[i].FPS = 0;
             }
             return IsRunServer;
         }
@@ -915,12 +915,12 @@ namespace Net.Server
                         ResolveDataQueue(client, ref isSleep, tick);
                         SendDirect(client);
                         SyncVarHandler(client);
-                    J: OnClientTick(client, tick);
+                        OnClientTick(client, tick);
                         if (isCheckPerSecond) OnCheckPerSecond(client);
                     }
                     if (isSleep)
                         Thread.Sleep(1);
-                    FPS++;
+                    group.FPS++;
                 }
                 catch (Exception ex)
                 {
@@ -1354,9 +1354,8 @@ namespace Net.Server
                     break;
                 case NetCmd.ReliableTransport:
                     client.Gcp.Input(model.Buffer);
-                    int count1;
                     ISegment buffer1;
-                    while ((count1 = client.Gcp.Receive(out buffer1)) > 0)
+                    while (client.Gcp.Receive(out buffer1) > 0)
                     {
                         DataCRCHandler(client, buffer1, false);
                         BufferPool.Push(buffer1);

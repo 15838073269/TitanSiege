@@ -89,7 +89,6 @@ namespace Net.Share
         /// 封包
         /// </summary>
         /// <param name="stream"></param>
-        /// <param name="frame"></param>
         void Pack(ISegment stream);
         /// <summary>
         /// 解包
