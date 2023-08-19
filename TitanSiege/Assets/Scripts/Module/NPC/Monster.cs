@@ -10,6 +10,7 @@ using Cysharp.Threading.Tasks;
 using GameDesigner;
 using GF.ConfigTable;
 using GF.MainGame.Data;
+using GF.NetWork;
 using GF.Service;
 using MoreMountains.Feedbacks;
 using Net.Client;
@@ -18,6 +19,7 @@ using Net.Share;
 using Pathfinding.RVO;
 using System;  
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 using Random = System.Random;
 
 namespace GF.MainGame.Module.NPC {
@@ -28,11 +30,12 @@ namespace GF.MainGame.Module.NPC {
         public Material m_Material = null;
         public int m_NetState;//和服务器monster对应的state，0为服务端更新，1为客户端更新
         public int m_PatrolState;//服务端巡逻状态字段
-        public int m_targetID;
+        public int m_targetID = 0;
         public RVOController m_RvoController;
         public MMF_Player m_Feel;
-        
+        ClientSceneManager c;//客户端管理器，用来查询所有玩家数据的
         public void OnEnable() {
+            c = ClientSceneManager.I as ClientSceneManager;
             if (m_Material == null) {
                 return;
             }
@@ -91,13 +94,23 @@ namespace GF.MainGame.Module.NPC {
             AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, this);
         }
         public void Update() {
+            if ((AttackTarget != null) && (AttackTarget.m_GDID!= m_targetID)) { //这种情况说明有其他玩家攻击这个怪物了，所以m_targetID会被服务器更换，这里设计以服务器为准
+                if (c.identitys.TryGetValue(m_targetID, out var p)) {
+                    AttackTarget = p.GetComponent<Player>();
+                }
+            }
             if ((AttackTarget != null) && (m_targetID == ClientBase.Instance.UID)) { //如果攻击目标存在，并且就是本机，那就需要负责同步怪物的移动和旋转
                 if (NetworkTime.CanSent) {//update的次数由机器配置决定，不确定数量，所以要加上限制，一般不超过30次，NetworkTime.CanSent就是控制发送次数的
-                    ClientBase.Instance.AddOperation(new Operation(Command.EnemySync, m_GDID, transform.position, transform.rotation));
+                    ClientBase.Instance.AddOperation(new Operation(Command.EnemySync, m_GDID, transform.position, transform.rotation) {
+                        //cmd1 = (byte)m_PatrolState,//怪物的状态
+                        //index1 = FightHP,
+                    });
                 }
             } else if ((m_NetState == 1) && (m_targetID == ClientBase.Instance.UID)&&(AttackTarget == null)) { //如果当前是客户端同步，并且是本机在同步，但怪物的目标已经为null了，一般是脱离攻击范围，就发送消息给服务端，转为服务端控制
                 if (NetworkTime.CanSent) {
-                    ClientBase.Instance.AddOperation(new Operation(Command.EnemySwitchState, m_GDID) { cmd1 = 0,cmd2 = 0});
+                    //m_NetState = 0;
+                    //m_targetID = 0;
+                    ClientBase.Instance.AddOperation(new Operation(Command.EnemySwitchState, m_GDID) { cmd1 = 0,cmd2 = 0,index = m_FightHp});
 
                 }
             }

@@ -42,7 +42,7 @@ namespace GDServer.AI {
             scene.AddOperation(new Operation(Command.EnemySync, identity, transform.position, transform.rotation) {
                 cmd1 = state,
                 cmd2 = patrolstate,
-                index = enemyindex,//客户端怪物的模型索引，clientManager中的那个
+                index = enemyindex,//客户端怪物的模型索引，clientManager中的那个,客户端CheckMonster方法会使用这个
                 index1 = health,
                 index2 = targetID,
             });
@@ -102,6 +102,7 @@ namespace GDServer.AI {
             if (health <= 0) {
                 isDeath = true;
                 health = 0;
+                Debuger.Log("怪物"+identity+"死亡");
                 patrolstate = 5;//客户端怪物的死亡状态值
                 ThreadManager.Event.AddEvent(10f, () => {
                     Resurrection();

@@ -86,7 +86,9 @@ namespace GF.NetWork {
                     monster.transform.position = opt.position;
                     monster.transform.rotation = opt.rotation;
                     break;
-                case Command.EnemySwitchState:
+                case Command.EnemySwitchState://两种情况使用这个命令，1、主控客户端告知服务端不再同步怪物数据，由服务的自己控制，此时命令发送cmd1和cmd2都是0
+                                              //2、主控客户端同步怪物状态给服务器，服务器广播给其他客户端
+                                              //客户端这里接收到的，只能是主控客户端同步怪物状态给服务器，服务器广播给其他客户端
                     if (m_MonsterDics.TryGetValue(opt.identity, out var monster2)) {
                         monster2.m_NetState = (int)opt.cmd1;//服务器回传后，要把本地怪物的状态设置为目标值
                         monster2.m_State.StatusEntry((int)opt.cmd2);//切换状态后，客户端自行播放状态动画
@@ -98,7 +100,7 @@ namespace GF.NetWork {
                     monster3.m_PatrolState = opt.cmd2;
                     monster3.FightHP = opt.index1;
                     monster3.m_targetID = opt.index2;
-                    if (monster3.m_targetID!=ClientBase.Instance.UID) {//如果怪物目标不是本机,说明怪物不是本机在控制同步的，就需要从服务器同步怪物位置信息。
+                    if (monster3.m_targetID!=ClientBase.Instance.UID) {//如果怪物目标不是本机,说明怪物不是本机在控制同步的，就需要从服务器同步怪物位置信息。 
                         monster3.transform.position = opt.position;
                         monster3.transform.rotation = opt.rotation;
                     }

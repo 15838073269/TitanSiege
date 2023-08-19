@@ -15,3 +15,5 @@
 经测试，NetworkTransformBase脚本下，有一个属性lerpSpeed，这个值越小，滑步情况越明显，可以适当调大，目前设置为0.8f
 
 6、目前我自己写的GFLite框架有个小问题，GfLite中的GFUnity.dll中使用了unityeditor的代码，按照unity2021的新规则，如果使用了unityeditor的dll，打包时必须放到editor文件夹下，但这个dll放到editor下会导致功能不正常。目前能想到的解决办法就是把使用unityeditor的代码注释掉重新打包成没有使用unityeditor的dll，但这样会导致开发时涉及unityeditor的编辑器工具不能用，目前不影响个人使用，回头尝试使用宏定义解决这个问题。
+
+7、怪物死亡处理目前还还有问题

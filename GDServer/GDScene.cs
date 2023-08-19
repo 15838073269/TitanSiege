@@ -33,7 +33,8 @@ namespace GDServer {
                     monster1.scene = this;
                     monster1.enemyindex = item.monsters[i].id;//客户端怪物的模型索引id，clientManager中的那个
                     //各种属性额赋值  todo
-                    monster1.health = item.monsters[i].health;
+                    //monster1.health = item.monsters[i].health;
+                    monster1.health = 1000;
                     monsters.Add(monster1.identity, monster1);
                 }
             }
@@ -85,7 +86,8 @@ namespace GDServer {
                     case Command.Attack:
                         if (monsters.TryGetValue(opt.index1,out var monster)) { //尝试获取怪物对象
                             monster.targetID = opt.identity;
-                            //monster.OnDamage(opt.index);
+                            Debuger.Log(monster.targetID);
+                            monster.OnDamage(opt.index);
                             if (monster.isDeath) {
                                 monster.PatrolCall();//发送怪物死亡命令
                             }
@@ -99,27 +101,24 @@ namespace GDServer {
                                 break;
                             }
                         }
-                        ////攻击玩家，客户端警戒方法发送的命令，收到命令后，处理服务端怪物状态，并告知其他客户端
-                        //if (monsters.TryGetValue(opt.identity, out AIMonster monster0)) {
-                        //    monster0.targetID = opt.index1;//index1是玩家的id
-                        //    monster0.state = 1;//切换成客户端更新的模式，其他不用处理，mosnter脚本自己会处理
-                        //}
                         break;
                     case Command.EnemySync://客户端同步怪物位置的命令，同步完后，服务端monster中的update会按帧将状态同步给所有客户端， 不需要再单独处理
                         if (monsters.TryGetValue(opt.identity, out AIMonster monster1)) {
                             monster1.transform.position = opt.position;
                             monster1.transform.rotation = opt.rotation;
-                            monster1.health = opt.index1;
                         }
                         break;
-                    case Command.EnemySwitchState://客户端切换怪物状态的命令，客户端警戒方法发送的命令，收到命令后，处理服务端怪物状态，并告知其他客户端
-                        //警戒方法，失去目标后也发送此命令
+                    case Command.EnemySwitchState://两种情况使用这个命令，1、主控客户端告知服务端不再同步怪物数据，由服务的自己控制，此时命令发送cmd1和cmd2都是0
+                        //2、主控客户端同步怪物状态给服务器，服务器广播给其他客户端
                         if (monsters.TryGetValue(opt.identity, out AIMonster monster3)) {
-                            if (!monster3.isDeath) {//服务端判断怪物死没死，没死就切换状态，以后让客户端同步
+                            if (!monster3.isDeath) {//服务端判断怪物死没死，没死就切换状态，以后服务端自己同步
                                 monster3.state = opt.cmd1;
                                 monster3.patrolstate = opt.cmd2;
-                                if (monster3.state == 0)
+                                if (monster3.state == 0) {//说明是主控客户端告知服务端不再同步怪物
+                                    monster3.health = opt.index;
                                     monster3.targetID = 0;
+                                }
+                                    
                                 AddOperation(opt);
                             } else {//如果怪已经死亡，却还收到切换状态命令，说明客户端与服务端信息不一致，就把服务端数据同步给客户端
                                 monster3.PatrolCall();
@@ -127,18 +126,18 @@ namespace GDServer {
                         }
                         break;
                     case Command.AIBeAttack://技能伤害计算完毕后，发给服务端
-                        if (monsters.TryGetValue(opt.identity, out AIMonster monster4)) {
-                            if (!monster4.isDeath) {//服务端判断怪物死没死，没死就传递伤害数值
-                                monster4.OnDamage(opt.index1);
-                                if (!monster4.isDeath) {
-                                    AddOperation(opt);
-                                } else {
-                                    monster4.PatrolCall();
-                                }
-                            } else {//如果怪已经死亡，却还收到切换状态命令，说明客户端与服务端信息不一致，就把服务端数据同步给客户端
-                                monster4.PatrolCall();
-                            }
-                        }
+                        //if (monsters.TryGetValue(opt.identity, out AIMonster monster4)) {
+                        //    if (!monster4.isDeath) {//服务端判断怪物死没死，没死就传递伤害数值
+                        //        monster4.OnDamage(opt.index1);
+                        //        if (!monster4.isDeath) {
+                        //            AddOperation(opt);
+                        //        } else {
+                        //            monster4.PatrolCall();
+                        //        }
+                        //    } else {//如果怪已经死亡，却还收到切换状态命令，说明客户端与服务端信息不一致，就把服务端数据同步给客户端
+                        //        monster4.PatrolCall();
+                        //    }
+                        //}
                         break;
                     case Command.Resurrection://复活怪物
                         client.Resurrection();
