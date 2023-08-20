@@ -33,8 +33,8 @@ namespace GDServer {
                     monster1.scene = this;
                     monster1.enemyindex = item.monsters[i].id;//客户端怪物的模型索引id，clientManager中的那个
                     //各种属性额赋值  todo
-                    //monster1.health = item.monsters[i].health;
-                    monster1.health = 1000;
+                    monster1.health = item.monsters[i].health;
+                    monster1.maxhealth = item.monsters[i].health;
                     monsters.Add(monster1.identity, monster1);
                 }
             }

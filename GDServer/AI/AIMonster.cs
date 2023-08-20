@@ -21,7 +21,8 @@ namespace GDServer.AI {
         internal int enemyindex;//客户端怪物的模型索引
         internal int identity;
         internal bool isDeath = false;
-        internal int health = 1000;
+        internal int health = 100;
+        internal int maxhealth = 100;
         internal int targetID;//攻击的玩家id,也是同步怪物的客户端id
         
 
@@ -104,7 +105,7 @@ namespace GDServer.AI {
                 health = 0;
                 Debuger.Log("怪物"+identity+"死亡");
                 patrolstate = 5;//客户端怪物的死亡状态值
-                ThreadManager.Event.AddEvent(10f, () => {
+                ThreadManager.Event.AddEvent(20f, () => {
                     Resurrection();
                 });
             } else {
@@ -112,7 +113,7 @@ namespace GDServer.AI {
             }
         }
         private void Resurrection() { //怪物复活
-            health = 1000;
+            health = maxhealth;
             isDeath= false;
             state = 0;
             patrolstate = 0;
