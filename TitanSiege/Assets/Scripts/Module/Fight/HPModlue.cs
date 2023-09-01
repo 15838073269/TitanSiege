@@ -62,11 +62,11 @@ namespace GF.MainGame.Module {
             //如果是本机玩家
             float amount = 1.0f;
             if (npc.m_NpcType == Const.NpcType.player && npc.m_GDID == ClientBase.Instance.UID) {
-                amount = (float)npc.FightHP / (float)UserService.GetInstance.m_CurrentChar.Shengming;
+                amount = (float)npc.FP.FightHP / (float)UserService.GetInstance.m_CurrentChar.Shengming;
             } else if (npc.m_GDID != ClientBase.Instance.UID) {//网络玩家,todo
                 
             } else if (npc.m_NpcType == Const.NpcType.monster) { //怪物
-                amount = (float)npc.FightHP / (float)npc.FightMaxHp;
+                amount = (float)npc.FP.FightHP / (float)npc.FP.FightMaxHp;
             }
             dwt.m_Red.fillAmount = amount;
             dwt.m_RedTo.fillAmount = amount;
@@ -78,7 +78,6 @@ namespace GF.MainGame.Module {
         /// <param name="arg"></param>
         public void ShowDamgeTxt(DamageArg arg) {
             DamageUIWidget hpui = null;
-            Debuger.Log(arg.npc);
             m_HPDic.TryGetValue(arg.npc, out hpui);
             if (hpui != null) {
                 hpui.SetAndShowDamgeTxt(arg.damage, arg.damagetype);
@@ -101,6 +100,7 @@ namespace GF.MainGame.Module {
             m_HPDic.TryGetValue(npc, out hpui);
             if (hpui != null) {
                 hpui.m_IsInscreen = false;
+                hpui.StopAni(); 
                 hpui.gameObject.SetActive(false);
             } else {
                 Debuger.LogError($"{npc.name}{npc.m_GDID}没有创建血条，请检查");

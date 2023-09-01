@@ -30,6 +30,8 @@ namespace Titansiege
 		public static int CharactersData_SyncID = 0;
 		/// <summary>ConfigData类对象属性同步id索引</summary>
 		public static int ConfigData_SyncID = 0;
+		/// <summary>NpcsData类对象属性同步id索引</summary>
+		public static int NpcsData_SyncID = 0;
 		/// <summary>UsersData类对象属性同步id索引</summary>
 		public static int UsersData_SyncID = 0;
 		

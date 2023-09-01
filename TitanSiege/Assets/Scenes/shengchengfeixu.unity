@@ -467,7 +467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsters:
   - id: 0
-    health: 100
+    mysqlid: 1
     json: 
 --- !u!114 &62412212
 MonoBehaviour:
@@ -4402,7 +4402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsters:
   - id: 0
-    health: 100
+    mysqlid: 1
     json: 
 --- !u!114 &388383653
 MonoBehaviour:
@@ -11348,7 +11348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsters:
   - id: 0
-    health: 100
+    mysqlid: 1
     json: 
 --- !u!1001 &1015607660
 PrefabInstance:
@@ -11941,7 +11941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsters:
   - id: 0
-    health: 100
+    mysqlid: 1
     json: 
 --- !u!4 &1041358151 stripped
 Transform:
@@ -13225,7 +13225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsters:
   - id: 0
-    health: 100
+    mysqlid: 1
     json: 
 --- !u!114 &1118013823
 MonoBehaviour:
@@ -17221,6 +17221,7 @@ GameObject:
   - component: {fileID: 1395758655}
   - component: {fileID: 1395758654}
   - component: {fileID: 1395758653}
+  - component: {fileID: 1395758657}
   m_Layer: 8
   m_Name: Plane
   m_TagString: Untagged
@@ -17307,6 +17308,18 @@ Transform:
   m_Father: {fileID: 309926060}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1395758657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395758652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cecc806369d0c34f93224a63e959a53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1409812010 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2faab3800e74dd94287cffc5ce6a1a1e,
@@ -21853,7 +21866,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsters:
   - id: 0
-    health: 100
+    mysqlid: 1
     json: 
 --- !u!114 &1832474210
 MonoBehaviour:

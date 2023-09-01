@@ -86,6 +86,15 @@ namespace Titansiege
             }
             configTable.Dispose();
      // -- 1
+            var npcsTable = ExecuteReader($"SELECT * FROM npcs");
+            foreach (DataRow row in npcsTable.Rows)
+            {
+                var data = new NpcsData();
+                data.Init(row);
+                list.Add(data);
+            }
+            npcsTable.Dispose();
+     // -- 1
             var usersTable = ExecuteReader($"SELECT * FROM users");
             foreach (DataRow row in usersTable.Rows)
             {
@@ -569,6 +578,36 @@ namespace Titansiege
                     NDebug.Log($"创建数据表:config{(count >= 0 ? "成功" : "失败")}!");
                 }
                 else NDebug.Log($"数据表:config已存在!");
+ // -- 6
+                count = (int)ExecuteScalar<long>($"SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'Titansiege' AND table_name = 'npcs'");
+                if (count <= 0)
+                {
+                    count = ExecuteNonQuery(@"CREATE TABLE `npcs` (
+  `ID` bigint(11) NOT NULL,
+  `Zhiye` tinyint(4) NOT NULL DEFAULT '0' COMMENT '职业',
+  `Level` tinyint(4) NOT NULL DEFAULT '1' COMMENT '等级',
+  `Exp` int(11) NOT NULL DEFAULT '0' COMMENT '经验',
+  `Shengming` int(11) NOT NULL DEFAULT '100' COMMENT '生命',
+  `Fali` int(11) NOT NULL DEFAULT '100' COMMENT '法力',
+  `Tizhi` smallint(6) NOT NULL DEFAULT '1' COMMENT '体质',
+  `Liliang` smallint(6) NOT NULL DEFAULT '1' COMMENT '力量',
+  `Minjie` smallint(6) NOT NULL DEFAULT '1' COMMENT '敏捷',
+  `Moli` smallint(6) NOT NULL DEFAULT '1' COMMENT '魔力',
+  `Meili` smallint(6) NOT NULL DEFAULT '1' COMMENT '魅力',
+  `Xingyun` smallint(6) NOT NULL DEFAULT '1' COMMENT '幸运',
+  `Jinbi` int(11) NOT NULL DEFAULT '0' COMMENT '金币',
+  `Zuanshi` int(11) NOT NULL DEFAULT '0' COMMENT '钻石',
+  `Skills` varchar(200) DEFAULT NULL COMMENT '技能',
+  `Prefabpath` varchar(100) DEFAULT NULL COMMENT '预制体路径',
+  `Headpath` varchar(100) DEFAULT NULL COMMENT '头像路径',
+  `Lihuipath` varchar(100) DEFAULT NULL COMMENT '立绘路径',
+  `LastDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后登录时间',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ID` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+                    NDebug.Log($"创建数据表:npcs{(count >= 0 ? "成功" : "失败")}!");
+                }
+                else NDebug.Log($"数据表:npcs已存在!");
  // -- 6
                 count = (int)ExecuteScalar<long>($"SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'Titansiege' AND table_name = 'users'");
                 if (count <= 0)

@@ -22,6 +22,7 @@ namespace GF.MainGame {
         //PlayerAniMove,
         Removeplayer,
         AddPlayer,
+        CanelSelected,
         //AddMonster,
         //GetMonstersbyScene,
         //RemoveMonsterByScene,

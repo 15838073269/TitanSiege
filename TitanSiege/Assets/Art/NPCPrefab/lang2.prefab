@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
   m_Layer: 9
-  m_Name: Pr_Shadow_01
+  m_Name: shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,6 +175,9 @@ MonoBehaviour:
   isPlaySkill: 0
   m_Character: {fileID: 0}
   isCanMove: 1
+  FP:
+    BaseDodge: 0.01
+    BaseCrit: 0.01
   m_Resetidletime: 0
   m_IsDie: 0
   m_Material: {fileID: 0}
@@ -183,6 +186,9 @@ MonoBehaviour:
   m_targetID: 0
   m_RvoController: {fileID: 0}
   m_Feel: {fileID: 0}
+  rongjie: {fileID: 0}
+  mmtoon: {fileID: 0}
+  m_Shadow: {fileID: 0}
 --- !u!114 &5650441371664318877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1399,7 +1405,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4089425029629999451}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.1, z: -0.35}
+  m_LocalPosition: {x: 0, y: 0.3, z: -0.35}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []

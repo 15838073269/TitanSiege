@@ -77,11 +77,7 @@ namespace GF.MainGame {
         /// </summary>
         public const float PlayerSpeed = 4f;
         public const float MonsterSpeed = 4f;
-        /// <summary>
-        /// 默认基础闪避和基础暴击，各职业怪物不同就单独修改
-        /// </summary>
-        public const float Dodge = 0.01f;
-        public const float Crit = 0.01f;
+        
         /// <summary>
         /// 战斗后脱离战斗状态的时间
         /// </summary>

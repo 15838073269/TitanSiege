@@ -72,8 +72,44 @@ public enum TitansiegeHashProto : ushort
     CONFIG_COUNT,
     /// <summary>表描述</summary>
     CONFIG_DESCRIBLE,
+    /// <summary>职业</summary>
+    NPCS_ZHIYE = 6096,
+    /// <summary>等级</summary>
+    NPCS_LEVEL,
+    /// <summary>经验</summary>
+    NPCS_EXP,
+    /// <summary>生命</summary>
+    NPCS_SHENGMING,
+    /// <summary>法力</summary>
+    NPCS_FALI,
+    /// <summary>体质</summary>
+    NPCS_TIZHI,
+    /// <summary>力量</summary>
+    NPCS_LILIANG,
+    /// <summary>敏捷</summary>
+    NPCS_MINJIE,
+    /// <summary>魔力</summary>
+    NPCS_MOLI,
+    /// <summary>魅力</summary>
+    NPCS_MEILI,
+    /// <summary>幸运</summary>
+    NPCS_XINGYUN,
+    /// <summary>金币</summary>
+    NPCS_JINBI,
+    /// <summary>钻石</summary>
+    NPCS_ZUANSHI,
+    /// <summary>技能</summary>
+    NPCS_SKILLS,
+    /// <summary>预制体路径</summary>
+    NPCS_PREFABPATH,
+    /// <summary>头像路径</summary>
+    NPCS_HEADPATH,
+    /// <summary>立绘路径</summary>
+    NPCS_LIHUIPATH,
+    /// <summary>最后登录时间</summary>
+    NPCS_LASTDATE,
     /// <summary></summary>
-    USERS_USERNAME = 6096,
+    USERS_USERNAME = 7096,
     /// <summary></summary>
     USERS_PASSWORD,
     /// <summary></summary>

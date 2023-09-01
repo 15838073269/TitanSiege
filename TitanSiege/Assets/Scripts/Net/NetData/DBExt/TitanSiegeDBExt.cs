@@ -16,6 +16,7 @@ namespace Titansiege {
         /// </summary>
         public Dictionary<string, UsersData> m_Users = new Dictionary<string, UsersData>(); 
         public Dictionary<ConfigType, ConfigData> m_Configs = new Dictionary<ConfigType, ConfigData>();
+        public Dictionary<long, NpcsData> m_Npcs = new Dictionary<long, NpcsData>();
         public void InitData() {
             TitansiegeDB.I.Init((list) => {
                 foreach (var item in list) {
@@ -27,6 +28,9 @@ namespace Titansiege {
                     }
                     if (item is ConfigData data3) {
                         m_Configs.Add((ConfigType)data3.Id, data3);
+                    }
+                    if (item is NpcsData data4) {
+                        m_Npcs.Add(data4.ID, data4);
                     }
                 }
             });

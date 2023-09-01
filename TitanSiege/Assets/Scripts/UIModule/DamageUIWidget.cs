@@ -71,6 +71,12 @@ namespace GF.MainGame.UI {
                     break;
             }
         }
+        //隐藏血条前，先把动画清理一下
+        public void StopAni() {
+            m_DamageAni.Stop();
+            m_DodgeAni.Stop();
+            m_CrititalAni.Stop();
+        }
         //上一次怪物和玩家的距离
         //float lastdis = 0;
        

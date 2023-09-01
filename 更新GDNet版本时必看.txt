@@ -1,0 +1,4 @@
+如果要更新GDNet的版本，请注意一下几点：
+1、GameDesigner\MMORPG文件夹下的MonsterData文件和MonsterPoint文件已修改过，务必保留，并且服务端中的MonsterData也必须和客户端一致
+2、Mysql工具的路径务必选到DB那一级别，并且最好把DB目录下的内容全部删除，重新生成
+3、Mysql工具的选择数据库名，兼容

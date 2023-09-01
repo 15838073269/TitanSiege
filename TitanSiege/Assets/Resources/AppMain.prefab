@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 2255156953267430250}
   - component: {fileID: 8655824243304234141}
   - component: {fileID: 8655824243304234130}
+  - component: {fileID: 2489824174048485972}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -75,7 +76,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 87
+    m_Bits: 983
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -461,6 +462,73 @@ MonoBehaviour:
   x: 90
   y: 45
   z: 0
+--- !u!114 &2489824174048485972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2255156953267430249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 768
+  m_MaxRayIntersections: 0
+--- !u!1 &5079941390540109983
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5079941390540109976}
+  - component: {fileID: 5079941390540109977}
+  m_Layer: 0
+  m_Name: RVOSimulator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5079941390540109976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5079941390540109983}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8655824243448115848}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5079941390540109977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5079941390540109983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1764de1de43cc4d19af52679d3eaae06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  desiredSimulationFPS: 20
+  workerThreads: 2
+  doubleBuffering: 0
+  symmetryBreakingBias: 0.1
+  movementPlane: 0
+  drawObstacles: 0
 --- !u!1 &8655824242283000773
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,6 +624,7 @@ Transform:
   - {fileID: 8655824242442026127}
   - {fileID: 8655824242283000772}
   - {fileID: 2255156953267430166}
+  - {fileID: 5079941390540109976}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -574,6 +643,7 @@ MonoBehaviour:
   Uid: 0
   RecyclePoolTrs: {fileID: 8655824242442026127}
   SceneTransform: {fileID: 8655824242283000772}
+  HpUIRoot: {fileID: 0}
   MainCamera: {fileID: 8655824243304234130}
   uiroot: {fileID: 0}
   uicamera: {fileID: 0}
@@ -588,7 +658,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8915402601489442262}
   - component: {fileID: 8915402601489442256}
-  - component: {fileID: 8915402601489442257}
   - component: {fileID: 43009558}
   m_Layer: 0
   m_Name: NetWork
@@ -627,26 +696,18 @@ MonoBehaviour:
   protocol: 0
   ip: 127.0.0.1
   port: 8000
+  localTest: 0
   logMode: 1
   debugRpc: 1
-  frameRate: 60
   authorize: 0
   startConnect: 1
-  md5CRC: 0
---- !u!114 &8915402601489442257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8915402601489442263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93da6bc4b548d074da3163b2be344ae6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  isEncrypt: 0
+  singleThread: 0
+  reconnectCount: 10
+  reconnectInterval: 2000
+  heartLimit: 5
+  heartInterval: 1000
+  scheme: ws
+  dontDestroyOnLoad: 1
 --- !u!114 &43009558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -804,7 +865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 138760, guid: 5b893ce4e9c13df4db8165902c577d35, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 151056, guid: 5b893ce4e9c13df4db8165902c577d35, type: 3}
       propertyPath: m_Name

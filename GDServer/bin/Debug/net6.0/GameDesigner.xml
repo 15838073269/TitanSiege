@@ -3834,12 +3834,12 @@
         </member>
         <member name="F:Net.MMORPG.MonsterData.id">
             <summary>
-            怪物索引
+            怪物的索引id
             </summary>
         </member>
-        <member name="F:Net.MMORPG.MonsterData.health">
+        <member name="F:Net.MMORPG.MonsterData.mysqlid">
             <summary>
-            怪物生命值
+            怪物在数据库中npcs表的id
             </summary>
         </member>
         <member name="F:Net.MMORPG.MonsterData.json">

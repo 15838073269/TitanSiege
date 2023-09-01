@@ -312,24 +312,24 @@ namespace GF.MainGame.Module {
         private int GetDamage(int shanghai, SkillType skilltype, NPCBase att, NPCBase beatt,out DamageType damagetype) {
             int damage = 0;
             damagetype = DamageType.none;
-            if (JsShanbi(beatt.Dodge)) {
+            if (JsShanbi(beatt.FP.Dodge)) {
                 damagetype = DamageType.shangbi;
                 return 0;
             }
             //技能加成和属性加成,力量加成物理攻击,1点力量10点攻击
-            damage += (att.Attack + shanghai);
+            damage += (att.FP.Attack + shanghai);
             //计算装备伤害  todo
 
             //暴击，随机2-3倍伤害，幸运加成暴击,幸运加成最高50%；
             float randbj = RandomHelper.Range(0f, 1f);
-            if (randbj <= att.Crit) {//暴击成功
+            if (randbj <= att.FP.Crit) {//暴击成功
                 damagetype = DamageType.baoji;
                 //暴击随机2-4倍的伤害
                 int baojinum = RandomHelper.Range(2, 4);
                 damage *= baojinum;
             }
             //防御上不区分法防和物防
-            damage = (damage - beatt.Defense) > 0 ? (damage - beatt.Defense) : 1;//不能破防，就强制掉血1点
+            damage = (damage - beatt.FP.Defense) > 0 ? (damage - beatt.FP.Defense) : 1;//不能破防，就强制掉血1点
             return damage;
         }
         

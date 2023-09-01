@@ -262,6 +262,9 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraComponent\XftCameraShakeComp.cs" />
     <Compile Include="Assets\Scripts\Data\SceneData.cs" />
     <Compile Include="Assets\Scripts\UIModule\EnterWidget.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\Model\FightProp.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\NpcsData.cs" />
+    <Compile Include="Assets\Scripts\Module\SceneModule\TerrainProp.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

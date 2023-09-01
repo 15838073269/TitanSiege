@@ -11,6 +11,7 @@ using GF.Module;
 using System.Collections.Generic;
 using GF.MainGame.Module.NPC;
 using Net.System;
+using GF.Service;
 
 namespace GF.MainGame.Module {
     public class NPCModule : GeneralModule {
@@ -26,6 +27,7 @@ namespace GF.MainGame.Module {
             AppTools.Regist<int>((int)NpcEvent.Removeplayer, Removeplayer);
             AppTools.Regist<Player>((int)NpcEvent.AddPlayer, AddPlayer);
             AppTools.Regist<NPCBase>((int)NpcEvent.ChangeSelected, ChangeSelected);
+            AppTools.Regist<NPCBase>((int)NpcEvent.CanelSelected, CanelSelected);
             //AppTools.Regist<string, ListSafe<Monster>>((int)NpcEvent.GetMonstersbyScene, GetMonstersbyScene);
         }
         //public void AddMonster(string scenename, Monster m) {
@@ -66,12 +68,33 @@ namespace GF.MainGame.Module {
         /// <summary>
         /// 控制选中特效的显示
         /// </summary>
-        /// <param name="npc"></param>
+        /// <param name="npc">npc为null就是取消所有选中</param>
         public void ChangeSelected(NPCBase npc) {
-            if (m_CurrentSelected!=null) {
+            if (m_CurrentSelected != null) {
                 m_CurrentSelected.m_Selected.SetActive(false);
             }
-            m_CurrentSelected = npc;
+            if (m_CurrentSelected!=npc) {
+                m_CurrentSelected = npc;
+                m_CurrentSelected.m_Selected.SetActive(true);
+            }
+        }
+        /// <summary>
+        /// 取消npc选中，一般失去目标才会这么做
+        /// </summary>
+        public void CanelSelected(NPCBase npc = null) {
+            if (npc == null) {
+                if (m_CurrentSelected!=null) {
+                    m_CurrentSelected.m_Selected.SetActive(false);
+                    m_CurrentSelected = null;
+                }
+                UserService.GetInstance.m_CurrentPlayer.AttackTarget = null;
+            } else {//这种情况是选中物体消失或者死亡，取消选中
+                if (m_CurrentSelected == npc) {
+                    m_CurrentSelected.m_Selected.SetActive(false);
+                    m_CurrentSelected = null;
+                    UserService.GetInstance.m_CurrentPlayer.AttackTarget = null;
+                }
+            }
         }
         public override void Release() {
             base.Release();

@@ -6,6 +6,7 @@ using Net.MMORPG;
 using Net.Server;
 using Net.Share;
 using Net.System;
+using Titansiege;
 
 namespace GDServer {
     /// <summary>
@@ -32,9 +33,13 @@ namespace GDServer {
                     monster1.patrolPath = partrolpath;
                     monster1.scene = this;
                     monster1.enemyindex = item.monsters[i].id;//客户端怪物的模型索引id，clientManager中的那个
-                    //各种属性额赋值  todo
-                    monster1.health = item.monsters[i].health;
-                    monster1.maxhealth = item.monsters[i].health;
+                    //各种属性额赋值从数据表计算
+                    if (TitansiegeDB.I.m_Npcs.TryGetValue(item.monsters[i].mysqlid, out monster1.current)) {
+                        monster1.UpdateFightProps();
+                    }
+                    if (monster1.current ==null) {
+                        Debuger.Log(monster1.identity + "没有从数据库获取到任何数据，请检查mysqlid配置是否正确");
+                    }
                     monsters.Add(monster1.identity, monster1);
                 }
             }
@@ -65,8 +70,6 @@ namespace GDServer {
                 if (count > 0)
                     OnPacket(handle, cmd, count);
             }
-            
-            
         }
 
         public override void OnOperationSync(GDClient client, OperationList list) {
@@ -88,9 +91,6 @@ namespace GDServer {
                             monster.targetID = opt.identity;
                             Debuger.Log(monster.targetID);
                             monster.OnDamage(opt.index);
-                            if (monster.isDeath) {
-                                monster.PatrolCall();//发送怪物死亡命令
-                            }
                         }
                         break;
                     case Command.EnemyAttack://怪物攻击玩家时
@@ -115,7 +115,7 @@ namespace GDServer {
                                 monster3.state = opt.cmd1;
                                 monster3.patrolstate = opt.cmd2;
                                 if (monster3.state == 0) {//说明是主控客户端告知服务端不再同步怪物
-                                    monster3.health = opt.index;
+                                    monster3.FP.FightHP = opt.index;
                                     monster3.targetID = 0;
                                 }
                                     

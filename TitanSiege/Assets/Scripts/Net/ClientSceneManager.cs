@@ -72,16 +72,21 @@ namespace GF.NetWork {
                 case Command.PlayerState:
                     if (identitys.TryGetValue(opt.identity, out var t2)) {
                         var p = t2.GetComponent<Player>();
-                        p.FightHP = opt.index;
-                        p.FightMagic = opt.index1;
+                        p.FP.FightHP = opt.index;
+                        p.FP.FightMagic = opt.index1;
                         p.Check();//检查角色是否死亡并同步生命值
                     }
                     break;
-                case Command.EnemyPatrol://未发生攻击时，服务端同步场景怪物行为
+                case Command.EnemyPatrol://1、未发生攻击时，服务端同步场景怪物行为
+                    //2、死亡时也是发送这个命令，不同的是，死亡只发一次，客户端处理死亡后，直到收到怪物复活命令之前，不会再进行任何同步和命令
                     var monster = CheckMonster(opt);
+                    ////如果原本是死亡的状态，证明这里需要复活了，就需要加载复活特效
+                    //if ((monster.m_PatrolState == monster.m_AllStateID["die"])&& opt.cmd2 != monster.m_AllStateID["die"]) {
+                    //    monster.Fuhuo();
+                    //}
                     monster.m_NetState = opt.cmd1;
                     monster.m_PatrolState = opt.cmd2;
-                    monster.FightHP = opt.index1;
+                    monster.FP.FightHP = opt.index1;
                     monster.StatusEntry();
                     monster.transform.position = opt.position;
                     monster.transform.rotation = opt.rotation;
@@ -98,7 +103,7 @@ namespace GF.NetWork {
                     var monster3 = CheckMonster(opt);
                     monster3.m_NetState = opt.cmd1;
                     monster3.m_PatrolState = opt.cmd2;
-                    monster3.FightHP = opt.index1;
+                    monster3.FP.FightHP = opt.index1;
                     monster3.m_targetID = opt.index2;
                     if (monster3.m_targetID!=ClientBase.Instance.UID) {//如果怪物目标不是本机,说明怪物不是本机在控制同步的，就需要从服务器同步怪物位置信息。 
                         monster3.transform.position = opt.position;

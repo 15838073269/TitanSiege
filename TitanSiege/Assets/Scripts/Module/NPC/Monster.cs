@@ -11,15 +11,14 @@ using GameDesigner;
 using GF.ConfigTable;
 using GF.MainGame.Data;
 using GF.NetWork;
-using GF.Service;
 using MoreMountains.Feedbacks;
 using Net.Client;
 using Net.Component;
 using Net.Share;
+using Net.System;
 using Pathfinding.RVO;
 using System;  
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 using Random = System.Random;
 
 namespace GF.MainGame.Module.NPC {
@@ -33,20 +32,17 @@ namespace GF.MainGame.Module.NPC {
         public int m_targetID = 0;
         public RVOController m_RvoController;
         public MMF_Player m_Feel;
+        //切换用的shader
+        public Shader rongjie;
+        public Shader mmtoon;
+        public Transform m_Shadow;//怪物的阴影，用来死亡时隐藏，这个阴影并不是实际的光影，而是一张图片，节省性能的办法，所以需要手动处理
         ClientSceneManager c;//客户端管理器，用来查询所有玩家数据的
         public void OnEnable() {
-            c = ClientSceneManager.I as ClientSceneManager;
-            if (m_Material == null) {
-                return;
-            }
-            //重置溶解特效
-            m_Material.SetFloat("_Cutoff",1);
-            //倒放溶解，显示怪物模型
-           _ = ShowModel();
+            
         }
-        
+
         /// <summary>
-        /// 溶解显示
+        /// 溶解显示,倒放溶解
         /// </summary>
         /// <returns></returns>
         public async UniTask ShowModel() {
@@ -56,6 +52,13 @@ namespace GF.MainGame.Module.NPC {
                 await UniTask.Delay(TimeSpan.FromSeconds(0.0618));
                 m_Material.SetFloat("_Cutoff", _cut);
             }
+            //更换shader
+            m_Material.shader = mmtoon;
+            //还得加上是否显示血条判断
+            if (AppTools.GetModule<HPModule>(MDef.HPModule).IsShowHp) {
+                AppTools.Send<NPCBase>((int)HPEvent.ShowHP, this);
+            }
+            m_Shadow.gameObject.SetActive(false);
         }
         /// <summary>
         /// 溶解消失
@@ -68,12 +71,16 @@ namespace GF.MainGame.Module.NPC {
                 await UniTask.Delay(TimeSpan.FromSeconds(0.0618));
                 m_Material.SetFloat("_Cutoff", _cut);
             }
+            gameObject.SetActive(false);
         }
         public override void InitNPCAnimaor() {
+            c = ClientSceneManager.I as ClientSceneManager;
             //发现一个很奇怪的bug，awake时，获取子物体的某个组件会报一次错误，仅一次，也不影响使用
             //因为怪物生成是服务器按针同步的，本地场景未跳转时，就发送服务器跳场景了，所以导致先创建了一次，后跳的场景，跳场景清除物体，导致物体丢失，该问题已修复
             var render = transform.Find("Body").GetComponent<SkinnedMeshRenderer>();
             m_Material = render.material;
+            rongjie = Shader.Find("Ultimate 10+ Shaders/Dissolve");
+            mmtoon = Shader.Find("MoreMountains/MMToon");
             m_Nab = transform.GetComponent<MonsterAnimatorBase>();
             if (m_Nab == null) {
                 m_Nab = transform.gameObject.AddComponent<MonsterAnimatorBase>();
@@ -88,12 +95,18 @@ namespace GF.MainGame.Module.NPC {
             if (m_Feel == null) {
                 m_Feel = transform.Find("Feel").GetComponent<MMF_Player>();
             }
+            if (m_Shadow==null) {
+                m_Shadow = transform.Find("shadow");
+            }
         }
         public override void UpdateFightProps() {
             base.UpdateFightProps();
             AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, this);
         }
         public void Update() {
+            if (m_IsDie) {
+                return;
+            }
             if ((AttackTarget != null) && (AttackTarget.m_GDID!= m_targetID)) { //这种情况说明有其他玩家攻击这个怪物了，所以m_targetID会被服务器更换，这里设计以服务器为准
                 if (c.identitys.TryGetValue(m_targetID, out var p)) {
                     AttackTarget = p.GetComponent<Player>();
@@ -101,17 +114,13 @@ namespace GF.MainGame.Module.NPC {
             }
             if ((AttackTarget != null) && (m_targetID == ClientBase.Instance.UID)) { //如果攻击目标存在，并且就是本机，那就需要负责同步怪物的移动和旋转
                 if (NetworkTime.CanSent) {//update的次数由机器配置决定，不确定数量，所以要加上限制，一般不超过30次，NetworkTime.CanSent就是控制发送次数的
-                    ClientBase.Instance.AddOperation(new Operation(Command.EnemySync, m_GDID, transform.position, transform.rotation) {
-                        //cmd1 = (byte)m_PatrolState,//怪物的状态
-                        //index1 = FightHP,
-                    });
+                    ClientBase.Instance.AddOperation(new Operation(Command.EnemySync, m_GDID, transform.position, transform.rotation));
                 }
             } else if ((m_NetState == 1) && (m_targetID == ClientBase.Instance.UID)&&(AttackTarget == null)) { //如果当前是客户端同步，并且是本机在同步，但怪物的目标已经为null了，一般是脱离攻击范围，就发送消息给服务端，转为服务端控制
                 if (NetworkTime.CanSent) {
                     //m_NetState = 0;
                     //m_targetID = 0;
-                    ClientBase.Instance.AddOperation(new Operation(Command.EnemySwitchState, m_GDID) { cmd1 = 0,cmd2 = 0,index = m_FightHp});
-
+                    ClientBase.Instance.AddOperation(new Operation(Command.EnemySwitchState, m_GDID) { cmd1 = 0,cmd2 = 0,index = FP.FightHP });
                 }
             }
         }
@@ -126,9 +135,25 @@ namespace GF.MainGame.Module.NPC {
                 case 1://服务端的1是移动
                     m_State.StatusEntry(m_AllStateID["run"]);
                     break;
+                case 5://服务端的5是死亡
+                    m_IsDie = true;
+                    m_State.StatusEntry(m_AllStateID["die"]);
+                    break;
                 default:
                     break;
             }
+        }
+        /// <summary>
+        /// 怪物复活特效处理
+        /// </summary>
+        public void Fuhuo() {
+            gameObject.SetActive(true);
+            //重置溶解特效
+            m_Material.SetFloat("_Cutoff", 1);
+            //倒放溶解，显示怪物模型
+            _ = ShowModel();
+            m_IsDie = false;
+            
         }
     }
     #region GDNet的状态机
@@ -272,7 +297,6 @@ namespace GF.MainGame.Module.NPC {
                 m_Self.transform.LookAt(new Vector3(m_Self.AttackTarget.transform.position.x, m_Self.transform.position.y, m_Self.AttackTarget.transform.position.z));//攻击前，先转向
                 //gd的状态机已经调用了动作，不用再写攻击部分了
                 AppTools.Send<SkillDataBase, NPCBase>((int)SkillEvent.CountSkillHurt, m_SData, m_Self);
-                
             }
             if (m_Self.AttackTarget != null) { //每次攻击完就判断一下，如果存在攻击状态，并且攻击目标已经死亡。重新回去巡逻
                 if (m_Self.AttackTarget.m_IsDie == true) {
@@ -287,10 +311,21 @@ namespace GF.MainGame.Module.NPC {
             m_Self = transform.GetComponent<Monster>();
         }
         public override void OnEnter() {
+            AppTools.Send<NPCBase>((int)NpcEvent.CanelSelected, m_Self);
             m_Self.AttackTarget = null;
+            m_Self.m_Shadow.gameObject.SetActive(false);
+            AppTools.Send<NPCBase>((int)HPEvent.HideHP,m_Self);
+            //死亡5秒后，溶解尸体，隐藏怪物模型
+            ThreadManager.Event.AddEvent(4f, () => {
+                _ = m_Self.HideModel();
+            });
+        }
+        public override void OnStop() {
+            //播放完死亡动画，更换shader
+            m_Self.m_Material.shader = m_Self.rongjie;
         }
         public override void OnExit() {
-            m_Self.AttackTarget = null;
+            m_Self.Fuhuo();//复活处理
         }
     }
     public class MHurtState : StateBehaviour {
@@ -306,15 +341,10 @@ namespace GF.MainGame.Module.NPC {
             sd = ConfigerManager.m_SkillData.FindNPCByID(m_SkillID);
         }
         public override void OnEnter() {
-            //if (m_Self.IsFight == false) {
-            //    m_Self.SetFight(true);
-            //    m_Self.ChangeWp();//切换以下武器
-            //}
             m_Self.IsFight = false;
             m_Self.m_Resetidletime = AppConfig.FightReset;
-            //m_Self.m_Nab.Attack(sd);
             AppTools.SendReturn<SkillDataBase, NPCBase, int>((int)SkillEvent.CountSkillHurt, sd, m_Self);//发送消息让技能模块计算伤害
-            if (m_Self.AttackTarget != null) { //每次攻击完就判断一下，如果存在攻击状态，并且攻击目标已经死亡。重新回去巡逻
+            if (m_Self.AttackTarget != null) { //每次攻击前就判断一下，如果存在攻击状态，并且攻击目标已经死亡。重新回去巡逻
                 if (m_Self.AttackTarget.m_IsDie == true) {
                     m_Self.AttackTarget = null;
                 }
@@ -344,7 +374,6 @@ namespace GF.MainGame.Module.NPC {
             //}
             m_Self.IsFight = false;
             m_Self.m_Resetidletime = AppConfig.FightReset;
-            //m_Self.m_Nab.Attack(sd);
             AppTools.SendReturn<SkillDataBase, NPCBase, int>((int)SkillEvent.CountSkillHurt, sd, m_Self);//发送消息让技能模块计算伤害
             if (m_Self.AttackTarget != null) { //每次攻击完就判断一下，如果存在攻击状态，并且攻击目标已经死亡。重新回去巡逻
                 if (m_Self.AttackTarget.m_IsDie == true) {

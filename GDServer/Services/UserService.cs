@@ -10,7 +10,7 @@ using Titansiege;
 namespace GDServer.Services
 {
     internal class UserService:Singleton<UserService> {
-       // [Rpc(cmd = NetCmd.SafeCall)]//使用SafeCall指令后, 第一个参数插入客户端对象, 这个客户端对象就是哪个客户端发送,这个参数就是对应那个客户端的对象
+        // [Rpc(cmd = NetCmd.SafeCall)]//使用SafeCall指令后, 第一个参数插入客户端对象, 这个客户端对象就是哪个客户端发送,这个参数就是对应那个客户端的对象
         public bool Login(GDClient client, string account, string password) {
             Debuger.Log($"UserLoginRequest: User:{account}  Pass:{password}");
             string sql = $"select * from users where Username = {account}";
