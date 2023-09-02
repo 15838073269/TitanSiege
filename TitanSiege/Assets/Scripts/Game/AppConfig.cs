@@ -63,6 +63,7 @@ namespace GF.MainGame {
         public const string SkillUIWidget = "SkillUIWidget";
         public const string SkillUIInfo = "SkillUIInfo";
         public const string MapUIPage = "MapUIPage";
+        public const string HPUIPage = "HPUIPage";
         public const string DamageUIPath = "UIPrefab/DamgeUIWidget.prefab";
         /// <summary>
         /// 各个场景的名称

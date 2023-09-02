@@ -42,13 +42,15 @@ namespace GDServer {
             scene.AddOperation(new Operation(Command.PlayerState, UserID) {
                 index = FP.FightHP,
                 index1 = FP.FightMagic,
+                index2 = FP.FightMaxHp,
+                index3 = FP.FightMaxMagic,
             });
         }
 
         public void Resurrection() {
             //数据库中不设置最大生命，而是根据等级+装备来计算
-            FP.FightHP = current.Shengming + current.Tizhi * 10;
-            FP.FightMagic = current.Fali + current.Moli * 10;
+            FP.FightHP = FP.FightMaxHp;
+            FP.FightMagic = FP.FightMaxMagic;
             m_IsDie = false;
         }
         public override void Dispose() {
@@ -118,9 +120,15 @@ namespace GDServer {
             FP.FightHP = current.Shengming + current.Tizhi * 10;
             Debuger.Log("生命："+ FP.FightHP);
             FP.FightMagic = current.Fali + current.Moli * 10;
+            FP.FightMaxHp = FP.FightHP;
+            FP.FightMaxMagic = FP.FightMagic;
+            //发给服务端更新属性
+            //这里和怪的数据一样，先这么办吧，最合适的做法应该还是服务端同步数据，客户端计算
             scene.AddOperation(new Operation(Command.PlayerState, UserID) {
                 index = FP.FightHP,
                 index1 = FP.FightMagic,
+                index2 = FP.FightMaxHp,
+                index3 = FP.FightMaxMagic,
             });
         }
 

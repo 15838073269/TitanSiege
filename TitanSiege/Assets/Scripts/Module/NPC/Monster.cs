@@ -101,7 +101,6 @@ namespace GF.MainGame.Module.NPC {
         }
         public override void UpdateFightProps() {
             base.UpdateFightProps();
-            AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, this);
         }
         public void Update() {
             if (m_IsDie) {
@@ -153,7 +152,8 @@ namespace GF.MainGame.Module.NPC {
             //倒放溶解，显示怪物模型
             _ = ShowModel();
             m_IsDie = false;
-            
+            //更新血条
+            AppTools.Send<NPCBase>((int)HPEvent.UpdateHp, this);
         }
     }
     #region GDNet的状态机
@@ -311,18 +311,21 @@ namespace GF.MainGame.Module.NPC {
             m_Self = transform.GetComponent<Monster>();
         }
         public override void OnEnter() {
+            //因为怪物的死亡服务端没有通知更新血条，所以要先更新一下血条
+            AppTools.Send<NPCBase>((int)HPEvent.UpdateHp,m_Self);
+            //取消选中状态
             AppTools.Send<NPCBase>((int)NpcEvent.CanelSelected, m_Self);
             m_Self.AttackTarget = null;
-            m_Self.m_Shadow.gameObject.SetActive(false);
-            AppTools.Send<NPCBase>((int)HPEvent.HideHP,m_Self);
             //死亡5秒后，溶解尸体，隐藏怪物模型
             ThreadManager.Event.AddEvent(4f, () => {
                 _ = m_Self.HideModel();
             });
         }
         public override void OnStop() {
-            //播放完死亡动画，更换shader
+            //播放完死亡动画，更换shader，隐藏阴影，隐藏血条
             m_Self.m_Material.shader = m_Self.rongjie;
+            m_Self.m_Shadow.gameObject.SetActive(false);
+            AppTools.Send<NPCBase>((int)HPEvent.HideHP, m_Self);
         }
         public override void OnExit() {
             m_Self.Fuhuo();//复活处理

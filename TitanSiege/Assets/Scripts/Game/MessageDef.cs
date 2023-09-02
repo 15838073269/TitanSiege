@@ -73,6 +73,8 @@ namespace GF.MainGame {
         ShowDamgeTxt,
         ShowHP,
         HideHP,
+        UpdateHp,
+        UpdateMp,
     }
 }
 

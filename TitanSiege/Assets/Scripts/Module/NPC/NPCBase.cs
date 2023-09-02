@@ -187,7 +187,9 @@ namespace GF.MainGame.Module.NPC {
                 FP.Dodge = jcDodge + (float)cd.Minjie / 1000f >= 0.3f ? 0.3f : (float)cd.Minjie / 1000f;//属性加成的闪避
                 FP.Crit = jcCrit + (float)cd.Xingyun * jcCrit >= 0.5f ? 0.5f : (float)cd.Xingyun * jcCrit;//暴击率
                 FP.FightHP = cd.Shengming + cd.Tizhi * 10;
+                FP.FightMaxHp = FP.FightHP;//战斗时最大生命
                 FP.FightMagic = cd.Fali + cd.Moli * 10;
+                FP.FightMaxMagic = FP.FightMagic;//战斗最大法力
             } else if(m_NpcType == NpcType.monster){//计算怪物的属性
                 switch (Data.Zhiye) {
                     case (int)Zhiye.剑士:
@@ -215,6 +217,8 @@ namespace GF.MainGame.Module.NPC {
                 FP.FightMaxMagic = (Data.Fali + FP.FightLevel * LevelData.Fali) + (Data.Moli + FP.FightLevel * LevelData.Moli) * 10;//战斗最大法力
                 FP.FightMagic = FP.FightMaxMagic;//战斗法力
             }
+            //创建显示血条和名称
+            AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, this);
         }
         public virtual void InitNPCAnimaor() {
             m_Nab = transform.GetComponent<NPCAnimatorBase>();

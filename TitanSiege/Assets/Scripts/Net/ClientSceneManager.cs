@@ -74,6 +74,10 @@ namespace GF.NetWork {
                         var p = t2.GetComponent<Player>();
                         p.FP.FightHP = opt.index;
                         p.FP.FightMagic = opt.index1;
+                        p.FP.FightMaxHp = opt.index2;
+                        p.FP.FightMaxMagic = opt.index3;
+                        AppTools.Send<NPCBase>((int)HPEvent.UpdateHp,p);
+                        AppTools.Send<NPCBase>((int)HPEvent.UpdateMp, p);
                         p.Check();//检查角色是否死亡并同步生命值
                     }
                     break;
@@ -105,10 +109,18 @@ namespace GF.NetWork {
                     monster3.m_PatrolState = opt.cmd2;
                     monster3.FP.FightHP = opt.index1;
                     monster3.m_targetID = opt.index2;
+                    AppTools.Send<NPCBase>((int)HPEvent.UpdateHp, monster3);
                     if (monster3.m_targetID!=ClientBase.Instance.UID) {//如果怪物目标不是本机,说明怪物不是本机在控制同步的，就需要从服务器同步怪物位置信息。 
                         monster3.transform.position = opt.position;
                         monster3.transform.rotation = opt.rotation;
                     }
+                    break;
+                case Command.EnemyUpdateProp://怪物属性同步给客户端，一般是第一次创建怪物或者怪物属性发生变化时使用
+                    var monster4 = CheckMonster(opt);
+                    monster4.FP.FightHP = opt.index1;
+                    monster4.FP.FightMaxHp = opt.index2;
+                    //更新血条
+                    AppTools.Send<NPCBase>((int)HPEvent.UpdateHp, monster4);
                     break;
             }
         }

@@ -180,7 +180,7 @@ namespace GF.MainGame.Module {
                     if (damage != 0) {
                         //切换怪物受击状态
                         // AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, monstersarg[j].monster, AniState.hurt);
-                        monstersarg[j].monster.transform.position += (npc.transform.forward * 0.318f);//朝玩家攻击方向的后退一点，模拟击退效果
+                        monstersarg[j].monster.transform.position -= (monstersarg[j].monster.transform.forward * 0.318f);//朝怪物朝向后退一点，模拟击退效果
                         Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}对{monstersarg[j].monster.Data.Name}{monstersarg[j].monster.m_GDID}造成了{damage}点伤害");
                     } else {
                         Debuger.Log($"{monstersarg[j].monster.Data.Name}闪避了{UserService.GetInstance.m_CurrentChar.Name}的攻击");
@@ -194,8 +194,8 @@ namespace GF.MainGame.Module {
                         damagearg.npc = monstersarg[j].monster;
                         if (damage != 0) {
                             //切换怪物受击状态
-                            // AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, monstersarg[j].monster, AniState.hurt);
-                            monstersarg[j].monster.transform.position += (npc.transform.forward * 0.318f);//朝玩家攻击方向的后退一点，模拟击退效果
+                            Vector3 dir = new Vector3(npc.transform.forward.x,0f, npc.transform.forward.z);
+                            monstersarg[j].monster.transform.position -= (monstersarg[j].monster.transform.forward * 0.318f);//朝自身方向的后退一点，模拟击退效果
                             Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}对{monstersarg[j].monster.Data.Name}{monstersarg[j].monster.m_GDID}造成了{damage}点伤害");
                         } else {
                             Debuger.Log($"{monstersarg[j].monster.Data.Name}闪避了{UserService.GetInstance.m_CurrentChar.Name}的攻击");

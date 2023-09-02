@@ -71,6 +71,7 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Affectors\BombAffector.cs" />
     <Compile Include="Assets\Scripts\Helper\SyncVarHandlerGenerate.cs" />
     <Compile Include="Assets\Scripts\UIModule\RoleInfo.cs" />
+    <Compile Include="Assets\Scripts\Module\SceneModule\TerrainProp.cs" />
     <Compile Include="Assets\Scripts\Data\BuffDataTest.cs" />
     <Compile Include="Assets\Scripts\Net\NetData\DBExt\TitanSiegeDBExt.cs" />
     <Compile Include="Assets\Scripts\Utilities\TestMonster.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\CharactersData.cs" />
     <Compile Include="Assets\Scripts\Module\Fight\FightScene.cs" />
     <Compile Include="Assets\Scripts\Data\NameData.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\Model\FightProp.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets02\Cartoon FX\Scripts\CFX_AutoRotate.cs" />
     <Compile Include="Assets\Scripts\Data\ItemData.cs" />
     <Compile Include="Assets\Scripts\Module\Fight\State\StateModule.cs" />
@@ -237,6 +239,7 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraEffects\GlowEvent.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModulePhysics.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\RenderObject.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\NpcsData.cs" />
     <Compile Include="Assets\Scripts\Data\SkillData.cs" />
     <Compile Include="Assets\Scripts\Module\Fight\State\FightRun.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Emitter.cs" />
@@ -262,9 +265,7 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraComponent\XftCameraShakeComp.cs" />
     <Compile Include="Assets\Scripts\Data\SceneData.cs" />
     <Compile Include="Assets\Scripts\UIModule\EnterWidget.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\Model\FightProp.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\NpcsData.cs" />
-    <Compile Include="Assets\Scripts\Module\SceneModule\TerrainProp.cs" />
+    <Compile Include="Assets\Scripts\UIModule\UIBG.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

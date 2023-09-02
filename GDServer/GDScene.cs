@@ -156,6 +156,7 @@ namespace GDServer {
                     monster.targetID = 0;
                     monster.state = 0;
                     monster.patrolstate = 0;
+                    monster.FP.FightHP = monster.FP.FightMaxHp;//脱离战斗就回满血
                 }
             }
             if (Count <= 0) //如果没人时要清除操作数据，不然下次进来会直接发送Command.OnPlayerExit指令给客户端，导致客户端的对象被销毁

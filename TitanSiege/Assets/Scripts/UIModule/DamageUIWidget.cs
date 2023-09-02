@@ -8,8 +8,10 @@ namespace GF.MainGame.UI {
         public Text m_CrititalTxt;
         public Text m_DodgeTxt;
         public Text m_DamageTxt;
+        public Text m_NameTxt;
         public Image m_RedTo;
         public Image m_Red;
+       
         public bool m_IsInscreen;
         private Animation m_CrititalAni;
         private Animation m_DodgeAni;
@@ -18,9 +20,7 @@ namespace GF.MainGame.UI {
         private Transform m_HPRoot;
         private RectTransform m_HPParentRect;//父级的rect组件，坐标系转换成Archposition需要使用
         private Camera m_UICamera;
-        //private Vector2 m_MinScale;
-        //private Vector2 m_MaxScale;
-        //private Vector2 m_Zengliang;
+
         protected override void OnOpen(object args = null) {
             base.OnOpen(args);
 
@@ -28,9 +28,6 @@ namespace GF.MainGame.UI {
         //初始化
         public void InitPos(Transform hproot) {
             m_IsInscreen = false;
-            //m_MinScale = new Vector2(108f,15f);
-            //m_MaxScale = new Vector2(180f,25f);
-            //m_Zengliang = new Vector2(1f,0.1389f);
             m_UICamera = UIManager.GetInstance.m_UICamera;
             m_HPRoot = hproot;
             m_HPParentRect = transform.parent.GetComponent<RectTransform>();

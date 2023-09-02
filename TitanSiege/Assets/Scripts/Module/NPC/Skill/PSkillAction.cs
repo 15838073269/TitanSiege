@@ -139,8 +139,8 @@ public class PSkillAction : MyAcitonCore {
                             } else {//不是位移技能，或者是位移技能，但是是多体攻击
                                 //触发攻击时候发送一条射线过去，碰到谁，就执行掉血
                                 Collider[] hitarr = new Collider[6];
-                                Vector3 center = new Vector3(m_Self.transform.position.x, m_Self.transform.position.y, m_Self.transform.position.z + (m_SData.range / 2));
-                                int hitnum = Physics.OverlapBoxNonAlloc(center, new Vector3(1f, 1f, m_SData.range), hitarr, m_Self.transform.rotation, LayerMask.GetMask("npc"));
+                                Vector3 center = new Vector3(m_Self.transform.position.x, m_Self.transform.position.y, m_Self.transform.position.z);
+                                int hitnum = Physics.OverlapBoxNonAlloc(center, new Vector3(m_SData.range/2, 1f, m_SData.range/2), hitarr, m_Self.transform.rotation, LayerMask.GetMask("npc"));
                                 if (hitnum > 0) {
                                     List<NPCBase> mlist = new List<NPCBase>();
                                     for (int j = 0; j  < hitnum; j++) {//判断一下攻击到的是否是怪物

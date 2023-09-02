@@ -115,7 +115,8 @@ namespace GDServer.AI {
             }
         }
         private void Resurrection() { //怪物复活
-            FP.FightHP = current.Shengming + current.Tizhi * 10;
+            FP.FightHP = FP.FightMaxHp;
+            FP.FightMagic = FP.FightMaxMagic;
             isDeath= false;
             state = 0;
             patrolstate = 0;
@@ -151,7 +152,19 @@ namespace GDServer.AI {
             FP.Dodge = jcDodge + (float)current.Minjie / 1000f >= 0.3f ? 0.3f : (float)current.Minjie / 1000f;//属性加成的闪避
             FP.Crit = jcCrit + (float)current.Xingyun * jcCrit >= 0.5f ? 0.5f : (float)current.Xingyun * jcCrit;//暴击率
             FP.FightHP = current.Shengming + current.Tizhi * 10;
+            FP.FightMaxHp = FP.FightHP;//战斗最大生命
             FP.FightMagic = current.Fali + current.Moli * 10;
+            FP.FightMaxMagic = FP.FightMagic;//战斗最大法力
+            //发给服务端更新属性
+            //这个项目我前期没有规划好，为了省事，其实是做了两套数据，一套在数据库，一套在配置表，两套一样，服务器用数据库的，客户端用配置表的，数据同步，只同步怪物的血量，其实有点乱，
+            //正常情况下，怪物的属性更新，应该把参与计算的所有数据都传输过去，客户端没有任何配置表数据，或者直接将攻击计算放到服务器进行，计算完成后，再推给客户端，不过这样对服务端压力也大
+            //最合适的做法应该还是服务端同步怪物数据，客户端计算
+            //等有精力了在改吧，先这么办吧
+            scene.AddOperation(new Operation(Command.EnemyUpdateProp, identity) {
+                index = enemyindex,
+                index1 = FP.FightHP,
+                index2 = FP.FightMaxHp,
+            });
         }
     }
     
