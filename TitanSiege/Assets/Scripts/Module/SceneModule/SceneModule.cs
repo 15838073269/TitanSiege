@@ -103,6 +103,8 @@ namespace GF.MainGame.Module {
                 if (!string.IsNullOrEmpty(msg)) {
                     Debuger.Log(msg);
                 }
+                //对象池清理回收血条
+                AppTools.Send((int)HPEvent.CycleAllObj);
             } else {
                 Debuger.LogError("服务器切换场景失败！");
             }

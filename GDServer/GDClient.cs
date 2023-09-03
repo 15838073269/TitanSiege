@@ -122,14 +122,17 @@ namespace GDServer {
             FP.FightMagic = current.Fali + current.Moli * 10;
             FP.FightMaxHp = FP.FightHP;
             FP.FightMaxMagic = FP.FightMagic;
-            //发给服务端更新属性
-            //这里和怪的数据一样，先这么办吧，最合适的做法应该还是服务端同步数据，客户端计算
-            scene.AddOperation(new Operation(Command.PlayerState, UserID) {
-                index = FP.FightHP,
-                index1 = FP.FightMagic,
-                index2 = FP.FightMaxHp,
-                index3 = FP.FightMaxMagic,
-            });
+            FP.PlayerName = current.Name;
+            //Debuger.Log($"更新玩家{UserID}属性，同步客户端");
+            ////发给服务端更新属性
+            ////这里和怪的数据一样，先这么办吧，最合适的做法应该还是服务端同步数据，客户端计算
+            //scene.AddOperation(new Operation(Command.PlayerUpdateProp, UserID) {
+            //    name = current.Name,
+            //    index = FP.FightHP,
+            //    index1 = FP.FightMagic,
+            //    index2 = FP.FightMaxHp,
+            //    index3 = FP.FightMaxMagic,
+            //});
         }
 
     }

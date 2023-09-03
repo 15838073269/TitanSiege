@@ -19,6 +19,7 @@ using GF.Unity.UI;
 using Cysharp.Threading.Tasks;
 using MoreMountains.Feedbacks;
 using System;
+using System.Security.Policy;
 
 namespace GF.MainGame.Module {
     public class HPModule : GeneralModule {
@@ -45,6 +46,8 @@ namespace GF.MainGame.Module {
             AppTools.Regist<NPCBase>((int)HPEvent.HideHP, HideHP);
             AppTools.Regist<NPCBase>((int)HPEvent.UpdateHp, UpdateHp);
             AppTools.Regist<NPCBase>((int)HPEvent.UpdateMp, UpdateMp);
+            AppTools.Regist<DamageUIWidget>((int)HPEvent.CycleObj, CycleObj);
+            AppTools.Regist((int)HPEvent.CycleAllObj, CycleAllObj);
         }
         /// <summary>
         /// 创建血条,这个是给对象池使用的
@@ -61,11 +64,12 @@ namespace GF.MainGame.Module {
         /// <param name="npc"></param>
         public void CreateHPUI(NPCBase npc) {
             if (m_HPDic.ContainsKey(npc)) {
-                //Debuger.Log($"{npc.name}{npc.m_GDID}重复创建血条，请检查");
+                Debuger.Log($"{npc.name}{npc.m_GDID}重复创建血条，请检查");
                 return;
             } 
             DamageUIWidget dwt = m_UIPool.GetObj(true);
             dwt.InitPos(npc.m_HPRoot);
+            
             if (npc.m_NpcType == Const.NpcType.player) {//玩家直接显示名称
                 Player p = npc as Player;
                 dwt.m_NameTxt.text = p.m_PlayerName;
@@ -76,9 +80,18 @@ namespace GF.MainGame.Module {
             dwt.m_Red.fillAmount = amount;
             dwt.m_RedTo.fillAmount = amount;
             m_HPDic.Add(npc,dwt);
-            //创建完，更新一下血条蓝条
-            UpdateHp(npc);
-            UpdateMp(npc);
+            dwt.name = m_HPDic.Count + "";
+            //根据距离判断是否显示血条
+            if (IsInRange(npc)) {
+                ShowHP(npc);
+            } else {
+                HideHP(npc);
+            }
+            ////创建完，更新一下血条蓝条
+            ////UpdateHp(npc);
+            //if (ClientBase.Instance.UID == npc.m_GDID) {
+            //    UpdateMp(npc);
+            //}
         }
         /// <summary>
         /// 更新血条，如果是玩家，血条更新还有面板上也要更新
@@ -88,7 +101,7 @@ namespace GF.MainGame.Module {
             DamageUIWidget dwt = null;
             if (!m_HPDic.TryGetValue(npc,out dwt)) {
                 //这里可能因为物体还没启动起来导致的数据无法读取
-                //Debuger.LogError($"{npc.name}{npc.m_GDID}没有血条，请检查");
+                // Debuger.LogError($"{npc.name}{npc.m_GDID}没有血条，请检查");
                 return;
             }
             float amount = (float)npc.FP.FightHP / (float)npc.FP.FightMaxHp;
@@ -149,6 +162,35 @@ namespace GF.MainGame.Module {
                 Debuger.LogError($"{npc.name}{npc.m_GDID}没有创建血条，请检查");
             }
         }
+        /// <summary>
+        /// 回收对象
+        /// </summary>
+        /// <param name="dwt"></param>
+        public void CycleObj(DamageUIWidget dwt) {
+            if (dwt!=null) {
+                m_UIPool.Recycle(dwt);
+            }
+        }
+        /// <summary>
+        /// 场景切换时调用
+        /// </summary>
+        public void CycleAllObj() {
+            Debuger.Log(m_HPDic.Count);
+            if (m_HPDic.Count==0) {
+                return;
+            }
+            List<NPCBase> dellist = new List<NPCBase>();
+            foreach (KeyValuePair<NPCBase,DamageUIWidget> hp in m_HPDic) {
+                if (hp.Value.m_HPRoot == null) {
+                    dellist.Add(hp.Key);
+                }
+            }
+            for (int i = 0; i < dellist.Count; i++) {
+                CycleObj(m_HPDic[dellist[i]]);
+                m_HPDic.Remove(dellist[i]);
+            }
+            dellist.Clear();
+        }
         public override void Show() {
             base.Show();
             m_HpUIRoot.gameObject.SetActive(IsShowHp);
@@ -156,6 +198,19 @@ namespace GF.MainGame.Module {
 
         public override void Release() {
             base.Release();
+        }
+        /// <summary>
+        /// 用来判断血条是否再视野内，本来应该用相机视野判断，但没找到办法，先用距离判定一下吧
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <returns></returns>
+        public bool IsInRange(NPCBase npc) {
+            Debuger.Log(Vector3.Distance(npc.transform.position, UserService.GetInstance.m_CurrentPlayer.transform.position));
+            if (Vector3.Distance(npc.transform.position, UserService.GetInstance.m_CurrentPlayer.transform.position) > 4f) {//距离超过四米就不显示了
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 }

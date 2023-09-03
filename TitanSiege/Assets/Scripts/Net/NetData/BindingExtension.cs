@@ -36,4 +36,36 @@ public static class BindingExtension
         return value;
     }
 
+    public static ISegment SerializeObject(this FightProp value)
+    {
+        var segment = BufferPool.Take();
+        var bind = new FightPropBind();
+        bind.Write(value, segment);
+        return segment;
+    }
+
+    public static FightProp DeserializeObject(this FightProp value, ISegment segment, bool isPush = true)
+    {
+        var bind = new FightPropBind();
+        bind.Read(ref value, segment);
+        if (isPush) BufferPool.Push(segment);
+        return value;
+    }
+
+    public static ISegment SerializeObject(this Titansiege.NpcsData value)
+    {
+        var segment = BufferPool.Take();
+        var bind = new TitansiegeNpcsDataBind();
+        bind.Write(value, segment);
+        return segment;
+    }
+
+    public static Titansiege.NpcsData DeserializeObject(this Titansiege.NpcsData value, ISegment segment, bool isPush = true)
+    {
+        var bind = new TitansiegeNpcsDataBind();
+        bind.Read(ref value, segment);
+        if (isPush) BufferPool.Push(segment);
+        return value;
+    }
+
 }

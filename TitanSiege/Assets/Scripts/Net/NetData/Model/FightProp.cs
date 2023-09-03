@@ -17,7 +17,7 @@ public class FightProp
     /// </summary>
     public  float BaseDodge = 0.01f;
     public  float BaseCrit = 0.01f;
-
+    public string PlayerName="";
     protected int m_Attack;
     public virtual int Attack {
         get {

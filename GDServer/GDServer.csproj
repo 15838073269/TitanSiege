@@ -66,5 +66,11 @@
     <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\DB\TitansiegeDB\NpcsData.cs">
       <Link>NetData\DB\TitansiegeDB\NpcsData.cs</Link>
     </Compile>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\FightPropBind.cs">
+      <Link>NetData\FightPropBind.cs</Link>
+    </Compile>
+    <Compile Include="..\TitanSiege\Assets\Scripts\Net\NetData\TitansiegeNpcsDataBind.cs">
+      <Link>NetData\TitansiegeNpcsDataBind.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 using GF.Const;
+using GF.MainGame.Module.NPC;
 using GF.Unity.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,13 +12,13 @@ namespace GF.MainGame.UI {
         public Text m_NameTxt;
         public Image m_RedTo;
         public Image m_Red;
-       
+        public Transform m_HPRoot;
         public bool m_IsInscreen;
+
         private Animation m_CrititalAni;
         private Animation m_DodgeAni;
         private Animation m_DamageAni;
         private RectTransform m_Rect;
-        private Transform m_HPRoot;
         private RectTransform m_HPParentRect;//父级的rect组件，坐标系转换成Archposition需要使用
         private Camera m_UICamera;
 
@@ -27,7 +28,6 @@ namespace GF.MainGame.UI {
         }
         //初始化
         public void InitPos(Transform hproot) {
-            m_IsInscreen = false;
             m_UICamera = UIManager.GetInstance.m_UICamera;
             m_HPRoot = hproot;
             m_HPParentRect = transform.parent.GetComponent<RectTransform>();
@@ -40,6 +40,7 @@ namespace GF.MainGame.UI {
             m_DodgeAni = m_DodgeTxt.gameObject.GetComponent<Animation>();
             m_DamageAni = m_DamageTxt.gameObject.GetComponent<Animation>();
         }
+        
         /// <summary>
         /// 设置并显示文字
         /// </summary>

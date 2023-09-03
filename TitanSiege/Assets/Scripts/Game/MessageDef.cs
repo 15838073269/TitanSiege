@@ -75,6 +75,8 @@ namespace GF.MainGame {
         HideHP,
         UpdateHp,
         UpdateMp,
+        CycleObj,
+        CycleAllObj,
     }
 }
 

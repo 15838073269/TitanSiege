@@ -58,7 +58,7 @@ namespace GF.MainGame.Module.NPC {
             if (AppTools.GetModule<HPModule>(MDef.HPModule).IsShowHp) {
                 AppTools.Send<NPCBase>((int)HPEvent.ShowHP, this);
             }
-            m_Shadow.gameObject.SetActive(false);
+            m_Shadow.gameObject.SetActive(true);
         }
         /// <summary>
         /// 溶解消失

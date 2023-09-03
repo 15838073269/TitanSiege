@@ -217,8 +217,10 @@ namespace GF.MainGame.Module.NPC {
                 FP.FightMaxMagic = (Data.Fali + FP.FightLevel * LevelData.Fali) + (Data.Moli + FP.FightLevel * LevelData.Moli) * 10;//战斗最大法力
                 FP.FightMagic = FP.FightMaxMagic;//战斗法力
             }
-            //创建显示血条和名称
-            AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, this);
+            //本机玩家和怪物创建显示血条和名称，网络玩家是在物体创建时创建
+            if ((NpcType.player ==m_NpcType && m_GDID==ClientBase.Instance.UID) || m_NpcType == NpcType.monster) {
+                AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, this);
+            }
         }
         public virtual void InitNPCAnimaor() {
             m_Nab = transform.GetComponent<NPCAnimatorBase>();

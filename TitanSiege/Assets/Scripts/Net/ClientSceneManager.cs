@@ -1,4 +1,5 @@
 
+using cmd;
 using GF.Const;
 using GF.MainGame;
 using GF.MainGame.Module;
@@ -30,15 +31,37 @@ namespace GF.NetWork {
                 MonsterFather = (new GameObject("Monsters")).transform;
             }
         }
-        public override void OnNetworkObjectCreate(Operation opt, NetworkObject identity) {
+        public override async void OnNetworkObjectCreate(Operation opt, NetworkObject identity) {
             var p = identity.GetComponent<Player>();
             if (p != null) {
                 p.m_GDID = opt.identity;
                 p.m_NpcType = NpcType.player;
                 AppTools.Send<Player>((int)NpcEvent.AddPlayer, p);
+                //请求服务器，更新血条和名称
+                var task = await ClientBase.Instance.Call((ushort)ProtoType.playerupdateprop,pars:opt.identity);
+                if (!task.IsCompleted) {
+                    Debuger.Log("请求超时，请检查网络链接");
+                    return;
+                }
+                var code = task.model.AsInt;
+                switch (code) {
+                    case 0:
+                        Debuger.Log("服务器不存在角色" + p.m_GDID);
+                        break;
+                    case 1:
+                        FightProp fp = task.model.As<FightProp>();
+                        p.m_PlayerName = fp.PlayerName;
+                        //创建血条
+                        AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, p);
+                        break;
+                    default:
+                        Debuger.Log("请求更新玩家数据遇到未知命令：" + code);
+                        break;
+                }
+              
             }
         }
-
+      
         public override void OnOtherDestroy(NetworkObject identity) {
             var p = identity.GetComponent<Player>();
             if (p != null) {
@@ -76,11 +99,36 @@ namespace GF.NetWork {
                         p.FP.FightMagic = opt.index1;
                         p.FP.FightMaxHp = opt.index2;
                         p.FP.FightMaxMagic = opt.index3;
+                        if ((!string.IsNullOrEmpty(opt.name)) ) {//网络玩家赋值名称，本地的不用
+                            p.m_PlayerName = opt.name;
+                            //创建显示血条和名称
+                            AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, p);
+                        }
                         AppTools.Send<NPCBase>((int)HPEvent.UpdateHp,p);
-                        AppTools.Send<NPCBase>((int)HPEvent.UpdateMp, p);
+                        if (opt.identity== ClientBase.Instance.UID) {//本地玩家才需要更新蓝条
+                            AppTools.Send<NPCBase>((int)HPEvent.UpdateMp, p);
+                        }
                         p.Check();//检查角色是否死亡并同步生命值
                     }
                     break;
+                    //玩家属性变化后更新的命令
+                //case Command.PlayerUpdateProp:
+                     
+                //    //if (identitys.TryGetValue(opt.identity, out var t3)) {
+                //    //    var p = t3.GetComponent<Player>();
+                //    //    p.FP.FightHP = opt.index;
+                //    //    p.FP.FightMagic = opt.index1;
+                //    //    p.FP.FightMaxHp = opt.index2;
+                //    //    p.FP.FightMaxMagic = opt.index3;
+                //    //    p.m_PlayerName = opt.name;
+                //    //    Debuger.Log("12312"+ p.m_PlayerName);
+                //    //    //创建显示血条和名称
+                //    //    AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, p);
+                //    //    if (opt.identity == ClientBase.Instance.UID) {//本地玩家才需要更新蓝条
+                //    //        AppTools.Send<NPCBase>((int)HPEvent.UpdateMp, p);
+                //    //    }
+                //    //}
+                //    break;
                 case Command.EnemyPatrol://1、未发生攻击时，服务端同步场景怪物行为
                     //2、死亡时也是发送这个命令，不同的是，死亡只发一次，客户端处理死亡后，直到收到怪物复活命令之前，不会再进行任何同步和命令
                     var monster = CheckMonster(opt);
@@ -103,7 +151,7 @@ namespace GF.NetWork {
                         monster2.m_State.StatusEntry((int)opt.cmd2);//切换状态后，客户端自行播放状态动画
                     }
                     break;
-                case Command.EnemySync://发生攻击时，客户端怪物状态同步
+                case Command.EnemySync://怪物同步，客户端怪物状态同步
                     var monster3 = CheckMonster(opt);
                     monster3.m_NetState = opt.cmd1;
                     monster3.m_PatrolState = opt.cmd2;

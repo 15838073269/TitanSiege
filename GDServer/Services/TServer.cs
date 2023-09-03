@@ -80,8 +80,9 @@ namespace GDServer.Services
             //gd里面，客户端sentrt方法时，可以不采用方法名send，而是send过来ushort哈希值，默认hash就存到了消息的methodHash变量中
             switch (model.methodHash) {
                 case (ushort)ProtoType.selectcharacter:
+                    long charid = model.AsLong;
                     for (int i = 0; i < client.CharacterList?.Count; i++) {
-                        if (client.CharacterList[i].ID  == model.AsLong) {
+                        if (client.CharacterList[i].ID  == charid) {
                             //选择角色数据赋值
                             client.current = client.CharacterList[i];
                             client.AddRpc(client.current);
@@ -89,6 +90,27 @@ namespace GDServer.Services
                             Debuger.Log($"客户端（id{client.UserID}）选择了角色id{client.current.ID}");
                             break;
                         }
+                    }
+                    break;
+                case (ushort)ProtoType.playerupdateprop://这种做法其实是有问题的，每一个网络对象创建时都会请求一次服务器，如果有100人同时在一个场景，
+                                                        //一个玩家上线后，100个客户端都会同时请求一次服务器获取这个玩家数据，极容易造成大量并发，
+                                                        //九宫格aoi能缓解这个问题，但服务器的负担一样不会小，
+                                                        //考虑这里更换成玩家切换场景时，一次性返回本场景所有玩家数据，有新玩家进入场景后，服务器判断一下这个玩家数据是否存在，不存在就再同步一次新增数据？
+                                                        //上面这个方案流量会高，貌似还不容九宫格aoi，嗯，先这样吧，回头有个更好的方案再说
+                    int uid = (int)model.pars[0];
+                    FightProp fp = null;
+                    for (int i = 0; i < Clients.Count; i++) {
+                        if (Clients[i].UserID == uid) {
+                            fp = Clients[i].FP;
+                            break;
+                        }
+                    }
+                    Debuger.Log(uid + "发送获取玩家数据");
+                    if (fp != null) {
+                        //返回玩家属性数据
+                        TServer.Instance.SendRT(client, (ushort)ProtoType.playerupdateprop, 1, fp);
+                    } else {
+                        TServer.Instance.SendRT(client, (ushort)ProtoType.playerupdateprop, 0);
                     }
                     break;
                 default:

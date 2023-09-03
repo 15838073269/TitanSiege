@@ -97,6 +97,7 @@
     <Compile Include="Assets\Scripts\Module\Fight\State\StateModule.cs" />
     <Compile Include="Assets\Scripts\Module\Fight\FightModule.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Cartoon FX\Scripts\CFX_AutodestructWhenNoChildren.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\TitansiegeNpcsDataBind.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Cartoon FX\Spawn System\CFX_SpawnSystem.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Affectors\ColorAffector.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraShakeEvent.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Cartoon FX\Scripts\CFX_AutoDestructShuriken.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets03\Cartoon FX\Demo\Assets\CFX3_Demo_Translate.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Affectors\GravityAffector.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\FightPropBind.cs" />
     <Compile Include="Assets\Scripts\UIModule\SkillUIWidget.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraComponent\ImageEffects\XftGlitch.cs" />
     <Compile Include="Assets\Scripts\Module\Fight\State\IState.cs" />
@@ -263,9 +265,9 @@
     <Compile Include="Assets\Scripts\UIModule\LoginUIPage.cs" />
     <Compile Include="Assets\Scripts\Module\TeamQueueModule.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraComponent\XftCameraShakeComp.cs" />
+    <Compile Include="Assets\Scripts\UIModule\UIBG.cs" />
     <Compile Include="Assets\Scripts\Data\SceneData.cs" />
     <Compile Include="Assets\Scripts\UIModule\EnterWidget.cs" />
-    <Compile Include="Assets\Scripts\UIModule\UIBG.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
