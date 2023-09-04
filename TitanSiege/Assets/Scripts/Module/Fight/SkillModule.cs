@@ -140,7 +140,7 @@ namespace GF.MainGame.Module {
                         }
                     }
                 }
-            } else if (npc.m_NpcType == NpcType.monster) { //怪物攻击玩家，而且只可能攻击的是本人
+            } else if (npc.m_NpcType == NpcType.monster) { //怪物攻击玩家，而且只可能攻击的是本机，攻击不是本机，那伤害是同步过来的
                 Monster m = npc as Monster;
                 if (!m.AttackTarget.m_IsDie) {
                     CountData(sb, m, m.AttackTarget as Player);
@@ -242,12 +242,18 @@ namespace GF.MainGame.Module {
             }
             AppTools.Send<DamageArg>((int)HPEvent.ShowDamgeTxt, damagearg);
         }
-        //怪物技能攻击玩家
+        /// <summary>
+        /// 怪物技能攻击玩家
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="m"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
         private int CountData(SkillDataBase sb, Monster m, Player p) {
             int damage = 0;
             float dis = Vector3.Distance(p.transform.position, m.transform.position);
             DamageArg damagearg = new DamageArg();
-            //计算是否在技能的攻击角度内,距离小于1.5，就默认能打到，不用计算角度了，离得太近
+            //计算是否在技能的攻击角度内,距离小于1，就默认能打到，不用计算角度了，离得太近
             float angle = GetAngle(m.transform, p.transform);
             if (dis <= AppConfig.AttackRange || InAngle(angle, sb.angle)) { //空留给角度计算
                 damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, m, p, out damagearg.damagetype);
@@ -264,6 +270,7 @@ namespace GF.MainGame.Module {
                     Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}{p.m_GDID}闪避了{m.name}的攻击");
                 }
             }
+            AppTools.Send<DamageArg>((int)HPEvent.ShowDamgeTxt, damagearg);
             //闪避了就忽略延迟，直接显示
             //if (att.yanchi != 0f && damagearg.damagetype!= DamageType.shangbi) {
             //    //延迟显示攻击数字即可，没必要就算都延迟

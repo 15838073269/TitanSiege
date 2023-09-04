@@ -35,7 +35,7 @@ namespace GDServer {
         internal void BeAttacked(int damage) {
             if (m_IsDie)
                 return;
-            FP.FightHP -= (short)damage;
+            FP.FightHP -= damage;
             if (FP.FightHP <=0&& !m_IsDie) {
                 m_IsDie = true;
             }

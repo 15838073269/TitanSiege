@@ -94,10 +94,10 @@ namespace GDServer {
                         }
                         break;
                     case Command.EnemyAttack://怪物攻击玩家时
-                        var players = Clients;
-                        for (int n = 0; n < players.Count; n++) {
-                            if (players[n].UserID == opt.identity) {
-                                players[n].BeAttacked(opt.index);
+                        for (int n = 0; n < Clients.Count; n++) {
+                            Debuger.Log("怪物攻击"+opt.identity);
+                            if (Clients[n].UserID == opt.identity) {
+                                Clients[n].BeAttacked(opt.index);
                                 break;
                             }
                         }

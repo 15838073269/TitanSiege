@@ -171,7 +171,7 @@ public class MyAcitonCore : ActionBehaviour {
     /// <summary>
     /// 当动画事件触发
     /// </summary>
-    public virtual void OnAnimationEvent(StateAction action,EventArg evntarg) { }
+    public virtual void OnAnimationEvent(StateAction action,EventArg eventarg) { }
 
     /// <summary>
     /// 设置技能位置

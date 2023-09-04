@@ -126,6 +126,7 @@ Transform:
   - {fileID: 1668064207578245853}
   - {fileID: 7046198602055336495}
   - {fileID: 7996788444008279396}
+  - {fileID: 7453646078173403963}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -317,7 +318,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400012}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0.000045776367, z: -14.455322}
+  m_LocalEulerAnglesHint: {x: 40.774258, y: 326.5682, z: 63.678062}
 --- !u!1 &100012
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +350,7 @@ Transform:
   - {fileID: 400010}
   m_Father: {fileID: 400014}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0.000015258789, z: -5.340149}
+  m_LocalEulerAnglesHint: {x: 31.773117, y: 324.21024, z: 46.071186}
 --- !u!1 &100014
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +382,7 @@ Transform:
   - {fileID: 400012}
   m_Father: {fileID: 400060}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0.00032043457, y: 0.000045776367, z: -174.01709}
+  m_LocalEulerAnglesHint: {x: 346.90176, y: 342.86288, z: 111.836044}
 --- !u!1 &100016
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +413,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400018}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -1.8094482, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 357.94803, y: 0.016520355, z: 266.98843}
 --- !u!1 &100018
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +445,7 @@ Transform:
   - {fileID: 400016}
   m_Father: {fileID: 400020}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 16.930023, y: -5.1100464, z: -6.619934}
+  m_LocalEulerAnglesHint: {x: 10.628909, y: 26.86429, z: 348.81165}
 --- !u!1 &100020
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +477,7 @@ Transform:
   - {fileID: 400018}
   m_Father: {fileID: 400022}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -43.516083}
+  m_LocalEulerAnglesHint: {x: 359.758, y: 26.727436, z: 278.76074}
 --- !u!1 &100022
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,7 +509,7 @@ Transform:
   - {fileID: 400020}
   m_Father: {fileID: 400024}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 49.762756}
+  m_LocalEulerAnglesHint: {x: 359.87534, y: 359.7838, z: 66.93154}
 --- !u!1 &100024
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,7 +541,7 @@ Transform:
   - {fileID: 400022}
   m_Father: {fileID: 400060}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 2.069397, y: -179.09311, z: -85.70419}
+  m_LocalEulerAnglesHint: {x: 13.255212, y: 163.7356, z: 325.3697}
 --- !u!1 &100026
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,7 +572,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400028}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 1.8094025, y: 0, z: -90.00003}
+  m_LocalEulerAnglesHint: {x: 1.4257288, y: 359.9909, z: 269.27158}
 --- !u!1 &100028
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,7 +604,7 @@ Transform:
   - {fileID: 400026}
   m_Father: {fileID: 400030}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -16.930054, y: 5.110031, z: -6.619934}
+  m_LocalEulerAnglesHint: {x: 351.91397, y: 29.72277, z: 17.279095}
 --- !u!1 &100030
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,7 +636,7 @@ Transform:
   - {fileID: 400028}
   m_Father: {fileID: 400032}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -43.516083}
+  m_LocalEulerAnglesHint: {x: 359.85223, y: 0.05708385, z: 227.75696}
 --- !u!1 &100032
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,7 +668,7 @@ Transform:
   - {fileID: 400030}
   m_Father: {fileID: 400034}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 49.762756}
+  m_LocalEulerAnglesHint: {x: 0.05127796, y: 359.85056, z: 127.85429}
 --- !u!1 &100034
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +700,7 @@ Transform:
   - {fileID: 400032}
   m_Father: {fileID: 400060}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -2.0697021, y: 179.09311, z: -85.70419}
+  m_LocalEulerAnglesHint: {x: 20.091795, y: 171.43611, z: 336.98923}
 --- !u!1 &100036
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,7 +731,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400038}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 15.453247, y: -3.073059, z: 67.68576}
+  m_LocalEulerAnglesHint: {x: 22.329372, y: 46.70291, z: 48.038357}
 --- !u!1 &100038
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,7 +764,7 @@ Transform:
   - {fileID: 400036}
   m_Father: {fileID: 400040}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 7.91066}
+  m_LocalEulerAnglesHint: {x: 333.1352, y: 359.87225, z: 15.166159}
 --- !u!1 &100040
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,7 +796,7 @@ Transform:
   - {fileID: 400038}
   m_Father: {fileID: 400042}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 53.81906, y: 80.51732, z: 79.79236}
+  m_LocalEulerAnglesHint: {x: 67.51639, y: 287.75482, z: 245.50014}
 --- !u!1 &100042
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,7 +828,7 @@ Transform:
   - {fileID: 400040}
   m_Father: {fileID: 400056}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 7.018341, y: 85.242645, z: -124.08685}
+  m_LocalEulerAnglesHint: {x: 355.18262, y: 75.88801, z: 270.19672}
 --- !u!1 &100044
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,7 +859,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400046}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -15.453247, y: 3.0730438, z: 67.68576}
+  m_LocalEulerAnglesHint: {x: 284.47165, y: 316.5121, z: 33.812153}
 --- !u!1 &100046
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,7 +891,7 @@ Transform:
   - {fileID: 400044}
   m_Father: {fileID: 400048}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 7.91066}
+  m_LocalEulerAnglesHint: {x: 359.861, y: 359.79175, z: 59.46456}
 --- !u!1 &100048
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,7 +923,7 @@ Transform:
   - {fileID: 400046}
   m_Father: {fileID: 400050}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -53.81906, y: -80.517334, z: 79.79236}
+  m_LocalEulerAnglesHint: {x: 312.17096, y: 26.18194, z: 333.21832}
 --- !u!1 &100050
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,7 +955,7 @@ Transform:
   - {fileID: 400048}
   m_Father: {fileID: 400056}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -7.0183105, y: -85.242615, z: -124.08719}
+  m_LocalEulerAnglesHint: {x: 20.908297, y: 252.81772, z: 241.25256}
 --- !u!1 &100052
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,7 +986,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400054}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 8.423523, y: 90.00011, z: -89.99988}
+  m_LocalEulerAnglesHint: {x: 7.745574, y: 89.85116, z: 269.20966}
 --- !u!1 &100054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,7 +1018,7 @@ Transform:
   - {fileID: 400052}
   m_Father: {fileID: 400056}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0.000061035156, y: -0.00016784668, z: 32.9086}
+  m_LocalEulerAnglesHint: {x: 343.67084, y: 318.25385, z: 305.25876}
 --- !u!1 &100056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,7 +1052,7 @@ Transform:
   - {fileID: 400042}
   m_Father: {fileID: 400058}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 351.1604, y: 13.132394, z: 344.33405}
 --- !u!1 &100058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1083,7 +1084,7 @@ Transform:
   - {fileID: 400056}
   m_Father: {fileID: 400060}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: -0.000015258789, z: 4.904114}
+  m_LocalEulerAnglesHint: {x: 3.1605306, y: 29.130135, z: 40.68907}
 --- !u!1 &100060
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,7 +1119,7 @@ Transform:
   - {fileID: 400014}
   m_Father: {fileID: 400062}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -0.00024414062, y: 0.000061035156, z: 5.467331}
+  m_LocalEulerAnglesHint: {x: 9.376585, y: 18.785707, z: 54.038677}
 --- !u!1 &100062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,7 +1151,7 @@ Transform:
   - {fileID: 400060}
   m_Father: {fileID: 400064}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 77.65665, z: 0}
+  m_LocalEulerAnglesHint: {x: 270, y: 89.60862, z: 0}
 --- !u!1 &100064
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,7 +1183,7 @@ Transform:
   - {fileID: 400062}
   m_Father: {fileID: 400008}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -8.722778, y: 0, z: 89.99992}
+  m_LocalEulerAnglesHint: {x: 162.52501, y: 192.67136, z: 90.367836}
 --- !u!1 &100066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1380,6 +1381,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NPC: {fileID: 0}
+--- !u!1 &1190807020915048409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7453646078173403963}
+  m_Layer: 9
+  m_Name: skilleffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7453646078173403963
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190807020915048409}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8043547028737448346}
+  m_Father: {fileID: 400008}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4089425029629999451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,8 +1579,8 @@ MonoBehaviour:
     foldout: 1
     rect:
       serializedVersion: 2
-      x: 5571.0386
-      y: 5118.0903
+      x: 5568.9766
+      y: 5119.1216
       width: 150
       height: 30
     transitions: []
@@ -1572,10 +1605,10 @@ MonoBehaviour:
         width: 150
         height: 30
       clipName: idle
-      clipIndex: 5
+      clipIndex: 4
       animTime: 0
       animTimeMax: 100
-      rewind: 0
+      rewind: 1
   - name: run
     ID: 1
     perID: 0
@@ -1590,8 +1623,8 @@ MonoBehaviour:
     foldout: 1
     rect:
       serializedVersion: 2
-      x: 5382.818
-      y: 5173.2725
+      x: 5384.8804
+      y: 5171.2104
       width: 150
       height: 30
     transitions: []
@@ -1619,475 +1652,13 @@ MonoBehaviour:
       clipIndex: 0
       animTime: 0
       animTimeMax: 100
-      rewind: 0
-  - name: skill1
-    ID: 2
-    perID: 0
-    behaviours: []
-    stateMachine: {fileID: 4238672323125110609}
-    foldout: 1
-    rect:
-      serializedVersion: 2
-      x: 5736.865
-      y: 5182.5273
-      width: 150
-      height: 30
-    transitions:
-    - name: skill1 -> idle
-      ID: 0
-      perID: 0
-      behaviours: []
-      stateMachine: {fileID: 4238672323125110609}
-      foldout: 1
-      rect:
-        serializedVersion: 2
-        x: 10
-        y: 10
-        width: 150
-        height: 30
-      currStateID: 2
-      nextStateID: 0
-      model: 1
-      time: 0
-      exitTime: 1
-      isEnterNextState: 0
-    actionSystem: 1
-    animLoop: 0
-    animPlayMode: 0
-    actionIndex: 0
-    animSpeed: 1
-    isExitState: 1
-    DstStateID: 0
-    actions:
-    - name: 
-      ID: 0
-      perID: 0
-      behaviours:
-      - name: GF.MainGame.Module.NPC.MAttackState
-        ID: 2
-        show: 1
-        Active: 1
-        metadatas:
-        - name: animEventTime
-          type: 13
-          typeName: System.Single
-          data: 50
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: effectSpwan
-          type: 1
-          typeName: UnityEngine.GameObject
-          data: 
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: activeMode
-          type: 29
-          typeName: GameDesigner.ActiveMode
-          data: Active
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: spwanTime
-          type: 13
-          typeName: System.Single
-          data: 1
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: activeObjs
-          type: 27
-          typeName: System.Collections.Generic.List`1[UnityEngine.GameObject]
-          data: 
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: spwanmode
-          type: 29
-          typeName: GameDesigner.SpwanMode
-          data: localPosition
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: parent
-          type: 1
-          typeName: UnityEngine.Transform
-          data: 
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: effectPostion
-          type: 20
-          typeName: UnityEngine.Vector3
-          data: 0,1.5,2
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: effectEulerAngles
-          type: 20
-          typeName: UnityEngine.Vector3
-          data: 0,0,0
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: isPlayAudio
-          type: 3
-          typeName: System.Boolean
-          data: False
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: audioModel
-          type: 29
-          typeName: GameDesigner.AudioMode
-          data: AnimEvent
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: audioClips
-          type: 27
-          typeName: System.Collections.Generic.List`1[UnityEngine.AudioClip]
-          data: 
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 1
-        stateMachine: {fileID: 4238672323125110609}
-      stateMachine: {fileID: 4238672323125110609}
-      foldout: 1
-      rect:
-        serializedVersion: 2
-        x: 10
-        y: 10
-        width: 150
-        height: 30
-      clipName: skill1
-      clipIndex: 1
-      animTime: 0
-      animTimeMax: 100
-      rewind: 1
-  - name: skill2
-    ID: 3
-    perID: 0
-    behaviours: []
-    stateMachine: {fileID: 4238672323125110609}
-    foldout: 1
-    rect:
-      serializedVersion: 2
-      x: 5863.133
-      y: 5112.185
-      width: 150
-      height: 30
-    transitions:
-    - name: skill2 -> idle
-      ID: 0
-      perID: 0
-      behaviours: []
-      stateMachine: {fileID: 4238672323125110609}
-      foldout: 1
-      rect:
-        serializedVersion: 2
-        x: 10
-        y: 10
-        width: 150
-        height: 30
-      currStateID: 3
-      nextStateID: 0
-      model: 1
-      time: 0
-      exitTime: 1
-      isEnterNextState: 0
-    actionSystem: 1
-    animLoop: 0
-    animPlayMode: 0
-    actionIndex: 0
-    animSpeed: 1
-    isExitState: 1
-    DstStateID: 0
-    actions:
-    - name: 
-      ID: 0
-      perID: 0
-      behaviours:
-      - name: GF.MainGame.Module.NPC.MAttackState
-        ID: 3
-        show: 1
-        Active: 1
-        metadatas:
-        - name: animEventTime
-          type: 13
-          typeName: System.Single
-          data: 50
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: effectSpwan
-          type: 1
-          typeName: UnityEngine.GameObject
-          data: 
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: activeMode
-          type: 29
-          typeName: GameDesigner.ActiveMode
-          data: Active
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: spwanTime
-          type: 13
-          typeName: System.Single
-          data: 1
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: activeObjs
-          type: 27
-          typeName: System.Collections.Generic.List`1[UnityEngine.GameObject]
-          data: 
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: spwanmode
-          type: 29
-          typeName: GameDesigner.SpwanMode
-          data: localPosition
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: parent
-          type: 1
-          typeName: UnityEngine.Transform
-          data: 
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: effectPostion
-          type: 20
-          typeName: UnityEngine.Vector3
-          data: 0,1.5,2
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: effectEulerAngles
-          type: 20
-          typeName: UnityEngine.Vector3
-          data: 0,0,0
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: isPlayAudio
-          type: 3
-          typeName: System.Boolean
-          data: False
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: audioModel
-          type: 29
-          typeName: GameDesigner.AudioMode
-          data: AnimEvent
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: audioClips
-          type: 27
-          typeName: System.Collections.Generic.List`1[UnityEngine.AudioClip]
-          data: 
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        stateMachine: {fileID: 4238672323125110609}
-      - name: GF.MainGame.Module.NPC.MAttackState
-        ID: 3
-        show: 1
-        Active: 1
-        metadatas:
-        - name: animEventTime
-          type: 13
-          typeName: System.Single
-          data: 50
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: effectSpwan
-          type: 1
-          typeName: UnityEngine.GameObject
-          data: 
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: activeMode
-          type: 29
-          typeName: GameDesigner.ActiveMode
-          data: Instantiate
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: spwanTime
-          type: 13
-          typeName: System.Single
-          data: 1
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: activeObjs
-          type: 27
-          typeName: System.Collections.Generic.List`1[UnityEngine.GameObject]
-          data: 
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: spwanmode
-          type: 29
-          typeName: GameDesigner.SpwanMode
-          data: localPosition
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: parent
-          type: 1
-          typeName: UnityEngine.Transform
-          data: 
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: effectPostion
-          type: 20
-          typeName: UnityEngine.Vector3
-          data: 0,1.5,2
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: effectEulerAngles
-          type: 20
-          typeName: UnityEngine.Vector3
-          data: 0,0,0
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: isPlayAudio
-          type: 3
-          typeName: System.Boolean
-          data: False
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: audioModel
-          type: 29
-          typeName: GameDesigner.AudioMode
-          data: AnimEvent
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        - name: audioClips
-          type: 27
-          typeName: System.Collections.Generic.List`1[UnityEngine.AudioClip]
-          data: 
-          Value: {fileID: 0}
-          values: []
-          arraySize: 0
-          foldout: 0
-        stateMachine: {fileID: 4238672323125110609}
-      stateMachine: {fileID: 4238672323125110609}
-      foldout: 1
-      rect:
-        serializedVersion: 2
-        x: 10
-        y: 10
-        width: 150
-        height: 30
-      clipName: skill2
-      clipIndex: 2
-      animTime: 0
-      animTimeMax: 100
-      rewind: 1
-  - name: hurt
-    ID: 4
-    perID: 0
-    behaviours:
-    - name: GF.MainGame.Module.NPC.MHurtState
-      ID: 4
-      show: 1
-      Active: 1
-      metadatas: []
-      stateMachine: {fileID: 4238672323125110609}
-    stateMachine: {fileID: 4238672323125110609}
-    foldout: 1
-    rect:
-      serializedVersion: 2
-      x: 5578.759
-      y: 5225.9834
-      width: 150
-      height: 30
-    transitions: []
-    actionSystem: 1
-    animLoop: 0
-    animPlayMode: 0
-    actionIndex: 0
-    animSpeed: 1
-    isExitState: 0
-    DstStateID: 0
-    actions:
-    - name: 
-      ID: 0
-      perID: 0
-      behaviours: []
-      stateMachine: {fileID: 4238672323125110609}
-      foldout: 1
-      rect:
-        serializedVersion: 2
-        x: 10
-        y: 10
-        width: 150
-        height: 30
-      clipName: hurt
-      clipIndex: 4
-      animTime: 0
-      animTimeMax: 100
       rewind: 1
   - name: die
-    ID: 5
+    ID: 2
     perID: 0
     behaviours:
     - name: GF.MainGame.Module.NPC.MDieState
-      ID: 5
+      ID: 2
       show: 1
       Active: 1
       metadatas: []
@@ -2096,8 +1667,8 @@ MonoBehaviour:
     foldout: 1
     rect:
       serializedVersion: 2
-      x: 5895.561
-      y: 5214.7505
+      x: 5894.5303
+      y: 5216.812
       width: 150
       height: 30
     transitions: []
@@ -2126,7 +1697,323 @@ MonoBehaviour:
       animTime: 0
       animTimeMax: 100
       rewind: 1
-  selectStates: 02000000
+  - name: skill1
+    ID: 3
+    perID: 0
+    behaviours: []
+    stateMachine: {fileID: 4238672323125110609}
+    foldout: 1
+    rect:
+      serializedVersion: 2
+      x: 5810.3096
+      y: 5117.526
+      width: 150
+      height: 30
+    transitions:
+    - name: skill1 -> idle
+      ID: 0
+      perID: 0
+      behaviours: []
+      stateMachine: {fileID: 4238672323125110609}
+      foldout: 1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 10
+        width: 150
+        height: 30
+      currStateID: 3
+      nextStateID: 0
+      model: 1
+      time: 0
+      exitTime: 1
+      isEnterNextState: 0
+    actionSystem: 1
+    animLoop: 0
+    animPlayMode: 0
+    actionIndex: 0
+    animSpeed: 1
+    isExitState: 1
+    DstStateID: 0
+    actions:
+    - name: 
+      ID: 3
+      perID: 0
+      behaviours:
+      - name: GF.MainGame.Module.NPC.MAttackAciton
+        ID: 3
+        show: 1
+        Active: 1
+        metadatas:
+        - name: animEventList
+          type: 27
+          typeName: System.Collections.Generic.List`1[EventArg]
+          data: '[]'
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: effectSpwan
+          type: 1
+          typeName: GF.MainGame.Module.Fight.EffectBase
+          data: 
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: activeMode
+          type: 29
+          typeName: GameDesigner.ActiveMode
+          data: Active
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: spwanTime
+          type: 13
+          typeName: System.Single
+          data: 1
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: activeObjs
+          type: 27
+          typeName: System.Collections.Generic.List`1[UnityEngine.GameObject]
+          data: 
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: spwanmode
+          type: 29
+          typeName: GameDesigner.SpwanMode
+          data: None
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: effectparent
+          type: 1
+          typeName: UnityEngine.Transform
+          data: 
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: effectPostion
+          type: 20
+          typeName: UnityEngine.Vector3
+          data: 0,1.5,2
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: effectRotation
+          type: 25
+          typeName: UnityEngine.Quaternion
+          data: 0,0,0,0
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: isPlayAudio
+          type: 3
+          typeName: System.Boolean
+          data: False
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: audioModel
+          type: 29
+          typeName: GameDesigner.AudioMode
+          data: EnterPlay
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: audioClips
+          type: 27
+          typeName: System.Collections.Generic.List`1[UnityEngine.AudioClip]
+          data: 
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        stateMachine: {fileID: 4238672323125110609}
+      stateMachine: {fileID: 4238672323125110609}
+      foldout: 1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 10
+        width: 150
+        height: 30
+      clipName: skill1
+      clipIndex: 1
+      animTime: 0
+      animTimeMax: 100
+      rewind: 1
+  - name: skill2
+    ID: 4
+    perID: 0
+    behaviours: []
+    stateMachine: {fileID: 4238672323125110609}
+    foldout: 1
+    rect:
+      serializedVersion: 2
+      x: 5922.68
+      y: 5068.0405
+      width: 150
+      height: 30
+    transitions:
+    - name: skill2 -> idle
+      ID: 0
+      perID: 0
+      behaviours: []
+      stateMachine: {fileID: 4238672323125110609}
+      foldout: 1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 10
+        width: 150
+        height: 30
+      currStateID: 4
+      nextStateID: 0
+      model: 1
+      time: 0
+      exitTime: 1
+      isEnterNextState: 0
+    actionSystem: 1
+    animLoop: 0
+    animPlayMode: 0
+    actionIndex: 0
+    animSpeed: 1
+    isExitState: 1
+    DstStateID: 0
+    actions:
+    - name: 
+      ID: 4
+      perID: 0
+      behaviours:
+      - name: GF.MainGame.Module.NPC.MAttackAciton
+        ID: 4
+        show: 1
+        Active: 1
+        metadatas:
+        - name: animEventList
+          type: 27
+          typeName: System.Collections.Generic.List`1[EventArg]
+          data: '[]'
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: effectSpwan
+          type: 1
+          typeName: GF.MainGame.Module.Fight.EffectBase
+          data: 
+          Value: {fileID: 7096070509194219828}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: activeMode
+          type: 29
+          typeName: GameDesigner.ActiveMode
+          data: Active
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: spwanTime
+          type: 13
+          typeName: System.Single
+          data: 1
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: activeObjs
+          type: 27
+          typeName: System.Collections.Generic.List`1[UnityEngine.GameObject]
+          data: 
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: spwanmode
+          type: 29
+          typeName: GameDesigner.SpwanMode
+          data: ActiveLocalPosition
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: effectparent
+          type: 1
+          typeName: UnityEngine.Transform
+          data: 
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: effectPostion
+          type: 20
+          typeName: UnityEngine.Vector3
+          data: 0,1.5,2
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: effectRotation
+          type: 25
+          typeName: UnityEngine.Quaternion
+          data: 0,0,0,0
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: isPlayAudio
+          type: 3
+          typeName: System.Boolean
+          data: False
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: audioModel
+          type: 29
+          typeName: GameDesigner.AudioMode
+          data: EnterPlay
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 0
+        - name: audioClips
+          type: 27
+          typeName: System.Collections.Generic.List`1[UnityEngine.AudioClip]
+          data: 
+          Value: {fileID: 0}
+          values: []
+          arraySize: 0
+          foldout: 1
+        stateMachine: {fileID: 4238672323125110609}
+      stateMachine: {fileID: 4238672323125110609}
+      foldout: 1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 10
+        width: 150
+        height: 30
+      clipName: skill2
+      clipIndex: 2
+      animTime: 0
+      animTimeMax: 100
+      rewind: 1
+  selectStates: 04000000
   animMode: 1
   animation: {fileID: 0}
   animator: {fileID: 5186555465227957303}
@@ -2135,9 +2022,7 @@ MonoBehaviour:
   - skill1
   - skill2
   - die
-  - hurt
   - idle
-  - selected
   _stateManager: {fileID: 0}
 --- !u!1 &6379602573567962095
 GameObject:
@@ -2855,6 +2740,93 @@ Transform:
   m_Father: {fileID: 400008}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3518770234178362434
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7453646078173403963}
+    m_Modifications:
+    - target: {fileID: 6878480445699261912, guid: 3c012c2a0b083804ab2a4303dded2e08,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878480445699261912, guid: 3c012c2a0b083804ab2a4303dded2e08,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878480445699261912, guid: 3c012c2a0b083804ab2a4303dded2e08,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878480445699261912, guid: 3c012c2a0b083804ab2a4303dded2e08,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878480445699261912, guid: 3c012c2a0b083804ab2a4303dded2e08,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878480445699261912, guid: 3c012c2a0b083804ab2a4303dded2e08,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878480445699261912, guid: 3c012c2a0b083804ab2a4303dded2e08,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -2.970697e-15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878480445699261912, guid: 3c012c2a0b083804ab2a4303dded2e08,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878480445699261912, guid: 3c012c2a0b083804ab2a4303dded2e08,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878480445699261912, guid: 3c012c2a0b083804ab2a4303dded2e08,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878480445699261912, guid: 3c012c2a0b083804ab2a4303dded2e08,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878480445699758584, guid: 3c012c2a0b083804ab2a4303dded2e08,
+        type: 3}
+      propertyPath: m_Name
+      value: lang_skill2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3c012c2a0b083804ab2a4303dded2e08, type: 3}
+--- !u!114 &7096070509194219828 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5958086842293079414, guid: 3c012c2a0b083804ab2a4303dded2e08,
+    type: 3}
+  m_PrefabInstance: {fileID: 3518770234178362434}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a9afa242b5cfe409fcb6b81b0e92df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8043547028737448346 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6878480445699261912, guid: 3c012c2a0b083804ab2a4303dded2e08,
+    type: 3}
+  m_PrefabInstance: {fileID: 3518770234178362434}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6194551334934773342
 PrefabInstance:
   m_ObjectHideFlags: 0

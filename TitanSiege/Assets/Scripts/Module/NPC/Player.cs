@@ -14,6 +14,8 @@ using GF.MainGame.Data;
 using GF.NetWork;
 using Net.Client;
 using Net.Share;
+using Net.System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -38,8 +40,6 @@ namespace GF.MainGame.Module.NPC {
         }
 
         internal void Check() {//检查角色是否死亡并同步生命值
-            //先更新血条和蓝条
-
             if (FP.FightHP <=0 &&!m_IsDie) { //服务器同步的血量已经小于等于0了。此时客户端还没死掉
                 m_IsDie = true;
                 FP.FightHP = 0;
@@ -76,9 +76,39 @@ namespace GF.MainGame.Module.NPC {
             }
             return length;
         }
-        
+        /// <summary>
+        /// 玩家复活
+        /// </summary>
+        internal void Fuhuo() {
+            Debuger.Log("准备复活");
+        }
     }
     #region GDNet的状态机
+    public class PDieState : StateBehaviour {
+        private Player m_Self;
+        public override void OnInit() {
+            m_Self = transform.GetComponent<Player>();
+        }
+        public override void OnEnter() {
+            //死亡后直接黑屏，禁止任何ui操作
+
+            //取消选中状态
+            if (m_Self.m_GDID == ClientBase.Instance.UID) {//只有本机玩家才需要取消选中
+                AppTools.Send<NPCBase>((int)NpcEvent.CanelSelected, null);
+            }
+            m_Self.AttackTarget = null;
+        }
+        public override void OnStop() {
+            //播放完死亡动画，隐藏血条
+            AppTools.Send<NPCBase>((int)HPEvent.HideHP, m_Self);
+            //显示死亡复活选项
+            //todo
+            Debuger.Log("显示复活选项");
+        }
+        public override void OnExit() {
+            m_Self.Fuhuo();//复活处理
+        }
+    }
     public class PIdleState : StateBehaviour {
 
     }
@@ -89,108 +119,6 @@ namespace GF.MainGame.Module.NPC {
     }
     public class PFightRunState : StateBehaviour {
     }
-    
-    
-  
-    public class PAttackState : ActionCore {
-        private Player m_Self;
-        private int m_SkillID;
-        private SkillDataBase m_SData;
-        public override void OnInit() {
-            m_Self = transform.GetComponent<Player>();
-            m_SkillID = m_Self.m_SkillId[0];
-            m_SData = ConfigerManager.m_SkillData.FindNPCByID(m_SkillID);
-            if (m_Self.IsFight == false) {
-                m_Self.SetFight(true);
-                m_Self.ChangeWp();//切换以下武器
-            }
-            m_Self.m_Resetidletime = AppConfig.FightReset;
-        }
-        /// <summary>
-        /// 动画帧事件处理方法
-        /// </summary>
-        /// <param name="action"></param>
-        public override void OnAnimationEvent(StateAction action) {
-            if (!m_Self.m_IsDie) {
-                m_Self.m_Nab.Attack(m_SData);
-                AppTools.Send<SkillDataBase, NPCBase>((int)SkillEvent.CountSkillHurt, m_SData, m_Self);
-
-            }
-        }
-        public override void OnExit(StateAction action) {
-            m_Self.isPlaySkill = false;
-            m_Self.m_Nab.HiddenEffect();
-        }
-    }
-    public class PSkill2State : StateBehaviour {
-        private Player m_Self;
-        private int m_SkillID;
-        SkillDataBase sd;
-        public override void OnInit() {
-            m_Self = transform.GetComponent<Player>();
-            m_SkillID = m_Self.m_SkillId[2];
-            sd = ConfigerManager.m_SkillData.FindNPCByID(m_SkillID);
-        }
-        public override void OnEnter() {
-            if (m_Self.IsFight == false) {
-                m_Self.SetFight(true);
-                m_Self.ChangeWp();//切换以下武器
-            }
-            m_Self.m_Resetidletime = AppConfig.FightReset;
-            m_Self.m_Nab.Attack(sd);
-            AppTools.SendReturn<SkillDataBase, NPCBase,int>((int)SkillEvent.CountSkillHurt, sd, m_Self);//发送消息让技能模块计算伤害
-        }
-        public override void OnExit() {
-            m_Self.isPlaySkill = false;
-            m_Self.m_Nab.HiddenEffect();
-        }
-    }
-    public class PSkill3State : StateBehaviour {
-        private Player m_Self;
-        private int m_SkillID;
-        SkillDataBase sd;
-        public override void OnInit() {
-            m_Self = transform.GetComponent<Player>();
-            m_SkillID = m_Self.m_SkillId[3];
-            sd = ConfigerManager.m_SkillData.FindNPCByID(m_SkillID);
-        }
-        public override void OnEnter() {
-            if (m_Self.IsFight == false) {
-                m_Self.SetFight(true);
-                m_Self.ChangeWp();//切换以下武器
-            }
-            m_Self.m_Resetidletime = AppConfig.FightReset;
-            m_Self.m_Nab.Attack(sd);
-            AppTools.SendReturn<SkillDataBase, NPCBase, int>((int)SkillEvent.CountSkillHurt, sd, m_Self);//发送消息让技能模块计算伤害
-        }
-        
-        public override void OnExit() {
-            m_Self.isPlaySkill = false;
-            m_Self.m_Nab.HiddenEffect();
-        }
-    }
-    public class PSkill4State : StateBehaviour {
-        private Player m_Self;
-        private int m_SkillID;
-        SkillDataBase sd;
-        public override void OnInit() {
-            m_Self = transform.GetComponent<Player>();
-            m_SkillID = m_Self.m_SkillId[4];
-            sd = ConfigerManager.m_SkillData.FindNPCByID(m_SkillID);
-        }
-        public override void OnEnter() {
-            if (m_Self.IsFight == false) {
-                m_Self.SetFight(true);
-                m_Self.ChangeWp();//切换以下武器
-            }
-            m_Self.m_Resetidletime = AppConfig.FightReset;
-            m_Self.m_Nab.Attack(sd);
-            AppTools.SendReturn<SkillDataBase, NPCBase, int>((int)SkillEvent.CountSkillHurt, sd, m_Self);//发送消息让技能模块计算伤害
-        }
-        public override void OnExit() {
-            m_Self.isPlaySkill = false;
-            m_Self.m_Nab.HiddenEffect();
-        }
-    }
+   //技能的处理单独成脚本了，请查看PSkillAction.cs
     #endregion
 }

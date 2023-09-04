@@ -9,6 +9,7 @@
 using Cysharp.Threading.Tasks;
 using GameDesigner;
 using GF.ConfigTable;
+using GF.Const;
 using GF.MainGame.Data;
 using GF.NetWork;
 using MoreMountains.Feedbacks;
@@ -17,7 +18,8 @@ using Net.Component;
 using Net.Share;
 using Net.System;
 using Pathfinding.RVO;
-using System;  
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
@@ -249,24 +251,24 @@ namespace GF.MainGame.Module.NPC {
                 //这里暂时没考虑怪物技能CD的问题
                 int i = UnityEngine.Random.Range(1, 10);
                 string sname = "skill1";
-                if (i <= 6) {//普通攻击
+                if (i <= 5) {//使用技能1
                     ClientBase.Instance.AddOperation(new Operation(Command.EnemySwitchState, m_Self.m_GDID) { cmd1 = 1, cmd2 = (byte)m_Self.m_AllStateID[sname] });
                     m_SendCount++;
-                } else { //攻击或者释放技能
+                } else { //使用技能2
                     if (m_Self.m_SkillId.Count == 0) {
                         return;
                     }
+                    //if (m_Self.m_SkillId.Count == 1) {//如果只有一个技能还是用技能1
+                    //    sname = "skill1";
+                    //} else {
+                    //    sname = "skill2";
+                    //}
                     if (m_Self.m_SkillId.Count == 1) {
                         sname = "skill1";
                     } else {
-                        sname = "skill2";
+                        int j = UnityEngine.Random.Range(1, m_Self.m_SkillId.Count + 1);//int随机数不覆盖最大值，所以要+1
+                        sname = "skill" + j;
                     }
-                    //if (m_Self.m_SkillId.Count == 1) {
-                    //    sname = "skill1";
-                    //} else {
-                    //    int j = UnityEngine.Random.Range(1, m_Self.m_SkillId.Count + 1);//int随机数不覆盖最大值，所以要+1
-                    //    sname = "skill" + j;
-                    //}
                     ClientBase.Instance.AddOperation(new Operation(Command.EnemySwitchState, m_Self.m_GDID) { cmd1 = 1, cmd2 = (byte)m_Self.m_AllStateID[sname] });
                     m_SendCount++;
                 }
@@ -279,29 +281,83 @@ namespace GF.MainGame.Module.NPC {
             }
         }
     }
-    public class MAttackState : ActionCore {
+    public class MAttackAciton : MyAcitonCore {
         private Monster m_Self;
         private int m_SkillID;
         private SkillDataBase m_SData;
         public override void OnInit() {
             m_Self = transform.GetComponent<Monster>();
-            m_SkillID = m_Self.m_SkillId[0];
+        }
+        public override void OnEnter(StateAction action) {
+            base.OnEnter(action);
+            //本游戏设定，怪物最多三个技能,就按照顺序排
+            if (action.clipName == "skill1") {
+                m_SkillID = m_Self.m_SkillId[0];
+            } else if (action.clipName == "skill2") {
+                m_SkillID = m_Self.m_SkillId[1];
+            } else if (action.clipName == "skill3") {
+                m_SkillID = m_Self.m_SkillId[2];
+            }
             m_SData = ConfigerManager.m_SkillData.FindNPCByID(m_SkillID);
         }
         /// <summary>
-        /// 动画帧事件处理方法
+        ///怪物动画帧事件处理方法
+        ///和玩家公用一套配置表逻辑，但处理比玩家简单很多，几乎没有特殊情况
         /// </summary>
         /// <param name="action"></param>
-        public override void OnAnimationEvent(StateAction action) {
-            if (!m_Self.m_IsDie) {
-                m_Self.transform.LookAt(new Vector3(m_Self.AttackTarget.transform.position.x, m_Self.transform.position.y, m_Self.AttackTarget.transform.position.z));//攻击前，先转向
-                //gd的状态机已经调用了动作，不用再写攻击部分了
-                AppTools.Send<SkillDataBase, NPCBase>((int)SkillEvent.CountSkillHurt, m_SData, m_Self);
+        public override void OnAnimationEvent(StateAction action,EventArg eventarg) {
+            switch (eventarg.eventType) {
+                case SkillEventType.hiddeneff://隐藏游戏特效，这里主要是需要提前隐藏的情况，正常情况下，游戏特效播放结束后，系统会控制自动隐藏
+                    effectSpwan.gameObject.SetActive(false);
+                    break;
+                case SkillEventType.attack:
+                    if (m_SData.usecollider != 0) {//使用碰撞
+                        switch ((SkillColliderType)m_SData.usecollider) {
+                            case SkillColliderType.box:
+                                Collider[] hitarr = new Collider[6];
+                                Vector3 center = new Vector3(m_Self.transform.position.x, m_Self.transform.position.y, m_Self.transform.position.z);
+                                int hitnum = Physics.OverlapBoxNonAlloc(center, new Vector3(m_SData.range / 2, 1f, m_SData.range / 2), hitarr, m_Self.transform.rotation, LayerMask.GetMask("npc"));
+                                if (hitnum > 0) {
+                                    List<NPCBase> mlist = new List<NPCBase>();
+                                    for (int j = 0; j < hitnum; j++) {//判断一下攻击到的是否是怪物
+                                        if (hitarr[j].name == m_Self.name) {
+                                            continue;
+                                        }
+                                        Monster m = hitarr[j].transform.GetComponent<Monster>();
+                                        if (m != null) {
+                                            mlist.Add(m);
+                                        }
+                                    }
+                                    if (mlist.Count > 0) {
+                                        AppTools.Send<SkillDataBase, NPCBase, List<NPCBase>>((int)SkillEvent.CountSkillHurt, m_SData, m_Self, mlist);//发送消息让技能模块计算伤害，不知道为什么这里不写上泛型会发布出去消息，
+                                    }
+                                }
+                                break;
+                            case SkillColliderType.line:
+                                break;
+                            case SkillColliderType.circle:
+                                break;
+                            case SkillColliderType.none:
+                                break;
+                            default: break;
+                        }
+                    } else { //不使用碰撞
+                        AppTools.Send<SkillDataBase, NPCBase, List<NPCBase>>((int)SkillEvent.CountSkillHurt, m_SData, m_Self, null);//发送消息让技能模块计算伤害
+                    }
+                    break;
+                default:
+                    break;
             }
-            if (m_Self.AttackTarget != null) { //每次攻击完就判断一下，如果存在攻击状态，并且攻击目标已经死亡。重新回去巡逻
-                if (m_Self.AttackTarget.m_IsDie == true) {
-                    m_Self.AttackTarget = null;
-                }
+        }
+        public override void OnExit(StateAction action) {
+            base.OnExit(action);
+            if ((activeMode == ActiveMode.Active) && (spwanmode != SpwanMode.SetParent)) {//如果是隐藏显示模式的，就手动隐藏一下，其他模式不需要，因为有计时器销毁
+                effectSpwan.gameObject.SetActive(false);
+            }
+            m_Self.m_CurrentSkillId = -1;
+            if (m_Self.isPlaySkill == true) {//可能提前停止技能控制，所以这里判断一下
+                m_Self.isPlaySkill = false;
+                AppTools.Send<float, bool>((int)MoveEvent.SetSkillMove, 0f, false);
             }
         }
     }
@@ -329,64 +385,6 @@ namespace GF.MainGame.Module.NPC {
         }
         public override void OnExit() {
             m_Self.Fuhuo();//复活处理
-        }
-    }
-    public class MHurtState : StateBehaviour {
-
-    }
-    public class MSkill1State : StateBehaviour {
-        private Monster m_Self;
-        private int m_SkillID;
-        SkillDataBase sd;
-        public override void OnInit() {
-            m_Self = transform.GetComponent<Monster>();
-            m_SkillID = m_Self.m_SkillId[0];
-            sd = ConfigerManager.m_SkillData.FindNPCByID(m_SkillID);
-        }
-        public override void OnEnter() {
-            m_Self.IsFight = false;
-            m_Self.m_Resetidletime = AppConfig.FightReset;
-            AppTools.SendReturn<SkillDataBase, NPCBase, int>((int)SkillEvent.CountSkillHurt, sd, m_Self);//发送消息让技能模块计算伤害
-            if (m_Self.AttackTarget != null) { //每次攻击前就判断一下，如果存在攻击状态，并且攻击目标已经死亡。重新回去巡逻
-                if (m_Self.AttackTarget.m_IsDie == true) {
-                    m_Self.AttackTarget = null;
-                }
-            }
-        }
-
-        public override void OnExit() {
-            m_Self.isPlaySkill = false;
-            m_Self.m_Nab.HiddenEffect();
-        }
-    }
-    public class MSkill2State : StateBehaviour {
-        private Monster m_Self;
-        private int m_SkillID;
-        SkillDataBase sd;
-        public override void OnInit() {
-            m_Self = transform.GetComponent<Monster>();
-            if (m_Self.m_SkillId.Count>1) {
-                m_SkillID = m_Self.m_SkillId[1];
-                sd = ConfigerManager.m_SkillData.FindNPCByID(m_SkillID);
-            }
-        }
-        public override void OnEnter() {
-            //if (m_Self.IsFight == false) {
-            //    m_Self.SetFight(true);
-            //    m_Self.ChangeWp();//切换以下武器
-            //}
-            m_Self.IsFight = false;
-            m_Self.m_Resetidletime = AppConfig.FightReset;
-            AppTools.SendReturn<SkillDataBase, NPCBase, int>((int)SkillEvent.CountSkillHurt, sd, m_Self);//发送消息让技能模块计算伤害
-            if (m_Self.AttackTarget != null) { //每次攻击完就判断一下，如果存在攻击状态，并且攻击目标已经死亡。重新回去巡逻
-                if (m_Self.AttackTarget.m_IsDie == true) {
-                    m_Self.AttackTarget = null;
-                }
-            }
-        }
-        public override void OnExit() {
-            m_Self.isPlaySkill = false;
-            m_Self.m_Nab.HiddenEffect();
         }
     }
     
