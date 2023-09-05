@@ -78,5 +78,9 @@ namespace GF.MainGame {
         CycleObj,
         CycleAllObj,
     }
+    public enum DieEvent {
+        ShowUI = (int)MDef.DieUIModule + 1,
+        
+    }
 }
 

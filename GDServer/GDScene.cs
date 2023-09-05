@@ -89,7 +89,6 @@ namespace GDServer {
                     case Command.Attack:
                         if (monsters.TryGetValue(opt.index1,out var monster)) { //尝试获取怪物对象
                             monster.targetID = opt.identity;
-                            Debuger.Log(monster.targetID);
                             monster.OnDamage(opt.index);
                         }
                         break;
@@ -116,9 +115,7 @@ namespace GDServer {
                                 monster3.patrolstate = opt.cmd2;
                                 if (monster3.state == 0) {//说明是主控客户端告知服务端不再同步怪物
                                     monster3.FP.FightHP = opt.index;
-                                    monster3.targetID = 0;
                                 }
-                                    
                                 AddOperation(opt);
                             } else {//如果怪已经死亡，却还收到切换状态命令，说明客户端与服务端信息不一致，就把服务端数据同步给客户端
                                 monster3.PatrolCall();

@@ -1706,7 +1706,7 @@ MonoBehaviour:
     rect:
       serializedVersion: 2
       x: 5810.3096
-      y: 5117.526
+      y: 5116.26
       width: 150
       height: 30
     transitions:
@@ -1752,7 +1752,7 @@ MonoBehaviour:
           Value: {fileID: 0}
           values: []
           arraySize: 0
-          foldout: 0
+          foldout: 1
         - name: effectSpwan
           type: 1
           typeName: GF.MainGame.Module.Fight.EffectBase
@@ -2013,7 +2013,7 @@ MonoBehaviour:
       animTime: 0
       animTimeMax: 100
       rewind: 1
-  selectStates: 04000000
+  selectStates: 03000000
   animMode: 1
   animation: {fileID: 0}
   animator: {fileID: 5186555465227957303}

@@ -118,7 +118,6 @@ namespace GDServer {
             FP.Dodge = jcDodge + (float)current.Minjie / 1000f >= 0.3f ? 0.3f : (float)current.Minjie / 1000f;//属性加成的闪避
             FP.Crit = jcCrit + (float)current.Xingyun * jcCrit >= 0.5f ? 0.5f : (float)current.Xingyun * jcCrit;//暴击率
             FP.FightHP = current.Shengming + current.Tizhi * 10;
-            Debuger.Log("生命："+ FP.FightHP);
             FP.FightMagic = current.Fali + current.Moli * 10;
             FP.FightMaxHp = FP.FightHP;
             FP.FightMaxMagic = FP.FightMagic;
@@ -126,6 +125,7 @@ namespace GDServer {
             //Debuger.Log($"更新玩家{UserID}属性，同步客户端");
             ////发给服务端更新属性
             ////这里和怪的数据一样，先这么办吧，最合适的做法应该还是服务端同步数据，客户端计算
+            ///废弃，这里换成客户端直接请求了
             //scene.AddOperation(new Operation(Command.PlayerUpdateProp, UserID) {
             //    name = current.Name,
             //    index = FP.FightHP,

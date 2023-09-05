@@ -264,21 +264,18 @@ namespace GF.MainGame.Module {
                     // AppTools.Send<NPCBase, AniState>((int)StateEvent.ChangeState, p, AniState.hurt);
                     Debuger.Log($"{m.name}对{UserService.GetInstance.m_CurrentChar.Name}{p.m_GDID}造成了{damage}点伤害");
                     if (m.AttackTarget.m_GDID == ClientBase.Instance.UID) { //只有攻击的是本机玩家，本机才会同步，攻击其他的玩家，本机不发送同步消息
-                        ClientBase.Instance.AddOperation(new Operation(Command.EnemyAttack) { index = damage });//这里不用给参数，因为只有攻击是本机玩家才会发送，默认发送本机玩家的即可，所以只用发伤害过去
+                        ClientBase.Instance.AddOperation(new Operation(Command.EnemyAttack,p.m_GDID) { index = damage });
                     }
                 } else {
                     Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}{p.m_GDID}闪避了{m.name}的攻击");
                 }
+            } else { //闪避的情况，之所以玩家的伤害计算没有，是因为怪物不会走位，玩家会，玩家会在攻击的一瞬间突然闪开，这种情况显示为闪避
+                Debuger.Log($"{UserService.GetInstance.m_CurrentChar.Name}{p.m_GDID}闪避了{m.name}的攻击");
+                damagearg.damagetype = DamageType.shangbi;
+                damagearg.damage = 0;
+                damagearg.npc = p;
             }
             AppTools.Send<DamageArg>((int)HPEvent.ShowDamgeTxt, damagearg);
-            //闪避了就忽略延迟，直接显示
-            //if (att.yanchi != 0f && damagearg.damagetype!= DamageType.shangbi) {
-            //    //延迟显示攻击数字即可，没必要就算都延迟
-            //    //ThreadManager.Event.AddEvent(att.yanchi,ShowDamage, damagearg);
-            //} else {
-            //    //没有延迟，直接显示攻击伤害数值飘血
-            //    ShowDamage(damagearg);
-            //}
             return damage;
         }
         /// <summary>

@@ -8,11 +8,10 @@
 
 using GF.Unity.UI;
 using UnityEngine;
-
-public class UIBG : UIPanel {
-    public void Start() {
-        Layer = 0;
+namespace GF.Unity.UI{
+    public class UIBG : UIPanel {
+        public void Start() {
+            Layer = 0;
+        }
     }
-
-   
 }

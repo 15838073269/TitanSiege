@@ -76,7 +76,6 @@ namespace GDServer.Services
             CharactersData chongming = CharactersData.Query($"{sqldataname} = '{data[1]}'");
             if (chongming == default) {
                 data.ID = TitansiegeDB.I.GetConfigID(ConfigType.CharacterData);
-                Debuger.Log(data.ID);
                 data.LastDate = TimeUtil.GetCstDateTime();//linux和win下datetime获取时间不一样，需要用这个方法保持一致
                 data.NewTableRow();
                 TitansiegeDB.I.m_CharactersData.Add(data.ID, data);

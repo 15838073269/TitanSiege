@@ -39,10 +39,7 @@ namespace GF.MainGame.Module.NPC {
         public Shader mmtoon;
         public Transform m_Shadow;//怪物的阴影，用来死亡时隐藏，这个阴影并不是实际的光影，而是一张图片，节省性能的办法，所以需要手动处理
         ClientSceneManager c;//客户端管理器，用来查询所有玩家数据的
-        public void OnEnable() {
-            
-        }
-
+       
         /// <summary>
         /// 溶解显示,倒放溶解
         /// </summary>
@@ -117,11 +114,15 @@ namespace GF.MainGame.Module.NPC {
                 if (NetworkTime.CanSent) {//update的次数由机器配置决定，不确定数量，所以要加上限制，一般不超过30次，NetworkTime.CanSent就是控制发送次数的
                     ClientBase.Instance.AddOperation(new Operation(Command.EnemySync, m_GDID, transform.position, transform.rotation));
                 }
-            } else if ((m_NetState == 1) && (m_targetID == ClientBase.Instance.UID)&&(AttackTarget == null)) { //如果当前是客户端同步，并且是本机在同步，但怪物的目标已经为null了，一般是脱离攻击范围，就发送消息给服务端，转为服务端控制
+            } else if ((m_NetState == 1) && (m_targetID == ClientBase.Instance.UID)&&(AttackTarget == null)) { //如果当前是客户端同步，并且是本机在同步，但怪物的目标已经为null了，一般是脱离攻击范围或者玩家死亡，就发送消息给服务端，转为服务端控制
                 if (NetworkTime.CanSent) {
-                    //m_NetState = 0;
-                    //m_targetID = 0;
-                    ClientBase.Instance.AddOperation(new Operation(Command.EnemySwitchState, m_GDID) { cmd1 = 0,cmd2 = 0,index = FP.FightHP });
+                    int hp = FP.FightHP;
+                    //脱离战斗，判断是否死亡脱离，否则恢复最大生命
+                    if (!m_IsDie) {
+                        hp = FP.FightMaxHp;
+                        AppTools.Send<NPCBase>((int)HPEvent.UpdateHp, this);
+                    }
+                    ClientBase.Instance.AddOperation(new Operation(Command.EnemySwitchState, m_GDID) { cmd1 = 0,cmd2 = 0,index = hp});
                 }
             }
         }
@@ -138,6 +139,7 @@ namespace GF.MainGame.Module.NPC {
                     break;
                 case 5://服务端的5是死亡
                     m_IsDie = true;
+                    Debuger.Log("怪物死亡");
                     m_State.StatusEntry(m_AllStateID["die"]);
                     break;
                 default:
@@ -289,7 +291,9 @@ namespace GF.MainGame.Module.NPC {
             m_Self = transform.GetComponent<Monster>();
         }
         public override void OnEnter(StateAction action) {
-            base.OnEnter(action);
+            if (m_Self.AttackTarget == null) {//如果没有攻击对象，直接返回idle
+                m_Self.ChangeState(m_Self.m_AllStateID["idle"]);
+            }
             //本游戏设定，怪物最多三个技能,就按照顺序排
             if (action.clipName == "skill1") {
                 m_SkillID = m_Self.m_SkillId[0];
@@ -298,7 +302,26 @@ namespace GF.MainGame.Module.NPC {
             } else if (action.clipName == "skill3") {
                 m_SkillID = m_Self.m_SkillId[2];
             }
-            m_SData = ConfigerManager.m_SkillData.FindNPCByID(m_SkillID);
+            m_Self.m_CurrentSkillId = m_SkillID;
+            if (m_Self.m_CurrentSkillId == -1) {//如果没有技能id，就直接返回
+                m_Self.ChangeState(m_Self.m_AllStateID["idle"]);
+            }
+
+            if (m_SData == null || (m_SData.id != m_Self.m_CurrentSkillId)) {//减少重复获取数据
+                m_SData = ConfigerManager.m_SkillData.FindNPCByID(m_Self.m_CurrentSkillId);
+                animEventList.Clear();//因为减少数据获取，所以事件的清理要放在这里
+                // 初始化技能配置表中的事件
+                for (int i = 0; i < m_SData.skilleventlist.Count; i++) {
+                    EventArg e = new EventArg();
+                    e.eventType = (SkillEventType)m_SData.skilleventlist[i].eventtype;
+                    e.animEventTime = m_SData.skilleventlist[i].eventtime;
+                    e.eventEnter = false;
+                    e.eventeff = m_SData.skilleventlist[i].eventeff;
+                    animEventList.Add(e);
+                }
+            }
+            //怪物的数据滞后，所以一定要后调用父类方法
+            base.OnEnter(action);
         }
         /// <summary>
         ///怪物动画帧事件处理方法
@@ -351,18 +374,22 @@ namespace GF.MainGame.Module.NPC {
         }
         public override void OnExit(StateAction action) {
             base.OnExit(action);
-            if ((activeMode == ActiveMode.Active) && (spwanmode != SpwanMode.SetParent)) {//如果是隐藏显示模式的，就手动隐藏一下，其他模式不需要，因为有计时器销毁
+            if ((activeMode == ActiveMode.Active) && (spwanmode != SpwanMode.SetParent) && effectSpwan!=null) {//如果是隐藏显示模式的，就手动隐藏一下，其他模式不需要，因为有计时器销毁
                 effectSpwan.gameObject.SetActive(false);
             }
             m_Self.m_CurrentSkillId = -1;
             if (m_Self.isPlaySkill == true) {//可能提前停止技能控制，所以这里判断一下
                 m_Self.isPlaySkill = false;
-                AppTools.Send<float, bool>((int)MoveEvent.SetSkillMove, 0f, false);
+            }
+            //每次攻击完后，判断一下玩家有没有死亡
+            if (m_Self.AttackTarget != null && m_Self.AttackTarget.m_IsDie) {
+                m_Self.AttackTarget = null;
             }
         }
     }
     public class MDieState : StateBehaviour {
         private Monster m_Self;
+        private ushort m_EnterStop = 0;//因为只要不脱离状态，死亡动画播放完成后，onstop会一直调用，需要加个判断，避免onstop中的代码重复调用
         public override void OnInit() {
             m_Self = transform.GetComponent<Monster>();
         }
@@ -377,14 +404,19 @@ namespace GF.MainGame.Module.NPC {
                 _ = m_Self.HideModel();
             });
         }
+        //注意onstop只要一直处于状态，就会不停调用执行，这里得处理一下，避免重复
         public override void OnStop() {
             //播放完死亡动画，更换shader，隐藏阴影，隐藏血条
-            m_Self.m_Material.shader = m_Self.rongjie;
-            m_Self.m_Shadow.gameObject.SetActive(false);
-            AppTools.Send<NPCBase>((int)HPEvent.HideHP, m_Self);
+            if (m_EnterStop == 0) {
+                m_Self.m_Material.shader = m_Self.rongjie;
+                m_Self.m_Shadow.gameObject.SetActive(false);
+                AppTools.Send<NPCBase>((int)HPEvent.HideHP, m_Self);
+                m_EnterStop++;
+            }
         }
         public override void OnExit() {
             m_Self.Fuhuo();//复活处理
+            m_EnterStop = 0;
         }
     }
     

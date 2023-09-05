@@ -176,6 +176,7 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Demo\Assets\WFX_Demo_DeleteAfterDelay.cs" />
     <Compile Include="Assets\XWeaponTrail\Scripts\SplineControlPoint.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\VertexPool.cs" />
+    <Compile Include="Assets\Scripts\Module\DieUIModule.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Cartoon FX\Demo\Assets\CFX_Demo_RotateCamera.cs" />
     <Compile Include="Assets\Ultimate 10 Plus Shaders\Scripts\U10PS_MouseRotation.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Demo\Assets\WFX_Demo_RandomDir.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Scripts\WFX_LightFlicker.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Scripts\WFX_ParticleMeshBillboard.cs" />
     <Compile Include="Assets\Scripts\Module\Fight\State\DieState.cs" />
+    <Compile Include="Assets\Scripts\UIModule\DieUIWindow.cs" />
     <Compile Include="Assets\Scripts\UIModule\CreatePlayerPage.cs" />
     <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDBEvent.cs" />
     <Compile Include="Assets\Scripts\Const\Enums.cs" />

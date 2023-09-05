@@ -21,5 +21,6 @@
         MainUIModule = AppConfig.ScriptSpan * 11,
         StateModule = AppConfig.ScriptSpan * 12,//调度全部角色 包括玩家的动画
         HPModule = AppConfig.ScriptSpan * 13,
+        DieUIModule = AppConfig.ScriptSpan * 14,
     }
 }

@@ -114,7 +114,7 @@ namespace GF.MainGame.Module {
         }
         public async UniTask RedToNum(float amount, DamageUIWidget dwt) {
             while (dwt.m_RedTo.fillAmount > amount) {
-                dwt.m_RedTo.fillAmount -= 0.003f;
+                dwt.m_RedTo.fillAmount -= 0.008f;
                 await UniTask.Delay(1000);
             }
         }

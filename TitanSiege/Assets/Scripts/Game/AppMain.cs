@@ -184,6 +184,7 @@ namespace GF.MainGame {
             AppTools.CreateModule<LoginModule>(MDef.LoginModule);
             AppTools.CreateModule<SceneModule>(MDef.SceneModule);
             AppTools.CreateModule<NPCModule>(MDef.NPCModule);
+            AppTools.CreateModule<DieUIModule>(MDef.DieUIModule);
         }
         //private void Onlogin(bool islogin) {
         //    GlobalEvent.OnLogin -= Onlogin;

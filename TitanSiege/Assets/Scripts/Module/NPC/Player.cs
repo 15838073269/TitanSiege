@@ -40,7 +40,7 @@ namespace GF.MainGame.Module.NPC {
         }
 
         internal void Check() {//检查角色是否死亡并同步生命值
-            if (FP.FightHP <=0 &&!m_IsDie) { //服务器同步的血量已经小于等于0了。此时客户端还没死掉
+            if (FP.FightHP <=0) { //服务器同步的血量已经小于等于0了。此时客户端还没死掉
                 m_IsDie = true;
                 FP.FightHP = 0;
                 ChangeState(m_AllStateID["die"]);
@@ -86,27 +86,30 @@ namespace GF.MainGame.Module.NPC {
     #region GDNet的状态机
     public class PDieState : StateBehaviour {
         private Player m_Self;
+        private ushort m_EnterStop = 0;//因为只要不脱离状态，死亡动画播放完成后，onstop会一直调用，需要加个判断，避免onstop中的代码重复调用
         public override void OnInit() {
             m_Self = transform.GetComponent<Player>();
         }
         public override void OnEnter() {
             //死亡后直接黑屏，禁止任何ui操作
-
+            AppTools.Send((int)DieEvent.ShowUI);
             //取消选中状态
             if (m_Self.m_GDID == ClientBase.Instance.UID) {//只有本机玩家才需要取消选中
                 AppTools.Send<NPCBase>((int)NpcEvent.CanelSelected, null);
             }
             m_Self.AttackTarget = null;
         }
+        //注意onstop只要一直处于状态，就会不停调用执行，这里得处理一下，避免重复
         public override void OnStop() {
-            //播放完死亡动画，隐藏血条
-            AppTools.Send<NPCBase>((int)HPEvent.HideHP, m_Self);
-            //显示死亡复活选项
-            //todo
-            Debuger.Log("显示复活选项");
+            if (m_EnterStop == 0) {
+                //播放完死亡动画，隐藏血条
+                AppTools.Send<NPCBase>((int)HPEvent.HideHP, m_Self);
+                m_EnterStop++;
+            }
         }
         public override void OnExit() {
             m_Self.Fuhuo();//复活处理
+            m_EnterStop = 0;
         }
     }
     public class PIdleState : StateBehaviour {
