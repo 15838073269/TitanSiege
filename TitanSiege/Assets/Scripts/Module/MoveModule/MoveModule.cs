@@ -94,6 +94,8 @@ namespace GF.MainGame.Module {
                     no.Identity = ClientBase.Instance.UID;
                     UserService.GetInstance.m_CurrentPlayer = p;
                     p.m_PlayerName = UserService.GetInstance.m_CurrentChar.Name;
+                    p.UpdateFightProps();
+                    AppTools.Send<Player>((int)NpcEvent.AddPlayer, p);//把自己纳入管理器管理
                     SetMoveObj(player.GetComponent<Player>());
                 } else {
                     Debuger.LogError("控制角色加载失败");

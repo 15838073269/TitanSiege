@@ -15,6 +15,7 @@
 			<variable name="angle" col = "角度" type="float" defaultValue="0"/>
 			<variable name="texiao" col="特效" type="string"/>
 			<variable name="xuqiudengji" col="需求等级" type="ushort" defaultValue="1"/>
+			<variable name="xiaohao" col="技能消耗" type="ushort" defaultValue="0"/>
 			<variable  name="skilleventlist"  type="list"  foregin ="ID">
 				<list name = "skillevent" sheetname="事件list" >
 				    <variable  name="id" col = "事件ID" type="int"/>

@@ -11,17 +11,19 @@ using GF.Module;
 using GF.Msg;
 using GF.Service;
 using GF.Unity.UI;
+using MoreMountains.Tools;
 using Net.Component;
 using Net.Config;
 using Net.Share;
+using UnityEngine;
 
 namespace GF.MainGame.Module {
     public class SceneModule:GeneralModule {
         public Dictionary<string, SceneBase> m_AllSceneBaseDic = new Dictionary<string, SceneBase>();
 
-        public void AddSceneBase(string scenename, SceneBase sb) {
-            if (!m_AllSceneBaseDic.ContainsKey(scenename)) {
-                m_AllSceneBaseDic.Add(scenename, sb);
+        public void AddSceneBase(SceneBase sb) {
+            if (!m_AllSceneBaseDic.ContainsKey(sb.SceneName)) {
+                m_AllSceneBaseDic.Add(sb.SceneName, sb);
             }
         }
         public string m_Current;
@@ -29,6 +31,8 @@ namespace GF.MainGame.Module {
         public UIMsgBox m_MsgBox;
         public override void Create() {
             AppTools.Regist<string>((int)SceneEvent.OpenScene,OpenScene);
+            AppTools.Regist<SceneBase>((int)SceneEvent.AddSceneBase, AddSceneBase);
+            AppTools.Regist<string,Transform>((int)SceneEvent.GetSceneDefaultPos, GetSceneDefaultPos);
             ClientManager.Instance.client.AddRpc(this);
         }
         public void OpenScene(string scenename) {
@@ -39,8 +43,6 @@ namespace GF.MainGame.Module {
             //GameSceneService.GetInstance.SceneLoadedOver += SendSwtichScene;
             GameSceneService.GetInstance.AsyncLoadScene(scenename, uiarg: uiarg,arg:scenename);
             m_Current = scenename;
-           
-           
         }
         //public void SendSwtichScene(object o) {
         //    Debuger.Log(1233);
@@ -109,6 +111,22 @@ namespace GF.MainGame.Module {
                 Debuger.LogError("服务器切换场景失败！");
             }
            
+        }
+        /// <summary>
+        /// 获取场景的出生点
+        /// </summary>
+        /// <param name="scenename"></param>
+        /// <returns></returns>
+        private Transform GetSceneDefaultPos(string scenename) {
+            SceneBase scene = null;
+            if (string.IsNullOrEmpty(scenename)) {
+                scenename = m_Current;
+            }
+            if (!m_AllSceneBaseDic.TryGetValue(scenename, out scene)) {
+                Debuger.LogError(scenename+"场景未启动");
+                return null;
+            }
+            return scene.m_Default;
         }
     }
     public class LoadSceneArg {

@@ -9,7 +9,8 @@ namespace GF.MainGame.UI {
         public Text m_CrititalTxt;
         public Text m_DodgeTxt;
         public Text m_DamageTxt;
-        public Text m_NameTxt;
+        public Text m_MnameTxt;
+        public Text m_PnameTxt;
         public Image m_RedTo;
         public Image m_Red;
         public Transform m_HPRoot;

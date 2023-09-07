@@ -35,6 +35,7 @@ namespace GF.MainGame.Data {
             t.range = 80f;
             t.angle = 30f;
             t.usecollider =(int)SkillColliderType.box;
+            t.xiaohao = 3;
             t.texiao = "jianshi_chongzhuang";
             if (!AllSkills.Contains(t)) {
                 AllSkills.Add(t);
@@ -53,6 +54,7 @@ namespace GF.MainGame.Data {
             t1.xuqiudengji = 1;
             t1.range  = 80f;
             t1.angle = 30f;
+            t1.xiaohao = 4;
             t1.usecollider = (int)SkillColliderType.box;
             t1.texiao = "jianshi_chongzhuang";
             t1.skilleventlist = new List<skillevent>();
@@ -88,7 +90,7 @@ namespace GF.MainGame.Data {
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public SkillDataBase FindNPCByID(int id) {
+        public SkillDataBase FindSkillByID(int id) {
             SkillDataBase skill;
             m_AllSkillDic.TryGetValue(id, out skill);
             return skill;
@@ -146,6 +148,8 @@ namespace GF.MainGame.Data {
         public string texiao { get; set; }
         [XmlAttribute("需求等级")]
         public ushort xuqiudengji { get; set; }
+        [XmlAttribute("技能消耗")]
+        public ushort xiaohao { get; set; }
         [XmlElement("事件list")]
         public List<skillevent> skilleventlist { get; set; }
     }

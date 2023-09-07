@@ -12,6 +12,8 @@ using GF.ConfigTable;
 using GF.Const;
 using GF.MainGame.Data;
 using GF.NetWork;
+using GF.Service;
+using MoreMountains.Feedbacks;
 using Net.Client;
 using Net.Share;
 using Net.System;
@@ -19,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace GF.MainGame.Module.NPC {
     public class Player : NPCBase {
@@ -46,6 +49,7 @@ namespace GF.MainGame.Module.NPC {
                 ChangeState(m_AllStateID["die"]);
             }
         }
+
         // <summary>
         /// 获得animator下某个动画片段的时长方法
         /// </summary>
@@ -79,8 +83,25 @@ namespace GF.MainGame.Module.NPC {
         /// <summary>
         /// 玩家复活
         /// </summary>
-        internal void Fuhuo() {
+        public void Fuhuo() {
             Debuger.Log("准备复活");
+            FP.FightHP = FP.FightMaxHp;
+            FP.FightMagic = FP.FightMaxMagic;
+            //还得加上是否显示血条判断
+            if (AppTools.GetModule<HPModule>(MDef.HPModule).IsShowHp) {
+                AppTools.Send<NPCBase>((int)HPEvent.ShowHP, this);
+            }
+            m_Resetidletime = 0;
+            SetFight(false);
+            m_IsDie = false;
+            //更新血条
+            AppTools.Send<NPCBase>((int)HPEvent.UpdateHp, this);
+            //隐藏死亡ui
+            AppTools.Send((int)DieEvent.HideUI);
+            //发送服务器玩家复活
+            if (m_GDID==ClientBase.Instance.UID) {
+                ChangeState(m_AllStateID["idle"]);
+            }
         }
     }
     #region GDNet的状态机
@@ -91,10 +112,10 @@ namespace GF.MainGame.Module.NPC {
             m_Self = transform.GetComponent<Player>();
         }
         public override void OnEnter() {
-            //死亡后直接黑屏，禁止任何ui操作
-            AppTools.Send((int)DieEvent.ShowUI);
             //取消选中状态
             if (m_Self.m_GDID == ClientBase.Instance.UID) {//只有本机玩家才需要取消选中
+                //死亡后直接黑屏，禁止任何ui操作
+                AppTools.Send((int)DieEvent.ShowUI);
                 AppTools.Send<NPCBase>((int)NpcEvent.CanelSelected, null);
             }
             m_Self.AttackTarget = null;
@@ -102,13 +123,14 @@ namespace GF.MainGame.Module.NPC {
         //注意onstop只要一直处于状态，就会不停调用执行，这里得处理一下，避免重复
         public override void OnStop() {
             if (m_EnterStop == 0) {
-                //播放完死亡动画，隐藏血条
-                AppTools.Send<NPCBase>((int)HPEvent.HideHP, m_Self);
+                if (m_Self.m_GDID == ClientBase.Instance.UID) {
+                    //播放完死亡动画，隐藏血条
+                    AppTools.Send<NPCBase>((int)HPEvent.HideHP, m_Self);
+                }
                 m_EnterStop++;
             }
         }
         public override void OnExit() {
-            m_Self.Fuhuo();//复活处理
             m_EnterStop = 0;
         }
     }

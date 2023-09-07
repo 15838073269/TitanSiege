@@ -78,13 +78,9 @@ namespace GDServer {
                 var opt = list.operations[i];
                 switch (opt.cmd) {
                     case Command.Skill:
-                        for (int n = 0; n < Clients.Count; n++) {
-                            if (Clients[n].UserID == opt.identity) {
-                                Debuger.Log($"{Clients[n].PlayerID},{Clients[n].UserID}使用了技能{opt.index2}");
-                                AddOperation(opt);
-                                break;
-                            }
-                        }
+                        Debuger.Log($"{client.PlayerID},{client.UserID}使用了技能{opt.index2}");
+                        client.CostMp(opt.index3);
+                        AddOperation(opt);
                         break;
                     case Command.Attack:
                         if (monsters.TryGetValue(opt.index1,out var monster)) { //尝试获取怪物对象
@@ -113,7 +109,7 @@ namespace GDServer {
                             if (!monster3.isDeath) {//服务端判断怪物死没死，没死就切换状态，以后服务端自己同步
                                 monster3.state = opt.cmd1;
                                 monster3.patrolstate = opt.cmd2;
-                                if (monster3.state == 0) {//说明是主控客户端告知服务端不再同步怪物
+                                if (opt.cmd1 == 0) {//说明是主控客户端告知服务端不再同步怪物
                                     monster3.FP.FightHP = opt.index;
                                 }
                                 AddOperation(opt);
@@ -136,7 +132,7 @@ namespace GDServer {
                         //    }
                         //}
                         break;
-                    case Command.Resurrection://复活怪物
+                    case Command.Resurrection://玩家复活
                         client.Resurrection();
                         AddOperation(opt);
                         break;

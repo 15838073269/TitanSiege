@@ -37,7 +37,7 @@ namespace GF.MainGame.Module.Fight {
             base.Process(npc,args);
             SkillDataBase sd = null;
             if (npc.m_GDID != ClientBase.Instance.UID) {
-                sd = ConfigerManager.m_SkillData.FindNPCByID((int)args);
+                sd = ConfigerManager.m_SkillData.FindSkillByID((int)args);
             } else {
                 if (args != null) {
                     sd = (SkillDataBase)args;

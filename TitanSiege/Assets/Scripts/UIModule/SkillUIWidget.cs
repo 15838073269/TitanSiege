@@ -37,7 +37,7 @@ namespace GF.MainGame.UI {
                 for(int i = 0;i<strarr.Length;i++) {
                     if (!string.IsNullOrEmpty(strarr[i])) { //数据库存储最后一个字符时“|”,所以会出现一个空白项
                         int tempid = int.Parse(strarr[i]);
-                        SkillDataBase sb = ConfigerManager.m_SkillData.FindNPCByID(tempid);
+                        SkillDataBase sb = ConfigerManager.m_SkillData.FindSkillByID(tempid);
                         SkillUIInfo skui = GetSkillUIInfo(i);
                         skui.Init(sb);
                     }

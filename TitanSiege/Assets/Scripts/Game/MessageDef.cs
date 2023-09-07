@@ -23,6 +23,7 @@ namespace GF.MainGame {
         Removeplayer,
         AddPlayer,
         CanelSelected,
+        FuhuoPlayer,
         //AddMonster,
         //GetMonstersbyScene,
         //RemoveMonsterByScene,
@@ -53,9 +54,12 @@ namespace GF.MainGame {
     }
     public enum SceneEvent {
         OpenScene = (int)MDef.SceneModule+1,
+        GetSceneDefaultPos,
+        AddSceneBase,
+
     }
     public enum MainUIEvent {
-        
+        UpdateHpMp = (int)MDef.MainUIModule + 1,
     }
     public enum SkillEvent {
         ClickSkill = (int)MDef.SkillModule + 1,
@@ -80,7 +84,8 @@ namespace GF.MainGame {
     }
     public enum DieEvent {
         ShowUI = (int)MDef.DieUIModule + 1,
-        
+        HideUI,
+
     }
 }
 

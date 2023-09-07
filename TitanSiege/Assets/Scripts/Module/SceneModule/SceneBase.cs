@@ -21,7 +21,7 @@ using GF.Unity.Audio;
 
 namespace GF.MainGame.Module {
     public class SceneBase:MonoBehaviour {
-        protected string SceneName;
+        public string SceneName;
         public string m_CharName;
         public AudioClip m_BgMusic = null;//当前场景的背景音乐，可以为空
         /// <summary>
@@ -32,14 +32,13 @@ namespace GF.MainGame.Module {
         public virtual void Start() {
             if (m_Sm == null) {
                 m_Sm = AppTools.GetModule<SceneModule>(MDef.SceneModule);
-               
+                
             }
-
-            SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-            m_Sm.AddSceneBase(SceneName, this);
             if (string.IsNullOrEmpty(m_Sm.m_Current)) {
                 m_Sm.m_Current = SceneName;
             }
+            SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            AppTools.Send<SceneBase>((int)SceneEvent.AddSceneBase,this);
             if (SceneName != AppConfig.RoleScene) {
                 if (m_Default == null) {
                     Debuger.LogError($"{m_CharName}场景没有设置默认点！！！");

@@ -13,6 +13,7 @@ using GF.MainGame.Data;
 using GF.MainGame.UI;
 using GF.NetWork;
 using GF.Service;
+using GF.Unity.UI;
 using Net.Client;
 using Net.Share;
 using System.Collections.Generic;
@@ -43,6 +44,7 @@ namespace GF.MainGame.Module.NPC {
         private NPCBase m_AttackTarget = null;//攻击的目标
 
         public bool isPlaySkill = false;//是否正在播放技能
+        public bool m_IsDie = false;
         //public Transform m_SkilleffectParent;//角色技能特效的父物体，所有技能特效都在这个物体下，需要丢出的技能特效重置回来时也需要用它
         public NPCBase AttackTarget {
             set {
@@ -217,7 +219,7 @@ namespace GF.MainGame.Module.NPC {
                 FP.FightMaxMagic = (Data.Fali + FP.FightLevel * LevelData.Fali) + (Data.Moli + FP.FightLevel * LevelData.Moli) * 10;//战斗最大法力
                 FP.FightMagic = FP.FightMaxMagic;//战斗法力
             }
-            //本机玩家和怪物创建显示血条和名称，网络玩家是在物体创建时创建
+            //本机玩家和怪物创建显示血条和名称，网络玩家是在物体创建时创建,可能重复创建，所以需要再创建时排除一下重复
             if ((NpcType.player ==m_NpcType && m_GDID==ClientBase.Instance.UID) || m_NpcType == NpcType.monster) {
                 AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, this);
             }
@@ -235,15 +237,24 @@ namespace GF.MainGame.Module.NPC {
         /// </summary>
         /// <param name="stateid"></param>
         public void ChangeState(int stateid,int skillid = -1) {
+            bool sendto = true;//能否发送，有的时候是不用执行的，比如释放技能却魔力不足
             if (m_State.stateMachine.currState.ID!= stateid) {//判断当前状态，节省带宽
                 if (m_GDID == ClientBase.Instance.UID) {
                     if (skillid == -1) {
-                        ClientBase.Instance.AddOperation(new Operation(Command.SwitchState, m_GDID) { index1 = stateid });
+                        ClientBase.Instance.AddOperation(new Operation(Command.SwitchState, m_GDID) { index1 = stateid});
                     } else {
-                        ClientBase.Instance.AddOperation(new Operation(Command.Skill, m_GDID) { index1 = stateid,index2 = skillid });
+                        SkillDataBase sd = ConfigerManager.m_SkillData.FindSkillByID(skillid);
+                        if (FP.FightMagic < sd.xiaohao) {//魔力不够，直接返回idle
+                            UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "没有魔力了!");
+                            sendto = false;
+                        } else {
+                            ClientBase.Instance.AddOperation(new Operation(Command.Skill, m_GDID) { index1 = stateid, index2 = skillid, index3 = sd.xiaohao });
+                        }
                     }
                 }
-                m_State.StatusEntry(stateid);
+                if (sendto) {//能否发送，有的时候是不用执行的，比如释放技能却魔力不足
+                    m_State.StatusEntry(stateid);
+                }
             }
         }
         /// <summary>
@@ -251,29 +262,28 @@ namespace GF.MainGame.Module.NPC {
         /// </summary>
         /// <param name="fight"></param>
         public float m_Resetidletime;
-        private bool iswaitidle = false;
+        //private bool iswaitidle = false;
         public virtual void SetFight(bool fight) {
             IsFight = fight;
-            int stateid = 0;
-            if (IsFight) {
-                stateid = m_AllStateID["fightidle"];
-            } else {
-                stateid = m_AllStateID["idle"];
+            if (m_GDID == ClientBase.Instance.UID) {
+                int stateid = 0;
+                if (IsFight) {
+                    stateid = m_AllStateID["fightidle"];
+                } else {
+                    stateid = m_AllStateID["idle"];
+                }
+                ChangeState(stateid);
+                //开一个计时器，如果一段时间之内没有发动任何技能或者收到任何伤害，就切换为非战斗状态。
+                //任意的技能和伤害都会重置这个时间
+                if (fight) {
+                    m_Resetidletime = AppConfig.FightReset;
+                    _ = SetIdleTimer();
+                }
             }
-            ChangeState(stateid);
-            //开一个计时器，如果一段时间之内没有发动任何技能或者收到任何伤害，就切换为非战斗状态。
-            //任意的技能和伤害都会重置这个时间
-            if (fight&& iswaitidle==false) {
-                m_Resetidletime = AppConfig.FightReset;
-                iswaitidle = true;
-                _ = SetIdleTimer();
-            }
-           
         }
         private async UniTaskVoid SetIdleTimer() {
             await UniTask.WaitUntil(() => m_Resetidletime <= 0) ;
             SetFight(false);
-            iswaitidle = false;
         }
         /// <summary>
         /// 如果是网络角色，movemodule脚本不会控制它，所以需要自己判断切换跑步和待机动画
@@ -284,7 +294,7 @@ namespace GF.MainGame.Module.NPC {
         protected float time;
        
         public virtual void LateUpdate() {
-            if (m_Resetidletime > 0) {
+            if (m_Resetidletime > 0 && !m_IsDie) {
                 m_Resetidletime -= Time.deltaTime;
             }
             //if (!isPlaySkill&&m_GDID!=ClientBase.Instance.UID && (Time.time > time)) {
@@ -360,7 +370,7 @@ namespace GF.MainGame.Module.NPC {
                 }
             } 
         }
-        public bool m_IsDie = false;
+        
 
     }
 }

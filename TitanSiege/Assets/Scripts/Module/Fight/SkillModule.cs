@@ -208,7 +208,7 @@ namespace GF.MainGame.Module {
                 }
                 if (damage != 0) {
                     monstersarg[j].monster.m_Feel.PlayFeedbacks();
-                    ClientBase.Instance.AddOperation(new Operation(Command.Attack, npc.m_GDID) { index = damage, index1 = monstersarg[j].monster.m_GDID });
+                    ClientBase.Instance.AddOperation(new Operation(Command.Attack, npc.m_GDID) { index = damage, index1 = monstersarg[j].monster.m_GDID});
                 }
                 AppTools.Send<DamageArg>((int)HPEvent.ShowDamgeTxt, damagearg);
             }
@@ -238,7 +238,7 @@ namespace GF.MainGame.Module {
             }
             if (damage != 0) {
                 monstersarg.monster.m_Feel.PlayFeedbacks();
-                ClientBase.Instance.AddOperation(new Operation(Command.Attack, npc.m_GDID) { index = damage, index1 = monstersarg.monster.m_GDID });
+                ClientBase.Instance.AddOperation(new Operation(Command.Attack, npc.m_GDID) { index = damage, index1 = monstersarg.monster.m_GDID});
             }
             AppTools.Send<DamageArg>((int)HPEvent.ShowDamgeTxt, damagearg);
         }

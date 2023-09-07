@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4707727350352034209}
   - component: {fileID: 7954491424646151018}
   m_Layer: 5
-  m_Name: nametxt
+  m_Name: mnametxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -474,6 +474,102 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7315050598256950033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9111444776337358966}
+  - component: {fileID: 2544737679839054759}
+  - component: {fileID: 76793266043882933}
+  - component: {fileID: 2994127311440754312}
+  m_Layer: 5
+  m_Name: 'pnametxt '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &9111444776337358966
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7315050598256950033}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8126337467683569742}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.000056744, y: 31.1}
+  m_SizeDelta: {x: 310.9988, y: 46.2285}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2544737679839054759
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7315050598256950033}
+  m_CullTransparentMesh: 1
+--- !u!114 &76793266043882933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7315050598256950033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 26
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "\u602A\u7269\u540D\u5B57\u6700\u957F10\u4E2A\u5B57"
+--- !u!114 &2994127311440754312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7315050598256950033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.031372547, g: 0.17117481, b: 1, a: 0.58431375}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 0
 --- !u!1 &8126337467683569743
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,6 +607,7 @@ RectTransform:
   - {fileID: 3157191979450881788}
   - {fileID: 5434343797056467098}
   - {fileID: 3993941169022123680}
+  - {fileID: 9111444776337358966}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -574,9 +671,11 @@ MonoBehaviour:
   m_CrititalTxt: {fileID: 4569939388704712105}
   m_DodgeTxt: {fileID: 735053523642732366}
   m_DamageTxt: {fileID: 6043645414631285253}
-  m_NameTxt: {fileID: 4707727350352034209}
+  m_MnameTxt: {fileID: 4707727350352034209}
+  m_PnameTxt: {fileID: 76793266043882933}
   m_RedTo: {fileID: 6546006932186361102}
   m_Red: {fileID: 5379538383967337798}
+  m_HPRoot: {fileID: 0}
   m_IsInscreen: 0
 --- !u!1 &8832242489479326155
 GameObject:

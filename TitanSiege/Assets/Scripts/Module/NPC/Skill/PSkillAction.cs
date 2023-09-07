@@ -29,15 +29,16 @@ public class PSkillAction : MyAcitonCore {
     }
     public override void OnEnter(StateAction action) {
         base.OnEnter(action);
+        
+        m_Self.m_Resetidletime = AppConfig.FightReset;//攻击，重置战斗姿态切换时间
         //先清理一下，防止变量污染
         m_WeiyiMonster = null;
         m_Self.m_Resetidletime = AppConfig.FightReset;
         if (m_Self.m_CurrentSkillId == -1) {//如果没有技能id，就直接返回
             m_Self.ChangeState(m_Self.m_AllStateID["fightidle"]);
         }
-        
         if (m_SData == null || (m_SData.id != m_Self.m_CurrentSkillId)) {//减少重复获取数据
-            m_SData = ConfigerManager.m_SkillData.FindNPCByID(m_Self.m_CurrentSkillId);
+            m_SData = ConfigerManager.m_SkillData.FindSkillByID(m_Self.m_CurrentSkillId);
             animEventList.Clear();//因为减少数据获取，所以事件的清理要放在这里
             m_WeiyiArg = null;
             // 初始化技能配置表中的事件

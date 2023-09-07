@@ -46,7 +46,18 @@ namespace GDServer {
                 index3 = FP.FightMaxMagic,
             });
         }
-
+        public void CostMp(int cost) { 
+            FP.FightMagic -= cost;
+            if (FP.FightMagic<0) {//正常这里不会进来，因为客户端会直接限制住无魔力释放
+                FP.FightMagic = 0;
+            }
+            scene.AddOperation(new Operation(Command.PlayerState, UserID) {
+                index = FP.FightHP,
+                index1 = FP.FightMagic,
+                index2 = FP.FightMaxHp,
+                index3 = FP.FightMaxMagic,
+            });
+        }
         public void Resurrection() {
             //数据库中不设置最大生命，而是根据等级+装备来计算
             FP.FightHP = FP.FightMaxHp;

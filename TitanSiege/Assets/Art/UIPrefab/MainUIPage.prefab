@@ -356,10 +356,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 8b0bda2e75f469741b46edba11b02f58, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -433,10 +433,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: a435a33de49fda342bc0abccb505858f, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -1205,7 +1205,9 @@ MonoBehaviour:
   playername: {fileID: 1669877598}
   level: {fileID: 116286175}
   hp: {fileID: 302730799}
+  hpimg: {fileID: 1665741450}
   mp: {fileID: 761800150}
+  mpimg: {fileID: 1557649800}
 --- !u!111 &2189501331508247177
 Animation:
   m_ObjectHideFlags: 0

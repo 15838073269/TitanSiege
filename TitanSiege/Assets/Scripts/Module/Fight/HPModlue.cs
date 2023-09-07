@@ -64,7 +64,8 @@ namespace GF.MainGame.Module {
         /// <param name="npc"></param>
         public void CreateHPUI(NPCBase npc) {
             if (m_HPDic.ContainsKey(npc)) {
-                Debuger.Log($"{npc.name}{npc.m_GDID}重复创建血条，请检查");
+                //有可能重复创建，这里排除一下就行了，没必要报错
+                //Debuger.Log($"{npc.name}{npc.m_GDID}重复创建血条，请检查");
                 return;
             } 
             DamageUIWidget dwt = m_UIPool.GetObj(true);
@@ -72,9 +73,13 @@ namespace GF.MainGame.Module {
             
             if (npc.m_NpcType == Const.NpcType.player) {//玩家直接显示名称
                 Player p = npc as Player;
-                dwt.m_NameTxt.text = p.m_PlayerName;
+                dwt.m_PnameTxt.text = p.m_PlayerName;
+                dwt.m_PnameTxt.gameObject.SetActive(true);
+                dwt.m_MnameTxt.gameObject.SetActive(false);
             } else if (npc.m_NpcType == Const.NpcType.monster) { //怪物
-                dwt.m_NameTxt.text = npc.Data.Name;
+                dwt.m_MnameTxt.text = npc.Data.Name;
+                dwt.m_PnameTxt.gameObject.SetActive(false);
+                dwt.m_MnameTxt.gameObject.SetActive(true);
             }
             float amount = (float)npc.FP.FightHP / (float)npc.FP.FightMaxHp;
             dwt.m_Red.fillAmount = amount;
@@ -109,7 +114,7 @@ namespace GF.MainGame.Module {
             _ = RedToNum(amount, dwt);//开一个task
             //更新面板上的血条
             if (npc.m_GDID == ClientBase.Instance.UID) { //如果更新的是本机玩家
-                //todo
+                AppTools.Send((int)MainUIEvent.UpdateHpMp);
             }
         }
         public async UniTask RedToNum(float amount, DamageUIWidget dwt) {
@@ -125,7 +130,7 @@ namespace GF.MainGame.Module {
         public void UpdateMp(NPCBase npc) {
             //更新面板上的蓝条
             if (npc.m_GDID == ClientBase.Instance.UID) { //如果更新的是本机玩家
-                //todo
+                AppTools.Send((int)MainUIEvent.UpdateHpMp);
             }
         }
         /// <summary>
@@ -198,6 +203,8 @@ namespace GF.MainGame.Module {
 
         public override void Release() {
             base.Release();
+            m_UIPool.ClearPool();
+            m_HPDic.Clear();
         }
         /// <summary>
         /// 用来判断血条是否再视野内，本来应该用相机视野判断，但没找到办法，先用距离判定一下吧

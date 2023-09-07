@@ -58,7 +58,6 @@ namespace GF.NetWork {
                         Debuger.Log("请求更新玩家数据遇到未知命令：" + code);
                         break;
                 }
-              
             }
         }
       
@@ -66,8 +65,7 @@ namespace GF.NetWork {
             var p = identity.GetComponent<Player>();
             if (p != null) {
                 Destroy(p.gameObject);
-                var players = AppTools.GetModule<NPCModule>(MDef.NPCModule).AllPlayers;
-                players.Remove(p.m_GDID);
+                AppTools.Send<int>((int)NpcEvent.Removeplayer,p.m_GDID);
             }
         }
         
@@ -77,6 +75,8 @@ namespace GF.NetWork {
                     if (identitys.TryGetValue(opt.identity, out var t)) {
                         var p = t.GetComponent<Player>();
                         if (p.m_GDID!=ClientBase.Instance.UID) {//不是本地的
+                            //攻击，重置战斗姿态切换时间
+                            p.m_Resetidletime = AppConfig.FightReset;
                             Debuger.Log($"{opt.identity}释放技能{opt.index2}");
                             p.m_CurrentSkillId = opt.index2;
                             p.m_State.StatusEntry(opt.index1);
@@ -89,13 +89,23 @@ namespace GF.NetWork {
                         if (p.m_GDID != ClientBase.Instance.UID) {//不是本地的
                             Debuger.Log($"{opt.identity}切换状态为{opt.index1}");
                             p.m_State.StatusEntry(opt.index1);
+                            if (p.m_AllStateID["idle"]== opt.index1 && p.IsFight) { //如果要切换idle,且当前为战斗状态
+                                p.SetFight(false);
+                            }
+                            if (p.m_AllStateID["fightidle"] == opt.index1 && !p.IsFight) { //如果要切换fightidle,且当前为非战斗状态
+                                p.SetFight(true);
+                            }
                         }
                     }
                     break;
                 case Command.PlayerState:
                     if (identitys.TryGetValue(opt.identity, out var t2)) {
                         var p = t2.GetComponent<Player>();
-                        p.FP.FightHP = opt.index;
+                        if (opt.index!= p.FP.FightHP) {
+                            //被攻击了，重置战斗姿态切换时间
+                            p.m_Resetidletime = AppConfig.FightReset;
+                            p.FP.FightHP = opt.index;
+                        }
                         p.FP.FightMagic = opt.index1;
                         p.FP.FightMaxHp = opt.index2;
                         p.FP.FightMaxMagic = opt.index3;
@@ -105,9 +115,9 @@ namespace GF.NetWork {
                             AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, p);
                         }
                         AppTools.Send<NPCBase>((int)HPEvent.UpdateHp,p);
-                        if (opt.identity== ClientBase.Instance.UID) {//本地玩家才需要更新蓝条
-                            AppTools.Send<NPCBase>((int)HPEvent.UpdateMp, p);
-                        }
+                        //if (opt.identity== ClientBase.Instance.UID) {//本地玩家才需要更新蓝条//更新血条时直接更新蓝条了，没必要单独更新了
+                        //    AppTools.Send<NPCBase>((int)HPEvent.UpdateMp, p);
+                        //}
                         p.Check();//检查角色是否死亡并同步生命值
                     }
                     break;
@@ -145,10 +155,13 @@ namespace GF.NetWork {
                     break;
                 case Command.EnemySwitchState://两种情况使用这个命令，1、主控客户端告知服务端不再同步怪物数据，由服务的自己控制，此时命令发送cmd1和cmd2都是0
                                               //2、主控客户端同步怪物状态给服务器，服务器广播给其他客户端
-                                              //客户端这里接收到的，只能是主控客户端同步怪物状态给服务器，服务器广播给其他客户端
                     if (m_MonsterDics.TryGetValue(opt.identity, out var monster2)) {
                         monster2.m_NetState = (int)opt.cmd1;//服务器回传后，要把本地怪物的状态设置为目标值
                         monster2.m_State.StatusEntry((int)opt.cmd2);//切换状态后，客户端自行播放状态动画
+                        if (opt.cmd1 == 0) {//说明是主控客户端告知服务端不再同步怪物
+                            monster2.FP.FightHP = opt.index;
+                            AppTools.Send<NPCBase>((int)HPEvent.UpdateHp, monster2);
+                        }
                     }
                     break;
                 case Command.EnemySync://怪物同步，客户端怪物状态同步
@@ -169,6 +182,12 @@ namespace GF.NetWork {
                     monster4.FP.FightMaxHp = opt.index2;
                     //更新血条
                     AppTools.Send<NPCBase>((int)HPEvent.UpdateHp, monster4);
+                    break;
+                case Command.Resurrection://某个玩家复活
+                    if (identitys.TryGetValue(opt.identity, out var t3)) {
+                        var p = t3.GetComponent<Player>();
+                        p.Fuhuo();
+                    }
                     break;
             }
         }

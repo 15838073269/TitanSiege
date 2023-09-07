@@ -14,7 +14,7 @@ namespace GF.MainGame.Module {
         public override void Create() {
             base.Create();
             AppTools.Regist((int)DieEvent.ShowUI, ShowUI);
-            Debuger.Log("死亡模块启动");
+            AppTools.Regist((int)DieEvent.HideUI, HideUI);
         }
 
         public override void Release() {
@@ -22,8 +22,10 @@ namespace GF.MainGame.Module {
         }
 
         public void ShowUI() {
-            Debuger.Log("打开死亡ui");
             UIManager.GetInstance.OpenWindow(AppConfig.DieUIWindow);
+        }
+        public void HideUI() {
+            UIManager.GetInstance.CloseWindow(AppConfig.DieUIWindow);
         }
     }
 }

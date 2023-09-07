@@ -14,20 +14,19 @@ using Titansiege;
 
 namespace GF.MainGame.Module {
     public class MainUIModule : GeneralModule {
-        private CharactersData nb=null;
-        private MainUIPage m_Ui;
+        MainUIPage m_Ui;
         public override void Create() {
             base.Create();
             ///测试使用，生产可以注释
             if (UserService.GetInstance.m_CurrentChar == null) {
                 TestScene t1 = new TestScene();
             }
-            nb = UserService.GetInstance.m_CurrentChar;
             Show();
             ///创建血条模块
             if (!AppTools.HasModule(MDef.HPModule)) {
                 AppTools.CreateModule<HPModule>(MDef.HPModule);
             }
+            AppTools.Regist((int)MainUIEvent.UpdateHpMp, UpdateHpMp);
         } 
         public override void Release() {
             base.Release();
@@ -35,13 +34,20 @@ namespace GF.MainGame.Module {
 
         public override void Show() {
             base.Show();
-            m_Ui = UIManager.GetInstance.OpenPage(AppConfig.MainUIPage, nb) as MainUIPage;
+            m_Ui = UIManager.GetInstance.OpenPage(AppConfig.MainUIPage) as MainUIPage;
             if (AppTools.GetModule<MoveModule>(MDef.MoveModule) == null) {
                 AppTools.CreateModule<MoveModule>(MDef.MoveModule);
             }
             if (AppTools.GetModule<FightModule>(MDef.FightModule) == null) {
                 AppTools.CreateModule<FightModule>(MDef.FightModule);
             }
+            m_Ui.Init();
+        }
+        /// <summary>
+        /// 更新ui面板上的血条和蓝条
+        /// </summary>
+        public void UpdateHpMp() {
+            m_Ui.UpdateHpMp();
         }
         public void BtnClick(string name) {
             switch (name) {

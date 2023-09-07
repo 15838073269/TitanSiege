@@ -7,6 +7,8 @@
 *****************************************************/
 
 using GF.MainGame.Module;
+using GF.MainGame.Module.NPC;
+using GF.Service;
 using GF.Unity.AB;
 using GF.Unity.UI;
 using Titansiege;
@@ -28,7 +30,9 @@ namespace GF.MainGame.UI {
         public Text playername;
         public Text level;
         public Text hp;
+        public Image hpimg;
         public Text mp;
+        public Image mpimg;
         #endregion
         private bool isbtnopen;//按钮列表是否展开，默认展开
         private bool isrenwuhiden;//任务列表是否展开，默认展开
@@ -57,16 +61,17 @@ namespace GF.MainGame.UI {
             //    BtnClick("renwu");
             //});
         }
-        protected override void OnOpen(object args = null) {
-            base.OnOpen(args);
-            if (args!=null) {
-                var cd = args as CharactersData;
-                playername.text = cd.Name;
-                level.text = cd.Level.ToString();
-                hp.text = cd.Shengming.ToString();
-                mp.text = cd.Fali.ToString();
-                headbtn.image.sprite = ResourceManager.GetInstance.LoadResource<Sprite>(cd.Headpath,bClear:false);
+        public  void Init(Player p=null) {
+            if (p == null) {
+                p = UserService.GetInstance.m_CurrentPlayer;
             }
+            playername.text = UserService.GetInstance.m_CurrentChar.Name;
+            level.text = UserService.GetInstance.m_CurrentChar.Level.ToString();
+            hp.text = $"{p.FP.FightHP}/{p.FP.FightMaxHp}";
+            hpimg.fillAmount = (float)p.FP.FightHP / (float)p.FP.FightMaxHp;
+            mp.text = $"{p.FP.FightMagic}/{p.FP.FightMaxMagic}";
+            mpimg.fillAmount = (float)p.FP.FightMagic / (float)p.FP.FightMaxMagic;
+            headbtn.image.sprite = ResourceManager.GetInstance.LoadResource<Sprite>(UserService.GetInstance.m_CurrentChar.Headpath, bClear: false);
         }
         public override void Close(bool bClear = false, object arg = null) {
             base.Close(bClear, arg);
@@ -97,6 +102,16 @@ namespace GF.MainGame.UI {
             AppTools.PlayBtnClick();
             AppTools.GetModule<MainUIModule>(MDef.MainUIModule).BtnClick(name);
         }
-        
+        /// <summary>
+        /// 更新ui面板上的血条和蓝条
+        /// </summary>
+        public void UpdateHpMp() {
+            //面板只属于本机玩家
+            Player p = UserService.GetInstance.m_CurrentPlayer;
+            hp.text = $"{p.FP.FightHP}/{p.FP.FightMaxHp}";
+            hpimg.fillAmount = (float)p.FP.FightHP / (float)p.FP.FightMaxHp;
+            mp.text = $"{p.FP.FightMagic}/{p.FP.FightMaxMagic}";
+            mpimg.fillAmount = (float)p.FP.FightMagic / (float)p.FP.FightMaxMagic;
+        }
     }
 }

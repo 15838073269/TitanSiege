@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using GF.MainGame.Module.NPC;
 using Net.System;
 using GF.Service;
+using Net.Client;
+using Net.Share;
 
 namespace GF.MainGame.Module {
     public class NPCModule : GeneralModule {
@@ -28,6 +30,7 @@ namespace GF.MainGame.Module {
             AppTools.Regist<Player>((int)NpcEvent.AddPlayer, AddPlayer);
             AppTools.Regist<NPCBase>((int)NpcEvent.ChangeSelected, ChangeSelected);
             AppTools.Regist<NPCBase>((int)NpcEvent.CanelSelected, CanelSelected);
+            AppTools.Regist<int,int>((int)NpcEvent.FuhuoPlayer, FuhuoPlayer);
             //AppTools.Regist<string, ListSafe<Monster>>((int)NpcEvent.GetMonstersbyScene, GetMonstersbyScene);
         }
         //public void AddMonster(string scenename, Monster m) {
@@ -63,6 +66,37 @@ namespace GF.MainGame.Module {
         public void Removeplayer(int id) {
             if (AllPlayers.ContainsKey(id)) {
                 AllPlayers.Remove(id);
+            }
+        }
+        /// <summary>
+        /// 这里给多种复活方式预留了功能
+        /// 目前只有i=0，也就是在传送点复活
+        /// 后面可以加上原地复活等
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="i"></param>
+        public void FuhuoPlayer(int uid,int i) {
+            Player p;
+            Transform startpos=null;
+            if (!AllPlayers.TryGetValue(uid, out p)) {
+                Debuger.LogError($"复活玩家错误，玩家{uid}不存在，请检查！");
+                return;
+            }
+            switch (i) {
+                case 0://复活点复活
+                    //获取场景的出生点
+                    //传空参数是默认获取当前活动的场景名称，也可以获取指定名称的场景起始点
+                    startpos = AppTools.SendReturn<string,Transform>((int)SceneEvent.GetSceneDefaultPos,"");
+                    break;
+                case 1://原地复活，有精力再做
+
+                    break;
+                default:
+                    break;
+            }
+            if (startpos!=null) {
+                AppTools.Send<Transform>((int)MoveEvent.SetMoveObjToScene, startpos);
+                ClientBase.Instance.AddOperation(new Operation(Command.Resurrection, p.m_GDID));//移动完成后，发送服务器通知玩家复活
             }
         }
         /// <summary>

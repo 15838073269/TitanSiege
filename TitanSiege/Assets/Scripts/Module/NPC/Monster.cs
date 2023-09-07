@@ -116,13 +116,15 @@ namespace GF.MainGame.Module.NPC {
                 }
             } else if ((m_NetState == 1) && (m_targetID == ClientBase.Instance.UID)&&(AttackTarget == null)) { //如果当前是客户端同步，并且是本机在同步，但怪物的目标已经为null了，一般是脱离攻击范围或者玩家死亡，就发送消息给服务端，转为服务端控制
                 if (NetworkTime.CanSent) {
-                    int hp = FP.FightHP;
+                    //即使有NetworkTime.CanSent限制，这里也会执行多次（比如两个怪物执行了3次），虽然没有报错，但对性能有影响，m_NetState = 0;也无法限制，因为这个过程中，怪物一直再被同步修改状态，先关注这个问题，暂时没有方案
                     //脱离战斗，判断是否死亡脱离，否则恢复最大生命
                     if (!m_IsDie) {
-                        hp = FP.FightMaxHp;
+                        FP.FightHP = FP.FightMaxHp;
                         AppTools.Send<NPCBase>((int)HPEvent.UpdateHp, this);
+                        m_NetState = 0;
+                        m_targetID = 0;
                     }
-                    ClientBase.Instance.AddOperation(new Operation(Command.EnemySwitchState, m_GDID) { cmd1 = 0,cmd2 = 0,index = hp});
+                    ClientBase.Instance.AddOperation(new Operation(Command.EnemySwitchState, m_GDID) { cmd1 = 0,cmd2 = 0,index = FP.FightHP });
                 }
             }
         }
@@ -308,7 +310,7 @@ namespace GF.MainGame.Module.NPC {
             }
 
             if (m_SData == null || (m_SData.id != m_Self.m_CurrentSkillId)) {//减少重复获取数据
-                m_SData = ConfigerManager.m_SkillData.FindNPCByID(m_Self.m_CurrentSkillId);
+                m_SData = ConfigerManager.m_SkillData.FindSkillByID(m_Self.m_CurrentSkillId);
                 animEventList.Clear();//因为减少数据获取，所以事件的清理要放在这里
                 // 初始化技能配置表中的事件
                 for (int i = 0; i < m_SData.skilleventlist.Count; i++) {

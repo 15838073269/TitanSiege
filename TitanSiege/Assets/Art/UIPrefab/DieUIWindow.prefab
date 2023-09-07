@@ -408,3 +408,4 @@ MonoBehaviour:
   m_openAniClip: {fileID: 0}
   m_closeAniClip: {fileID: 0}
   m_btnClose: {fileID: 0}
+  m_FuhuoBtn: {fileID: 6345475859850694180}
