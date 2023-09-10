@@ -263,6 +263,7 @@
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Affectors\TurbulenceFieldAffector.cs" />
     <Compile Include="Assets\Scripts\Module\LoginModule.cs" />
+    <Compile Include="Assets\Scripts\Module\NPC\Skill\PLianjiTransition.cs" />
     <Compile Include="Assets\Scripts\Module\NPC\Player.cs" />
     <Compile Include="Assets\Scripts\UIModule\LoginUIPage.cs" />
     <Compile Include="Assets\Scripts\Module\TeamQueueModule.cs" />

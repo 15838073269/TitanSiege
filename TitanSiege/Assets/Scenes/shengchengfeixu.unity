@@ -3903,6 +3903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd2a6f93da39d042b1b350219115066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SceneName: 
   m_CharName: "\u5723\u57CE\u5E9F\u589F"
   m_BgMusic: {fileID: 8300000, guid: 29b7e35bf28c5ff44b199f06c5468ade, type: 3}
   m_Default: {fileID: 252387456}
@@ -17920,7 +17921,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1879
   m_RenderingLayerMask: 1
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0

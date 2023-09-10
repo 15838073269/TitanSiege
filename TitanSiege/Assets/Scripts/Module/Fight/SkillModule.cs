@@ -18,6 +18,8 @@ using GF.NetWork;
 using Net.Share;
 using Net.Client;
 using System.Collections.Generic;
+using Net.Event;
+using Net.System;
 
 namespace GF.MainGame.Module {
     public class SkillModule : GeneralModule {
@@ -47,8 +49,10 @@ namespace GF.MainGame.Module {
         /// </summary>
         /// <param name="info"></param>
         /// <param name="npc"></param>
+        private ushort m_Lianjiid = 0;//连击计数，用来判断普通攻击到底使用第几段技能
+        private int m_Eventid =-1;
+        //此处默认连击最多三段
         public void ClickSkill(int skillposid, NPCBase npc) {
-
             //根据技能连击等待时间做一个计数器，计算是否触发连击动画，目前系统共用一个连击等待时间，设置为2s,2秒内再次触发技能，就会有连击动画，这个功能只会是普攻技能触发，需要判定一下
             //if(sb.skilltype==普攻){
             //开一个协程，或者task处理
@@ -60,29 +64,68 @@ namespace GF.MainGame.Module {
                 npc.ChangeWp();//切换以下武器
             }
             npc.m_Resetidletime = AppConfig.FightReset;//重置战斗状态的切换时间
-            switch (skillposid) {
-                case 0://普攻
-                    npc.m_CurrentSkillId = npc.m_SkillId[0];
-                    break;
-                case 1://技能1
-                    npc.m_CurrentSkillId = npc.m_SkillId[1];
-                    npc.ChangeState(npc.m_AllStateID["skill1"], npc.m_CurrentSkillId);
-                    break;
-                case 2://技能2
-                    npc.m_CurrentSkillId = npc.m_SkillId[2];
-                    npc.ChangeState(npc.m_AllStateID["skill2"], npc.m_CurrentSkillId);
-                    break;
-                case 3://技能3
-                    npc.m_CurrentSkillId = npc.m_SkillId[3];
-                    npc.ChangeState(npc.m_AllStateID["skill3"], npc.m_CurrentSkillId);
-                    break;
-                case 4://技能4
-                    npc.m_CurrentSkillId = npc.m_SkillId[4];
-                    npc.ChangeState(npc.m_AllStateID["skill4"], npc.m_CurrentSkillId);
-                    break;
-                default:
-                    break;
-            }
+            if (!npc.isPlaySkill) { //没有播放技能
+                switch (skillposid) {
+                    case 0://连击普攻,默认从第一段开始
+                        if (m_Lianjiid == 0) {
+                            npc.m_CurrentSkillId = npc.m_SkillId[0];
+                            npc.ChangeState(npc.m_AllStateID["lianji1"], npc.m_CurrentSkillId);
+                            m_Lianjiid++;
+                        } else if (m_Lianjiid == 1) {
+                            npc.m_CurrentSkillId = npc.m_SkillId[1];
+                            npc.ChangeState(npc.m_AllStateID["lianji3"], npc.m_CurrentSkillId);
+                            m_Lianjiid++;
+                        } else if (m_Lianjiid == 2) {
+                            npc.m_CurrentSkillId = npc.m_SkillId[2];
+                            npc.ChangeState(npc.m_AllStateID["lianji4"], npc.m_CurrentSkillId);
+                            m_Lianjiid = 0;
+                        } else { //错误处理，直接从第一段开始
+                            npc.m_CurrentSkillId = npc.m_SkillId[0];
+                            npc.ChangeState(npc.m_AllStateID["lianji1"], npc.m_CurrentSkillId);
+                            m_Lianjiid = 1;
+                        }
+                        if (m_Eventid!=-1) {
+                            ThreadManager.Event.RemoveEvent(m_Eventid);
+                        }
+                        m_Eventid = ThreadManager.Event.AddEvent(1f, () => {
+                            m_Lianjiid = 0;
+                            m_Eventid = -1;
+                        }, true);
+                        npc.isPlaySkill = true;//加在这里是因为发送到技能模块会有延迟，延迟过程中可能重复按键
+                        break;
+                    case 1://技能1
+                        npc.m_CurrentSkillId = npc.m_SkillId[3];
+                        npc.ChangeState(npc.m_AllStateID["skill1"], npc.m_CurrentSkillId);
+                        m_Lianjiid = 0;
+                        m_Eventid = -1;
+                        npc.isPlaySkill = true;//加在这里是因为发送到技能模块会有延迟，延迟过程中可能重复按键
+                        break;
+                    case 2://技能2
+                        npc.m_CurrentSkillId = npc.m_SkillId[4];
+                        npc.ChangeState(npc.m_AllStateID["skill2"], npc.m_CurrentSkillId);
+                        m_Lianjiid = 0;
+                        m_Eventid = -1;
+                        npc.isPlaySkill = true;//加在这里是因为发送到技能模块会有延迟，延迟过程中可能重复按键
+                        break;
+                    case 3://技能3
+                        npc.m_CurrentSkillId = npc.m_SkillId[5];
+                        npc.ChangeState(npc.m_AllStateID["skill3"], npc.m_CurrentSkillId);
+                        m_Lianjiid = 0;
+                        m_Eventid = -1;
+                        npc.isPlaySkill = true;//加在这里是因为发送到技能模块会有延迟，延迟过程中可能重复按键
+                        break;
+                    case 4://技能4
+                        npc.m_CurrentSkillId = npc.m_SkillId[6];
+                        npc.ChangeState(npc.m_AllStateID["skill4"], npc.m_CurrentSkillId);
+                        m_Lianjiid = 0;
+                        m_Eventid = -1;
+                        npc.isPlaySkill = true;//加在这里是因为发送到技能模块会有延迟，延迟过程中可能重复按键
+                        break;
+                    default:
+                        npc.isPlaySkill = false;
+                        break;
+                }
+            } 
         }
         /// <summary>
         /// 点击技能，默认玩家攻击
@@ -186,9 +229,9 @@ namespace GF.MainGame.Module {
                         Debuger.Log($"{monstersarg[j].monster.Data.Name}闪避了{UserService.GetInstance.m_CurrentChar.Name}的攻击");
                     }
                 } else {
-                    //计算是否在技能的攻击角度内,距离小于1.5，就默认能打到，不用计算角度了，离得太近
+                    //计算是否在技能的攻击角度内,距离小于1.5并且角度小于技能角度+45%，就默认能打到，离得太近
                     float angle = GetAngle(npc.transform, monstersarg[j].monster.transform);
-                    if (monstersarg[j].dis <= AppConfig.AttackRange || InAngle(angle, sb.angle)) { //空留给角度计算
+                    if (InAngle(angle, sb.angle)|| (monstersarg[j].dis<=AppConfig.AttackRange&& InAngle(angle, sb.angle+45>360?360: sb.angle + 45))) { //空留给角度计算
                         damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, npc, monstersarg[j].monster, out damagearg.damagetype);
                         damagearg.damage = damage;
                         damagearg.npc = monstersarg[j].monster;
@@ -209,6 +252,11 @@ namespace GF.MainGame.Module {
                 if (damage != 0) {
                     monstersarg[j].monster.m_Feel.PlayFeedbacks();
                     ClientBase.Instance.AddOperation(new Operation(Command.Attack, npc.m_GDID) { index = damage, index1 = monstersarg[j].monster.m_GDID});
+                }
+                if (damagearg.npc==null) {//在攻击动画执行过程中，如果脱离范围，就会为空，所以要判定一下
+                    damagearg.damagetype = DamageType.shangbi;
+                    damagearg.damage = 0;
+                    damagearg.npc = monstersarg[j].monster;
                 }
                 AppTools.Send<DamageArg>((int)HPEvent.ShowDamgeTxt, damagearg);
             }
@@ -255,7 +303,7 @@ namespace GF.MainGame.Module {
             DamageArg damagearg = new DamageArg();
             //计算是否在技能的攻击角度内,距离小于1，就默认能打到，不用计算角度了，离得太近
             float angle = GetAngle(m.transform, p.transform);
-            if (dis <= AppConfig.AttackRange || InAngle(angle, sb.angle)) { //空留给角度计算
+            if ((dis <= AppConfig.AttackRange && InAngle(angle, sb.angle + 45 > 360 ? 360 : sb.angle + 45)) || InAngle(angle, sb.angle)) { //空留给角度计算
                 damage = GetDamage(sb.shanghai, (SkillType)sb.skilltype, m, p, out damagearg.damagetype);
                 damagearg.damage = damage;
                 damagearg.npc = p;

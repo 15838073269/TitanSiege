@@ -176,6 +176,10 @@ namespace GF.MainGame.Module {
             cpp.ShowNotice(msg);
         }
         public void GameStart() {
+            if (UserService.GetInstance.m_CurrentChar.Zhiye != 0) {
+                UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "该职业正在开发中，敬请期待!");
+                return;
+            }
             //先把选择的角色数据id传给服务器，让服务器知道选择的哪个角色
             ClientBase.Instance.SendRT((ushort)ProtoType.selectcharacter,UserService.GetInstance.m_CurrentChar.ID);
             //加载游戏主城场景

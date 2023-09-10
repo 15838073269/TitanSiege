@@ -96,10 +96,10 @@ namespace GF.MainGame.Module.NPC {
             m_IsDie = false;
             //更新血条
             AppTools.Send<NPCBase>((int)HPEvent.UpdateHp, this);
-            //隐藏死亡ui
-            AppTools.Send((int)DieEvent.HideUI);
             //发送服务器玩家复活
             if (m_GDID==ClientBase.Instance.UID) {
+                //隐藏死亡ui
+                AppTools.Send((int)DieEvent.HideUI);
                 ChangeState(m_AllStateID["idle"]);
             }
         }

@@ -212,7 +212,6 @@ namespace GF.MainGame.Module {
         /// <param name="npc"></param>
         /// <returns></returns>
         public bool IsInRange(NPCBase npc) {
-            Debuger.Log(Vector3.Distance(npc.transform.position, UserService.GetInstance.m_CurrentPlayer.transform.position));
             if (Vector3.Distance(npc.transform.position, UserService.GetInstance.m_CurrentPlayer.transform.position) > 4f) {//距离超过四米就不显示了
                 return false;
             } else {

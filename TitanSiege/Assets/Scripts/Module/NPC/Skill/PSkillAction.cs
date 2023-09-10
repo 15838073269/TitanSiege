@@ -24,18 +24,19 @@ public class PSkillAction : MyAcitonCore {
     private NPCBase m_WeiyiMonster = null;//位移技能的目标怪物
     private float m_WeiyiDis = 0f;//位移的距离-
     private EventArg m_WeiyiArg = null;//位移技能的参数
+    public ushort m_Lianjiid;//连击的第几段，这个数据需要在编辑器界面配置成固定的
     public override void OnInit() {
         m_Self = transform.GetComponent<Player>();
     }
     public override void OnEnter(StateAction action) {
         base.OnEnter(action);
-        
+        // m_Self.isPlaySkill = true;//点击技能时已经添加了，不用重复了
         m_Self.m_Resetidletime = AppConfig.FightReset;//攻击，重置战斗姿态切换时间
         //先清理一下，防止变量污染
         m_WeiyiMonster = null;
-        m_Self.m_Resetidletime = AppConfig.FightReset;
         if (m_Self.m_CurrentSkillId == -1) {//如果没有技能id，就直接返回
             m_Self.ChangeState(m_Self.m_AllStateID["fightidle"]);
+            return;
         }
         if (m_SData == null || (m_SData.id != m_Self.m_CurrentSkillId)) {//减少重复获取数据
             m_SData = ConfigerManager.m_SkillData.FindSkillByID(m_Self.m_CurrentSkillId);
@@ -220,5 +221,28 @@ public class PSkillAction : MyAcitonCore {
         }
         //释放技能的瞬间，可能玩家已经被怪物打死了，但技能不会停止，所以，共计完成后，还需要检查一下自己有没有死亡
         m_Self.Check();
+        ////没有死亡，就判断一下是否需要连击
+        //Debuger.Log(m_Self.m_Islianji);
+        //if (!m_Self.m_IsDie && m_Self.m_Islianji) {
+        //    if (m_Lianjiid == 0) {
+        //        m_Self.m_CurrentSkillId = m_Self.m_SkillId[1];
+        //        m_Self.ChangeState(m_Self.m_AllStateID["lianji3"], m_Self.m_CurrentSkillId);
+        //        m_Lianjiid++;
+        //    } else if (m_Lianjiid == 1) {
+        //        m_Self.m_CurrentSkillId = m_Self.m_SkillId[2];
+        //        m_Self.ChangeState(m_Self.m_AllStateID["lianji4"], m_Self.m_CurrentSkillId);
+        //        m_Lianjiid++;
+        //    } else if (m_Lianjiid == 2) {
+        //        m_Self.m_CurrentSkillId = m_Self.m_SkillId[0];
+        //        m_Self.ChangeState(m_Self.m_AllStateID["lianji1"], m_Self.m_CurrentSkillId);
+        //        m_Lianjiid = 0;
+        //    } else { //错误处理
+        //        m_Self.m_CurrentSkillId = m_Self.m_SkillId[0];
+        //        m_Self.ChangeState(m_Self.m_AllStateID["lianji1"], m_Self.m_CurrentSkillId);
+        //        m_Lianjiid = 0;
+        //    }
+        //    m_Self.m_Islianji = false;
+        //    m_Self.isPlaySkill = true;
+        //}
     }
 }

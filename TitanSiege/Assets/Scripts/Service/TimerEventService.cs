@@ -11,7 +11,7 @@ using System.Threading;
 using System;
 using UnityEngine;
 namespace GF.MainGame {
-    public class TimerEventService : MonoBehaviour {
+    public class TimeEventService : MonoBehaviour {
         public static TimerEvent Event { get; private set; } = new TimerEvent();
         /// <summary>
         /// 时间计数间隔

@@ -37,7 +37,6 @@ namespace GF.MainGame.Module.NPC {
         protected NPCDataBase m_Data;//数据值
         protected LevelUpDataBase m_LevelData;//升级系数
         public int m_CurrentSkillId = -1;//当前正在施展的技能的id
-        
         protected bool m_IsFight = false;
         
         public GameObject m_Selected;//角色脚下的选中目标
@@ -121,12 +120,19 @@ namespace GF.MainGame.Module.NPC {
             switch (m_NpcType) {
                 case NpcType.player:
                     //技能添加的顺序，决定角色技能在面板上的位置，第一个永远是普通攻击，第二个永远是第一个技能，以此类推
-                    if (UserService.GetInstance.m_CurrentChar != null && UserService.GetInstance.m_CurrentChar.Skills != "") {
-                        string[] strarr = UserService.GetInstance.m_CurrentChar.Skills.Split('|');
-                        for (int i = 0; i < strarr.Length; i++) {
-                            if (!string.IsNullOrEmpty(strarr[i])) { //数据库存储最后一个字符时“|”,所以会出现一个空白项
-                                m_SkillId.Add(int.Parse(strarr[i]));
+                    //if (UserService.GetInstance.m_CurrentChar != null && UserService.GetInstance.m_CurrentChar.Skills != "") {//这里不能直接使用玩家的数据，因为非本机玩家也会执行这个
+                    if (ClientBase.Instance.UID == m_GDID) {
+                        if (UserService.GetInstance.m_CurrentChar != null && UserService.GetInstance.m_CurrentChar.Skills != "") {
+                            string[] strarr = UserService.GetInstance.m_CurrentChar.Skills.Split('|');
+                            for (int i = 0; i < strarr.Length; i++) {
+                                if (!string.IsNullOrEmpty(strarr[i])) { //数据库存储最后一个字符时“|”,所以会出现一个空白项
+                                    m_SkillId.Add(int.Parse(strarr[i]));
+                                }
                             }
+                        }
+                    } else { //网络玩家对象，先用本地数据，其实可以使用网络同步的数据，后面再改吧
+                        if (Data != null && Data.Skills.Count!=0) {
+                            m_SkillId = Data.Skills;
                         }
                     }
                     break;

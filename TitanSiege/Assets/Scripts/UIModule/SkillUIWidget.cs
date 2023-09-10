@@ -35,10 +35,15 @@ namespace GF.MainGame.UI {
             if (UserService.GetInstance.m_CurrentChar.Skills!="") {
                 string[] strarr = UserService.GetInstance.m_CurrentChar.Skills.Split('|');
                 for(int i = 0;i<strarr.Length;i++) {
+                    //0,1,2三个技能为普通攻击的三段击，只需要加载第一个即可
+                    if (i==1 || i==2) {
+                        continue;
+                    }
                     if (!string.IsNullOrEmpty(strarr[i])) { //数据库存储最后一个字符时“|”,所以会出现一个空白项
                         int tempid = int.Parse(strarr[i]);
                         SkillDataBase sb = ConfigerManager.m_SkillData.FindSkillByID(tempid);
-                        SkillUIInfo skui = GetSkillUIInfo(i);
+                        int posid = i==0? 0 : i-2;//位置是0，1，2，3，4，所以需要把对应技能放入01234位置，0,1,2三个技能为普通攻击的三段击，只需要加载第一个即可，所以第三个技能位置放到2，以此类推
+                        SkillUIInfo skui = GetSkillUIInfo(posid);
                         skui.Init(sb);
                     }
                 }
@@ -72,12 +77,12 @@ namespace GF.MainGame.UI {
         /// <summary>
         /// 获取技能模块
         /// </summary>
-        /// <param name="i"></param>
+        /// <param name="i">i这里代表的是技能的顺序位置</param>
         /// <returns></returns>
         private SkillUIInfo GetSkillUIInfo(int i) {
             SkillUIInfo sinfo = null;
             switch (i) {
-                case 0:
+                case 0://0,1,2三个技能为普通攻击的三段击，只需要加载第一个即可
                     sinfo = m_CommBtn.GetComponent<SkillUIInfo>();
                     break;
                 case 1:
