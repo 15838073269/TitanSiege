@@ -62,12 +62,6 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Return.cs">
       <Link>UniTask\Runtime\Linq\Return.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\ToLookup.cs">
-      <Link>UniTask\Runtime\Linq\ToLookup.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\UnityExtensions\Timer.cs">
-      <Link>UniTask\Runtime\Linq\UnityExtensions\Timer.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Buffer.cs">
       <Link>UniTask\Runtime\Linq\Buffer.cs</Link>
     </Compile>
@@ -76,9 +70,6 @@
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Contains.cs">
       <Link>UniTask\Runtime\Linq\Contains.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Skip.cs">
-      <Link>UniTask\Runtime\Linq\Skip.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Average.cs">
       <Link>UniTask\Runtime\Linq\Average.cs</Link>
@@ -89,35 +80,17 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\ToDictionary.cs">
       <Link>UniTask\Runtime\Linq\ToDictionary.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Cast.cs">
-      <Link>UniTask\Runtime\Linq\Cast.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\SequenceEqual.cs">
       <Link>UniTask\Runtime\Linq\SequenceEqual.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\ToArray.cs">
-      <Link>UniTask\Runtime\Linq\ToArray.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\OrderBy.cs">
-      <Link>UniTask\Runtime\Linq\OrderBy.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\AppendPrepend.cs">
       <Link>UniTask\Runtime\Linq\AppendPrepend.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\ElementAt.cs">
-      <Link>UniTask\Runtime\Linq\ElementAt.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Publish.cs">
       <Link>UniTask\Runtime\Linq\Publish.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Single.cs">
-      <Link>UniTask\Runtime\Linq\Single.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Pairwise.cs">
       <Link>UniTask\Runtime\Linq\Pairwise.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\UnityExtensions\EveryUpdate.cs">
-      <Link>UniTask\Runtime\Linq\UnityExtensions\EveryUpdate.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Queue.cs">
       <Link>UniTask\Runtime\Linq\Queue.cs</Link>
@@ -131,14 +104,89 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\GroupBy.cs">
       <Link>UniTask\Runtime\Linq\GroupBy.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\AsyncEnumeratorBase.cs">
-      <Link>UniTask\Runtime\Linq\AsyncEnumeratorBase.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Subscribe.cs">
       <Link>UniTask\Runtime\Linq\Subscribe.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Take.cs">
       <Link>UniTask\Runtime\Linq\Take.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\SkipUntilCanceled.cs">
+      <Link>UniTask\Runtime\Linq\SkipUntilCanceled.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Aggregate.cs">
+      <Link>UniTask\Runtime\Linq\Aggregate.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\DefaultIfEmpty.cs">
+      <Link>UniTask\Runtime\Linq\DefaultIfEmpty.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Where.cs">
+      <Link>UniTask\Runtime\Linq\Where.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\GroupJoin.cs">
+      <Link>UniTask\Runtime\Linq\GroupJoin.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\UnityExtensions\EveryValueChanged.cs">
+      <Link>UniTask\Runtime\Linq\UnityExtensions\EveryValueChanged.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Empty.cs">
+      <Link>UniTask\Runtime\Linq\Empty.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\SkipUntil.cs">
+      <Link>UniTask\Runtime\Linq\SkipUntil.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Join.cs">
+      <Link>UniTask\Runtime\Linq\Join.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\LongCount.cs">
+      <Link>UniTask\Runtime\Linq\LongCount.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Last.cs">
+      <Link>UniTask\Runtime\Linq\Last.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Throw.cs">
+      <Link>UniTask\Runtime\Linq\Throw.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\ToHashSet.cs">
+      <Link>UniTask\Runtime\Linq\ToHashSet.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\All.cs">
+      <Link>UniTask\Runtime\Linq\All.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\TakeUntil.cs">
+      <Link>UniTask\Runtime\Linq\TakeUntil.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Count.cs">
+      <Link>UniTask\Runtime\Linq\Count.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\ToLookup.cs">
+      <Link>UniTask\Runtime\Linq\ToLookup.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\UnityExtensions\Timer.cs">
+      <Link>UniTask\Runtime\Linq\UnityExtensions\Timer.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Skip.cs">
+      <Link>UniTask\Runtime\Linq\Skip.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Cast.cs">
+      <Link>UniTask\Runtime\Linq\Cast.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\ToArray.cs">
+      <Link>UniTask\Runtime\Linq\ToArray.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\OrderBy.cs">
+      <Link>UniTask\Runtime\Linq\OrderBy.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\ElementAt.cs">
+      <Link>UniTask\Runtime\Linq\ElementAt.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Single.cs">
+      <Link>UniTask\Runtime\Linq\Single.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\UnityExtensions\EveryUpdate.cs">
+      <Link>UniTask\Runtime\Linq\UnityExtensions\EveryUpdate.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\AsyncEnumeratorBase.cs">
+      <Link>UniTask\Runtime\Linq\AsyncEnumeratorBase.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Repeat.cs">
       <Link>UniTask\Runtime\Linq\Repeat.cs</Link>
@@ -152,17 +200,11 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Never.cs">
       <Link>UniTask\Runtime\Linq\Never.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\SkipUntilCanceled.cs">
-      <Link>UniTask\Runtime\Linq\SkipUntilCanceled.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\SelectMany.cs">
       <Link>UniTask\Runtime\Linq\SelectMany.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Except.cs">
       <Link>UniTask\Runtime\Linq\Except.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Aggregate.cs">
-      <Link>UniTask\Runtime\Linq\Aggregate.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\TakeWhile.cs">
       <Link>UniTask\Runtime\Linq\TakeWhile.cs</Link>
@@ -170,20 +212,11 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\AsUniTaskAsyncEnumerable.cs">
       <Link>UniTask\Runtime\Linq\AsUniTaskAsyncEnumerable.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\DefaultIfEmpty.cs">
-      <Link>UniTask\Runtime\Linq\DefaultIfEmpty.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Where.cs">
-      <Link>UniTask\Runtime\Linq\Where.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\ToUniTaskAsyncEnumerable.cs">
       <Link>UniTask\Runtime\Linq\ToUniTaskAsyncEnumerable.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\MinMax.cs">
       <Link>UniTask\Runtime\Linq\MinMax.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\GroupJoin.cs">
-      <Link>UniTask\Runtime\Linq\GroupJoin.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\CombineLatest.cs">
       <Link>UniTask\Runtime\Linq\CombineLatest.cs</Link>
@@ -191,14 +224,8 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\First.cs">
       <Link>UniTask\Runtime\Linq\First.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\UnityExtensions\EveryValueChanged.cs">
-      <Link>UniTask\Runtime\Linq\UnityExtensions\EveryValueChanged.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Reverse.cs">
       <Link>UniTask\Runtime\Linq\Reverse.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Empty.cs">
-      <Link>UniTask\Runtime\Linq\Empty.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\OfType.cs">
       <Link>UniTask\Runtime\Linq\OfType.cs</Link>
@@ -206,14 +233,8 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\ToList.cs">
       <Link>UniTask\Runtime\Linq\ToList.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\SkipUntil.cs">
-      <Link>UniTask\Runtime\Linq\SkipUntil.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\TakeUntilCanceled.cs">
       <Link>UniTask\Runtime\Linq\TakeUntilCanceled.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Join.cs">
-      <Link>UniTask\Runtime\Linq\Join.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Intersect.cs">
       <Link>UniTask\Runtime\Linq\Intersect.cs</Link>
@@ -221,14 +242,8 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Zip.cs">
       <Link>UniTask\Runtime\Linq\Zip.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\LongCount.cs">
-      <Link>UniTask\Runtime\Linq\LongCount.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Distinct.cs">
       <Link>UniTask\Runtime\Linq\Distinct.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Last.cs">
-      <Link>UniTask\Runtime\Linq\Last.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Any.cs">
       <Link>UniTask\Runtime\Linq\Any.cs</Link>
@@ -242,15 +257,6 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Sum.cs">
       <Link>UniTask\Runtime\Linq\Sum.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Throw.cs">
-      <Link>UniTask\Runtime\Linq\Throw.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\ToHashSet.cs">
-      <Link>UniTask\Runtime\Linq\ToHashSet.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\All.cs">
-      <Link>UniTask\Runtime\Linq\All.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\ForEach.cs">
       <Link>UniTask\Runtime\Linq\ForEach.cs</Link>
     </Compile>
@@ -260,14 +266,8 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Range.cs">
       <Link>UniTask\Runtime\Linq\Range.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\TakeUntil.cs">
-      <Link>UniTask\Runtime\Linq\TakeUntil.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\SkipLast.cs">
       <Link>UniTask\Runtime\Linq\SkipLast.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\Count.cs">
-      <Link>UniTask\Runtime\Linq\Count.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\UniTask\Runtime\Linq\SkipWhile.cs">
       <Link>UniTask\Runtime\Linq\SkipWhile.cs</Link>
@@ -540,41 +540,17 @@
     <Reference Include="UnityEditor.UWP.Extensions">
       <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\MetroSupport\UnityEditor.UWP.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Plastic.Newtonsoft.Json">
-      <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="GFUnity">
       <HintPath>Assets\Plugins\ManagedLib\GFUnity.dll</HintPath>
     </Reference>
-    <Reference Include="DemiLib">
-      <HintPath>Assets\Demigiant\DemiLib\Core\DemiLib.dll</HintPath>
-    </Reference>
-    <Reference Include="GFCore">
-      <HintPath>Assets\Plugins\ManagedLib\GFCore.dll</HintPath>
+    <Reference Include="Unity.Analytics.StandardEvents">
+      <HintPath>Library\PackageCache\com.unity.analytics@3.5.3\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="dnlib">
       <HintPath>D:\project\Titansiege\GameDesigner\GameDesigner\Network\Library\dnlib.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Plastic.Antlr3.Runtime">
-      <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.YamlDotNet">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>D:\project\Titansiege\GameDesigner\GameDesigner\Network\Library\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTweenProEditor">
-      <HintPath>Assets\Demigiant\DOTweenPro\Editor\DOTweenProEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTweenEditor">
-      <HintPath>Assets\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
-    </Reference>
     <Reference Include="DemiEditor">
       <HintPath>Assets\Demigiant\DemiLib\Core\Editor\DemiEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.TextureAssets">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.IonicZip">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
@@ -591,8 +567,8 @@
     <Reference Include="Pathfinding.ClipperLib">
       <HintPath>Assets\AstarPathfindingProject\Plugins\Clipper\Pathfinding.ClipperLib.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+    <Reference Include="JMOAssets">
+      <HintPath>Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Editor\JMOAssets.dll</HintPath>
     </Reference>
     <Reference Include="GFDebuger">
       <HintPath>Assets\Plugins\ManagedLib\GFDebuger.dll</HintPath>
@@ -600,17 +576,53 @@
     <Reference Include="EPPlus">
       <HintPath>Assets\Plugins\Editor\EPPlus.dll</HintPath>
     </Reference>
-    <Reference Include="JMOAssets">
-      <HintPath>Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Editor\JMOAssets.dll</HintPath>
+    <Reference Include="ReportGeneratorMerged">
+      <HintPath>Library\PackageCache\com.unity.testtools.codecoverage@1.0.0\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Pathfinding.Poly2Tri">
-      <HintPath>Assets\AstarPathfindingProject\Plugins\Poly2Tri\Pathfinding.Poly2Tri.dll</HintPath>
-    </Reference>
     <Reference Include="DOTweenPro">
       <HintPath>Assets\Demigiant\DOTweenPro\DOTweenPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Plastic.Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="DemiLib">
+      <HintPath>Assets\Demigiant\DemiLib\Core\DemiLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.Editor">
+      <HintPath>Library\PackageCache\com.unity.analytics@3.5.3\Unity.Analytics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="GFCore">
+      <HintPath>Assets\Plugins\ManagedLib\GFCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Plastic.Antlr3.Runtime">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.YamlDotNet">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>D:\project\Titansiege\GameDesigner\GameDesigner\Network\Library\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>Assets\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenProEditor">
+      <HintPath>Assets\Demigiant\DOTweenPro\Editor\DOTweenProEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.TextureAssets">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.Tracker">
+      <HintPath>Library\PackageCache\com.unity.analytics@3.5.3\Unity.Analytics.Tracker.dll</HintPath>
+    </Reference>
+    <Reference Include="Pathfinding.Poly2Tri">
+      <HintPath>Assets\AstarPathfindingProject\Plugins\Poly2Tri\Pathfinding.Poly2Tri.dll</HintPath>
     </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>

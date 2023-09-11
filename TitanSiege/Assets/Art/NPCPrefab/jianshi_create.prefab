@@ -6463,7 +6463,7 @@ Animator:
   m_GameObject: {fileID: 2903515321404052824}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 601ffe7fe80a0614a99f10a4eeac07fe, type: 3}
-  m_Controller: {fileID: 9100000, guid: ed18c3e121e0bb84084c6aa0fc8008eb, type: 2}
+  m_Controller: {fileID: 9100000, guid: 787c4a27ede28904cbb2dd1e367e47b2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -6485,16 +6485,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63df4e6298121c749ac49c5dd6a5e16d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_NpcType: 0
   m_GDID: 0
   m_Nab: {fileID: 0}
   m_Id: 0
   m_Wpdorsum: {fileID: 0}
   m_WpHand: {fileID: 0}
-  m_Character: {fileID: 0}
-  CurrentState: 0
-  isCanMove: 1
-  m_IsNetPlayer: 0
+  m_HPRoot: {fileID: 0}
+  m_State: {fileID: 0}
+  m_SkillId: 
+  m_CurrentSkillId: -1
+  m_Selected: {fileID: 0}
   isPlaySkill: 0
+  m_IsDie: 0
+  m_Character: {fileID: 0}
+  isCanMove: 1
+  FP:
+    BaseDodge: 0.01
+    BaseCrit: 0.01
+    PlayerName: 
+  m_Resetidletime: 0
 --- !u!1 &2903515321404052826
 GameObject:
   m_ObjectHideFlags: 0

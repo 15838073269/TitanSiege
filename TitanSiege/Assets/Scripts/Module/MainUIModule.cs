@@ -52,7 +52,7 @@ namespace GF.MainGame.Module {
         public void BtnClick(string name) {
             switch (name) {
                 case "info":
-                    //info.Show<NPCDataBase>(nb);
+                    UIManager.GetInstance.OpenWindow(AppConfig.InfoUIWindow);
                     break;
                 case "bag":
                     break;

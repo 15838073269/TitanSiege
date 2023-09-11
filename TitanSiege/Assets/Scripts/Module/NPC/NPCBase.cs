@@ -248,7 +248,10 @@ namespace GF.MainGame.Module.NPC {
                 if (m_GDID == ClientBase.Instance.UID) {
                     if (skillid == -1) {
                         ClientBase.Instance.AddOperation(new Operation(Command.SwitchState, m_GDID) { index1 = stateid});
-                    } else {
+                    } else if (skillid != -1) {
+                        if (m_IsDie) {
+                            return;
+                        }
                         SkillDataBase sd = ConfigerManager.m_SkillData.FindSkillByID(skillid);
                         if (FP.FightMagic < sd.xiaohao) {//魔力不够，直接返回idle
                             UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "没有魔力了!");
@@ -259,6 +262,9 @@ namespace GF.MainGame.Module.NPC {
                     }
                 }
                 if (sendto) {//能否发送，有的时候是不用执行的，比如释放技能却魔力不足
+                    if (m_IsDie&& stateid!= m_AllStateID["die"]) {
+                        return;
+                    }
                     m_State.StatusEntry(stateid);
                 }
             }

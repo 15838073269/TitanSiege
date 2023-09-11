@@ -16,7 +16,6 @@ using Net.Client;
 using System.Collections.Generic;
 using UnityEngine;
 using GameDesigner;
-using System.Drawing.Imaging;
 
 public class PSkillAction : MyAcitonCore {
     private Player m_Self;
@@ -219,30 +218,5 @@ public class PSkillAction : MyAcitonCore {
             m_Self.isPlaySkill = false;
             AppTools.Send<float, bool>((int)MoveEvent.SetSkillMove, 0f, false);
         }
-        //释放技能的瞬间，可能玩家已经被怪物打死了，但技能不会停止，所以，共计完成后，还需要检查一下自己有没有死亡
-        m_Self.Check();
-        ////没有死亡，就判断一下是否需要连击
-        //Debuger.Log(m_Self.m_Islianji);
-        //if (!m_Self.m_IsDie && m_Self.m_Islianji) {
-        //    if (m_Lianjiid == 0) {
-        //        m_Self.m_CurrentSkillId = m_Self.m_SkillId[1];
-        //        m_Self.ChangeState(m_Self.m_AllStateID["lianji3"], m_Self.m_CurrentSkillId);
-        //        m_Lianjiid++;
-        //    } else if (m_Lianjiid == 1) {
-        //        m_Self.m_CurrentSkillId = m_Self.m_SkillId[2];
-        //        m_Self.ChangeState(m_Self.m_AllStateID["lianji4"], m_Self.m_CurrentSkillId);
-        //        m_Lianjiid++;
-        //    } else if (m_Lianjiid == 2) {
-        //        m_Self.m_CurrentSkillId = m_Self.m_SkillId[0];
-        //        m_Self.ChangeState(m_Self.m_AllStateID["lianji1"], m_Self.m_CurrentSkillId);
-        //        m_Lianjiid = 0;
-        //    } else { //错误处理
-        //        m_Self.m_CurrentSkillId = m_Self.m_SkillId[0];
-        //        m_Self.ChangeState(m_Self.m_AllStateID["lianji1"], m_Self.m_CurrentSkillId);
-        //        m_Lianjiid = 0;
-        //    }
-        //    m_Self.m_Islianji = false;
-        //    m_Self.isPlaySkill = true;
-        //}
     }
 }

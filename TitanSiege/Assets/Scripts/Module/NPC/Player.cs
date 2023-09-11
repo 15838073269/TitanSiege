@@ -43,6 +43,7 @@ namespace GF.MainGame.Module.NPC {
         }
 
         internal void Check() {//检查角色是否死亡并同步生命值
+            
             if (FP.FightHP <=0) { //服务器同步的血量已经小于等于0了。此时客户端还没死掉
                 m_IsDie = true;
                 FP.FightHP = 0;

@@ -57,28 +57,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_MotionBlur_URP.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackColorAdjustments_URP.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_ChannelMixer_URP.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_GlobalPPVolumeAutoBlend_URP.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackPaniniProjection_URP.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_ChromaticAberration_URP.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_DepthOfField_URP.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Shakers\MMPaniniProjectionShaker_URP.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackWhiteBalance_URP.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_Vignette_URP.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Shakers\MMVignetteShaker_URP.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_LensDistortion_URP.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Shakers\MMChannelMixerShaker_URP.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_ColorAdjustments_URP.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackLensDistortion_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Helpers\MMGlobalPostProcessingVolumeAutoBlend_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Shakers\MMDepthOfFieldShaker_URP.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackColorAdjustments_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Shakers\MMWhiteBalanceShaker_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Shakers\MMBloomShaker_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_PaniniProjection_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Shakers\MMAutoFocus_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackVignette_URP.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_ChannelMixer_URP.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_GlobalPPVolumeAutoBlend_URP.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackPaniniProjection_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackMotionBlur_URP.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_ChromaticAberration_URP.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_DepthOfField_URP.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Shakers\MMPaniniProjectionShaker_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackBloom_URP.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackWhiteBalance_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Shakers\MMFilmGrainShaker_URP.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_Vignette_URP.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Shakers\MMVignetteShaker_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Shakers\MMChromaticAberrationShaker_URP.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_LensDistortion_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_Bloom_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_FilmGrain_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackDepthOfField_URP.cs" />
@@ -86,9 +89,6 @@
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackChannelMixer_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackChromaticAberration_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Shakers\MMMotionBlurShaker_URP.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Shakers\MMChannelMixerShaker_URP.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_ColorAdjustments_URP.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackLensDistortion_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\Legacy\MMFeedbackFilmGrain_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Feedbacks\MMF_WhiteBalance_URP.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\URP\Shakers\MMLensDistortionShaker_URP.cs" />
@@ -359,41 +359,17 @@
     <Reference Include="UnityEditor.UWP.Extensions">
       <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\MetroSupport\UnityEditor.UWP.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Plastic.Newtonsoft.Json">
-      <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="GFUnity">
       <HintPath>Assets\Plugins\ManagedLib\GFUnity.dll</HintPath>
     </Reference>
-    <Reference Include="DemiLib">
-      <HintPath>Assets\Demigiant\DemiLib\Core\DemiLib.dll</HintPath>
-    </Reference>
-    <Reference Include="GFCore">
-      <HintPath>Assets\Plugins\ManagedLib\GFCore.dll</HintPath>
+    <Reference Include="Unity.Analytics.StandardEvents">
+      <HintPath>Library\PackageCache\com.unity.analytics@3.5.3\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="dnlib">
       <HintPath>D:\project\Titansiege\GameDesigner\GameDesigner\Network\Library\dnlib.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Plastic.Antlr3.Runtime">
-      <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.YamlDotNet">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>D:\project\Titansiege\GameDesigner\GameDesigner\Network\Library\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTweenProEditor">
-      <HintPath>Assets\Demigiant\DOTweenPro\Editor\DOTweenProEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTweenEditor">
-      <HintPath>Assets\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
-    </Reference>
     <Reference Include="DemiEditor">
       <HintPath>Assets\Demigiant\DemiLib\Core\Editor\DemiEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.TextureAssets">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.IonicZip">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
@@ -410,8 +386,8 @@
     <Reference Include="Pathfinding.ClipperLib">
       <HintPath>Assets\AstarPathfindingProject\Plugins\Clipper\Pathfinding.ClipperLib.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+    <Reference Include="JMOAssets">
+      <HintPath>Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Editor\JMOAssets.dll</HintPath>
     </Reference>
     <Reference Include="GFDebuger">
       <HintPath>Assets\Plugins\ManagedLib\GFDebuger.dll</HintPath>
@@ -419,17 +395,53 @@
     <Reference Include="EPPlus">
       <HintPath>Assets\Plugins\Editor\EPPlus.dll</HintPath>
     </Reference>
-    <Reference Include="JMOAssets">
-      <HintPath>Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Editor\JMOAssets.dll</HintPath>
+    <Reference Include="ReportGeneratorMerged">
+      <HintPath>Library\PackageCache\com.unity.testtools.codecoverage@1.0.0\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Pathfinding.Poly2Tri">
-      <HintPath>Assets\AstarPathfindingProject\Plugins\Poly2Tri\Pathfinding.Poly2Tri.dll</HintPath>
-    </Reference>
     <Reference Include="DOTweenPro">
       <HintPath>Assets\Demigiant\DOTweenPro\DOTweenPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Plastic.Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="DemiLib">
+      <HintPath>Assets\Demigiant\DemiLib\Core\DemiLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.Editor">
+      <HintPath>Library\PackageCache\com.unity.analytics@3.5.3\Unity.Analytics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="GFCore">
+      <HintPath>Assets\Plugins\ManagedLib\GFCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Plastic.Antlr3.Runtime">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.YamlDotNet">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>D:\project\Titansiege\GameDesigner\GameDesigner\Network\Library\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>Assets\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenProEditor">
+      <HintPath>Assets\Demigiant\DOTweenPro\Editor\DOTweenProEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.TextureAssets">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.Tracker">
+      <HintPath>Library\PackageCache\com.unity.analytics@3.5.3\Unity.Analytics.Tracker.dll</HintPath>
+    </Reference>
+    <Reference Include="Pathfinding.Poly2Tri">
+      <HintPath>Assets\AstarPathfindingProject\Plugins\Poly2Tri\Pathfinding.Poly2Tri.dll</HintPath>
     </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
