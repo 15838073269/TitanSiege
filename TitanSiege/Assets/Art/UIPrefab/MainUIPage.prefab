@@ -1197,11 +1197,13 @@ MonoBehaviour:
   zhankaibtn: {fileID: 65192670233138369}
   bagbtn: {fileID: 3066433355733571674}
   skillbtn: {fileID: 7783988235458571750}
-  tianfubtn: {fileID: 4893456734967318028}
+  ronglubtn: {fileID: 4893456734967318028}
   renwubtn: {fileID: 6643923546209378025}
   shezhibtn: {fileID: 1352262690336225019}
   renwuhiden: {fileID: 641786294762195981}
   headbtn: {fileID: 5013748571548319120}
+  infobtn: {fileID: 2121368378860640812}
+  pengyoubtn: {fileID: 412697943513466765}
   playername: {fileID: 1669877598}
   level: {fileID: 116286175}
   hp: {fileID: 302730799}

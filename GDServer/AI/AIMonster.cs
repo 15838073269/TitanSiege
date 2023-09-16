@@ -88,13 +88,23 @@ namespace GDServer.AI {
             PatrolCall();
         }
 
-        internal void PatrolCall() {
-            scene.AddOperation(new Operation(Command.EnemyPatrol, identity, transform.position, transform.rotation) {
-                cmd1 = state,
-                cmd2 = patrolstate,
-                index = enemyindex,
-                index1 = FP.FightHP,
-            });
+        internal void PatrolCall(bool isdead = false) {
+            if (!isdead) {
+                scene.AddOperation(new Operation(Command.EnemyPatrol, identity, transform.position, transform.rotation) {
+                    cmd1 = state,
+                    cmd2 = patrolstate,
+                    index = enemyindex,
+                    index1 = FP.FightHP,
+                });
+            } else {//怪物死亡的情况
+                scene.AddOperation(new Operation(Command.EnemyPatrol, identity, transform.position, transform.rotation) {
+                    cmd1 = state,
+                    cmd2 = patrolstate,
+                    index = enemyindex,
+                    index1 = FP.FightHP,
+                    index2 = current.Exp,
+                });
+            }
         }
 
         internal void OnDamage(int damage) {
@@ -109,7 +119,7 @@ namespace GDServer.AI {
                 ThreadManager.Event.AddEvent(10f, () => {
                     Resurrection();
                 });
-                PatrolCall();//发送怪物死亡命令
+                PatrolCall(true);//发送怪物死亡命令
             } else {
                 state = 1;
             }
@@ -149,7 +159,7 @@ namespace GDServer.AI {
                     break;
             }
             //闪避,基础闪避率0.01f;
-            FP.Dodge = jcDodge + (float)current.Minjie / 1000f >= 0.3f ? 0.3f : (float)current.Minjie / 1000f;//属性加成的闪避
+            FP.Dodge = jcDodge + (float)current.Minjie / 1000f >= 0.3f ? 0.3f : (float)current.Minjie / 1000f+ jcDodge;//属性加成的闪避
             FP.Crit = jcCrit + (float)current.Xingyun * jcCrit >= 0.5f ? 0.5f : (float)current.Xingyun * jcCrit;//暴击率
             FP.FightHP = current.Shengming + current.Tizhi * 10;
             FP.FightMaxHp = FP.FightHP;//战斗最大生命

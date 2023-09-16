@@ -4,6 +4,7 @@ using GF.Const;
 using GF.MainGame;
 using GF.MainGame.Module;
 using GF.MainGame.Module.NPC;
+using GF.Service;
 using GF.Unity.AB;
 using GF.Utils;
 using Net.Client;
@@ -149,9 +150,14 @@ namespace GF.NetWork {
                     monster.m_NetState = opt.cmd1;
                     monster.m_PatrolState = opt.cmd2;
                     monster.FP.FightHP = opt.index1;
+                    //怪物死亡，给玩家加经验
+                    if (opt.index2 > 0 && monster.AttackTarget != null) {
+                        UserService.GetInstance.m_CurrentChar.Exp += opt.index2;
+                    }
                     monster.StatusEntry();
                     monster.transform.position = opt.position;
                     monster.transform.rotation = opt.rotation;
+                    
                     break;
                 case Command.EnemySwitchState://两种情况使用这个命令，1、主控客户端告知服务端不再同步怪物数据，由服务的自己控制，此时命令发送cmd1和cmd2都是0
                                               //2、主控客户端同步怪物状态给服务器，服务器广播给其他客户端

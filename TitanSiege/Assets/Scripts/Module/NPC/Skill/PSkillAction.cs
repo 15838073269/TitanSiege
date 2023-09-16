@@ -16,6 +16,7 @@ using Net.Client;
 using System.Collections.Generic;
 using UnityEngine;
 using GameDesigner;
+using GF.Service;
 
 public class PSkillAction : MyAcitonCore {
     private Player m_Self;

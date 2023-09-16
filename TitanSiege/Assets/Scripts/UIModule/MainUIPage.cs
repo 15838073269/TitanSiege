@@ -11,6 +11,7 @@ using GF.MainGame.Module.NPC;
 using GF.Service;
 using GF.Unity.AB;
 using GF.Unity.UI;
+using Net.Client;
 using Titansiege;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,12 +22,13 @@ namespace GF.MainGame.UI {
         public Button zhankaibtn;
         public Button bagbtn;
         public Button skillbtn;
-        public Button tianfubtn;
+        public Button ronglubtn;
         public Button renwubtn;
         public Button shezhibtn;
         public Button renwuhiden;
         public Button headbtn;
-
+        public Button infobtn;
+        public Button pengyoubtn;
         public Text playername;
         public Text level;
         public Text hp;
@@ -42,24 +44,30 @@ namespace GF.MainGame.UI {
             isrenwuhiden = true;//任务列表是否展开，默认展开
             renwuhiden.onClick.AddListener(TaskOpenOrHiden);
             zhankaibtn.onClick.AddListener(BtnOpenOrHiden);
-            //headbtn.onClick.AddListener(() => {
-            //    BtnClick("info");
-            //});
-            //bagbtn.onClick.AddListener(() => {
-            //    BtnClick("bag");
-            //});
-            ////skillbtn.onClick.AddListener(() => {
-            ////    BtnClick("skill");
-            ////});
-            //tianfubtn.onClick.AddListener(() => {
-            //    BtnClick("tianfu");
-            //});
-            //shezhibtn.onClick.AddListener(() => {
-            //    BtnClick("shezhi");
-            //});
-            //renwubtn.onClick.AddListener(() => {
-            //    BtnClick("renwu");
-            //});
+            infobtn.onClick.AddListener(() => {
+                BtnClick("info");
+            });
+            headbtn.onClick.AddListener(() => {
+                BtnClick("info");
+            });
+            bagbtn.onClick.AddListener(() => {
+                BtnClick("bag");
+            });
+            skillbtn.onClick.AddListener(() => {
+                BtnClick("skill");
+            });
+            ronglubtn.onClick.AddListener(() => {
+                BtnClick("tianfu");
+            });
+            shezhibtn.onClick.AddListener(() => {
+                BtnClick("shezhi");
+            });
+            renwubtn.onClick.AddListener(() => {
+                BtnClick("renwu");
+            });
+            pengyoubtn.onClick.AddListener(() => {
+                BtnClick("pengyou");
+            });
         }
         public  void Init(Player p=null) {
             if (p == null) {

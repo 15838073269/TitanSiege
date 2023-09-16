@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SceneData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <AllSceneDatas ID="1" 场景名称="圣城废墟" 场景描述="天空圣城纪元前的废墟。" 场景音乐="audio/night.mp4">
+    <怪物list NDID="1" 预制体路径="NPCPrefab/cc.prefab" PosX="0.2" PosY="0.2" PosZ="0.2" RotaX="0.2" RotaY="0.2" RotaZ="0.2" ScalX="0.2" ScalY="0.2" ScalZ="0.2" />
+    <NPClist NDID="1" 预制体路径="NPCPrefab/cc.prefab" PosX="0.2" PosY="0.2" PosZ="0.2" RotaX="0.2" RotaY="0.2" RotaZ="0.2" ScalX="0.2" ScalY="0.2" ScalZ="0.2">
+      <绑定任务>1</绑定任务>
+      <绑定任务>2</绑定任务>
+      <绑定任务>3</绑定任务>
+    </NPClist>
+  </AllSceneDatas>
+</SceneData>

@@ -81,7 +81,6 @@ namespace GF.MainGame.Module.NPC {
             get {
                 if (m_Data == null) {
                     m_Data = ConfigerManager.m_NPCData.FindNPCByID(m_Id);
-                    FP.FightLevel = m_Data.Level;
                 }
                 return m_Data;
             }
@@ -179,12 +178,12 @@ namespace GF.MainGame.Module.NPC {
                         FP.Defense = cd.Liliang * 3 + cd.Tizhi * 7;
                         break;
                     case (int)Zhiye.法师:
-                        FP.Attack = UserService.GetInstance.m_CurrentChar.Moli * 10;
+                        FP.Attack = cd.Moli * 10;
                         FP.Defense = cd.Moli * 4 + cd.Tizhi * 6;
                         jcDodge = 0.02f;
                         break;
                     case (int)Zhiye.游侠:
-                        FP.Attack = UserService.GetInstance.m_CurrentChar.Minjie * 10;
+                        FP.Attack = cd.Minjie * 10;
                         FP.Defense = cd.Minjie * 4 + cd.Tizhi * 6;
                         jcDodge = 0.03f;
                         break;
@@ -192,7 +191,7 @@ namespace GF.MainGame.Module.NPC {
                         break;
                 }
                 //闪避,基础闪避率0.01f;
-                FP.Dodge = jcDodge + (float)cd.Minjie / 1000f >= 0.3f ? 0.3f : (float)cd.Minjie / 1000f;//属性加成的闪避
+                FP.Dodge = jcDodge + (float)cd.Minjie / 1000f >= 0.3f ? 0.3f : (float)cd.Minjie / 1000f+ jcDodge;//属性加成的闪避
                 FP.Crit = jcCrit + (float)cd.Xingyun * jcCrit >= 0.5f ? 0.5f : (float)cd.Xingyun * jcCrit;//暴击率
                 FP.FightHP = cd.Shengming + cd.Tizhi * 10;
                 FP.FightMaxHp = FP.FightHP;//战斗时最大生命
@@ -201,30 +200,31 @@ namespace GF.MainGame.Module.NPC {
             } else if(m_NpcType == NpcType.monster){//计算怪物的属性
                 switch (Data.Zhiye) {
                     case (int)Zhiye.剑士:
-                        FP.Attack = (Data.Liliang+ FP.FightLevel *LevelData.Liliang) * 10;
-                        FP.Defense = (Data.Liliang + FP.FightLevel * LevelData.Liliang) * 3 + (Data.Tizhi + FP.FightLevel * LevelData.Tizhi) * 7;
+                        FP.Attack = (Data.Liliang) * 10;
+                        FP.Defense = (Data.Liliang) * 3 + (Data.Tizhi ) * 7;
                         break;
                     case (int)Zhiye.法师:
-                        FP.Attack = (Data.Moli + FP.FightLevel * LevelData.Moli) * 10;
-                        FP.Defense = (Data.Moli + FP.FightLevel * LevelData.Moli) * 4 + (Data.Tizhi + FP.FightLevel * LevelData.Tizhi) * 6;
+                        FP.Attack = (Data.Moli) * 10;
+                        FP.Defense = (Data.Moli) * 4 + (Data.Tizhi) * 6;
                         jcDodge = 0.02f;
                         break;
                     case (int)Zhiye.游侠:
-                        FP.Attack = (Data.Minjie + FP.FightLevel * LevelData.Minjie) * 10;
-                        FP.Defense = (Data.Minjie + FP.FightLevel * LevelData.Minjie) * 4 + (Data.Tizhi + FP.FightLevel * LevelData.Tizhi) * 6;
+                        FP.Attack = (Data.Minjie) * 10;
+                        FP.Defense = (Data.Minjie ) * 4 + (Data.Tizhi) * 6;
                         jcDodge = 0f;
                         break;
                     default:
                         break;
                 }
                 //闪避,基础闪避率0.01f;
-                FP.Dodge = jcDodge + (float)(Data.Minjie + FP.FightLevel * LevelData.Minjie) / 1000f >= 0.3f ? 0.3f : (float)(Data.Minjie + FP.FightLevel * LevelData.Minjie ) / 1000f;//属性加成的闪避
-                FP.Crit = jcCrit + (float)(Data.Xingyun + FP.FightLevel * LevelData.Xingyun) * jcCrit >= 0.5f ? 0.5f : (float)(Data.Xingyun + FP.FightLevel * LevelData.Xingyun) * jcCrit;//暴击率
-                FP.FightMaxHp = (Data.Shengming + FP.FightLevel * LevelData.Shengming) + (Data.Tizhi + FP.FightLevel * LevelData.Tizhi) * 10;//战斗时最大生命
+                FP.Dodge = jcDodge + (float)(Data.Minjie) / 1000f >= 0.3f ? 0.3f : (float)(Data.Minjie ) / 1000f + jcDodge;//属性加成的闪避
+                FP.Crit = jcCrit + (float)(Data.Xingyun) * jcCrit >= 0.5f ? 0.5f : (float)(Data.Xingyun) * jcCrit;//暴击率
+                FP.FightMaxHp = (Data.Shengming) + (Data.Tizhi) * 10;//战斗时最大生命
                 FP.FightHP = FP.FightMaxHp;//战斗生命
-                FP.FightMaxMagic = (Data.Fali + FP.FightLevel * LevelData.Fali) + (Data.Moli + FP.FightLevel * LevelData.Moli) * 10;//战斗最大法力
+                FP.FightMaxMagic = (Data.Fali) + (Data.Moli) * 10;//战斗最大法力
                 FP.FightMagic = FP.FightMaxMagic;//战斗法力
             }
+           
             //本机玩家和怪物创建显示血条和名称，网络玩家是在物体创建时创建,可能重复创建，所以需要再创建时排除一下重复
             if ((NpcType.player ==m_NpcType && m_GDID==ClientBase.Instance.UID) || m_NpcType == NpcType.monster) {
                 AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, this);

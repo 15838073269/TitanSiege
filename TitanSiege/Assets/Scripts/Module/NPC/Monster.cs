@@ -141,8 +141,8 @@ namespace GF.MainGame.Module.NPC {
                     break;
                 case 5://服务端的5是死亡
                     m_IsDie = true;
-                    Debuger.Log("怪物死亡");
                     m_State.StatusEntry(m_AllStateID["die"]);
+                    
                     break;
                 default:
                     break;

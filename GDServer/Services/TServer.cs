@@ -87,6 +87,10 @@ namespace GDServer.Services
                             client.current = client.CharacterList[i];
                             client.AddRpc(client.current);
                             client.UpdateFightProps();
+                            //读取升级配置表数据
+                            if (client.current.le) { 
+                                
+                            }
                             Debuger.Log($"客户端（id{client.UserID}）选择了角色id{client.current.ID}");
                             break;
                         }

@@ -115,18 +115,7 @@ public class FightProp
 
         }
     }
-    protected int m_FightLevel = 0;//等级
-    public virtual int FightLevel {
-        get {
-            return m_FightLevel;
-        }
-        set {
-            m_FightLevel = value - 1;
-            //通知ui层数据发生变化
-
-        }
-    }
-   
+  
     #endregion
 }
 /// <summary>

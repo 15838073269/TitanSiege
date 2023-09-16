@@ -79,12 +79,6 @@ namespace Binding
                 stream.Write(value.FightMaxMagic);
             }
 
-            if (value.FightLevel != 0)
-            {
-                NetConvertBase.SetBit(ref bits[1], 4, true);
-                stream.Write(value.FightLevel);
-            }
-
             int pos1 = stream.Position;
             stream.Position = pos;
             stream.Write(bits, 0, 2);
@@ -134,9 +128,6 @@ namespace Binding
 
 			if(NetConvertBase.GetBit(bits[1], 3))
 				value.FightMaxMagic = stream.ReadInt32();
-
-			if(NetConvertBase.GetBit(bits[1], 4))
-				value.FightLevel = stream.ReadInt32();
 
 		}
 

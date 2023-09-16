@@ -94,7 +94,7 @@ namespace GF.MainGame.Data {
         [XmlAttribute("法力")]
         public ushort Fali { get; set; }
        
-        [XmlAttribute("升级经验")]
+        [XmlAttribute("升级经验")]//基础值，比如说，如果UpExp是100，5级实际升级经验就是 100*(5*5),6级是 100*(6*6)
         public int UpExp { get; set; }
 
         [XmlAttribute("体质")]//加层防御和生命值

@@ -17,6 +17,7 @@ namespace GDServer
             //NDebug.Log("开始创建服务器.....");
             //个人习惯，没有使用框架的NDebug,而是使用自己的Debuger类输出。后续如果发现NDebug更优秀的地方再更换吧
             InitDebuger();
+            LoadConfigTable();
             Debuger.Log("开始创建服务器.....");
             TServer server = new TServer();//创建服务器对象
             server.OnlineLimit = 24000;//服务器最大运行2500人连接
@@ -62,6 +63,15 @@ namespace GDServer
             } else {
                 Debuger.Log("日志写入本地未开启！");
             }
+        }
+        /// <summary>
+        /// 加载配置表
+        /// </summary>
+        private static void LoadConfigTable() {
+            //ConfigerManager.GetInstance.LoadData<NPCData>(CT.TABLE_NPC);
+            //ConfigerManager.GetInstance.LoadData<SkillData>(CT.TABLE_SKILL);
+            ConfigerManager.GetInstance.LoadData<LevelUpData>(CT.TABLE_LEVEL);
+            //ConfigerManager.GetInstance.LoadData<NameData>(CT.TABLE_NAME);  //名字不是每次都用，换到其他地方初始化
         }
     }
   

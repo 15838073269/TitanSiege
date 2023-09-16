@@ -14,6 +14,7 @@ namespace GDServer {
         public UsersData? User =new UsersData();
         public  GDScene scene;
         public bool m_IsDie = false;
+        public LevelUpData m_LevelUp;
 
         public FightProp FP = new FightProp();//战斗属性
         public override void OnEnter() {
@@ -126,7 +127,7 @@ namespace GDServer {
                     break;
             }
             //闪避,基础闪避率0.01f;
-            FP.Dodge = jcDodge + (float)current.Minjie / 1000f >= 0.3f ? 0.3f : (float)current.Minjie / 1000f;//属性加成的闪避
+            FP.Dodge = jcDodge + (float)current.Minjie / 1000f >= 0.3f ? 0.3f : (float)current.Minjie / 1000f + jcDodge;//属性加成的闪避
             FP.Crit = jcCrit + (float)current.Xingyun * jcCrit >= 0.5f ? 0.5f : (float)current.Xingyun * jcCrit;//暴击率
             FP.FightHP = current.Shengming + current.Tizhi * 10;
             FP.FightMagic = current.Fali + current.Moli * 10;
@@ -145,7 +146,16 @@ namespace GDServer {
             //    index3 = FP.FightMaxMagic,
             //});
         }
+        /// <summary>
+        /// 增加经验
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        internal void AddExp(int exp) {
+            current.Exp += exp;//已经同步到数据库了
+            //检查是否升级
 
+        }
     }
     
 }

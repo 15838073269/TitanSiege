@@ -58,11 +58,13 @@ namespace GF.MainGame.Module {
                     break;
                 case "skill":
                     break;
-                case "tianfu":
+                case "ronglu":
                     break;
                 case "renwu":
                     break;
-                case "sehzhi":
+                case "shezhi":
+                    break;
+                case "pengyou":
                     break;
                 default:
                     break;
