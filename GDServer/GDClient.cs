@@ -1,6 +1,7 @@
 ﻿using Net.Component;
 using Net.Server;
 using Net.Share;
+using System.Xml.Linq;
 using Titansiege;
 using static Google.Protobuf.Reflection.FieldOptions.Types;
 
@@ -11,10 +12,10 @@ namespace GDServer {
         internal NTransform transform = new NTransform();
         public List<CharactersData>? CharacterList = new List<CharactersData>();
         public CharactersData? current;//当前登录角色
-        public UsersData? User =new UsersData();
-        public  GDScene scene;
+        public UsersData? User = new UsersData();
+        public GDScene scene;
         public bool m_IsDie = false;
-        public LevelUpData m_LevelUp;
+        public LevelUpDataBase m_LevelUp;
 
         public FightProp FP = new FightProp();//战斗属性
         public override void OnEnter() {
@@ -37,7 +38,7 @@ namespace GDServer {
             if (m_IsDie)
                 return;
             FP.FightHP -= damage;
-            if (FP.FightHP <=0&& !m_IsDie) {
+            if (FP.FightHP <= 0 && !m_IsDie) {
                 m_IsDie = true;
             }
             scene.AddOperation(new Operation(Command.PlayerState, UserID) {
@@ -47,9 +48,9 @@ namespace GDServer {
                 index3 = FP.FightMaxMagic,
             });
         }
-        public void CostMp(int cost) { 
+        public void CostMp(int cost) {
             FP.FightMagic -= cost;
-            if (FP.FightMagic<0) {//正常这里不会进来，因为客户端会直接限制住无魔力释放
+            if (FP.FightMagic < 0) {//正常这里不会进来，因为客户端会直接限制住无魔力释放
                 FP.FightMagic = 0;
             }
             scene.AddOperation(new Operation(Command.PlayerState, UserID) {
@@ -75,7 +76,7 @@ namespace GDServer {
 
         public override void OnRemoveClient() {
             base.OnRemoveClient();
-            
+
         }
 
         public override void OnSignOut() {
@@ -152,10 +153,57 @@ namespace GDServer {
         /// <param name="exp"></param>
         /// <exception cref="NotImplementedException"></exception>
         internal void AddExp(int exp) {
-            current.Exp += exp;//已经同步到数据库了
+            int allexp = current.Exp + exp;//总经验
             //检查是否升级
-
+            short uplevel = (short)current.Level;
+            int upneedexp = uplevel * uplevel * m_LevelUp.UpExp;//等级平方*升级模板升级系数
+            while (allexp >= upneedexp) {//提前计算一下获得的经验可以升多少级
+                //这里的逻辑是，如果获得经验加上原有经验大于升级经验，就直接升级，然后减去已使用的升级经验后，再判断剩余经验是否够升级，循环到不能升级位置，从而得出能升级多少次
+                uplevel++;
+                allexp -= upneedexp;
+                upneedexp = uplevel * uplevel * m_LevelUp.UpExp;
+            }
+            current.Exp = allexp;//还剩的经验值
+            short uptime = (short)(uplevel - (short)current.Level);//升多少级
+            if (uptime>0) {
+                UpProp(uptime);//递归调用，容易堆栈溢出
+            }
+            
+        }
+        /// <summary>
+        /// 升级的方法
+        /// </summary>
+        /// <param name="uplv">升级多少次</param>
+        private void UpProp(short uplv) {
+            current.Liliang += (short)(m_LevelUp.Liliang* uplv);
+            current.Tizhi += (short)(m_LevelUp.Tizhi * uplv);
+            current.Minjie += (short)(m_LevelUp.Minjie * uplv);
+            current.Moli += (short)(m_LevelUp.Moli * uplv);
+            current.Shengming += (short)(m_LevelUp.Shengming * uplv);
+            current.Fali += (short)(m_LevelUp.Fali * uplv);
+            current.Meili += (short)(m_LevelUp.Meili * uplv);
+            current.Xingyun += (short)(m_LevelUp.Xingyun * uplv);
+            current.Lianjin += (short)(m_LevelUp.Lianjin * uplv);
+            current.Duanzao += (short)(m_LevelUp.Duanzao * uplv);
+            current.Level += (sbyte)uplv;
+            current.Update();
+            UpdateFightProps();
+            //下发所有客户端更新属性
+            //scene.AddOperation(new Operation(Command.PlayerUpdateProp, UserID) {
+            //    name = current.Name,
+            //    index = FP.FightHP,
+            //    index1 = FP.FightMagic,
+            //    index2 = FP.FightMaxHp,
+            //    index3 = FP.FightMaxMagic,
+            //});
+            //重新计算属性
+            //为了节省带宽，这里只发送一个升级命令和，具体升级计算由客户端自己完成
+            scene.AddOperation(new Operation(Command.PlayerUpdateProp, UserID) {
+                index = current.Level,
+                index1 = current.Exp,
+                index2 = FP.FightMaxHp,//客户端网络玩家使用
+            });
+            
         }
     }
-    
 }

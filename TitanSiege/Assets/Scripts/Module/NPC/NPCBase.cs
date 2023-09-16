@@ -19,6 +19,7 @@ using Net.Share;
 using System.Collections.Generic;
 using Titansiege;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.EventSystems;
 
 namespace GF.MainGame.Module.NPC {
@@ -166,37 +167,42 @@ namespace GF.MainGame.Module.NPC {
         /// <summary>
         /// 根据属性写入战斗属性
         /// 暂时还未加入道具影响，例如装备，需道具模块开发完成后，再完善
+        /// uphpui,false是创建血条，true是更新血条
         /// </summary>
-        public virtual void UpdateFightProps() {
+        public virtual void UpdateFightProps(bool uphpui = false) {
             float jcDodge = FP.BaseDodge;//基础闪避率，各职业角色和怪物不同
             float jcCrit = FP.BaseCrit;//基础暴击率，各职业角色和怪物不同
             if (m_NpcType == NpcType.player) {//计算玩家的属性
-                CharactersData cd = UserService.GetInstance.m_CurrentChar;
-                switch (cd.Zhiye) {
-                    case (int)Zhiye.剑士:
-                        FP.Attack = cd.Liliang * 10;
-                        FP.Defense = cd.Liliang * 3 + cd.Tizhi * 7;
-                        break;
-                    case (int)Zhiye.法师:
-                        FP.Attack = cd.Moli * 10;
-                        FP.Defense = cd.Moli * 4 + cd.Tizhi * 6;
-                        jcDodge = 0.02f;
-                        break;
-                    case (int)Zhiye.游侠:
-                        FP.Attack = cd.Minjie * 10;
-                        FP.Defense = cd.Minjie * 4 + cd.Tizhi * 6;
-                        jcDodge = 0.03f;
-                        break;
-                    default:
-                        break;
+                if (ClientBase.Instance.UID == m_GDID) {//本机玩家
+                    CharactersData cd = UserService.GetInstance.m_CurrentChar;
+                    switch (cd.Zhiye) {
+                        case (int)Zhiye.剑士:
+                            FP.Attack = cd.Liliang * 10;
+                            FP.Defense = cd.Liliang * 3 + cd.Tizhi * 7;
+                            break;
+                        case (int)Zhiye.法师:
+                            FP.Attack = cd.Moli * 10;
+                            FP.Defense = cd.Moli * 4 + cd.Tizhi * 6;
+                            jcDodge = 0.02f;
+                            break;
+                        case (int)Zhiye.游侠:
+                            FP.Attack = cd.Minjie * 10;
+                            FP.Defense = cd.Minjie * 4 + cd.Tizhi * 6;
+                            jcDodge = 0.03f;
+                            break;
+                        default:
+                            break;
+                    }
+                    //闪避,基础闪避率0.01f;
+                    FP.Dodge = jcDodge + (float)cd.Minjie / 1000f >= 0.3f ? 0.3f : (float)cd.Minjie / 1000f + jcDodge;//属性加成的闪避
+                    FP.Crit = jcCrit + (float)cd.Xingyun * jcCrit >= 0.5f ? 0.5f : (float)cd.Xingyun * jcCrit;//暴击率
+                    FP.FightHP = cd.Shengming + cd.Tizhi * 10;
+                    FP.FightMaxHp = FP.FightHP;//战斗时最大生命
+                    FP.FightMagic = cd.Fali + cd.Moli * 10;
+                    FP.FightMaxMagic = FP.FightMagic;//战斗最大法力
+                } else { //非本机玩家，ClientSceneManager中创建对象时，或从服务器获取战斗属性，此处无需处理
+
                 }
-                //闪避,基础闪避率0.01f;
-                FP.Dodge = jcDodge + (float)cd.Minjie / 1000f >= 0.3f ? 0.3f : (float)cd.Minjie / 1000f+ jcDodge;//属性加成的闪避
-                FP.Crit = jcCrit + (float)cd.Xingyun * jcCrit >= 0.5f ? 0.5f : (float)cd.Xingyun * jcCrit;//暴击率
-                FP.FightHP = cd.Shengming + cd.Tizhi * 10;
-                FP.FightMaxHp = FP.FightHP;//战斗时最大生命
-                FP.FightMagic = cd.Fali + cd.Moli * 10;
-                FP.FightMaxMagic = FP.FightMagic;//战斗最大法力
             } else if(m_NpcType == NpcType.monster){//计算怪物的属性
                 switch (Data.Zhiye) {
                     case (int)Zhiye.剑士:
@@ -224,10 +230,13 @@ namespace GF.MainGame.Module.NPC {
                 FP.FightMaxMagic = (Data.Fali) + (Data.Moli) * 10;//战斗最大法力
                 FP.FightMagic = FP.FightMaxMagic;//战斗法力
             }
-           
             //本机玩家和怪物创建显示血条和名称，网络玩家是在物体创建时创建,可能重复创建，所以需要再创建时排除一下重复
-            if ((NpcType.player ==m_NpcType && m_GDID==ClientBase.Instance.UID) || m_NpcType == NpcType.monster) {
-                AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, this);
+            if (uphpui) {
+                AppTools.Send<NPCBase>((int)HPEvent.UpdateHp, this);
+            } else {
+                if ((NpcType.player == m_NpcType && m_GDID == ClientBase.Instance.UID) || m_NpcType == NpcType.monster) {
+                    AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, this);
+                }
             }
         }
         public virtual void InitNPCAnimaor() {
@@ -382,7 +391,39 @@ namespace GF.MainGame.Module.NPC {
                 }
             } 
         }
-        
+
+        /// <summary>
+        /// 升级的方法
+        /// </summary>
+        /// <param name="uplv">升级多少次</param>
+        public void UpProp(int level,int exp,int hp = -1) {
+            if (NpcType.player == m_NpcType) {
+                if (ClientBase.Instance.UID == m_GDID) {//本机玩家
+                    CharactersData cd = UserService.GetInstance.m_CurrentChar;
+                    int uplv = level - cd.Level;
+                    cd.Liliang += (short)(LevelData.Liliang * uplv);
+                    cd.Tizhi += (short)(LevelData.Tizhi * uplv);
+                    cd.Minjie += (short)(LevelData.Minjie * uplv);
+                    cd.Moli += (short)(LevelData.Moli * uplv);
+                    cd.Shengming += (short)(LevelData.Shengming * uplv);
+                    cd.Fali += (short)(LevelData.Fali * uplv);
+                    cd.Meili += (short)(LevelData.Meili * uplv);
+                    cd.Xingyun += (short)(LevelData.Xingyun * uplv);
+                    cd.Lianjin += (short)(LevelData.Lianjin * uplv);
+                    cd.Duanzao += (short)(LevelData.Duanzao * uplv);
+                    cd.Level += (sbyte)uplv;
+                    cd.Exp = exp;
+                } else { //非本机玩家，无需处理，只需要更新血条即可
+                    if (hp != -1) { 
+                        FP.FightMaxHp = hp; 
+                        FP.FightHP = hp;
+                    }
+                }
+            }
+            UpdateFightProps(true);
+            //播放升级特效
+            //todo
+        }
 
     }
 }

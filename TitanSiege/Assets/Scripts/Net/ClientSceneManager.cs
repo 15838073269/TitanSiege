@@ -122,24 +122,13 @@ namespace GF.NetWork {
                         p.Check();//检查角色是否死亡并同步生命值
                     }
                     break;
-                    //玩家属性变化后更新的命令
-                //case Command.PlayerUpdateProp:
-                     
-                //    //if (identitys.TryGetValue(opt.identity, out var t3)) {
-                //    //    var p = t3.GetComponent<Player>();
-                //    //    p.FP.FightHP = opt.index;
-                //    //    p.FP.FightMagic = opt.index1;
-                //    //    p.FP.FightMaxHp = opt.index2;
-                //    //    p.FP.FightMaxMagic = opt.index3;
-                //    //    p.m_PlayerName = opt.name;
-                //    //    Debuger.Log("12312"+ p.m_PlayerName);
-                //    //    //创建显示血条和名称
-                //    //    AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, p);
-                //    //    if (opt.identity == ClientBase.Instance.UID) {//本地玩家才需要更新蓝条
-                //    //        AppTools.Send<NPCBase>((int)HPEvent.UpdateMp, p);
-                //    //    }
-                //    //}
-                //    break;
+                //玩家属性变化后更新的命令
+                case Command.PlayerUpdateProp:
+                    if (identitys.TryGetValue(opt.identity, out var t3)) {
+                        var p = t3.GetComponent<Player>();
+                        p.UpProp(opt.index, opt.index1,opt.index2);
+                    }
+                    break;
                 case Command.EnemyPatrol://1、未发生攻击时，服务端同步场景怪物行为
                     //2、死亡时也是发送这个命令，不同的是，死亡只发一次，客户端处理死亡后，直到收到怪物复活命令之前，不会再进行任何同步和命令
                     var monster = CheckMonster(opt);
@@ -190,8 +179,8 @@ namespace GF.NetWork {
                     AppTools.Send<NPCBase>((int)HPEvent.UpdateHp, monster4);
                     break;
                 case Command.Resurrection://某个玩家复活
-                    if (identitys.TryGetValue(opt.identity, out var t3)) {
-                        var p = t3.GetComponent<Player>();
+                    if (identitys.TryGetValue(opt.identity, out var t4)) {
+                        var p = t4.GetComponent<Player>();
                         p.Fuhuo();
                     }
                     break;

@@ -6,6 +6,8 @@ public enum TitansiegeHashProto : ushort
     CHARACTERS_ZHIYE,
     /// <summary>等级</summary>
     CHARACTERS_LEVEL,
+    /// <summary>升级配置表的id</summary>
+    CHARACTERS_LEVELUPID,
     /// <summary>经验</summary>
     CHARACTERS_EXP,
     /// <summary>生命</summary>

@@ -527,6 +527,7 @@ namespace Titansiege
   `Name` varchar(50) NOT NULL,
   `Zhiye` tinyint(4) NOT NULL DEFAULT '0' COMMENT '职业',
   `Level` tinyint(4) NOT NULL DEFAULT '1' COMMENT '等级',
+  `levelupid` int(11) NOT NULL DEFAULT '0' COMMENT '升级配置表的id',
   `Exp` int(11) NOT NULL DEFAULT '0' COMMENT '经验',
   `Shengming` int(11) NOT NULL DEFAULT '100' COMMENT '生命',
   `Fali` int(11) NOT NULL DEFAULT '100' COMMENT '法力',

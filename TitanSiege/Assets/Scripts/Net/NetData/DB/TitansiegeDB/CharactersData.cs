@@ -204,6 +204,57 @@ namespace Titansiege
             Level = value;
         }
      
+        private readonly Int32Obs levelupid = new Int32Obs("CharactersData_levelupid", true, null);
+
+        /// <summary>升级配置表的id --获得属性观察对象</summary>
+        internal Int32Obs LevelupidObserver => levelupid;
+
+        /// <summary>升级配置表的id</summary>
+        public Int32 Levelupid { get => GetLevelupidValue(); set => CheckLevelupidValue(value, 0); }
+
+        /// <summary>升级配置表的id --同步到数据库</summary>
+        internal Int32 SyncLevelupid { get => GetLevelupidValue(); set => CheckLevelupidValue(value, 1); }
+
+        /// <summary>升级配置表的id --同步带有Key字段的值到服务器Player对象上，需要处理</summary>
+        internal Int32 SyncIDLevelupid { get => GetLevelupidValue(); set => CheckLevelupidValue(value, 2); }
+
+        private Int32 GetLevelupidValue() => this.levelupid.Value;
+
+        private void CheckLevelupidValue(Int32 value, int type) 
+        {
+            if (this.levelupid.Value == value)
+                return;
+            this.levelupid.Value = value;
+            if (type == 0)
+                CheckUpdate(4);
+            else if (type == 1)
+                LevelupidCall(false);
+            else if (type == 2)
+                LevelupidCall(true);
+            OnValueChanged?.Invoke(TitansiegeHashProto.CHARACTERS_LEVELUPID, value);
+        }
+
+        /// <summary>升级配置表的id --同步当前值到服务器Player对象上，需要处理</summary>
+        public void LevelupidCall(bool syncId = false)
+        {
+            
+            object[] objects;
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], levelupid.Value };
+            else objects = new object[] { levelupid.Value };
+#if SERVER
+            CheckUpdate(4);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LEVELUPID, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LEVELUPID, objects);
+#endif
+        }
+
+        [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_LEVELUPID)]
+        private void LevelupidRpc(Int32 value)//重写NetPlayer的OnStart方法来处理客户端自动同步到服务器数据库, 方法内部添加AddRpc(data(CharactersData));收集Rpc
+        {
+            Levelupid = value;
+        }
+     
         private readonly Int32Obs exp = new Int32Obs("CharactersData_exp", true, null);
 
         /// <summary>经验 --获得属性观察对象</summary>
@@ -226,7 +277,7 @@ namespace Titansiege
                 return;
             this.exp.Value = value;
             if (type == 0)
-                CheckUpdate(4);
+                CheckUpdate(5);
             else if (type == 1)
                 ExpCall(false);
             else if (type == 2)
@@ -242,7 +293,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], exp.Value };
             else objects = new object[] { exp.Value };
 #if SERVER
-            CheckUpdate(4);
+            CheckUpdate(5);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_EXP, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_EXP, objects);
@@ -277,7 +328,7 @@ namespace Titansiege
                 return;
             this.shengming.Value = value;
             if (type == 0)
-                CheckUpdate(5);
+                CheckUpdate(6);
             else if (type == 1)
                 ShengmingCall(false);
             else if (type == 2)
@@ -293,7 +344,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], shengming.Value };
             else objects = new object[] { shengming.Value };
 #if SERVER
-            CheckUpdate(5);
+            CheckUpdate(6);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_SHENGMING, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_SHENGMING, objects);
@@ -328,7 +379,7 @@ namespace Titansiege
                 return;
             this.fali.Value = value;
             if (type == 0)
-                CheckUpdate(6);
+                CheckUpdate(7);
             else if (type == 1)
                 FaliCall(false);
             else if (type == 2)
@@ -344,7 +395,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], fali.Value };
             else objects = new object[] { fali.Value };
 #if SERVER
-            CheckUpdate(6);
+            CheckUpdate(7);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_FALI, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_FALI, objects);
@@ -379,7 +430,7 @@ namespace Titansiege
                 return;
             this.tizhi.Value = value;
             if (type == 0)
-                CheckUpdate(7);
+                CheckUpdate(8);
             else if (type == 1)
                 TizhiCall(false);
             else if (type == 2)
@@ -395,7 +446,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], tizhi.Value };
             else objects = new object[] { tizhi.Value };
 #if SERVER
-            CheckUpdate(7);
+            CheckUpdate(8);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_TIZHI, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_TIZHI, objects);
@@ -430,7 +481,7 @@ namespace Titansiege
                 return;
             this.liliang.Value = value;
             if (type == 0)
-                CheckUpdate(8);
+                CheckUpdate(9);
             else if (type == 1)
                 LiliangCall(false);
             else if (type == 2)
@@ -446,7 +497,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], liliang.Value };
             else objects = new object[] { liliang.Value };
 #if SERVER
-            CheckUpdate(8);
+            CheckUpdate(9);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LILIANG, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LILIANG, objects);
@@ -481,7 +532,7 @@ namespace Titansiege
                 return;
             this.minjie.Value = value;
             if (type == 0)
-                CheckUpdate(9);
+                CheckUpdate(10);
             else if (type == 1)
                 MinjieCall(false);
             else if (type == 2)
@@ -497,7 +548,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], minjie.Value };
             else objects = new object[] { minjie.Value };
 #if SERVER
-            CheckUpdate(9);
+            CheckUpdate(10);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MINJIE, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MINJIE, objects);
@@ -532,7 +583,7 @@ namespace Titansiege
                 return;
             this.moli.Value = value;
             if (type == 0)
-                CheckUpdate(10);
+                CheckUpdate(11);
             else if (type == 1)
                 MoliCall(false);
             else if (type == 2)
@@ -548,7 +599,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], moli.Value };
             else objects = new object[] { moli.Value };
 #if SERVER
-            CheckUpdate(10);
+            CheckUpdate(11);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MOLI, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MOLI, objects);
@@ -583,7 +634,7 @@ namespace Titansiege
                 return;
             this.meili.Value = value;
             if (type == 0)
-                CheckUpdate(11);
+                CheckUpdate(12);
             else if (type == 1)
                 MeiliCall(false);
             else if (type == 2)
@@ -599,7 +650,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], meili.Value };
             else objects = new object[] { meili.Value };
 #if SERVER
-            CheckUpdate(11);
+            CheckUpdate(12);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MEILI, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MEILI, objects);
@@ -634,7 +685,7 @@ namespace Titansiege
                 return;
             this.xingyun.Value = value;
             if (type == 0)
-                CheckUpdate(12);
+                CheckUpdate(13);
             else if (type == 1)
                 XingyunCall(false);
             else if (type == 2)
@@ -650,7 +701,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], xingyun.Value };
             else objects = new object[] { xingyun.Value };
 #if SERVER
-            CheckUpdate(12);
+            CheckUpdate(13);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_XINGYUN, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_XINGYUN, objects);
@@ -685,7 +736,7 @@ namespace Titansiege
                 return;
             this.lianjin.Value = value;
             if (type == 0)
-                CheckUpdate(13);
+                CheckUpdate(14);
             else if (type == 1)
                 LianjinCall(false);
             else if (type == 2)
@@ -701,7 +752,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], lianjin.Value };
             else objects = new object[] { lianjin.Value };
 #if SERVER
-            CheckUpdate(13);
+            CheckUpdate(14);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LIANJIN, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LIANJIN, objects);
@@ -736,7 +787,7 @@ namespace Titansiege
                 return;
             this.duanzao.Value = value;
             if (type == 0)
-                CheckUpdate(14);
+                CheckUpdate(15);
             else if (type == 1)
                 DuanzaoCall(false);
             else if (type == 2)
@@ -752,7 +803,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], duanzao.Value };
             else objects = new object[] { duanzao.Value };
 #if SERVER
-            CheckUpdate(14);
+            CheckUpdate(15);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_DUANZAO, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_DUANZAO, objects);
@@ -787,7 +838,7 @@ namespace Titansiege
                 return;
             this.jinbi.Value = value;
             if (type == 0)
-                CheckUpdate(15);
+                CheckUpdate(16);
             else if (type == 1)
                 JinbiCall(false);
             else if (type == 2)
@@ -803,7 +854,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], jinbi.Value };
             else objects = new object[] { jinbi.Value };
 #if SERVER
-            CheckUpdate(15);
+            CheckUpdate(16);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_JINBI, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_JINBI, objects);
@@ -838,7 +889,7 @@ namespace Titansiege
                 return;
             this.zuanshi.Value = value;
             if (type == 0)
-                CheckUpdate(16);
+                CheckUpdate(17);
             else if (type == 1)
                 ZuanshiCall(false);
             else if (type == 2)
@@ -854,7 +905,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], zuanshi.Value };
             else objects = new object[] { zuanshi.Value };
 #if SERVER
-            CheckUpdate(16);
+            CheckUpdate(17);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_ZUANSHI, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_ZUANSHI, objects);
@@ -889,7 +940,7 @@ namespace Titansiege
                 return;
             this.chenghao.Value = value;
             if (type == 0)
-                CheckUpdate(17);
+                CheckUpdate(18);
             else if (type == 1)
                 ChenghaoCall(false);
             else if (type == 2)
@@ -905,7 +956,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], chenghao.Value };
             else objects = new object[] { chenghao.Value };
 #if SERVER
-            CheckUpdate(17);
+            CheckUpdate(18);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_CHENGHAO, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_CHENGHAO, objects);
@@ -940,7 +991,7 @@ namespace Titansiege
                 return;
             this.friends.Value = value;
             if (type == 0)
-                CheckUpdate(18);
+                CheckUpdate(19);
             else if (type == 1)
                 FriendsCall(false);
             else if (type == 2)
@@ -956,7 +1007,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], friends.Value };
             else objects = new object[] { friends.Value };
 #if SERVER
-            CheckUpdate(18);
+            CheckUpdate(19);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_FRIENDS, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_FRIENDS, objects);
@@ -991,7 +1042,7 @@ namespace Titansiege
                 return;
             this.skills.Value = value;
             if (type == 0)
-                CheckUpdate(19);
+                CheckUpdate(20);
             else if (type == 1)
                 SkillsCall(false);
             else if (type == 2)
@@ -1007,7 +1058,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], skills.Value };
             else objects = new object[] { skills.Value };
 #if SERVER
-            CheckUpdate(19);
+            CheckUpdate(20);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_SKILLS, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_SKILLS, objects);
@@ -1042,7 +1093,7 @@ namespace Titansiege
                 return;
             this.prefabpath.Value = value;
             if (type == 0)
-                CheckUpdate(20);
+                CheckUpdate(21);
             else if (type == 1)
                 PrefabpathCall(false);
             else if (type == 2)
@@ -1058,7 +1109,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], prefabpath.Value };
             else objects = new object[] { prefabpath.Value };
 #if SERVER
-            CheckUpdate(20);
+            CheckUpdate(21);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_PREFABPATH, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_PREFABPATH, objects);
@@ -1093,7 +1144,7 @@ namespace Titansiege
                 return;
             this.headpath.Value = value;
             if (type == 0)
-                CheckUpdate(21);
+                CheckUpdate(22);
             else if (type == 1)
                 HeadpathCall(false);
             else if (type == 2)
@@ -1109,7 +1160,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], headpath.Value };
             else objects = new object[] { headpath.Value };
 #if SERVER
-            CheckUpdate(21);
+            CheckUpdate(22);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_HEADPATH, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_HEADPATH, objects);
@@ -1144,7 +1195,7 @@ namespace Titansiege
                 return;
             this.lihuipath.Value = value;
             if (type == 0)
-                CheckUpdate(22);
+                CheckUpdate(23);
             else if (type == 1)
                 LihuipathCall(false);
             else if (type == 2)
@@ -1160,7 +1211,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], lihuipath.Value };
             else objects = new object[] { lihuipath.Value };
 #if SERVER
-            CheckUpdate(22);
+            CheckUpdate(23);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LIHUIPATH, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LIHUIPATH, objects);
@@ -1195,7 +1246,7 @@ namespace Titansiege
                 return;
             this.wuqi.Value = value;
             if (type == 0)
-                CheckUpdate(23);
+                CheckUpdate(24);
             else if (type == 1)
                 WuqiCall(false);
             else if (type == 2)
@@ -1211,7 +1262,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], wuqi.Value };
             else objects = new object[] { wuqi.Value };
 #if SERVER
-            CheckUpdate(23);
+            CheckUpdate(24);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_WUQI, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_WUQI, objects);
@@ -1246,7 +1297,7 @@ namespace Titansiege
                 return;
             this.toukui.Value = value;
             if (type == 0)
-                CheckUpdate(24);
+                CheckUpdate(25);
             else if (type == 1)
                 ToukuiCall(false);
             else if (type == 2)
@@ -1262,7 +1313,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], toukui.Value };
             else objects = new object[] { toukui.Value };
 #if SERVER
-            CheckUpdate(24);
+            CheckUpdate(25);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_TOUKUI, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_TOUKUI, objects);
@@ -1297,7 +1348,7 @@ namespace Titansiege
                 return;
             this.yifu.Value = value;
             if (type == 0)
-                CheckUpdate(25);
+                CheckUpdate(26);
             else if (type == 1)
                 YifuCall(false);
             else if (type == 2)
@@ -1313,7 +1364,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], yifu.Value };
             else objects = new object[] { yifu.Value };
 #if SERVER
-            CheckUpdate(25);
+            CheckUpdate(26);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_YIFU, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_YIFU, objects);
@@ -1348,7 +1399,7 @@ namespace Titansiege
                 return;
             this.xiezi.Value = value;
             if (type == 0)
-                CheckUpdate(26);
+                CheckUpdate(27);
             else if (type == 1)
                 XieziCall(false);
             else if (type == 2)
@@ -1364,7 +1415,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], xiezi.Value };
             else objects = new object[] { xiezi.Value };
 #if SERVER
-            CheckUpdate(26);
+            CheckUpdate(27);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_XIEZI, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_XIEZI, objects);
@@ -1399,7 +1450,7 @@ namespace Titansiege
                 return;
             this.mapID.Value = value;
             if (type == 0)
-                CheckUpdate(27);
+                CheckUpdate(28);
             else if (type == 1)
                 MapIDCall(false);
             else if (type == 2)
@@ -1415,7 +1466,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], mapID.Value };
             else objects = new object[] { mapID.Value };
 #if SERVER
-            CheckUpdate(27);
+            CheckUpdate(28);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPID, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPID, objects);
@@ -1450,7 +1501,7 @@ namespace Titansiege
                 return;
             this.mapPosX.Value = value;
             if (type == 0)
-                CheckUpdate(28);
+                CheckUpdate(29);
             else if (type == 1)
                 MapPosXCall(false);
             else if (type == 2)
@@ -1466,7 +1517,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], mapPosX.Value };
             else objects = new object[] { mapPosX.Value };
 #if SERVER
-            CheckUpdate(28);
+            CheckUpdate(29);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSX, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSX, objects);
@@ -1501,7 +1552,7 @@ namespace Titansiege
                 return;
             this.mapPosY.Value = value;
             if (type == 0)
-                CheckUpdate(29);
+                CheckUpdate(30);
             else if (type == 1)
                 MapPosYCall(false);
             else if (type == 2)
@@ -1517,7 +1568,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], mapPosY.Value };
             else objects = new object[] { mapPosY.Value };
 #if SERVER
-            CheckUpdate(29);
+            CheckUpdate(30);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSY, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSY, objects);
@@ -1552,7 +1603,7 @@ namespace Titansiege
                 return;
             this.mapPosZ.Value = value;
             if (type == 0)
-                CheckUpdate(30);
+                CheckUpdate(31);
             else if (type == 1)
                 MapPosZCall(false);
             else if (type == 2)
@@ -1568,7 +1619,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], mapPosZ.Value };
             else objects = new object[] { mapPosZ.Value };
 #if SERVER
-            CheckUpdate(30);
+            CheckUpdate(31);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSZ, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSZ, objects);
@@ -1603,7 +1654,7 @@ namespace Titansiege
                 return;
             this.uid.Value = value;
             if (type == 0)
-                CheckUpdate(31);
+                CheckUpdate(32);
             else if (type == 1)
                 UidCall(false);
             else if (type == 2)
@@ -1619,7 +1670,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], uid.Value };
             else objects = new object[] { uid.Value };
 #if SERVER
-            CheckUpdate(31);
+            CheckUpdate(32);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_UID, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_UID, objects);
@@ -1654,7 +1705,7 @@ namespace Titansiege
                 return;
             this.lastDate.Value = value;
             if (type == 0)
-                CheckUpdate(32);
+                CheckUpdate(33);
             else if (type == 1)
                 LastDateCall(false);
             else if (type == 2)
@@ -1670,7 +1721,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], lastDate.Value };
             else objects = new object[] { lastDate.Value };
 #if SERVER
-            CheckUpdate(32);
+            CheckUpdate(33);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LASTDATE, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LASTDATE, objects);
@@ -1705,7 +1756,7 @@ namespace Titansiege
                 return;
             this.delRole.Value = value;
             if (type == 0)
-                CheckUpdate(33);
+                CheckUpdate(34);
             else if (type == 1)
                 DelRoleCall(false);
             else if (type == 2)
@@ -1721,7 +1772,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], delRole.Value };
             else objects = new object[] { delRole.Value };
 #if SERVER
-            CheckUpdate(33);
+            CheckUpdate(34);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_DELROLE, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_DELROLE, objects);
@@ -1779,65 +1830,67 @@ namespace Titansiege
      
                 case 3: length = 0; return "level";
      
-                case 4: length = 0; return "exp";
+                case 4: length = 0; return "levelupid";
      
-                case 5: length = 0; return "shengming";
+                case 5: length = 0; return "exp";
      
-                case 6: length = 0; return "fali";
+                case 6: length = 0; return "shengming";
      
-                case 7: length = 0; return "tizhi";
+                case 7: length = 0; return "fali";
      
-                case 8: length = 0; return "liliang";
+                case 8: length = 0; return "tizhi";
      
-                case 9: length = 0; return "minjie";
+                case 9: length = 0; return "liliang";
      
-                case 10: length = 0; return "moli";
+                case 10: length = 0; return "minjie";
      
-                case 11: length = 0; return "meili";
+                case 11: length = 0; return "moli";
      
-                case 12: length = 0; return "xingyun";
+                case 12: length = 0; return "meili";
      
-                case 13: length = 0; return "lianjin";
+                case 13: length = 0; return "xingyun";
      
-                case 14: length = 0; return "duanzao";
+                case 14: length = 0; return "lianjin";
      
-                case 15: length = 0; return "jinbi";
+                case 15: length = 0; return "duanzao";
      
-                case 16: length = 0; return "zuanshi";
+                case 16: length = 0; return "jinbi";
      
-                case 17: length = 50; return "chenghao";
+                case 17: length = 0; return "zuanshi";
      
-                case 18: length = 400; return "friends";
+                case 18: length = 50; return "chenghao";
      
-                case 19: length = 200; return "skills";
+                case 19: length = 400; return "friends";
      
-                case 20: length = 100; return "prefabpath";
+                case 20: length = 200; return "skills";
      
-                case 21: length = 100; return "headpath";
+                case 21: length = 100; return "prefabpath";
      
-                case 22: length = 100; return "lihuipath";
+                case 22: length = 100; return "headpath";
      
-                case 23: length = 0; return "wuqi";
+                case 23: length = 100; return "lihuipath";
      
-                case 24: length = 0; return "toukui";
+                case 24: length = 0; return "wuqi";
      
-                case 25: length = 0; return "yifu";
+                case 25: length = 0; return "toukui";
      
-                case 26: length = 0; return "xiezi";
+                case 26: length = 0; return "yifu";
      
-                case 27: length = 0; return "mapID";
+                case 27: length = 0; return "xiezi";
      
-                case 28: length = 0; return "mapPosX";
+                case 28: length = 0; return "mapID";
      
-                case 29: length = 0; return "mapPosY";
+                case 29: length = 0; return "mapPosX";
      
-                case 30: length = 0; return "mapPosZ";
+                case 30: length = 0; return "mapPosY";
      
-                case 31: length = 0; return "uid";
+                case 31: length = 0; return "mapPosZ";
      
-                case 32: length = 0; return "lastDate";
+                case 32: length = 0; return "uid";
      
-                case 33: length = 0; return "delRole";
+                case 33: length = 0; return "lastDate";
+     
+                case 34: length = 0; return "delRole";
      
             }
             throw new Exception("错误");
@@ -1859,65 +1912,67 @@ namespace Titansiege
      
                     case 3: return this.level.Value;
      
-                    case 4: return this.exp.Value;
+                    case 4: return this.levelupid.Value;
      
-                    case 5: return this.shengming.Value;
+                    case 5: return this.exp.Value;
      
-                    case 6: return this.fali.Value;
+                    case 6: return this.shengming.Value;
      
-                    case 7: return this.tizhi.Value;
+                    case 7: return this.fali.Value;
      
-                    case 8: return this.liliang.Value;
+                    case 8: return this.tizhi.Value;
      
-                    case 9: return this.minjie.Value;
+                    case 9: return this.liliang.Value;
      
-                    case 10: return this.moli.Value;
+                    case 10: return this.minjie.Value;
      
-                    case 11: return this.meili.Value;
+                    case 11: return this.moli.Value;
      
-                    case 12: return this.xingyun.Value;
+                    case 12: return this.meili.Value;
      
-                    case 13: return this.lianjin.Value;
+                    case 13: return this.xingyun.Value;
      
-                    case 14: return this.duanzao.Value;
+                    case 14: return this.lianjin.Value;
      
-                    case 15: return this.jinbi.Value;
+                    case 15: return this.duanzao.Value;
      
-                    case 16: return this.zuanshi.Value;
+                    case 16: return this.jinbi.Value;
      
-                    case 17: return this.chenghao.Value;
+                    case 17: return this.zuanshi.Value;
      
-                    case 18: return this.friends.Value;
+                    case 18: return this.chenghao.Value;
      
-                    case 19: return this.skills.Value;
+                    case 19: return this.friends.Value;
      
-                    case 20: return this.prefabpath.Value;
+                    case 20: return this.skills.Value;
      
-                    case 21: return this.headpath.Value;
+                    case 21: return this.prefabpath.Value;
      
-                    case 22: return this.lihuipath.Value;
+                    case 22: return this.headpath.Value;
      
-                    case 23: return this.wuqi.Value;
+                    case 23: return this.lihuipath.Value;
      
-                    case 24: return this.toukui.Value;
+                    case 24: return this.wuqi.Value;
      
-                    case 25: return this.yifu.Value;
+                    case 25: return this.toukui.Value;
      
-                    case 26: return this.xiezi.Value;
+                    case 26: return this.yifu.Value;
      
-                    case 27: return this.mapID.Value;
+                    case 27: return this.xiezi.Value;
      
-                    case 28: return this.mapPosX.Value;
+                    case 28: return this.mapID.Value;
      
-                    case 29: return this.mapPosY.Value;
+                    case 29: return this.mapPosX.Value;
      
-                    case 30: return this.mapPosZ.Value;
+                    case 30: return this.mapPosY.Value;
      
-                    case 31: return this.uid.Value;
+                    case 31: return this.mapPosZ.Value;
      
-                    case 32: return this.lastDate.Value;
+                    case 32: return this.uid.Value;
      
-                    case 33: return this.delRole.Value;
+                    case 33: return this.lastDate.Value;
+     
+                    case 34: return this.delRole.Value;
      
                 }
                 throw new Exception("错误");
@@ -1944,122 +1999,126 @@ namespace Titansiege
                         break;
      
                     case 4:
-                        CheckExpValue((Int32)value, -1);
+                        CheckLevelupidValue((Int32)value, -1);
                         break;
      
                     case 5:
-                        CheckShengmingValue((Int32)value, -1);
+                        CheckExpValue((Int32)value, -1);
                         break;
      
                     case 6:
-                        CheckFaliValue((Int32)value, -1);
+                        CheckShengmingValue((Int32)value, -1);
                         break;
      
                     case 7:
-                        CheckTizhiValue((Int16)value, -1);
+                        CheckFaliValue((Int32)value, -1);
                         break;
      
                     case 8:
-                        CheckLiliangValue((Int16)value, -1);
+                        CheckTizhiValue((Int16)value, -1);
                         break;
      
                     case 9:
-                        CheckMinjieValue((Int16)value, -1);
+                        CheckLiliangValue((Int16)value, -1);
                         break;
      
                     case 10:
-                        CheckMoliValue((Int16)value, -1);
+                        CheckMinjieValue((Int16)value, -1);
                         break;
      
                     case 11:
-                        CheckMeiliValue((Int16)value, -1);
+                        CheckMoliValue((Int16)value, -1);
                         break;
      
                     case 12:
-                        CheckXingyunValue((Int16)value, -1);
+                        CheckMeiliValue((Int16)value, -1);
                         break;
      
                     case 13:
-                        CheckLianjinValue((Int16)value, -1);
+                        CheckXingyunValue((Int16)value, -1);
                         break;
      
                     case 14:
-                        CheckDuanzaoValue((Int16)value, -1);
+                        CheckLianjinValue((Int16)value, -1);
                         break;
      
                     case 15:
-                        CheckJinbiValue((Int32)value, -1);
+                        CheckDuanzaoValue((Int16)value, -1);
                         break;
      
                     case 16:
-                        CheckZuanshiValue((Int32)value, -1);
+                        CheckJinbiValue((Int32)value, -1);
                         break;
      
                     case 17:
-                        CheckChenghaoValue((String)value, -1);
+                        CheckZuanshiValue((Int32)value, -1);
                         break;
      
                     case 18:
-                        CheckFriendsValue((String)value, -1);
+                        CheckChenghaoValue((String)value, -1);
                         break;
      
                     case 19:
-                        CheckSkillsValue((String)value, -1);
+                        CheckFriendsValue((String)value, -1);
                         break;
      
                     case 20:
-                        CheckPrefabpathValue((String)value, -1);
+                        CheckSkillsValue((String)value, -1);
                         break;
      
                     case 21:
-                        CheckHeadpathValue((String)value, -1);
+                        CheckPrefabpathValue((String)value, -1);
                         break;
      
                     case 22:
-                        CheckLihuipathValue((String)value, -1);
+                        CheckHeadpathValue((String)value, -1);
                         break;
      
                     case 23:
-                        CheckWuqiValue((Int16)value, -1);
+                        CheckLihuipathValue((String)value, -1);
                         break;
      
                     case 24:
-                        CheckToukuiValue((Int16)value, -1);
+                        CheckWuqiValue((Int16)value, -1);
                         break;
      
                     case 25:
-                        CheckYifuValue((Int16)value, -1);
+                        CheckToukuiValue((Int16)value, -1);
                         break;
      
                     case 26:
-                        CheckXieziValue((Int16)value, -1);
+                        CheckYifuValue((Int16)value, -1);
                         break;
      
                     case 27:
-                        CheckMapIDValue((Int32)value, -1);
+                        CheckXieziValue((Int16)value, -1);
                         break;
      
                     case 28:
-                        CheckMapPosXValue((Int32)value, -1);
+                        CheckMapIDValue((Int32)value, -1);
                         break;
      
                     case 29:
-                        CheckMapPosYValue((Int32)value, -1);
+                        CheckMapPosXValue((Int32)value, -1);
                         break;
      
                     case 30:
-                        CheckMapPosZValue((Int32)value, -1);
+                        CheckMapPosYValue((Int32)value, -1);
                         break;
      
                     case 31:
-                        CheckUidValue((Int64)value, -1);
+                        CheckMapPosZValue((Int32)value, -1);
                         break;
      
                     case 32:
-                        CheckLastDateValue((DateTime)value, -1);
+                        CheckUidValue((Int64)value, -1);
                         break;
      
                     case 33:
+                        CheckLastDateValue((DateTime)value, -1);
+                        break;
+     
+                    case 34:
                         CheckDelRoleValue((Boolean)value, -1);
                         break;
      
@@ -2151,94 +2210,97 @@ namespace Titansiege
             if (row[3] is SByte level)
                 CheckLevelValue(level, -1);
      
-            if (row[4] is Int32 exp)
+            if (row[4] is Int32 levelupid)
+                CheckLevelupidValue(levelupid, -1);
+     
+            if (row[5] is Int32 exp)
                 CheckExpValue(exp, -1);
      
-            if (row[5] is Int32 shengming)
+            if (row[6] is Int32 shengming)
                 CheckShengmingValue(shengming, -1);
      
-            if (row[6] is Int32 fali)
+            if (row[7] is Int32 fali)
                 CheckFaliValue(fali, -1);
      
-            if (row[7] is Int16 tizhi)
+            if (row[8] is Int16 tizhi)
                 CheckTizhiValue(tizhi, -1);
      
-            if (row[8] is Int16 liliang)
+            if (row[9] is Int16 liliang)
                 CheckLiliangValue(liliang, -1);
      
-            if (row[9] is Int16 minjie)
+            if (row[10] is Int16 minjie)
                 CheckMinjieValue(minjie, -1);
      
-            if (row[10] is Int16 moli)
+            if (row[11] is Int16 moli)
                 CheckMoliValue(moli, -1);
      
-            if (row[11] is Int16 meili)
+            if (row[12] is Int16 meili)
                 CheckMeiliValue(meili, -1);
      
-            if (row[12] is Int16 xingyun)
+            if (row[13] is Int16 xingyun)
                 CheckXingyunValue(xingyun, -1);
      
-            if (row[13] is Int16 lianjin)
+            if (row[14] is Int16 lianjin)
                 CheckLianjinValue(lianjin, -1);
      
-            if (row[14] is Int16 duanzao)
+            if (row[15] is Int16 duanzao)
                 CheckDuanzaoValue(duanzao, -1);
      
-            if (row[15] is Int32 jinbi)
+            if (row[16] is Int32 jinbi)
                 CheckJinbiValue(jinbi, -1);
      
-            if (row[16] is Int32 zuanshi)
+            if (row[17] is Int32 zuanshi)
                 CheckZuanshiValue(zuanshi, -1);
      
-            if (row[17] is String chenghao)
+            if (row[18] is String chenghao)
                 CheckChenghaoValue(chenghao, -1);
      
-            if (row[18] is String friends)
+            if (row[19] is String friends)
                 CheckFriendsValue(friends, -1);
      
-            if (row[19] is String skills)
+            if (row[20] is String skills)
                 CheckSkillsValue(skills, -1);
      
-            if (row[20] is String prefabpath)
+            if (row[21] is String prefabpath)
                 CheckPrefabpathValue(prefabpath, -1);
      
-            if (row[21] is String headpath)
+            if (row[22] is String headpath)
                 CheckHeadpathValue(headpath, -1);
      
-            if (row[22] is String lihuipath)
+            if (row[23] is String lihuipath)
                 CheckLihuipathValue(lihuipath, -1);
      
-            if (row[23] is Int16 wuqi)
+            if (row[24] is Int16 wuqi)
                 CheckWuqiValue(wuqi, -1);
      
-            if (row[24] is Int16 toukui)
+            if (row[25] is Int16 toukui)
                 CheckToukuiValue(toukui, -1);
      
-            if (row[25] is Int16 yifu)
+            if (row[26] is Int16 yifu)
                 CheckYifuValue(yifu, -1);
      
-            if (row[26] is Int16 xiezi)
+            if (row[27] is Int16 xiezi)
                 CheckXieziValue(xiezi, -1);
      
-            if (row[27] is Int32 mapID)
+            if (row[28] is Int32 mapID)
                 CheckMapIDValue(mapID, -1);
      
-            if (row[28] is Int32 mapPosX)
+            if (row[29] is Int32 mapPosX)
                 CheckMapPosXValue(mapPosX, -1);
      
-            if (row[29] is Int32 mapPosY)
+            if (row[30] is Int32 mapPosY)
                 CheckMapPosYValue(mapPosY, -1);
      
-            if (row[30] is Int32 mapPosZ)
+            if (row[31] is Int32 mapPosZ)
                 CheckMapPosZValue(mapPosZ, -1);
      
-            if (row[31] is Int64 uid)
+            if (row[32] is Int64 uid)
                 CheckUidValue(uid, -1);
      
-            if (row[32] is DateTime lastDate)
+            if (row[33] is DateTime lastDate)
                 CheckLastDateValue(lastDate, -1);
      
-            if (row[33] is Boolean delRole)
+            if (row[34] is Boolean delRole)
                 CheckDelRoleValue(delRole, -1);
      
         }
@@ -2278,7 +2340,7 @@ namespace Titansiege
         public void BulkLoaderBuilder(StringBuilder sb)
         {
  
-            for (int i = 0; i < 34; i++)
+            for (int i = 0; i < 35; i++)
             {
                 var name = GetCellNameAndTextLength(i, out var length);
                 var value = this[i];
@@ -2352,7 +2414,7 @@ namespace Titansiege
 
         public override string ToString()
         {
-            return $"ID:{ID} Name:{Name} Zhiye:{Zhiye} Level:{Level} Exp:{Exp} Shengming:{Shengming} Fali:{Fali} Tizhi:{Tizhi} Liliang:{Liliang} Minjie:{Minjie} Moli:{Moli} Meili:{Meili} Xingyun:{Xingyun} Lianjin:{Lianjin} Duanzao:{Duanzao} Jinbi:{Jinbi} Zuanshi:{Zuanshi} Chenghao:{Chenghao} Friends:{Friends} Skills:{Skills} Prefabpath:{Prefabpath} Headpath:{Headpath} Lihuipath:{Lihuipath} Wuqi:{Wuqi} Toukui:{Toukui} Yifu:{Yifu} Xiezi:{Xiezi} MapID:{MapID} MapPosX:{MapPosX} MapPosY:{MapPosY} MapPosZ:{MapPosZ} Uid:{Uid} LastDate:{LastDate} DelRole:{DelRole} ";
+            return $"ID:{ID} Name:{Name} Zhiye:{Zhiye} Level:{Level} Levelupid:{Levelupid} Exp:{Exp} Shengming:{Shengming} Fali:{Fali} Tizhi:{Tizhi} Liliang:{Liliang} Minjie:{Minjie} Moli:{Moli} Meili:{Meili} Xingyun:{Xingyun} Lianjin:{Lianjin} Duanzao:{Duanzao} Jinbi:{Jinbi} Zuanshi:{Zuanshi} Chenghao:{Chenghao} Friends:{Friends} Skills:{Skills} Prefabpath:{Prefabpath} Headpath:{Headpath} Lihuipath:{Lihuipath} Wuqi:{Wuqi} Toukui:{Toukui} Yifu:{Yifu} Xiezi:{Xiezi} MapID:{MapID} MapPosX:{MapPosX} MapPosY:{MapPosY} MapPosZ:{MapPosZ} Uid:{Uid} LastDate:{LastDate} DelRole:{DelRole} ";
         }
     }
 }

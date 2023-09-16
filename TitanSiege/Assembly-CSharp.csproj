@@ -89,6 +89,7 @@
     <Compile Include="Assets\Scripts\UIModule\VideoUIPage.cs" />
     <Compile Include="Assets\Scripts\ConfigTable\ExcelBase.cs" />
     <Compile Include="Assets\Ultimate 10 Plus Shaders\Shaders\Plexus\Plexus.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\Bind\TitansiegeCharactersDataBind.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Component\SimpleRotate.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\FT_Slasher_volume01\SampleScene\Scripts\Button.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModulePhysics2D.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Assets\Scripts\UIModule\SkillUIWidget.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraComponent\ImageEffects\XftGlitch.cs" />
     <Compile Include="Assets\Scripts\Module\Fight\State\IState.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\Bind\BindingExtension.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\SoundEvent.cs" />
     <Compile Include="Assets\Scripts\Module\MainUIModule.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Demo\Assets\WFX_Demo_DeleteAfterDelay.cs" />
@@ -155,6 +157,7 @@
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
     <Compile Include="Assets\Scripts\ConfigTable\BinarySerializeOpt.cs" />
     <Compile Include="Assets\Actions\StateActions\SkillStateAction.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\Bind\BindingType.cs" />
     <Compile Include="Assets\Scripts\UIModule\InfoUIWindow.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Affectors\TurbulenceFieldAffector.cs" />
     <Compile Include="Assets\Scripts\Module\NPC\Skill\PLianjiTransition.cs" />
@@ -170,6 +173,7 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets02\Cartoon FX\Demo\Assets\CFX_Demo.cs" />
     <Compile Include="Assets\Scripts\UIModule\RoleInfo.cs" />
     <Compile Include="Assets\Scripts\Module\SceneModule\TerrainProp.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\Bind\TitansiegeNpcsDataBind.cs" />
     <Compile Include="Assets\Scripts\Net\NetData\DBExt\TitanSiegeDBExt.cs" />
     <Compile Include="Assets\Scripts\Utilities\TestMonster.cs" />
     <Compile Include="Assets\Scripts\UIModule\FaceCamera.cs" />
@@ -195,6 +199,7 @@
     <Compile Include="Assets\Scripts\Game\GlobalEvent.cs" />
     <Compile Include="Assets\Hovl Studio\Sword slash VFX\Demo scene\CameraHolder.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\XftTools.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\Bind\FightPropBind.cs" />
     <Compile Include="Assets\Scripts\Module\CreateAndSelectModule.cs" />
     <Compile Include="Assets\Scripts\Module\Fight\Effect\EffectBase.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraEffects\GlitchEvent.cs" />
@@ -235,6 +240,7 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraComponent\ImageEffects\XftGlowPerObj.cs" />
     <Compile Include="Assets\Scripts\Game\AppLoading.cs" />
     <Compile Include="Assets\Scripts\UIModule\TouchArea.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\Bind\TitansiegeUsersDataBind.cs" />
     <Compile Include="Assets\Scripts\Game\AppMain.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Tutorial\API Usage\GravityDemo\GravityDemo.cs" />
     <Compile Include="Assets\Scripts\Data\NPCData.cs" />
@@ -266,12 +272,6 @@
     <Compile Include="Assets\Scripts\Module\LoginModule.cs" />
     <Compile Include="Assets\Scripts\UIModule\LoginUIPage.cs" />
     <Compile Include="Assets\Scripts\UIModule\UIBG.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\Bind\TitansiegeCharactersDataBind.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\Bind\TitansiegeUsersDataBind.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\Bind\FightPropBind.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\Bind\BindingExtension.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\Bind\TitansiegeNpcsDataBind.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\Bind\BindingType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

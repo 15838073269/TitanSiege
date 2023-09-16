@@ -88,10 +88,11 @@ namespace GDServer.Services
                             client.AddRpc(client.current);
                             client.UpdateFightProps();
                             //读取升级配置表数据
-                            if (client.current.le) { 
-                                
+                            if (client.current.Levelupid!=0) { //0就是没配置
+                                client.m_LevelUp = ConfigerManager.GetInstance.FindData<LevelUpData>(CT.TABLE_LEVEL).FindByID((ushort)client.current.Levelupid);
                             }
                             Debuger.Log($"客户端（id{client.UserID}）选择了角色id{client.current.ID}");
+                            Debuger.Log("加载" + client.m_LevelUp.LevelName + "模板");
                             break;
                         }
                     }
