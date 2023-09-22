@@ -20,6 +20,7 @@ using Cysharp.Threading.Tasks;
 using MoreMountains.Feedbacks;
 using System;
 using System.Security.Policy;
+using Net.System;
 
 namespace GF.MainGame.Module {
     public class HPModule : GeneralModule {
@@ -218,5 +219,6 @@ namespace GF.MainGame.Module {
                 return true;
             }
         }
+        
     }
 }

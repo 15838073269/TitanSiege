@@ -86,7 +86,6 @@ namespace GDServer {
                         if (monsters.TryGetValue(opt.index1,out var monster)) { //尝试获取怪物对象
                             monster.targetID = opt.identity;
                             monster.OnDamage(opt.index);
-
                             if (monster.isDeath && monster.targetID != 0) {//给玩家加经验
                                 client.AddExp(monster.current.Exp);
                             }
@@ -94,7 +93,6 @@ namespace GDServer {
                         break;
                     case Command.EnemyAttack://怪物攻击玩家时
                         for (int n = 0; n < Clients.Count; n++) {
-                            Debuger.Log("怪物攻击"+opt.identity);
                             if (Clients[n].UserID == opt.identity) {
                                 Clients[n].BeAttacked(opt.index);
                                 break;

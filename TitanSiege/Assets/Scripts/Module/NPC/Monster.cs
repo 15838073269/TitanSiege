@@ -98,7 +98,7 @@ namespace GF.MainGame.Module.NPC {
                 m_Shadow = transform.Find("shadow");
             }
         }
-        public override void UpdateFightProps() {
+        public override void UpdateFightProps(bool uphpui = false) {
             base.UpdateFightProps();
         }
         public void Update() {

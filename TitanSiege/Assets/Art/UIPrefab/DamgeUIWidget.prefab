@@ -676,6 +676,7 @@ MonoBehaviour:
   m_RedTo: {fileID: 6546006932186361102}
   m_Red: {fileID: 5379538383967337798}
   m_HPRoot: {fileID: 0}
+  m_LevelUpUI: {fileID: 0}
   m_IsInscreen: 0
 --- !u!1 &8832242489479326155
 GameObject:

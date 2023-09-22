@@ -3,7 +3,7 @@
 namespace Net.MMORPG
 {
     /// <summary>
-    /// 怪物数据，这里只需要把数据库表中怪物的id传递过去即可
+    /// 怪物数据
     /// </summary>
     [Serializable]
     public class MonsterData

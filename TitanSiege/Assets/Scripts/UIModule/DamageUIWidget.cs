@@ -1,4 +1,5 @@
 using GF.Const;
+using GF.MainGame.Module.Fight;
 using GF.MainGame.Module.NPC;
 using GF.Unity.UI;
 using UnityEngine;

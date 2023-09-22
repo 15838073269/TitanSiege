@@ -10,12 +10,14 @@ using GameDesigner;
 using GF.ConfigTable;
 using GF.Const;
 using GF.MainGame.Data;
+using GF.MainGame.Module.Fight;
 using GF.MainGame.UI;
 using GF.NetWork;
 using GF.Service;
 using GF.Unity.UI;
 using Net.Client;
 using Net.Share;
+using Net.System;
 using System.Collections.Generic;
 using Titansiege;
 using UnityEngine;
@@ -39,7 +41,7 @@ namespace GF.MainGame.Module.NPC {
         protected LevelUpDataBase m_LevelData;//升级系数
         public int m_CurrentSkillId = -1;//当前正在施展的技能的id
         protected bool m_IsFight = false;
-        
+        public EffectBase m_LevelUp;
         public GameObject m_Selected;//角色脚下的选中目标
         private NPCBase m_AttackTarget = null;//攻击的目标
 
@@ -152,12 +154,14 @@ namespace GF.MainGame.Module.NPC {
             if (m_Selected!=null) {
                 m_Selected.SetActive(false);//默认隐藏显示选中特效
             }
+            if (m_LevelUp != null) {
+                m_LevelUp.gameObject.SetActive(false);
+            }
         }
         public virtual void Start() {
             oldPosition = transform.position;
             Init();
             UpdateFightProps();
-            
         }
 
         public virtual void Init(bool canmove = true) {
@@ -422,7 +426,13 @@ namespace GF.MainGame.Module.NPC {
             }
             UpdateFightProps(true);
             //播放升级特效
-            //todo
+            if (m_LevelUp.gameObject.activeSelf) {
+                m_LevelUp.gameObject.SetActive(false);
+            }
+            m_LevelUp.gameObject.SetActive(true);
+            ThreadManager.Event.AddEvent(3f, () => {
+                m_LevelUp.gameObject.SetActive(false);
+            });
         }
 
     }
