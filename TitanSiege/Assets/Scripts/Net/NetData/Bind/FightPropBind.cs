@@ -13,70 +13,70 @@ namespace Binding
             stream.Position += 2;
             var bits = new byte[2];
 
-            if (value.BaseDodge != 0)
-            {
-                NetConvertBase.SetBit(ref bits[0], 1, true);
-                stream.Write(value.BaseDodge);
-            }
-
-            if (value.BaseCrit != 0)
-            {
-                NetConvertBase.SetBit(ref bits[0], 2, true);
-                stream.Write(value.BaseCrit);
-            }
-
-            if (!string.IsNullOrEmpty(value.PlayerName))
-            {
-                NetConvertBase.SetBit(ref bits[0], 3, true);
-                stream.Write(value.PlayerName);
-            }
-
             if (value.Attack != 0)
             {
-                NetConvertBase.SetBit(ref bits[0], 4, true);
+                NetConvertBase.SetBit(ref bits[0], 1, true);
                 stream.Write(value.Attack);
             }
 
             if (value.Defense != 0)
             {
-                NetConvertBase.SetBit(ref bits[0], 5, true);
+                NetConvertBase.SetBit(ref bits[0], 2, true);
                 stream.Write(value.Defense);
             }
 
             if (value.Dodge != 0)
             {
-                NetConvertBase.SetBit(ref bits[0], 6, true);
+                NetConvertBase.SetBit(ref bits[0], 3, true);
                 stream.Write(value.Dodge);
             }
 
             if (value.Crit != 0)
             {
-                NetConvertBase.SetBit(ref bits[0], 7, true);
+                NetConvertBase.SetBit(ref bits[0], 4, true);
                 stream.Write(value.Crit);
             }
 
             if (value.FightHP != 0)
             {
-                NetConvertBase.SetBit(ref bits[0], 8, true);
+                NetConvertBase.SetBit(ref bits[0], 5, true);
                 stream.Write(value.FightHP);
             }
 
             if (value.FightMaxHp != 0)
             {
-                NetConvertBase.SetBit(ref bits[1], 1, true);
+                NetConvertBase.SetBit(ref bits[0], 6, true);
                 stream.Write(value.FightMaxHp);
             }
 
             if (value.FightMagic != 0)
             {
-                NetConvertBase.SetBit(ref bits[1], 2, true);
+                NetConvertBase.SetBit(ref bits[0], 7, true);
                 stream.Write(value.FightMagic);
             }
 
             if (value.FightMaxMagic != 0)
             {
-                NetConvertBase.SetBit(ref bits[1], 3, true);
+                NetConvertBase.SetBit(ref bits[0], 8, true);
                 stream.Write(value.FightMaxMagic);
+            }
+
+            if (value.BaseDodge != 0)
+            {
+                NetConvertBase.SetBit(ref bits[1], 1, true);
+                stream.Write(value.BaseDodge);
+            }
+
+            if (value.BaseCrit != 0)
+            {
+                NetConvertBase.SetBit(ref bits[1], 2, true);
+                stream.Write(value.BaseCrit);
+            }
+
+            if (!string.IsNullOrEmpty(value.PlayerName))
+            {
+                NetConvertBase.SetBit(ref bits[1], 3, true);
+                stream.Write(value.PlayerName);
             }
 
             int pos1 = stream.Position;
@@ -97,37 +97,37 @@ namespace Binding
 			var bits = stream.Read(2);
 
 			if(NetConvertBase.GetBit(bits[0], 1))
-				value.BaseDodge = stream.ReadSingle();
-
-			if(NetConvertBase.GetBit(bits[0], 2))
-				value.BaseCrit = stream.ReadSingle();
-
-			if(NetConvertBase.GetBit(bits[0], 3))
-				value.PlayerName = stream.ReadString();
-
-			if(NetConvertBase.GetBit(bits[0], 4))
 				value.Attack = stream.ReadInt32();
 
-			if(NetConvertBase.GetBit(bits[0], 5))
+			if(NetConvertBase.GetBit(bits[0], 2))
 				value.Defense = stream.ReadInt32();
 
-			if(NetConvertBase.GetBit(bits[0], 6))
+			if(NetConvertBase.GetBit(bits[0], 3))
 				value.Dodge = stream.ReadSingle();
 
-			if(NetConvertBase.GetBit(bits[0], 7))
+			if(NetConvertBase.GetBit(bits[0], 4))
 				value.Crit = stream.ReadSingle();
 
-			if(NetConvertBase.GetBit(bits[0], 8))
+			if(NetConvertBase.GetBit(bits[0], 5))
 				value.FightHP = stream.ReadInt32();
 
-			if(NetConvertBase.GetBit(bits[1], 1))
+			if(NetConvertBase.GetBit(bits[0], 6))
 				value.FightMaxHp = stream.ReadInt32();
 
-			if(NetConvertBase.GetBit(bits[1], 2))
+			if(NetConvertBase.GetBit(bits[0], 7))
 				value.FightMagic = stream.ReadInt32();
 
-			if(NetConvertBase.GetBit(bits[1], 3))
+			if(NetConvertBase.GetBit(bits[0], 8))
 				value.FightMaxMagic = stream.ReadInt32();
+
+			if(NetConvertBase.GetBit(bits[1], 1))
+				value.BaseDodge = stream.ReadSingle();
+
+			if(NetConvertBase.GetBit(bits[1], 2))
+				value.BaseCrit = stream.ReadSingle();
+
+			if(NetConvertBase.GetBit(bits[1], 3))
+				value.PlayerName = stream.ReadString();
 
 		}
 

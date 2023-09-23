@@ -243,6 +243,14 @@
             "fileVersion": "0.0.0.0"
           }
         }
+      },
+      "RecastNet/1.0.0.0": {
+        "runtime": {
+          "RecastNet.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -412,6 +420,11 @@
       "sha512": ""
     },
     "UnityEngine/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RecastNet/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

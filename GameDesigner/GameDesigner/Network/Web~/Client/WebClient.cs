@@ -129,7 +129,7 @@
                 if (Connected)
                     Send(NetCmd.SendHeartbeat, new byte[0]);
                 else//尝试连接执行
-                    Reconnection();
+                    InternalReconnection();
             }
             catch { }
             return openClient & CurrReconnect < ReconnectCount;
@@ -187,6 +187,7 @@
             StackStream = null;
             stack = 0;
             UID = 0;
+            PreUserId = 0;
             CurrReconnect = 0;
             if (Instance == this) Instance = null;
             if (Gcp != null) Gcp.Dispose();

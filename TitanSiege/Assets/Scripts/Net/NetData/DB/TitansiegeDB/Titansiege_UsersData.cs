@@ -50,7 +50,7 @@ namespace Titansiege
         /// <summary></summary>
         public Int64 ID { get { return iD; } set { this.iD = value; } }
 
-     
+     //1
         private readonly StringObs username = new StringObs("UsersData_username", false, null);
 
         /// <summary> --获得属性观察对象</summary>
@@ -101,7 +101,7 @@ namespace Titansiege
         {
             Username = value;
         }
-     
+     //1
         private readonly StringObs password = new StringObs("UsersData_password", false, null);
 
         /// <summary> --获得属性观察对象</summary>
@@ -152,7 +152,7 @@ namespace Titansiege
         {
             Password = value;
         }
-     
+     //1
         private readonly DateTimeObs registerDate = new DateTimeObs("UsersData_registerDate", false, null);
 
         /// <summary> --获得属性观察对象</summary>
@@ -203,7 +203,7 @@ namespace Titansiege
         {
             RegisterDate = value;
         }
-     
+     //1
         private readonly StringObs email = new StringObs("UsersData_email", false, null);
 
         /// <summary> --获得属性观察对象</summary>
@@ -254,7 +254,7 @@ namespace Titansiege
         {
             Email = value;
         }
-     
+     //2
 
         public UsersData() { }
 
@@ -291,17 +291,17 @@ namespace Titansiege
         {
             switch (index)
             {
-     
+     //3
                 case 0: length = 0; return "iD";
-     
+     //3
                 case 1: length = 50; return "username";
-     
+     //3
                 case 2: length = 50; return "password";
-     
+     //3
                 case 3: length = 0; return "registerDate";
-     
+     //3
                 case 4: length = 50; return "email";
-     
+     //4
             }
             throw new Exception("错误");
         }
@@ -313,17 +313,17 @@ namespace Titansiege
             {
                 switch (index)
                 {
-     
+     //5
                     case 0: return this.iD;
-     
+     //5
                     case 1: return this.username.Value;
-     
+     //5
                     case 2: return this.password.Value;
-     
+     //5
                     case 3: return this.registerDate.Value;
-     
+     //5
                     case 4: return this.email.Value;
-     
+     //6
                 }
                 throw new Exception("错误");
             }
@@ -331,27 +331,76 @@ namespace Titansiege
             {
                 switch (index)
                 {
-     
+     //7
                     case 0:
                         this.iD = (Int64)value;
                         break;
-     
+     //7
                     case 1:
                         CheckUsernameValue((String)value, -1);
                         break;
-     
+     //7
                     case 2:
                         CheckPasswordValue((String)value, -1);
                         break;
-     
+     //7
                     case 3:
                         CheckRegisterDateValue((DateTime)value, -1);
                         break;
-     
+     //7
                     case 4:
                         CheckEmailValue((String)value, -1);
                         break;
-     
+     //8
+                }
+            }
+        }
+
+        public object this[string name]
+        {
+            get
+            {
+                switch (name)
+                {
+     //9
+                    case "iD": return this.iD;
+     //9
+                    case "username": return this.username.Value;
+     //9
+                    case "password": return this.password.Value;
+     //9
+                    case "registerDate": return this.registerDate.Value;
+     //9
+                    case "email": return this.email.Value;
+     //10
+                }
+                throw new Exception("错误");
+            }
+            set
+            {
+                switch (name)
+                {
+     //11
+                    case "iD":
+                        this.iD = (Int64)value;
+                        break;
+     //11
+                    case "username":
+                        CheckUsernameValue((String)value, -1);
+                        break;
+     //11
+                    case "password":
+                        CheckPasswordValue((String)value, -1);
+                        break;
+     //11
+                    case "registerDate":
+                        CheckRegisterDateValue((DateTime)value, -1);
+                        break;
+     //11
+                    case "email":
+                        CheckEmailValue((String)value, -1);
+                        break;
+     //12
                 }
             }
         }
@@ -417,32 +466,29 @@ namespace Titansiege
         public void Update()
         {
             if (RowState == DataRowState.Deleted | RowState == DataRowState.Detached | RowState == DataRowState.Added | RowState == 0) return;
-     
-            RowState = DataRowState.Modified;
-            TitansiegeDB.I.Update(this);
-     
+     //14
         }
     #endif
 
         public void Init(DataRow row)
         {
             RowState = DataRowState.Unchanged;
-     
+     //15
             if (row[0] is Int64 iD)
                 this.iD = iD;
-     
+     //15
             if (row[1] is String username)
                 CheckUsernameValue(username, -1);
-     
+     //15
             if (row[2] is String password)
                 CheckPasswordValue(password, -1);
-     
+     //15
             if (row[3] is DateTime registerDate)
                 CheckRegisterDateValue(registerDate, -1);
-     
+     //15
             if (row[4] is String email)
                 CheckEmailValue(email, -1);
-     
+     //16
         }
 
         public void AddedSql(StringBuilder sb)

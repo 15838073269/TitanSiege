@@ -26,21 +26,31 @@ public static class Fast2BuildMethod
         internal TypeCode TypeCode;
         internal Type ItemType;
         internal Type ItemType1;
+
+        public override string ToString()
+        {
+            return $"Name:{Name} IsPrimitive:{IsPrimitive} IsEnum:{IsEnum} IsArray:{IsArray} IsGenericType:{IsGenericType}";
+        }
     }
 
     /// <summary>
     /// 动态编译, 在unity开发过程中不需要生成绑定cs文件, 直接运行时编译使用, 当编译apk. app时才进行生成绑定cs文件
     /// </summary>
+    /// <param name="IsCompress">true: 使用字节压缩模式生成代码 false: 不进行压缩</param>
     /// <param name="types"></param>
     /// <returns></returns>
-    public static bool DynamicBuild(params Type[] types)
+    public static bool DynamicBuild(bool IsCompress, params Type[] types)
     {
         var bindTypes = new HashSet<Type>();
         var codes = new Dictionary<string, string>();
         foreach (var type in types)
         {
             var genericCodes = new List<string>();
-            var code = BuildNew(type, true, true, new List<string>(), string.Empty, bindTypes, genericCodes);
+            StringBuilder code;
+            if (IsCompress)
+                code = BuildNew(type, true, true, new List<string>(), string.Empty, bindTypes, genericCodes);
+            else
+                code = BuildNewFast(type, true, true, new List<string>(), string.Empty, bindTypes, genericCodes);
             code.AppendLine(BuildArray(type).ToString());
             code.AppendLine(BuildGeneric(typeof(List<>).MakeGenericType(type)).ToString());
             foreach (var igenericCode in genericCodes)
@@ -104,7 +114,7 @@ public static class Fast2BuildMethod
         var syntaxTrees = new List<SyntaxTree>();
         foreach (var code in codes)
             syntaxTrees.Add(CSharpSyntaxTree.ParseText(code.Value));
-        var compilation = CSharpCompilation.Create(assemblyName, syntaxTrees, references, new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, optimizationLevel: OptimizationLevel.Release));
+        var compilation = CSharpCompilation.Create(assemblyName, syntaxTrees, references, new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, optimizationLevel: OptimizationLevel.Release, allowUnsafe: true));
         using (var stream = new MemoryStream())
         {
             var result = compilation.Emit(stream);
@@ -167,86 +177,60 @@ public static class Fast2BuildMethod
     {
         var sb = new StringBuilder();
         var sb1 = new StringBuilder();
-        FieldInfo[] fields;
-        if (serField)
-            fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
-        else
-            fields = new FieldInfo[0];
-        PropertyInfo[] properties;
-        if (serProperty)
-            properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-        else
-            properties = new PropertyInfo[0];
+        var memberInfos = type.GetMembers(BindingFlags.Public | BindingFlags.Instance);
         var members = new List<Member>();
-        foreach (var field in fields)
+        foreach (var memberInfo in memberInfos)
         {
-            if (field.GetCustomAttribute<Net.Serialize.NonSerialized>() != null)
-                continue;
-            if (ignores.Contains(field.Name))
-                continue;
+            Type fieldOrPropertyType;
+            if (memberInfo is FieldInfo field)
+            {
+                if (!serField)
+                    continue;
+                if (field.GetCustomAttribute<Net.Serialize.NonSerialized>() != null)
+                    continue;
+                if (ignores.Contains(field.Name))
+                    continue;
+                fieldOrPropertyType = field.FieldType;
+            }
+            else if (memberInfo is PropertyInfo property)
+            {
+                if (!serProperty)
+                    continue;
+                if (property.GetCustomAttribute<Net.Serialize.NonSerialized>() != null)
+                    continue;
+                if (!property.CanRead | !property.CanWrite)
+                    continue;
+                if (property.GetIndexParameters().Length > 0)
+                    continue;
+                if (ignores.Contains(property.Name))
+                    continue;
+                fieldOrPropertyType = property.PropertyType;
+            }
+            else continue;
             var member = new Member()
             {
-                IsArray = field.FieldType.IsArray,
-                IsEnum = field.FieldType.IsEnum,
-                IsGenericType = field.FieldType.IsGenericType,
-                IsPrimitive = Type.GetTypeCode(field.FieldType) != TypeCode.Object,
-                Name = field.Name,
-                Type = field.FieldType,
-                TypeCode = Type.GetTypeCode(field.FieldType)
+                IsArray = fieldOrPropertyType.IsArray,
+                IsEnum = fieldOrPropertyType.IsEnum,
+                IsGenericType = fieldOrPropertyType.IsGenericType,
+                IsPrimitive = Type.GetTypeCode(fieldOrPropertyType) != TypeCode.Object,
+                Name = memberInfo.Name,
+                Type = fieldOrPropertyType,
+                TypeCode = Type.GetTypeCode(fieldOrPropertyType)
             };
-            if (field.FieldType.IsArray)
+            if (fieldOrPropertyType.IsArray)
             {
-                var itemType = field.FieldType.GetArrayItemType();
+                var itemType = fieldOrPropertyType.GetArrayItemType();
                 member.ItemType = itemType;
             }
-            else if (field.FieldType.GenericTypeArguments.Length == 1)
+            else if (fieldOrPropertyType.GenericTypeArguments.Length == 1)
             {
-                Type itemType = field.FieldType.GenericTypeArguments[0];
+                Type itemType = fieldOrPropertyType.GenericTypeArguments[0];
                 member.ItemType = itemType;
             }
-            else if (field.FieldType.GenericTypeArguments.Length == 2)
+            else if (fieldOrPropertyType.GenericTypeArguments.Length == 2)
             {
-                Type itemType = field.FieldType.GenericTypeArguments[0];
-                Type itemType1 = field.FieldType.GenericTypeArguments[1];
-                member.ItemType = itemType;
-                member.ItemType1 = itemType1;
-            }
-            members.Add(member);
-        }
-        foreach (var property in properties)
-        {
-            if (property.GetCustomAttribute<Net.Serialize.NonSerialized>() != null)
-                continue;
-            if (!property.CanRead | !property.CanWrite)
-                continue;
-            if (property.GetIndexParameters().Length > 0)
-                continue;
-            if (ignores.Contains(property.Name))
-                continue;
-            var member = new Member()
-            {
-                IsArray = property.PropertyType.IsArray,
-                IsEnum = property.PropertyType.IsEnum,
-                IsGenericType = property.PropertyType.IsGenericType,
-                IsPrimitive = Type.GetTypeCode(property.PropertyType) != TypeCode.Object,
-                Name = property.Name,
-                Type = property.PropertyType,
-                TypeCode = Type.GetTypeCode(property.PropertyType)
-            };
-            if (property.PropertyType.IsArray)
-            {
-                var itemType = property.PropertyType.GetArrayItemType();
-                member.ItemType = itemType;
-            }
-            else if (property.PropertyType.GenericTypeArguments.Length == 1)
-            {
-                Type itemType = property.PropertyType.GenericTypeArguments[0];
-                member.ItemType = itemType;
-            }
-            else if (property.PropertyType.GenericTypeArguments.Length == 2)
-            {
-                Type itemType = property.PropertyType.GenericTypeArguments[0];
-                Type itemType1 = property.PropertyType.GenericTypeArguments[1];
+                Type itemType = fieldOrPropertyType.GenericTypeArguments[0];
+                Type itemType1 = fieldOrPropertyType.GenericTypeArguments[1];
                 member.ItemType = itemType;
                 member.ItemType1 = itemType1;
             }
@@ -425,7 +409,8 @@ namespace Binding
                     className = className.Replace(".", "").Replace("+", "").Replace("<", "").Replace(">", "");
                     if (members[i].Type != typeof(List<>).MakeGenericType(members[i].ItemType))
                     {
-                        File.WriteAllText(savePath + $"//{className}Bind.cs", codeSB.ToString());
+                        if (!string.IsNullOrEmpty(savePath))
+                            File.WriteAllText(savePath + $"//{className}Bind.cs", codeSB.ToString());
                         genericCodes?.Add(codeSB.ToString());
                     }
 
@@ -505,91 +490,65 @@ namespace Binding
 
         return sb;
     }
-
+    
     public static StringBuilder BuildNewFast(Type type, bool serField, bool serProperty, List<string> ignores, string savePath = null, HashSet<Type> types = null, List<string> genericCodes = null)
     {
         var sb = new StringBuilder();
         var sb1 = new StringBuilder();
-        FieldInfo[] fields;
-        if (serField)
-            fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
-        else
-            fields = new FieldInfo[0];
-        PropertyInfo[] properties;
-        if (serProperty)
-            properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-        else
-            properties = new PropertyInfo[0];
+        var memberInfos = type.GetMembers(BindingFlags.Public | BindingFlags.Instance);
         var members = new List<Member>();
-        foreach (var field in fields)
+        foreach (var memberInfo in memberInfos)
         {
-            if (field.GetCustomAttribute<Net.Serialize.NonSerialized>() != null)
-                continue;
-            if (ignores.Contains(field.Name))
-                continue;
+            Type fieldOrPropertyType;
+            if (memberInfo is FieldInfo field)
+            {
+                if (!serField)
+                    continue;
+                if (field.GetCustomAttribute<Net.Serialize.NonSerialized>() != null)
+                    continue;
+                if (ignores.Contains(field.Name))
+                    continue;
+                fieldOrPropertyType = field.FieldType;
+            }
+            else if (memberInfo is PropertyInfo property)
+            {
+                if (!serProperty)
+                    continue;
+                if (property.GetCustomAttribute<Net.Serialize.NonSerialized>() != null)
+                    continue;
+                if (!property.CanRead | !property.CanWrite)
+                    continue;
+                if (property.GetIndexParameters().Length > 0)
+                    continue;
+                if (ignores.Contains(property.Name))
+                    continue;
+                fieldOrPropertyType = property.PropertyType;
+            }
+            else continue;
             var member = new Member()
             {
-                IsArray = field.FieldType.IsArray,
-                IsEnum = field.FieldType.IsEnum,
-                IsGenericType = field.FieldType.IsGenericType,
-                IsPrimitive = Type.GetTypeCode(field.FieldType) != TypeCode.Object,
-                Name = field.Name,
-                Type = field.FieldType,
-                TypeCode = Type.GetTypeCode(field.FieldType)
+                IsArray = fieldOrPropertyType.IsArray,
+                IsEnum = fieldOrPropertyType.IsEnum,
+                IsGenericType = fieldOrPropertyType.IsGenericType,
+                IsPrimitive = Type.GetTypeCode(fieldOrPropertyType) != TypeCode.Object,
+                Name = memberInfo.Name,
+                Type = fieldOrPropertyType,
+                TypeCode = Type.GetTypeCode(fieldOrPropertyType)
             };
-            if (field.FieldType.IsArray)
+            if (fieldOrPropertyType.IsArray)
             {
-                var itemType = field.FieldType.GetArrayItemType();
+                var itemType = fieldOrPropertyType.GetArrayItemType();
                 member.ItemType = itemType;
             }
-            else if (field.FieldType.GenericTypeArguments.Length == 1)
+            else if (fieldOrPropertyType.GenericTypeArguments.Length == 1)
             {
-                Type itemType = field.FieldType.GenericTypeArguments[0];
+                Type itemType = fieldOrPropertyType.GenericTypeArguments[0];
                 member.ItemType = itemType;
             }
-            else if (field.FieldType.GenericTypeArguments.Length == 2)
+            else if (fieldOrPropertyType.GenericTypeArguments.Length == 2)
             {
-                Type itemType = field.FieldType.GenericTypeArguments[0];
-                Type itemType1 = field.FieldType.GenericTypeArguments[1];
-                member.ItemType = itemType;
-                member.ItemType1 = itemType1;
-            }
-            members.Add(member);
-        }
-        foreach (var property in properties)
-        {
-            if (property.GetCustomAttribute<Net.Serialize.NonSerialized>() != null)
-                continue;
-            if (!property.CanRead | !property.CanWrite)
-                continue;
-            if (property.GetIndexParameters().Length > 0)
-                continue;
-            if (ignores.Contains(property.Name))
-                continue;
-            var member = new Member()
-            {
-                IsArray = property.PropertyType.IsArray,
-                IsEnum = property.PropertyType.IsEnum,
-                IsGenericType = property.PropertyType.IsGenericType,
-                IsPrimitive = Type.GetTypeCode(property.PropertyType) != TypeCode.Object,
-                Name = property.Name,
-                Type = property.PropertyType,
-                TypeCode = Type.GetTypeCode(property.PropertyType)
-            };
-            if (property.PropertyType.IsArray)
-            {
-                var itemType = property.PropertyType.GetArrayItemType();
-                member.ItemType = itemType;
-            }
-            else if (property.PropertyType.GenericTypeArguments.Length == 1)
-            {
-                Type itemType = property.PropertyType.GenericTypeArguments[0];
-                member.ItemType = itemType;
-            }
-            else if (property.PropertyType.GenericTypeArguments.Length == 2)
-            {
-                Type itemType = property.PropertyType.GenericTypeArguments[0];
-                Type itemType1 = property.PropertyType.GenericTypeArguments[1];
+                Type itemType = fieldOrPropertyType.GenericTypeArguments[0];
+                Type itemType1 = fieldOrPropertyType.GenericTypeArguments[1];
                 member.ItemType = itemType;
                 member.ItemType1 = itemType1;
             }
@@ -611,16 +570,17 @@ namespace Binding
             fixed (byte* ptr = &stream.Buffer[stream.Position]) 
             {
                 int offset = 0;
+                bool judge = false;
 {Split} //1
                 {WRITE}
 {Split} //2
-                NetConvertHelper.Write(ptr, ref offset, value.{FIELDNAME} != null);
-                if (value.test != null)
-                {
-                    stream.Position++;
-                    new {BINDTYPE}().Write(value.{FIELDNAME}, stream);
-                }
+                stream.Position += offset;
 {Split} //3
+                judge = value.{FIELDNAME} != null;
+                stream.Write(judge);
+                if (judge)
+                    new {BINDTYPE}().Write(value.{FIELDNAME}, stream);
+{Split} //4
             }
         }
 		
@@ -636,15 +596,14 @@ namespace Binding
 			fixed (byte* ptr = &stream.Buffer[stream.Position]) 
             {
                 int offset = 0;
-{Split} //4
-                {READ}
 {Split} //5
-                if (NetConvertHelper.Read<bool>(ptr, ref offset))
-                {
-                    stream.Position++;
-                    value.{FIELDNAME} = new {BINDTYPE}().Read(stream);
-                }
+                {READ}
 {Split} //6
+                stream.Position += offset;
+{Split} //7
+                if (stream.ReadBoolean())
+                    value.{FIELDNAME} = new {BINDTYPE}().Read(stream);
+{Split} //8
             }
 		}
 
@@ -670,10 +629,58 @@ namespace Binding
 
         sb.Append(templateTexts[0]);
 
+        var members1 = new List<Member>();
+        int basisIndex = 0;
         for (int i = 0; i < members.Count; i++)
         {
-            int bitInx1 = i % 8;
-            int bitPos = i / 8;
+            var typecode = Type.GetTypeCode(members[i].Type);
+            if (typecode != TypeCode.Object)
+            {
+                members1.Add(members[i]);
+                members.RemoveAt(i);
+                i = -1;
+                basisIndex++;
+            }
+            else if (members[i].IsArray)
+            {
+                typecode = Type.GetTypeCode(members[i].ItemType);
+                if (typecode != TypeCode.Object)
+                {
+                    members1.Add(members[i]);
+                    members.RemoveAt(i);
+                    i = -1; 
+                    basisIndex++;
+                }
+            }
+            else if (members[i].IsGenericType)
+            {
+                if (members[i].ItemType1 == null)//List<T>
+                {
+                    typecode = Type.GetTypeCode(members[i].ItemType);
+                    if (typecode != TypeCode.Object)
+                    {
+                        members1.Add(members[i]);
+                        members.RemoveAt(i);
+                        i = -1;
+                        basisIndex++;
+                    }
+                }
+                else //Dic
+                {
+                }
+            }
+        }
+        members1.AddRange(members);
+        members = members1;
+
+        for (int i = 0; i < members.Count; i++)
+        {
+            if (basisIndex == i)
+            {
+                sb.Append(templateTexts[2]);
+                sb1.Append(templateTexts[6]);
+            }
+
             var typecode = Type.GetTypeCode(members[i].Type);
             if (typecode != TypeCode.Object)
             {
@@ -681,7 +688,7 @@ namespace Binding
                 templateText1 = templateText1.Replace("{WRITE}", $"NetConvertHelper.Write(ptr, ref offset, value.{members[i].Name});");
                 sb.Append(templateText1);
 
-                var templateText2 = templateTexts[4];
+                var templateText2 = templateTexts[5];
                 templateText2 = templateText2.Replace("{READ}", $"value.{members[i].Name} = NetConvertHelper.Read{(typecode == TypeCode.String ? "" : $"<{members[i].Type}>")}(ptr, ref offset);");
                 sb1.Append(templateText2);
             }
@@ -694,7 +701,7 @@ namespace Binding
                     templateText1 = templateText1.Replace("{WRITE}", $"NetConvertHelper.WriteArray(ptr, ref offset, value.{members[i].Name});");
                     sb.Append(templateText1);
 
-                    var templateText2 = templateTexts[4];
+                    var templateText2 = templateTexts[5];
                     templateText2 = templateText2.Replace("{READ}", $"value.{members[i].Name} = NetConvertHelper.ReadArray{(typecode == TypeCode.String ? "" : $"<{members[i].ItemType}>")}(ptr, ref offset);");
                     sb1.Append(templateText2);
                 }
@@ -702,12 +709,12 @@ namespace Binding
                 {
                     var local = members[i].ItemType.ToString().Replace(".", "").Replace("+", "") + "ArrayBind";
 
-                    var templateText1 = templateTexts[2];
+                    var templateText1 = templateTexts[3];
                     templateText1 = templateText1.Replace("{FIELDNAME}", $"{members[i].Name}");
                     templateText1 = templateText1.Replace("{BINDTYPE}", $"{local}");
                     sb.Append(templateText1);
 
-                    var templateText2 = templateTexts[5];
+                    var templateText2 = templateTexts[7];
                     templateText2 = templateText2.Replace("{FIELDNAME}", $"{members[i].Name}");
                     templateText2 = templateText2.Replace("{BINDTYPE}", $"{local}");
                     sb1.Append(templateText2);
@@ -722,7 +729,8 @@ namespace Binding
                     className = className.Replace(".", "").Replace("+", "").Replace("<", "").Replace(">", "");
                     if (members[i].Type != typeof(List<>).MakeGenericType(members[i].ItemType))
                     {
-                        File.WriteAllText(savePath + $"//{className}Bind.cs", codeSB.ToString());
+                        if (!string.IsNullOrEmpty(savePath))
+                            File.WriteAllText(savePath + $"//{className}Bind.cs", codeSB.ToString());
                         genericCodes?.Add(codeSB.ToString());
                     }
 
@@ -734,7 +742,7 @@ namespace Binding
                         templateText1 = templateText1.Replace("{WRITE}", $"NetConvertHelper.WriteCollection(ptr, ref offset, value.{members[i].Name});");
                         sb.Append(templateText1);
 
-                        var templateText2 = templateTexts[4];
+                        var templateText2 = templateTexts[5];
                         templateText2 = templateText2.Replace("{READ}", $"value.{members[i].Name} = NetConvertHelper.ReadCollection<{(typecode == TypeCode.String ? $"{typeName1}" : $"{typeName1}, {members[i].ItemType}")}>(ptr, ref offset);");
                         sb1.Append(templateText2);
                     }
@@ -743,12 +751,12 @@ namespace Binding
                         var local = AssemblyHelper.GetCodeTypeName(members[i].Type.ToString());
                         local = local.Replace(".", "").Replace("+", "").Replace("<", "").Replace(">", "") + "Bind";
 
-                        var templateText1 = templateTexts[2];
+                        var templateText1 = templateTexts[3];
                         templateText1 = templateText1.Replace("{FIELDNAME}", $"{members[i].Name}");
                         templateText1 = templateText1.Replace("{BINDTYPE}", $"{local}");
                         sb.Append(templateText1);
 
-                        var templateText2 = templateTexts[5];
+                        var templateText2 = templateTexts[7];
                         templateText2 = templateText2.Replace("{FIELDNAME}", $"{members[i].Name}");
                         templateText2 = templateText2.Replace("{BINDTYPE}", $"{local}");
                         sb1.Append(templateText2);
@@ -756,26 +764,19 @@ namespace Binding
                 }
                 else //Dic
                 {
-                    var templateText1 = templateTexts[3];
-                    templateText1 = templateText1.Replace("{BITPOS}", $"{bitPos}");
-                    templateText1 = templateText1.Replace("{FIELDINDEX}", $"{++bitInx1}");
-                    templateText1 = templateText1.Replace("{FIELDNAME}", $"{members[i].Name}");
-                    templateText1 = templateText1.Replace("{Condition}", $"value.{members[i].Name} != null");
-
-                    var templateText2 = templateTexts[7];
-                    templateText2 = templateText2.Replace("{BITPOS}", $"{bitPos}");
-                    templateText2 = templateText2.Replace("{FIELDINDEX}", $"{bitInx1}");
-                    templateText2 = templateText2.Replace("{FIELDNAME}", $"{members[i].Name}");
-
                     var text = BuildDictionary(members[i].Type, out var className1);
                     if (!string.IsNullOrEmpty(savePath))
                         File.WriteAllText(savePath + $"//{className1}.cs", text);
                     genericCodes?.Add(text);
 
-                    templateText1 = templateText1.Replace("{DICTIONARYBIND}", $"{className1}");
+                    var templateText1 = templateTexts[3];
+                    templateText1 = templateText1.Replace("{FIELDNAME}", $"{members[i].Name}");
+                    templateText1 = templateText1.Replace("{BINDTYPE}", $"{className1}");
                     sb.Append(templateText1);
 
-                    templateText2 = templateText2.Replace("{DICTIONARYBIND}", $"{className1}");
+                    var templateText2 = templateTexts[7];
+                    templateText2 = templateText2.Replace("{FIELDNAME}", $"{members[i].Name}");
+                    templateText2 = templateText2.Replace("{BINDTYPE}", $"{className1}");
                     sb1.Append(templateText2);
 
                     types?.Add(members[i].Type);
@@ -785,21 +786,21 @@ namespace Binding
             {
                 var local = members[i].Type.ToString().Replace(".", "").Replace("+", "") + "Bind";
 
-                var templateText1 = templateTexts[2];
+                var templateText1 = templateTexts[3];
                 templateText1 = templateText1.Replace("{FIELDNAME}", $"{members[i].Name}");
                 templateText1 = templateText1.Replace("{BINDTYPE}", $"{local}");
                 sb.Append(templateText1);
 
-                var templateText2 = templateTexts[5];
+                var templateText2 = templateTexts[7];
                 templateText2 = templateText2.Replace("{FIELDNAME}", $"{members[i].Name}");
                 templateText2 = templateText2.Replace("{BINDTYPE}", $"{local}"); 
                 sb1.Append(templateText2);
             }
         }
 
-        sb.Append(templateTexts[3]);
+        sb.Append(templateTexts[4]);
         sb.Append(sb1);
-        sb.Append(templateTexts[6]);
+        sb.Append(templateTexts[8]);
 
         return sb;
     }

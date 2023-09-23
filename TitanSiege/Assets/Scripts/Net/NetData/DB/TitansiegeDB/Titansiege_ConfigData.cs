@@ -50,7 +50,7 @@ namespace Titansiege
         /// <summary>表id</summary>
         public Int32 Id { get { return id; } set { this.id = value; } }
 
-     
+     //1
         private readonly StringObs tname = new StringObs("ConfigData_tname", false, null);
 
         /// <summary>表名称 --获得属性观察对象</summary>
@@ -101,7 +101,7 @@ namespace Titansiege
         {
             Tname = value;
         }
-     
+     //1
         private readonly Int32Obs count = new Int32Obs("ConfigData_count", true, null);
 
         /// <summary>表计数 --获得属性观察对象</summary>
@@ -152,7 +152,7 @@ namespace Titansiege
         {
             Count = value;
         }
-     
+     //1
         private readonly StringObs describle = new StringObs("ConfigData_describle", false, null);
 
         /// <summary>表描述 --获得属性观察对象</summary>
@@ -203,7 +203,7 @@ namespace Titansiege
         {
             Describle = value;
         }
-     
+     //2
 
         public ConfigData() { }
 
@@ -240,15 +240,15 @@ namespace Titansiege
         {
             switch (index)
             {
-     
+     //3
                 case 0: length = 0; return "id";
-     
+     //3
                 case 1: length = 20; return "tname";
-     
+     //3
                 case 2: length = 0; return "count";
-     
+     //3
                 case 3: length = 200; return "describle";
-     
+     //4
             }
             throw new Exception("错误");
         }
@@ -260,15 +260,15 @@ namespace Titansiege
             {
                 switch (index)
                 {
-     
+     //5
                     case 0: return this.id;
-     
+     //5
                     case 1: return this.tname.Value;
-     
+     //5
                     case 2: return this.count.Value;
-     
+     //5
                     case 3: return this.describle.Value;
-     
+     //6
                 }
                 throw new Exception("错误");
             }
@@ -276,23 +276,66 @@ namespace Titansiege
             {
                 switch (index)
                 {
-     
+     //7
                     case 0:
                         this.id = (Int32)value;
                         break;
-     
+     //7
                     case 1:
                         CheckTnameValue((String)value, -1);
                         break;
-     
+     //7
                     case 2:
                         CheckCountValue((Int32)value, -1);
                         break;
-     
+     //7
                     case 3:
                         CheckDescribleValue((String)value, -1);
                         break;
-     
+     //8
+                }
+            }
+        }
+
+        public object this[string name]
+        {
+            get
+            {
+                switch (name)
+                {
+     //9
+                    case "id": return this.id;
+     //9
+                    case "tname": return this.tname.Value;
+     //9
+                    case "count": return this.count.Value;
+     //9
+                    case "describle": return this.describle.Value;
+     //10
+                }
+                throw new Exception("错误");
+            }
+            set
+            {
+                switch (name)
+                {
+     //11
+                    case "id":
+                        this.id = (Int32)value;
+                        break;
+     //11
+                    case "tname":
+                        CheckTnameValue((String)value, -1);
+                        break;
+     //11
+                    case "count":
+                        CheckCountValue((Int32)value, -1);
+                        break;
+     //11
+                    case "describle":
+                        CheckDescribleValue((String)value, -1);
+                        break;
+     //12
                 }
             }
         }
@@ -358,29 +401,26 @@ namespace Titansiege
         public void Update()
         {
             if (RowState == DataRowState.Deleted | RowState == DataRowState.Detached | RowState == DataRowState.Added | RowState == 0) return;
-     
-            RowState = DataRowState.Modified;
-            TitansiegeDB.I.Update(this);
-     
+     //14
         }
     #endif
 
         public void Init(DataRow row)
         {
             RowState = DataRowState.Unchanged;
-     
+     //15
             if (row[0] is Int32 id)
                 this.id = id;
-     
+     //15
             if (row[1] is String tname)
                 CheckTnameValue(tname, -1);
-     
+     //15
             if (row[2] is Int32 count)
                 CheckCountValue(count, -1);
-     
+     //15
             if (row[3] is String describle)
                 CheckDescribleValue(describle, -1);
-     
+     //16
         }
 
         public void AddedSql(StringBuilder sb)

@@ -136,9 +136,8 @@
         /// <param name="startBit">开始位,从1-8</param>
         /// <param name="endBit">结束位</param>
         /// <param name="value">设置的值从1位开始读取到设置的长度</param>
-        public static void SetByteBits(ref byte data, byte startBit, byte endBit, byte value)
+        public static void SetByteBits(ref byte data, byte startBit, byte endBit, byte value, byte index = 1)
         {
-            byte index = 1; //value必须是从1位到n位写入
             for (byte i = startBit; i < endBit; i++)
             {
                 var flag = GetBit(value, index); //获取的位也是从1开始
@@ -154,10 +153,9 @@
         /// <param name="startBit">开始位,从1-8</param>
         /// <param name="endBit">结束位</param>
         /// <returns>返回开始位-结束位组成的byte值</returns>
-        public static byte GetByteBits(byte data, byte startBit, byte endBit)
+        public static byte GetByteBits(byte data, byte startBit, byte endBit, byte index = 1)
         {
             byte result = 0;
-            byte index = 1; //设置新的byte必须是从1位到n位写入
             for (byte i = startBit; i < endBit; i++)
             {
                 var flag = GetBit(data, i);
@@ -174,11 +172,6 @@
         /// <param name="index">索引从1-8</param>
         /// <param name="flag">填二进制的0或1</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static void SetBit(ref byte data, int index, bool flag)
-        //{
-        //    int mask = index < 2 ? index : (2 << (index - 2));
-        //    data = flag ? (byte)(data | mask) : (byte)(data & ~mask);
-        //}
         public static void SetBit(ref byte data, int index, bool flag)
         {
             if (flag)
@@ -194,11 +187,6 @@
         /// <param name="index">索引从1-8</param>
         /// <returns>返回二进制的0或1</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static bool GetBit(byte data, byte index)
-        //{
-        //    byte mask = index < 2 ? index : (byte)(2 << (index - 2));
-        //    return (data & mask) == mask;
-        //}
         public static bool GetBit(byte data, byte index)
         {
             return ((data >> (8 - index)) & 1) == 1;

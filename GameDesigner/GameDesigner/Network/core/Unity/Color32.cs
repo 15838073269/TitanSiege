@@ -16,6 +16,30 @@ namespace Net
             hex = "";
         }
 
+        // Token: 0x06005159 RID: 20825 RVA: 0x0008CF7C File Offset: 0x0008B17C
+        public static bool operator ==(Color32 rhs, Color32 lhs)
+        {
+            return lhs.r == rhs.r && lhs.g == rhs.g && lhs.b == rhs.b && lhs.a == rhs.a;
+        }
+
+        // Token: 0x0600515A RID: 20826 RVA: 0x0008CFA8 File Offset: 0x0008B1A8
+        public static bool operator !=(Color32 rhs, Color32 lhs)
+        {
+            return !(lhs == rhs);
+        }
+
+        // Token: 0x06005159 RID: 20825 RVA: 0x0008CF7C File Offset: 0x0008B17C
+        public static bool operator ==(Color32 rhs, UnityEngine.Color32 lhs)
+        {
+            return lhs.r == rhs.r && lhs.g == rhs.g && lhs.b == rhs.b && lhs.a == rhs.a;
+        }
+
+        // Token: 0x0600515A RID: 20826 RVA: 0x0008CFA8 File Offset: 0x0008B1A8
+        public static bool operator !=(Color32 rhs, UnityEngine.Color32 lhs)
+        {
+            return !(lhs == rhs);
+        }
+
         // Token: 0x06003F1D RID: 16157 RVA: 0x00072128 File Offset: 0x00070328
         public static implicit operator Color32(Color c)
         {

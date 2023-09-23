@@ -211,4 +211,80 @@ namespace Net.System
             }
         }
     }
+
+    /// <summary>
+    /// 数据缓冲数组池
+    /// </summary>
+    public static class ArrayPool<T>
+    {
+        private static readonly GStack<T>[] STACKS;
+        private static readonly int[] TABLE = new int[] {
+            2, 4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,98304,131072,196608,262144,393216,
+            524288,786432,1048576,1572864,2097152,3145728,4194304,6291456,8388608,12582912,16777216,25165824,
+            33554432,50331648,67108864,100663296,134217728,201326592,268435456,402653184,536870912,805306368,1073741824
+        };
+        private static readonly object SyncRoot = new object();
+
+        static ArrayPool()
+        {
+            STACKS = new GStack<T>[TABLE.Length];
+            for (int i = 0; i < TABLE.Length; i++)
+                STACKS[i] = new GStack<T>();
+        }
+
+        /// <summary>
+        /// 从内存池取数据片
+        /// </summary>
+        /// <param name="size">内存大小</param>
+        /// <returns></returns>
+        public static T Take(int size)
+        {
+#if !SerializeTest
+            lock (SyncRoot)
+#endif
+            {
+                int tableInx = 0;
+                var table = TABLE;
+                var count = table.Length;
+                for (int i = 0; i < count; i++)
+                {
+                    if (size <= table[i])
+                    {
+                        size = table[i];
+                        tableInx = i;
+                        goto J;
+                    }
+                }
+            J: var stack = STACKS[tableInx];
+                T array;
+                if (stack.Count > 0)
+                    array = stack.Pop();
+                else
+                    array = (T)Activator.CreateInstance(typeof(T), size);
+                return array;
+            }
+        }
+
+        /// <summary>
+        /// 压入数据片, 等待复用
+        /// </summary>
+        /// <param name="array"></param>
+        public static void Push(T array)
+        {
+#if !SerializeTest
+            lock (SyncRoot)
+#endif
+            {
+                var table = TABLE;
+                for (int i = 0; i < table.Length; i++)
+                {
+                    if ((array as Array).Length == table[i])
+                    {
+                        STACKS[i].Push(array);
+                        return;
+                    }
+                }
+            }
+        }
+    }
 }

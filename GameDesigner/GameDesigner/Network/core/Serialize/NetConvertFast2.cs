@@ -326,7 +326,7 @@
             finally
             {
                 stream.Count = stream.Position;
-                stream.Position = 0;
+                stream.SetPosition(0);
             }
             return stream;
         }
@@ -369,7 +369,7 @@
             finally
             {
                 stream.Count = stream.Position;
-                stream.Position = 0;
+                stream.SetPosition(0);
             }
             return stream;
         }

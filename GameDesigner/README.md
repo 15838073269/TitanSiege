@@ -429,6 +429,7 @@ static void Main(string[] args)
 <br>12.[吞噬修仙](https://www.taptap.cn/app/352549)</br>
 <br>12.[吞噬修仙](https://www.taptap.cn/app/352549)</br>
 <br>13.[武界传说](https://www.taptap.cn/app/381982/review)</br>
+<br>14.[多元秘境探险](https://www.taptap.cn/app/357434)</br>
 
 ## Steam游戏
 <br>1.[CubeSquad:Zero](https://store.steampowered.com/app/2505450/CubeSquadZero/)</br>

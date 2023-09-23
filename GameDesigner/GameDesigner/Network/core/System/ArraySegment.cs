@@ -107,6 +107,11 @@ namespace Net.System
             Position = 0;
         }
 
+        public void SetPosition(int position)
+        {
+            Position = position;
+        }
+
         public void Dispose()
         {
             if (!IsRecovery)

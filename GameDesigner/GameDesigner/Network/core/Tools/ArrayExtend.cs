@@ -219,6 +219,26 @@ public static class ArrayExtend
         }
     }
 
+    public static void InvokeMethod<T>(this T[] self, string name, params object[] pars) where T : Object
+    {
+        var type = typeof(T);
+        var method = type.GetMethod(name);
+        for (int i = 0; i < self.Length; i++)
+        {
+            method.Invoke(self[i], pars);
+        }
+    }
+
+    public static void InvokeMethod<T>(this List<T> self, string name, params object[] pars) where T : Object
+    {
+        var type = typeof(T);
+        var method = type.GetMethod(name);
+        for (int i = 0; i < self.Count; i++)
+        {
+            method.Invoke(self[i], pars);
+        }
+    }
+
     public static void SetEnableds<T>(this T[] self, bool active) where T : Behaviour
     {
         for (int i = 0; i < self.Length; i++)
@@ -344,6 +364,26 @@ public static class ArrayExtend
         foreach (Transform tran in trans)
         {
             tran.gameObject.layer = layer;
+        }
+    }
+
+    public static void SetIsOn(this List<Toggle> self, int isOnIndex)
+    {
+        for (int i = 0; i < self.Count; i++)
+        {
+            var isOn = i == isOnIndex;
+            self[i].isOn = isOn;
+            self[i].onValueChanged.Invoke(isOn);
+        }
+    }
+
+    public static void SetIsOn(this Toggle[] self, int isOnIndex)
+    {
+        for (int i = 0; i < self.Length; i++)
+        {
+            var isOn = i == isOnIndex;
+            self[i].isOn = isOn;
+            self[i].onValueChanged.Invoke(isOn);
         }
     }
 #endif

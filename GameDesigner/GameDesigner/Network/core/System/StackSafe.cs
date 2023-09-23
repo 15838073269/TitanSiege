@@ -47,7 +47,7 @@ namespace Net.System
 #if !SILVERLIGHT
         [NonSerialized]
 #endif
-        private Object _syncRoot;
+        private object _syncRoot;
 
         private const int _defaultCapacity = 4;
         static T[] _emptyArray = new T[0];
@@ -106,7 +106,7 @@ namespace Net.System
             get { return false; }
         }
 
-        Object ICollection.SyncRoot
+        object ICollection.SyncRoot
         {
             get
             {
@@ -132,9 +132,9 @@ namespace Net.System
             EqualityComparer<T> c = EqualityComparer<T>.Default;
             while (count-- > 0)
             {
-                if (((Object)item) == null)
+                if (item == null)
                 {
-                    if (((Object)_array[count]) == null)
+                    if (_array[count] == null)
                         return true;
                 }
                 else if (_array[count] != null && c.Equals(_array[count], item))
@@ -221,7 +221,7 @@ namespace Net.System
 
         public void TrimExcess()
         {
-            int threshold = (int)(((double)_array.Length) * 0.9);
+            int threshold = (int)(_array.Length * 0.9);
             if (_size < threshold)
             {
                 T[] newarray = new T[_size];
@@ -244,7 +244,7 @@ namespace Net.System
                 ThrowHelper.ThrowInvalidOperationException(ExceptionResource.InvalidOperation_EmptyStack);
             _version++;
             T item = _array[--_size];
-            _array[_size] = default(T);     // Free memory quicker.
+            _array[_size] = default;     // Free memory quicker.
             return item;
         }
 
@@ -286,20 +286,17 @@ namespace Net.System
 #if !SILVERLIGHT
         [Serializable()]
 #endif
-        [SuppressMessage("Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes", Justification = "not an expected scenario")]
         public struct Enumerator : IEnumerator<T>, IEnumerator
         {
             private GStack<T> _stack;
             private int _index;
-            private int _version;
             private T currentElement;
 
             internal Enumerator(GStack<T> stack)
             {
                 _stack = stack;
-                _version = _stack._version;
                 _index = -2;
-                currentElement = default(T);
+                currentElement = default;
             }
 
             public void Dispose()
@@ -313,7 +310,7 @@ namespace Net.System
                 if (_index == -2)
                 {
                     _index = _stack._size - 1;
-                    retval = (_index >= 0);
+                    retval = _index >= 0;
                     if (retval)
                         currentElement = _stack._array[_index];
                     return retval;
@@ -323,11 +320,11 @@ namespace Net.System
                     return false;
                 }
 
-                retval = (--_index >= 0);
+                retval = --_index >= 0;
                 if (retval)
                     currentElement = _stack._array[_index];
                 else
-                    currentElement = default(T);
+                    currentElement = default;
                 return retval;
             }
 
@@ -339,7 +336,7 @@ namespace Net.System
                 }
             }
 
-            Object IEnumerator.Current
+            object IEnumerator.Current
             {
                 get
                 {
@@ -350,7 +347,7 @@ namespace Net.System
             void IEnumerator.Reset()
             {
                 _index = -2;
-                currentElement = default(T);
+                currentElement = default;
             }
         }
     }

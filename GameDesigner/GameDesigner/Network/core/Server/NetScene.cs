@@ -195,18 +195,45 @@
                 return;
             for (int i = 0; i < playerCount; i++)
                 players[i].OnUpdate();
-            int count = operations.Count;
-            if (count > 0)
+            if (operations.Count > 0)
             {
                 frame++;
-                while (count > Split)
-                {
-                    OnPacket(handle, cmd, Split);
-                    count -= Split;
-                }
-                if (count > 0)
-                    OnPacket(handle, cmd, count);
+                SendOperitions(handle, cmd, operations);
             }
+        }
+
+        /// <summary>
+        /// 发送操作, 如果超过Split属性则会进行拆分发送
+        /// </summary>
+        /// <param name="handle"></param>
+        /// <param name="cmd"></param>
+        /// <param name="operations"></param>
+        public void SendOperitions(IServerSendHandle<Player> handle, byte cmd, FastList<Operation> operations) 
+        {
+            int count = operations.Count;
+            while (count > Split)
+            {
+                OnPacket(handle, cmd, Split, Players, operations);
+                count -= Split;
+            }
+            if (count > 0) OnPacket(handle, cmd, count, Players, operations);
+        }
+
+        /// <summary>
+        /// 发送操作, 如果超过Split属性则会进行拆分发送
+        /// </summary>
+        /// <param name="handle"></param>
+        /// <param name="cmd"></param>
+        /// <param name="operations"></param>
+        public void SendOperitions(IServerSendHandle<Player> handle, byte cmd, Player client, FastList<Operation> operations)
+        {
+            int count = operations.Count;
+            while (count > Split)
+            {
+                OnPacket(handle, cmd, Split, client, operations);
+                count -= Split;
+            }
+            if (count > 0) OnPacket(handle, cmd, count, client, operations);
         }
 
         /// <summary>

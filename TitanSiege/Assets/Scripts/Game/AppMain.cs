@@ -47,6 +47,8 @@ namespace GF.MainGame {
             GFTime.DateTimeAppStart = DateTime.Now;
             //初始化debuger
             InitDebuger();
+            //开启防作弊
+            OpenDeCheat();
             //初始化AppConfig
             AppConfig.Init();
             MsgCenter.Init(ReturnAllModuleName());
@@ -61,7 +63,10 @@ namespace GF.MainGame {
             UnityEditor.EditorApplication.playModeStateChanged += OnEditorPlayModeChanged;
 #endif
         }
-
+        /// <summary>
+        /// 返回所有模块名称，为消息模块使用的
+        /// </summary>
+        /// <returns></returns>
         public Dictionary<int, string> ReturnAllModuleName() {
             Dictionary<int, string> moddic = new Dictionary<int, string>();
             Array intarray = Enum.GetValues(typeof(MDef));
@@ -70,6 +75,37 @@ namespace GF.MainGame {
                 moddic.Add((int)m,m.ToString());
             }
             return moddic;
+        }
+        /// <summary>
+        /// 打开防作弊功能，防止内存修改，需添加宏定义ANTICHEAT
+        /// </summary>
+        private void OpenDeCheat() { 
+            Net.Helper.AntiCheatHelper.IsActive = true;
+            Net.Helper.AntiCheatHelper.OnDetected = OnDetected;
+            Debuger.Log("已开启防作弊！");
+        }
+        /// <summary>
+        ///  检测到作弊后的执行函数
+        /// </summary>
+        /// <param name="name">字段名称</param>
+        /// <param name="oldvalue">旧值</param>
+        /// <param name="newvalue">修改值</param>
+        private void OnDetected(string name,object oldvalue,object newvalue) {
+            Debuger.LogError($"发现作弊，修改字段{name},原值{oldvalue},修改值{newvalue}");
+            UIMsgBoxArg arg = new UIMsgBoxArg();
+            arg.title = "警告";
+            arg.content = "检测到修改作弊,系统已拦截，本游戏即将退出，杜绝作弊，健康游戏，健康生活！";
+            arg.btnname = "退出游戏";
+            UIMsgBox temp = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox,arg) as UIMsgBox;
+            temp.oncloseevent += OnFailed;
+        }
+        /// <summary>
+        /// 退出游戏
+        /// </summary>
+        /// <param name="args"></param>
+        private void OnFailed(object args = null) {
+            Exit("作弊！");
+            Application.Quit();
         }
 #if UNITY_EDITOR
         /// <summary>
@@ -156,8 +192,7 @@ namespace GF.MainGame {
             UIManager.GetInstance.Init(uiroot,uicamera, eventsystem);//UI预制体的路径
             UIManager.MainPage = AppConfig.MainUIPage;
             UIManager.MainScene = AppConfig.MainScene;
-            //注册登录事件，已经登陆成功，通过事件初始化普通业务
-            GlobalEvent.OnLogin += Onlogin;
+            
             //加载AB包资源配置表
             ObjectManager.GetInstance.IsEditor = AppConfig.IsEditor;
             if (ObjectManager.GetInstance.IsEditor) {
@@ -186,18 +221,7 @@ namespace GF.MainGame {
             AppTools.CreateModule<NPCModule>(MDef.NPCModule);
             AppTools.CreateModule<DieUIModule>(MDef.DieUIModule);
         }
-        //private void Onlogin(bool islogin) {
-        //    GlobalEvent.OnLogin -= Onlogin;
-        //    if (islogin) {
-        //        //隐藏登陆界面，通过热更脚本启动业务模块
-        //        //bool ref = ILRManager.GetInstance.Invoke("Xianlu.ScriptMain","Init");
-        //        //if (ref) {
-        //        //} else { 
-        //        //}
-        //    } else {
-        //        //显示登陆失败
-        //    }
-        //}
+        
         /// <summary>
         /// 加载配置表的方法
         /// </summary>
@@ -207,18 +231,7 @@ namespace GF.MainGame {
             ConfigerManager.GetInstance.LoadData<LevelUpData>(CT.TABLE_LEVEL);
             //ConfigerManager.GetInstance.LoadData<NameData>(CT.TABLE_NAME);  //名字不是每次都用，换到其他地方初始化
         }
-        private void Onlogin(bool islogin) {
-            GlobalEvent.OnLogin -= Onlogin;
-            if (islogin) {
-                //隐藏登陆界面，通过热更脚本启动业务模块
-                //bool ref = ILRManager.GetInstance.Invoke("Xianlu.ScriptMain","Init");
-                //if (ref) {
-                //} else { 
-                //}
-            } else {
-                //显示登陆失败
-            }
-        }
+        
         private void Update() {
             if (GlobalEvent.OnUpdate!=null) {
                 GlobalEvent.OnUpdate?.Invoke();//让其他非mono的脚本 ，可以使用update的事件
@@ -231,7 +244,9 @@ namespace GF.MainGame {
                 GlobalEvent.OnFixedUpdate?.Invoke();//让其他非mono的脚本 ，可以使用OnFixedUpdate的事件
             }
         }
-        
+        private void OnDestroy() {
+            //Exit("正常退出！");
+        }
     }
    
 }

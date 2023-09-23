@@ -7,10 +7,10 @@
     using global::System.Text;
     using global::System.Threading;
     using Fleck;
-    using Net.Serialize;
     using Net.Share;
-    using Newtonsoft_X.Json;
     using Net.System;
+    using Net.Serialize;
+    using Newtonsoft_X.Json;
     using Debug = Event.NDebug;
 
     /// <summary>
@@ -48,40 +48,40 @@
             var wsClient1 = wsClient as WebSocketConnection;
             var clientSocket = ((SocketWrapper)wsClient1.Socket)._socket;
             var remotePoint = clientSocket.RemoteEndPoint;
-            wsClient1.OnOpen = () =>
-            {
-                if (!UserIDStack.TryPop(out int uid))
-                    uid = GetCurrUserID();
-                var client = AcceptHander(clientSocket, remotePoint);
-                client.WSClient = wsClient1;
-            };
+            if (!UserIDStack.TryPop(out int uid))
+                uid = GetCurrUserID();
+            var client = AcceptHander(clientSocket, remotePoint);
+            client.WSClient = wsClient1;
             wsClient1.OnMessage = (buffer, message) => //utf-8解析
             {
                 receiveCount += buffer.Length;
                 receiveAmount++;
-                if (AllClients.TryGetValue(remotePoint, out Player client))//在线客户端  得到client对象
-                {
-                    client.BytesReceived += buffer.Length;
-                    WSRevdHandle(client, buffer, message);
-                }
+                client.BytesReceived += buffer.Length;
+                WSRevdHandler(client, buffer, message);
             };
             wsClient1.OnBinary = (buffer) =>
             {
-                var segment = BufferPool.Take(buffer.Length);
-                Buffer.BlockCopy(buffer, 0, segment.Buffer, 0, buffer.Length);
-                segment.Count = buffer.Length;
+                ISegment segment;
+                switch (BufferPool.Version)
+                {
+                    case SegmentVersion.Version2:
+                        segment = new Segment2(buffer, false);
+                        break;
+                    case SegmentVersion.Version3:
+                        segment = new ArraySegment(buffer, false);
+                        break;
+                    default:
+                        segment = new Segment(buffer, false);
+                        break;
+                }
                 receiveCount += buffer.Length;
                 receiveAmount++;
-                if (AllClients.TryGetValue(remotePoint, out Player client))//在线客户端  得到client对象
-                {
-                    client.BytesReceived += buffer.Length;
-                    client.RevdQueue.Enqueue(segment);
-                }
+                client.BytesReceived += buffer.Length;
+                client.RevdQueue.Enqueue(segment);
             };
             wsClient1.OnClose = () =>
             {
-                if (AllClients.TryGetValue(remotePoint, out Player player))
-                    RemoveClient(player);
+                RemoveClient(client);
             };
         }
 
@@ -94,13 +94,15 @@
             return false;
         }
 
-        private void WSRevdHandle(Player client, byte[] buffer, string message)
+        private void WSRevdHandler(Player client, byte[] buffer, string message)
         {
             try
             {
                 var model = JsonConvert.DeserializeObject<MessageModel>(message);
-                var model1 = new RPCModel(model.cmd, model.func, model.GetPars()) {
-                    buffer = buffer, count = buffer.Length
+                var model1 = new RPCModel(model.cmd, model.func, model.GetPars())
+                {
+                    buffer = buffer,
+                    count = buffer.Length
                 };
                 DataHandler(client, model1, null);
             }
@@ -108,7 +110,7 @@
             {
                 Debug.LogError($"[{client}]json解析出错:" + ex);
                 var model = new MessageModel(0, "error", new object[] { ex.Message });
-                string jsonStr = JsonConvert.SerializeObject(model);
+                var jsonStr = JsonConvert.SerializeObject(model);
                 client.WSClient.Send(jsonStr);
             }
         }
@@ -122,9 +124,11 @@
             sendCount += buffer.Length;
         }
 
-        //protected override void SceneUpdateHandle()
-        //{
-        //}
+        public override void Close()
+        {
+            base.Close();
+            Server.Dispose();
+        }
 
 #if COCOS2D_JS
         protected override byte[] OnSerializeRpc(RPCModel model)

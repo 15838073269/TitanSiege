@@ -7,22 +7,19 @@ using UnityEngine;
 using UnityEditor;
 using System.Linq;
 using Net.Helper;
+using System.Text;
 
 public class Fast2BuildTools2 : EditorWindow
 {
     private string search = "", search1 = "";
     private string searchBind = "", searchBind1 = "";
-    private string searchAssemblies = "";
     private DateTime searchTime;
     private TypeData[] types;
     private Vector2 scrollPosition;
     private Vector2 scrollPosition1;
-    private bool serField = true;
-    private bool serProperty = true;
-    private string typeEntry1;
-    private string methodEntry1;
+    
     private string selectType;
-    private Data data = new Data();
+    private PersistentData data = new PersistentData();
 
     [MenuItem("GameDesigner/Network/Fast2BuildTool-2")]
     static void ShowWindow()
@@ -34,8 +31,7 @@ public class Fast2BuildTools2 : EditorWindow
     private void OnEnable()
     {
         LoadData();
-        searchAssemblies = data.searchAssemblies;
-        var assemblyNames = searchAssemblies.Split('|');
+        var assemblyNames = data.SearchAssemblies.Split('|');
         var types1 = new List<TypeData>();
         var assemblies = AppDomain.CurrentDomain.GetAssemblies();
         foreach (var assemblie in assemblies)
@@ -73,12 +69,7 @@ public class Fast2BuildTools2 : EditorWindow
             searchBind1 = string.Empty;
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.BeginHorizontal();
-        data.searchAssemblies = EditorGUILayout.TextField("搜索的程序集", data.searchAssemblies);
-        if (data.searchAssemblies != searchAssemblies)
-        {
-            searchAssemblies = data.searchAssemblies;
-            SaveData();
-        }
+        data.SearchAssemblies = EditorGUILayout.TextField("搜索的程序集", data.SearchAssemblies);
         if (GUILayout.Button("刷新", GUILayout.Width(50f)))
             OnEnable();
         EditorGUILayout.EndHorizontal();
@@ -119,13 +110,11 @@ public class Fast2BuildTools2 : EditorWindow
         }
         if (GUILayout.Button("显示类名"))
         {
-            data.showType = 1;
-            SaveData();
+            data.ShowType = 1;
         }
         if (GUILayout.Button("完全显示"))
         {
-            data.showType = 0;
-            SaveData();
+            data.ShowType = 0;
         }
         if (GUILayout.Button("引用文件夹"))
         {
@@ -149,7 +138,7 @@ public class Fast2BuildTools2 : EditorWindow
             if (type1.name == selectType)
                 GUI.color = Color.green;
             string name;
-            if (data.showType == 1)
+            if (data.ShowType == 1)
             {
                 var names = type1.name.Split('.');
                 name = names[names.Length - 1];
@@ -250,37 +239,24 @@ public class Fast2BuildTools2 : EditorWindow
             }
             GUILayout.EndScrollView();
         }
-        serField = EditorGUILayout.Toggle("序列化字段:", serField);
-        serProperty = EditorGUILayout.Toggle("序列化属性:", serProperty);
+        data.SerField = EditorGUILayout.Toggle("序列化字段:", data.SerField);
+        data.SerProperty = EditorGUILayout.Toggle("序列化属性:", data.SerProperty);
+        data.IsCompress = EditorGUILayout.Toggle("使用字节压缩:", data.IsCompress);
+        data.SortingOrder = EditorGUILayout.IntField("绑定序号:", data.SortingOrder);
         GUILayout.BeginHorizontal();
-        data.typeEntry = EditorGUILayout.TextField("收集类名:", data.typeEntry);
-        data.methodEntry = EditorGUILayout.TextField("收集方法:", data.methodEntry);
-        if (data.typeEntry != typeEntry1)
-        {
-            typeEntry1 = data.typeEntry;
-            SaveData();
-        }
-        if (data.methodEntry != methodEntry1)
-        {
-            methodEntry1 = data.methodEntry;
-            SaveData();
-        }
-        GUILayout.EndHorizontal();
-        GUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("保存路径:", data.savePath);
+        EditorGUILayout.LabelField("保存路径:", data.SavePath);
         if (GUILayout.Button("选择路径", GUILayout.Width(100)))
         {
             var savePath = EditorUtility.OpenFolderPanel("保存路径", "", "");
             //相对于Assets路径
             var uri = new Uri(Application.dataPath.Replace('/', '\\'));
             var relativeUri = uri.MakeRelativeUri(new Uri(savePath));
-            data.savePath = relativeUri.ToString();
-            SaveData();
+            data.SavePath = relativeUri.ToString();
         }
         GUILayout.EndHorizontal();
         if (GUILayout.Button("生成绑定代码", GUILayout.Height(30)))
         {
-            if (string.IsNullOrEmpty(data.savePath))
+            if (string.IsNullOrEmpty(data.SavePath))
             {
                 EditorUtility.DisplayDialog("提示", "请选择生成脚本路径!", "确定");
                 return;
@@ -294,42 +270,19 @@ public class Fast2BuildTools2 : EditorWindow
                     Debug.Log($"类型:{type1.name}已不存在!");
                     continue;
                 }
-                var code = Fast2BuildMethod.BuildNew(type, serField, serProperty, type1.fields.ConvertAll((item) => !item.serialize ? item.name : ""), data.savePath, types);
+                StringBuilder code;
+                if (data.IsCompress)
+                    code = Fast2BuildMethod.BuildNew(type, data.SerField, data.SerProperty, type1.fields.ConvertAll((item) => !item.serialize ? item.name : ""), data.SavePath, types);
+                else
+                    code = Fast2BuildMethod.BuildNewFast(type, data.SerField, data.SerProperty, type1.fields.ConvertAll((item) => !item.serialize ? item.name : ""), data.SavePath, types);
                 code.AppendLine(Fast2BuildMethod.BuildArray(type).ToString());
                 code.AppendLine(Fast2BuildMethod.BuildGeneric(typeof(List<>).MakeGenericType(type)).ToString());
                 var className = type.ToString().Replace(".", "").Replace("+", "");
-                File.WriteAllText(data.savePath + $"//{className}Bind.cs", code.ToString());
+                File.WriteAllText(data.SavePath + $"//{className}Bind.cs", code.ToString());
                 types.Add(type);
             }
-            if (!string.IsNullOrEmpty(data.typeEntry)) 
-            {
-                var types1 = AssemblyHelper.GetType(data.typeEntry).GetMethod(data.methodEntry).Invoke(null, null) as Type[];
-                foreach (var type in types1)
-                {
-                    if (type.IsGenericType)
-                    {
-                        var args = type.GenericTypeArguments;
-                        if (args.Length == 1)
-                        {
-                            //TODO
-                        }
-                        else if (args.Length == 2)
-                        {
-                            var text = Fast2BuildMethod.BuildDictionary(type, out var className1);
-                            File.WriteAllText(data.savePath + $"//{className1}.cs", text);
-                        }
-                    }
-                    else 
-                    {
-                        Fast2BuildMethod.Build(type, data.savePath, serField, serProperty, new List<string>());
-                        Fast2BuildMethod.BuildArray(type, data.savePath);
-                        Fast2BuildMethod.BuildGeneric(type, data.savePath);
-                    }
-                    types.Add(type);
-                }
-            }
-            Fast2BuildMethod.BuildBindingType(types, data.savePath, 1);
-            Fast2BuildMethod.BuildBindingExtension(types, data.savePath);
+            Fast2BuildMethod.BuildBindingType(types, data.SavePath, data.SortingOrder);
+            Fast2BuildMethod.BuildBindingExtension(types, data.SavePath);
             Debug.Log("生成完成.");
             AssetDatabase.Refresh();
         }
@@ -482,7 +435,8 @@ public class Fast2BuildTools2 : EditorWindow
 
     void LoadData() 
     {
-        data = PersistHelper.Deserialize<Data>("fastProtoBuild.json");
+        data = PersistHelper.Deserialize<PersistentData>("fastProtoBuild.json");
+        data.Init();
     }
 
     void SaveData()
@@ -510,14 +464,94 @@ public class Fast2BuildTools2 : EditorWindow
         public Type type;
     }
 
-    public class Data
+    public class PersistentData
     {
-        public string savePath;
+        private string savePath;
         public List<FoldoutData> typeNames = new List<FoldoutData>();
-        public string typeEntry;
-        public string methodEntry;
-        public int showType;
-        public string searchAssemblies = "UnityEngine.CoreModule|Assembly-CSharp|Assembly-CSharp-firstpass";
+        private int showType;
+        private string searchAssemblies = "UnityEngine.CoreModule|Assembly-CSharp|Assembly-CSharp-firstpass";
+        private bool serField = true;
+        private bool serProperty = true;
+        private bool isCompress = true;
+        private int sortingOrder = 1;
+        private bool init;
+
+        public void Init() 
+        {
+            init = true;
+        }
+
+        public string SavePath 
+        {
+            get => savePath;
+            set 
+            {
+                if (savePath != value & init)
+                    PersistHelper.Serialize(this, "fastProtoBuild.json");
+                savePath = value;
+            }
+        }
+        public int ShowType
+        {
+            get => showType;
+            set
+            {
+                if (showType != value & init)
+                    PersistHelper.Serialize(this, "fastProtoBuild.json");
+                showType = value;
+            }
+        }
+        public string SearchAssemblies
+        {
+            get => searchAssemblies;
+            set
+            {
+                if (searchAssemblies != value & init)
+                    PersistHelper.Serialize(this, "fastProtoBuild.json");
+                searchAssemblies = value;
+            }
+        }
+        public bool SerField
+        {
+            get => serField;
+            set
+            {
+                if (serField != value & init)
+                    PersistHelper.Serialize(this, "fastProtoBuild.json");
+                serField = value;
+            }
+        }
+        public bool SerProperty
+        {
+            get => serProperty;
+            set
+            {
+                if (serProperty != value & init)
+                    PersistHelper.Serialize(this, "fastProtoBuild.json");
+                serProperty = value;
+            }
+        }
+        public bool IsCompress
+        {
+            get => isCompress;
+            set
+            {
+                if (isCompress != value & init)
+                    PersistHelper.Serialize(this, "fastProtoBuild.json");
+                isCompress = value;
+            }
+        }
+
+        public int SortingOrder 
+        {
+            get => sortingOrder;
+            set 
+            {
+                if (sortingOrder != value & init)
+                    PersistHelper.Serialize(this, "fastProtoBuild.json");
+                sortingOrder = value;
+            }
+        }
     }
 }
 #endif

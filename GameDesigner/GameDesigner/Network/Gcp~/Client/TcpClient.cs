@@ -79,7 +79,7 @@
                     result(true);
                     return true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     NDebug.LogError("连接错误:" + ex);
                     Connected = false;
@@ -91,6 +91,12 @@
             });
         }
 
+        public override void OnNetworkTick()
+        {
+            if (!Client.Connected)
+                throw new SocketException((int)SocketError.Disconnecting);
+        }
+
         protected override bool HeartHandler()
         {
             try
@@ -98,7 +104,7 @@
                 if (++heart <= HeartLimit)
                     return true;
                 if (!Connected)
-                    Reconnection();
+                    InternalReconnection();
                 else
                     Send(NetCmd.SendHeartbeat, new byte[0]);
             }
@@ -232,6 +238,7 @@
             stackIndex = 0;
             stackCount = 0;
             UID = 0;
+            PreUserId = 0;
             CurrReconnect = 0;
             if (Instance == this) Instance = null;
             if (Gcp != null) Gcp.Dispose();
@@ -255,11 +262,14 @@
                 {
                     var client = new TcpClientTest();
                     onInit?.Invoke(client);
-                    if(adapter != null)
+                    if (adapter != null)
                         client.AddAdapter(adapter);
-                    try { 
+                    try
+                    {
                         client.Connect(ip, port);
-                    } catch (Exception ex) {
+                    }
+                    catch (Exception ex)
+                    {
                         NDebug.LogError(ex);
                         return;
                     }

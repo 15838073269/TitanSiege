@@ -43,6 +43,8 @@ namespace Net.System
 
         void Init();
 
+        void SetPosition(int position);
+
         void Dispose();
 
         void Close();

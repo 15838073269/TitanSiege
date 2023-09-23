@@ -205,16 +205,46 @@ namespace Titansiege
         /// <returns></returns>
         public T[] ExecuteQueryList<T>(string cmdText) where T : IDataRow, new()
         {
-            using (var dt = ExecuteReader(cmdText))
+            var conn = PopConnect();
+            try
             {
-                var datas = new T[dt.Rows.Count];
-                for (int i = 0; i < dt.Rows.Count; i++)
+                using (var cmd = new MySqlCommand())
                 {
-                    datas[i] = new T();
-                    datas[i].Init(dt.Rows[i]);
+                    cmd.CommandText = cmdText;
+                    cmd.Connection = conn;
+                    cmd.CommandTimeout = CommandTimeout;
+                    cmd.Parameters.Clear();
+                    using (var sdr = cmd.ExecuteReader())
+                    {
+                        var datas = new List<T>();
+                        while (sdr.Read())
+                        {
+                            var data = new T();
+                            for (int i = 0; i < sdr.FieldCount; i++)
+                            {
+                                var name = sdr.GetName(i);
+                                var value = sdr.GetValue(i);
+                                if (value == DBNull.Value) //空值不能进行赋值,会报错
+                                    continue;
+                                data[name] = value;
+                            }
+                            data.RowState = DataRowState.Unchanged;
+                            datas.Add(data);
+                        }
+                        QueryCount++;
+                        return datas.ToArray();
+                    }
                 }
-                return datas;
             }
+            catch (Exception ex)
+            {
+                NDebug.LogError(cmdText + " 错误: " + ex);
+            }
+            finally
+            {
+                conns.Push(conn);
+            }
+            return default;
         }
 
         /// <summary>
@@ -257,16 +287,9 @@ namespace Titansiege
         /// <returns></returns>
         public async UniTask<T[]> ExecuteQueryListAsync<T>(string cmdText) where T : IDataRow, new()
         {
-            using (var dt = await ExecuteReaderAsync(cmdText))
-            {
-                var datas = new T[dt.Rows.Count];
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    datas[i] = new T();
-                    datas[i].Init(dt.Rows[i]);
-                }
-                return datas;
-            }
+            await UniTask.SwitchToThreadPool();
+            var datas = ExecuteQueryList<T>(cmdText);
+            return datas;
         }
 
         public async UniTaskVoid ExecuteNonQuery(string cmdText, List<IDbDataParameter> parameters, Action<int, Stopwatch> onComplete)

@@ -66,6 +66,13 @@ namespace Net.System
             RecordBitIndex = 0;
         }
 
+        public override void SetPosition(int position)
+        {
+            Position = position;
+            RecordIndex = 0;
+            RecordBitIndex = 0;
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override unsafe void Write(ushort value) 
         {
@@ -103,7 +110,7 @@ namespace Net.System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CheckRecordBitInternal(byte bitCount)
         {
-            if (((RecordBitIndex - 1) + bitCount) > 8 | RecordIndex == Position)
+            if (((RecordBitIndex - 1) + bitCount) > 8 | RecordBitIndex == 0)
             {
                 RecordBitIndex = 1;
                 RecordIndex = Position;
@@ -114,7 +121,7 @@ namespace Net.System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void SetRecordBitInternal(byte byteCount, byte bitCount)
         {
-            NetConvertBase.SetByteBits(ref Buffer[RecordIndex], RecordBitIndex, (byte)(RecordBitIndex + bitCount), byteCount);
+            NetConvertBase.SetByteBits(ref Buffer[RecordIndex], RecordBitIndex, (byte)(RecordBitIndex + bitCount), byteCount, (byte)(9 - bitCount));
             Position += byteCount;
             RecordBitIndex += bitCount;
         }
@@ -156,8 +163,17 @@ namespace Net.System
                 RecordBitIndex += 3; // 2 ^ 3 = 最大值8
                 return;
             }
-            var bytes = Encoding.UTF8.GetBytes(value);
-            Write(bytes);
+            int count = value.Length;
+            fixed (char* ptr = value)
+            {
+                int byteCount = UTF8Encoding.UTF8.GetByteCount(ptr, count);
+                Write(byteCount);
+                fixed (byte* ptr1 = &Buffer[Position])
+                {
+                    Encoding.UTF8.GetBytes(ptr, count, ptr1, byteCount);
+                    Position += byteCount;
+                }
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -176,7 +192,7 @@ namespace Net.System
         private unsafe uint ReadUInt32Internal(byte bitCount)
         {
             CheckRecordBitInternal(bitCount);
-            var num = NetConvertBase.GetByteBits(Buffer[RecordIndex], RecordBitIndex, (byte)(RecordBitIndex + bitCount));
+            var num = NetConvertBase.GetByteBits(Buffer[RecordIndex], RecordBitIndex, (byte)(RecordBitIndex + bitCount), (byte)(9 - bitCount));
             RecordBitIndex += bitCount;
             if (num == 0)
                 return 0;
@@ -210,7 +226,7 @@ namespace Net.System
         private unsafe ulong ReadUInt64Internal(byte bitCount)
         {
             CheckRecordBitInternal(bitCount);
-            var num = NetConvertBase.GetByteBits(Buffer[RecordIndex], RecordBitIndex, (byte)(RecordBitIndex + bitCount));
+            var num = NetConvertBase.GetByteBits(Buffer[RecordIndex], RecordBitIndex, (byte)(RecordBitIndex + bitCount), (byte)(9 - bitCount));
             RecordBitIndex += bitCount;
             if (num == 0)
                 return 0;

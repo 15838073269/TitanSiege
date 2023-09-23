@@ -49,7 +49,7 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
         /// <summary>{KEYNOTE}</summary>
         public {KETTYPE} {KEYNAME2} { get { return {KEYNAME1}; } set { this.{KEYNAME1} = value; } }
 
-    [split] 
+    [split] //1
         private readonly {FIELDTYPE1} {FIELDNAME1} = new {FIELDTYPE1}("{TYPENAME}_{FIELDNAME1}", {ISATK}, null);
 
         /// <summary>{NOTE4}</summary>
@@ -99,7 +99,7 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
         {
             {FIELDNAME2} = value;
         }
-    [split] 
+    [split] //2
 
         public {TYPENAME}() { }
 
@@ -136,9 +136,9 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
         {
             switch (index)
             {
-    [split] 
+    [split] //3
                 case {INDEX}: length = {TEXTLENGTH}; return "{INDEXNAME}";
-    [split] 
+    [split] //4
             }
             throw new Exception("错误");
         }
@@ -150,9 +150,9 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
             {
                 switch (index)
                 {
-    [split] 
+    [split] //5
                     case {INDEX}: return this.{INDEXNAME};
-    [split] 
+    [split] //6
                 }
                 throw new Exception("错误");
             }
@@ -160,11 +160,36 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
             {
                 switch (index)
                 {
-    [split] 
+    [split] //7
                     case {INDEX}:
                         {ADDORCUTROW}
                         break;
-    [split] 
+    [split] //8
+                }
+            }
+        }
+
+        public object this[string name]
+        {
+            get
+            {
+                switch (name)
+                {
+    [split] //9
+                    case {FIELDNAME1}: return this.{INDEXNAME};
+    [split] //10
+                }
+                throw new Exception("错误");
+            }
+            set
+            {
+                switch (name)
+                {
+    [split] //11
+                    case {FIELDNAME1}:
+                        {ADDORCUTROW}
+                        break;
+    [split] //12
                 }
             }
         }
@@ -230,20 +255,20 @@ using StringObs = Net.Common.PropertyObserverAuto<string>;
         public void Update()
         {
             if (RowState == DataRowState.Deleted | RowState == DataRowState.Detached | RowState == DataRowState.Added | RowState == 0) return;
-    [split] 
+    [split] //13
             RowState = DataRowState.Modified;
             {DBNAME}.I.Update(this);
-    [split] 
+    [split] //14
         }
     #endif
 
         public void Init(DataRow row)
         {
             RowState = DataRowState.Unchanged;
-    [split] 
+    [split] //15
             if (row[{INDEX}] is {FIELDTYPE} {FIELDNAME1})
                 {INIT}
-    [split] 
+    [split] //16
         }
 
         public void AddedSql(StringBuilder sb)

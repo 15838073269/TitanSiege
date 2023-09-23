@@ -142,7 +142,7 @@ namespace Framework
                 {
                     form = formStack.Peek();//弹出上一个界面进行显示, 但不会移除
                     form.ShowUI();
-                    form.transform.SetAsLastSibling();
+                    //form.transform.SetAsLastSibling();
                 }
             }
             else 

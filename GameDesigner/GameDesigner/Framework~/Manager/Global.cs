@@ -19,6 +19,7 @@ namespace Framework
         [SerializeField] protected Logger logger;
         [SerializeField] protected ObjectPool pool;
         [SerializeField] protected EventManager @event;
+        [SerializeField] protected PlayerPrefsManager playerPrefs;
 
         public static ResourcesManager Resources;
         public static UIManager UI;
@@ -32,6 +33,7 @@ namespace Framework
         public static Logger Logger;
         public static ObjectPool Pool;
         public static EventManager Event;
+        public static PlayerPrefsManager PlayerPrefs;
 
         public AssetBundleMode Mode = AssetBundleMode.LocalPath;
         public string entryRes = "Assets/Resources/Prefabs/GameEntry.prefab";
@@ -53,11 +55,12 @@ namespace Framework
             Logger = logger;
             Pool = pool;
             Event = @event;
+            PlayerPrefs = playerPrefs;
             DontDestroyOnLoad(gameObject);
         }
 
         /// <summary>
-        /// µ±³õÊ¼»¯Íê³É£¬³õÊ¼»¯°üÀ¨¼ì²éÈÈ¸üĞÂ£¬ÎÄ¼şÏÂÔØµÈµÈ
+        /// å½“åˆå§‹åŒ–å®Œæˆï¼Œåˆå§‹åŒ–åŒ…æ‹¬æ£€æŸ¥çƒ­æ›´æ–°ï¼Œæ–‡ä»¶ä¸‹è½½ç­‰ç­‰
         /// </summary>
         public virtual void OnInit()
         {

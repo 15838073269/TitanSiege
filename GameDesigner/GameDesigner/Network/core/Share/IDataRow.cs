@@ -37,5 +37,7 @@ namespace Net.Share
         /// </summary>
         /// <param name="sb"></param>
         void DeletedSql(StringBuilder sb);
+
+        object this[string name] { get; set; }
     }
 }

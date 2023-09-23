@@ -1,12 +1,7 @@
-﻿#if CORE
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Text;
 using System.Linq;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Net.Serialize
 {
@@ -16,15 +11,13 @@ namespace Net.Serialize
         {
             if (value != null)
             {
-                fixed (void* fa1Ptr = &value[0])
-                {
-                    int fa1Len = value.Length;
-                    Unsafe.WriteUnaligned(ptr + offset, fa1Len);
-                    offset += 2;
-                    int count = fa1Len * Unsafe.SizeOf<T>();
-                    Unsafe.CopyBlock(ptr + offset, fa1Ptr, (uint)count);
-                    offset += count;
-                }
+                void* ptr1 = Unsafe.AsPointer(ref value[0]);
+                int len = value.Length;
+                Unsafe.WriteUnaligned(ptr + offset, len);
+                offset += 2;
+                int count = len * Unsafe.SizeOf<T>();
+                Unsafe.CopyBlock(ptr + offset, ptr1, (uint)count);
+                offset += count;
             }
             else
             {
@@ -37,10 +30,10 @@ namespace Net.Serialize
         {
             if (value != null)
             {
-                int fa1Len = value.Length;
-                Unsafe.WriteUnaligned(ptr + offset, fa1Len);
+                int len = value.Length;
+                Unsafe.WriteUnaligned(ptr + offset, len);
                 offset += 2;
-                for (int i = 0; i < fa1Len; i++)
+                for (int i = 0; i < len; i++)
                 {
                     Write(ptr, ref offset, value[i]);
                 }
@@ -69,12 +62,10 @@ namespace Net.Serialize
             if (arrayLen > 0)
             {
                 var value = new T[arrayLen];
-                fixed (void* fa1Ptr = &value[0])
-                {
-                    int count = arrayLen * Unsafe.SizeOf<T>();
-                    Unsafe.CopyBlock(fa1Ptr, ptr + offset, (uint)count);
-                    offset += count;
-                }
+                void* ptr1 = Unsafe.AsPointer(ref value[0]);
+                int count = arrayLen * Unsafe.SizeOf<T>();
+                Unsafe.CopyBlock(ptr1, ptr + offset, (uint)count);
+                offset += count;
                 return value;
             }
             return default;
@@ -88,15 +79,13 @@ namespace Net.Serialize
             {
                 var value = new T();
                 var newValue = new T1[arrayLen];
-                fixed (void* fa1Ptr = &newValue[0])
+                void* ptr1 = Unsafe.AsPointer(ref newValue[0]);
+                int count = arrayLen * Unsafe.SizeOf<T1>();
+                Unsafe.CopyBlock(ptr1, ptr + offset, (uint)count);
+                offset += count;
+                for (int i = 0; i < arrayLen; i++)
                 {
-                    int count = arrayLen * Unsafe.SizeOf<T1>();
-                    Unsafe.CopyBlock(fa1Ptr, ptr + offset, (uint)count);
-                    offset += count;
-                    for (int i = 0; i < arrayLen; i++)
-                    {
-                        value.Add(newValue[i]);
-                    }
+                    value.Add(newValue[i]);
                 }
                 return value;
             }
@@ -142,11 +131,23 @@ namespace Net.Serialize
         {
             if (!string.IsNullOrEmpty(value))
             {
+#if CORE
                 var charSpan = value.AsSpan();
                 var byteSpan = new Span<byte>(ptr + offset + 2, value.Length * 3);
-                var f15Count = Encoding.UTF8.GetBytes(charSpan, byteSpan);
-                Unsafe.WriteUnaligned(ptr + offset, (ushort)f15Count);
-                offset += 2 + f15Count;
+                var count = Encoding.UTF8.GetBytes(charSpan, byteSpan);
+                Unsafe.WriteUnaligned(ptr + offset, (ushort)count);
+                offset += 2 + count;
+#else
+                int count = value.Length;
+                fixed (char* ptr1 = value)
+                {
+                    int byteCount = Encoding.UTF8.GetByteCount(ptr1, count);
+                    Unsafe.WriteUnaligned(ptr + offset, (ushort)byteCount);
+                    offset += 2;
+                    Encoding.UTF8.GetBytes(ptr1, count, ptr + offset, byteCount);
+                    offset += byteCount;
+                }
+#endif
             }
             else
             {
@@ -164,16 +165,21 @@ namespace Net.Serialize
 
         public static unsafe string Read(byte* ptr, ref int offset)
         {
-            var f15Count = Unsafe.ReadUnaligned<ushort>(ptr + offset);
+            var count = Unsafe.ReadUnaligned<ushort>(ptr + offset);
             offset += 2;
-            if (f15Count > 0)
+            if (count > 0)
             {
-                var value = Encoding.UTF8.GetString(new ReadOnlySpan<byte>(ptr + offset, f15Count));
-                offset += f15Count;
+#if CORE
+                var value = Encoding.UTF8.GetString(new ReadOnlySpan<byte>(ptr + offset, count));
+                offset += count;
                 return value;
+#else
+                var value = Encoding.UTF8.GetString(ptr + offset, count);
+                offset += count;
+                return value;
+#endif
             }
             return string.Empty;
         }
     }
 }
-#endif

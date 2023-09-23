@@ -50,7 +50,7 @@ namespace Titansiege
         /// <summary></summary>
         public Int64 ID { get { return iD; } set { this.iD = value; } }
 
-     
+     //1
         private readonly StringObs name = new StringObs("CharactersData_name", false, null);
 
         /// <summary> --获得属性观察对象</summary>
@@ -101,7 +101,7 @@ namespace Titansiege
         {
             Name = value;
         }
-     
+     //1
         private readonly SByteObs zhiye = new SByteObs("CharactersData_zhiye", true, null);
 
         /// <summary>职业 --获得属性观察对象</summary>
@@ -152,7 +152,7 @@ namespace Titansiege
         {
             Zhiye = value;
         }
-     
+     //1
         private readonly SByteObs level = new SByteObs("CharactersData_level", true, null);
 
         /// <summary>等级 --获得属性观察对象</summary>
@@ -203,7 +203,7 @@ namespace Titansiege
         {
             Level = value;
         }
-     
+     //1
         private readonly Int32Obs levelupid = new Int32Obs("CharactersData_levelupid", true, null);
 
         /// <summary>升级配置表的id --获得属性观察对象</summary>
@@ -254,7 +254,7 @@ namespace Titansiege
         {
             Levelupid = value;
         }
-     
+     //1
         private readonly Int32Obs exp = new Int32Obs("CharactersData_exp", true, null);
 
         /// <summary>经验 --获得属性观察对象</summary>
@@ -305,7 +305,7 @@ namespace Titansiege
         {
             Exp = value;
         }
-     
+     //1
         private readonly Int32Obs shengming = new Int32Obs("CharactersData_shengming", true, null);
 
         /// <summary>生命 --获得属性观察对象</summary>
@@ -356,7 +356,7 @@ namespace Titansiege
         {
             Shengming = value;
         }
-     
+     //1
         private readonly Int32Obs fali = new Int32Obs("CharactersData_fali", true, null);
 
         /// <summary>法力 --获得属性观察对象</summary>
@@ -407,7 +407,7 @@ namespace Titansiege
         {
             Fali = value;
         }
-     
+     //1
         private readonly Int16Obs tizhi = new Int16Obs("CharactersData_tizhi", true, null);
 
         /// <summary>体质 --获得属性观察对象</summary>
@@ -458,7 +458,7 @@ namespace Titansiege
         {
             Tizhi = value;
         }
-     
+     //1
         private readonly Int16Obs liliang = new Int16Obs("CharactersData_liliang", true, null);
 
         /// <summary>力量 --获得属性观察对象</summary>
@@ -509,7 +509,7 @@ namespace Titansiege
         {
             Liliang = value;
         }
-     
+     //1
         private readonly Int16Obs minjie = new Int16Obs("CharactersData_minjie", true, null);
 
         /// <summary>敏捷 --获得属性观察对象</summary>
@@ -560,7 +560,7 @@ namespace Titansiege
         {
             Minjie = value;
         }
-     
+     //1
         private readonly Int16Obs moli = new Int16Obs("CharactersData_moli", true, null);
 
         /// <summary>魔力 --获得属性观察对象</summary>
@@ -611,7 +611,7 @@ namespace Titansiege
         {
             Moli = value;
         }
-     
+     //1
         private readonly Int16Obs meili = new Int16Obs("CharactersData_meili", true, null);
 
         /// <summary>魅力 --获得属性观察对象</summary>
@@ -662,7 +662,7 @@ namespace Titansiege
         {
             Meili = value;
         }
-     
+     //1
         private readonly Int16Obs xingyun = new Int16Obs("CharactersData_xingyun", true, null);
 
         /// <summary>幸运 --获得属性观察对象</summary>
@@ -713,7 +713,7 @@ namespace Titansiege
         {
             Xingyun = value;
         }
-     
+     //1
         private readonly Int16Obs lianjin = new Int16Obs("CharactersData_lianjin", true, null);
 
         /// <summary>炼金 --获得属性观察对象</summary>
@@ -764,7 +764,7 @@ namespace Titansiege
         {
             Lianjin = value;
         }
-     
+     //1
         private readonly Int16Obs duanzao = new Int16Obs("CharactersData_duanzao", true, null);
 
         /// <summary>锻造 --获得属性观察对象</summary>
@@ -815,7 +815,7 @@ namespace Titansiege
         {
             Duanzao = value;
         }
-     
+     //1
         private readonly Int32Obs jinbi = new Int32Obs("CharactersData_jinbi", true, null);
 
         /// <summary>金币 --获得属性观察对象</summary>
@@ -866,7 +866,7 @@ namespace Titansiege
         {
             Jinbi = value;
         }
-     
+     //1
         private readonly Int32Obs zuanshi = new Int32Obs("CharactersData_zuanshi", true, null);
 
         /// <summary>钻石 --获得属性观察对象</summary>
@@ -917,7 +917,7 @@ namespace Titansiege
         {
             Zuanshi = value;
         }
-     
+     //1
         private readonly StringObs chenghao = new StringObs("CharactersData_chenghao", false, null);
 
         /// <summary>称号 --获得属性观察对象</summary>
@@ -968,7 +968,7 @@ namespace Titansiege
         {
             Chenghao = value;
         }
-     
+     //1
         private readonly StringObs friends = new StringObs("CharactersData_friends", false, null);
 
         /// <summary>亲朋 --获得属性观察对象</summary>
@@ -1019,7 +1019,7 @@ namespace Titansiege
         {
             Friends = value;
         }
-     
+     //1
         private readonly StringObs skills = new StringObs("CharactersData_skills", false, null);
 
         /// <summary>技能 --获得属性观察对象</summary>
@@ -1070,7 +1070,7 @@ namespace Titansiege
         {
             Skills = value;
         }
-     
+     //1
         private readonly StringObs prefabpath = new StringObs("CharactersData_prefabpath", false, null);
 
         /// <summary>预制体路径 --获得属性观察对象</summary>
@@ -1121,7 +1121,7 @@ namespace Titansiege
         {
             Prefabpath = value;
         }
-     
+     //1
         private readonly StringObs headpath = new StringObs("CharactersData_headpath", false, null);
 
         /// <summary>头像路径 --获得属性观察对象</summary>
@@ -1172,7 +1172,7 @@ namespace Titansiege
         {
             Headpath = value;
         }
-     
+     //1
         private readonly StringObs lihuipath = new StringObs("CharactersData_lihuipath", false, null);
 
         /// <summary>立绘路径 --获得属性观察对象</summary>
@@ -1223,7 +1223,7 @@ namespace Titansiege
         {
             Lihuipath = value;
         }
-     
+     //1
         private readonly Int16Obs wuqi = new Int16Obs("CharactersData_wuqi", true, null);
 
         /// <summary>武器 --获得属性观察对象</summary>
@@ -1274,7 +1274,7 @@ namespace Titansiege
         {
             Wuqi = value;
         }
-     
+     //1
         private readonly Int16Obs toukui = new Int16Obs("CharactersData_toukui", true, null);
 
         /// <summary>头盔 --获得属性观察对象</summary>
@@ -1325,7 +1325,7 @@ namespace Titansiege
         {
             Toukui = value;
         }
-     
+     //1
         private readonly Int16Obs yifu = new Int16Obs("CharactersData_yifu", true, null);
 
         /// <summary>衣服 --获得属性观察对象</summary>
@@ -1376,7 +1376,7 @@ namespace Titansiege
         {
             Yifu = value;
         }
-     
+     //1
         private readonly Int16Obs xiezi = new Int16Obs("CharactersData_xiezi", true, null);
 
         /// <summary>鞋子 --获得属性观察对象</summary>
@@ -1427,7 +1427,7 @@ namespace Titansiege
         {
             Xiezi = value;
         }
-     
+     //1
         private readonly Int32Obs mapID = new Int32Obs("CharactersData_mapID", true, null);
 
         /// <summary> --获得属性观察对象</summary>
@@ -1478,7 +1478,7 @@ namespace Titansiege
         {
             MapID = value;
         }
-     
+     //1
         private readonly Int32Obs mapPosX = new Int32Obs("CharactersData_mapPosX", true, null);
 
         /// <summary> --获得属性观察对象</summary>
@@ -1529,7 +1529,7 @@ namespace Titansiege
         {
             MapPosX = value;
         }
-     
+     //1
         private readonly Int32Obs mapPosY = new Int32Obs("CharactersData_mapPosY", true, null);
 
         /// <summary> --获得属性观察对象</summary>
@@ -1580,7 +1580,7 @@ namespace Titansiege
         {
             MapPosY = value;
         }
-     
+     //1
         private readonly Int32Obs mapPosZ = new Int32Obs("CharactersData_mapPosZ", true, null);
 
         /// <summary> --获得属性观察对象</summary>
@@ -1631,7 +1631,7 @@ namespace Titansiege
         {
             MapPosZ = value;
         }
-     
+     //1
         private readonly Int64Obs uid = new Int64Obs("CharactersData_uid", true, null);
 
         /// <summary> --获得属性观察对象</summary>
@@ -1682,7 +1682,7 @@ namespace Titansiege
         {
             Uid = value;
         }
-     
+     //1
         private readonly DateTimeObs lastDate = new DateTimeObs("CharactersData_lastDate", false, null);
 
         /// <summary>最后登录时间 --获得属性观察对象</summary>
@@ -1733,7 +1733,7 @@ namespace Titansiege
         {
             LastDate = value;
         }
-     
+     //1
         private readonly BooleanObs delRole = new BooleanObs("CharactersData_delRole", false, null);
 
         /// <summary>是否删除 --获得属性观察对象</summary>
@@ -1784,7 +1784,7 @@ namespace Titansiege
         {
             DelRole = value;
         }
-     
+     //2
 
         public CharactersData() { }
 
@@ -1821,77 +1821,77 @@ namespace Titansiege
         {
             switch (index)
             {
-     
+     //3
                 case 0: length = 0; return "iD";
-     
+     //3
                 case 1: length = 50; return "name";
-     
+     //3
                 case 2: length = 0; return "zhiye";
-     
+     //3
                 case 3: length = 0; return "level";
-     
+     //3
                 case 4: length = 0; return "levelupid";
-     
+     //3
                 case 5: length = 0; return "exp";
-     
+     //3
                 case 6: length = 0; return "shengming";
-     
+     //3
                 case 7: length = 0; return "fali";
-     
+     //3
                 case 8: length = 0; return "tizhi";
-     
+     //3
                 case 9: length = 0; return "liliang";
-     
+     //3
                 case 10: length = 0; return "minjie";
-     
+     //3
                 case 11: length = 0; return "moli";
-     
+     //3
                 case 12: length = 0; return "meili";
-     
+     //3
                 case 13: length = 0; return "xingyun";
-     
+     //3
                 case 14: length = 0; return "lianjin";
-     
+     //3
                 case 15: length = 0; return "duanzao";
-     
+     //3
                 case 16: length = 0; return "jinbi";
-     
+     //3
                 case 17: length = 0; return "zuanshi";
-     
+     //3
                 case 18: length = 50; return "chenghao";
-     
+     //3
                 case 19: length = 400; return "friends";
-     
+     //3
                 case 20: length = 200; return "skills";
-     
+     //3
                 case 21: length = 100; return "prefabpath";
-     
+     //3
                 case 22: length = 100; return "headpath";
-     
+     //3
                 case 23: length = 100; return "lihuipath";
-     
+     //3
                 case 24: length = 0; return "wuqi";
-     
+     //3
                 case 25: length = 0; return "toukui";
-     
+     //3
                 case 26: length = 0; return "yifu";
-     
+     //3
                 case 27: length = 0; return "xiezi";
-     
+     //3
                 case 28: length = 0; return "mapID";
-     
+     //3
                 case 29: length = 0; return "mapPosX";
-     
+     //3
                 case 30: length = 0; return "mapPosY";
-     
+     //3
                 case 31: length = 0; return "mapPosZ";
-     
+     //3
                 case 32: length = 0; return "uid";
-     
+     //3
                 case 33: length = 0; return "lastDate";
-     
+     //3
                 case 34: length = 0; return "delRole";
-     
+     //4
             }
             throw new Exception("错误");
         }
@@ -1903,77 +1903,77 @@ namespace Titansiege
             {
                 switch (index)
                 {
-     
+     //5
                     case 0: return this.iD;
-     
+     //5
                     case 1: return this.name.Value;
-     
+     //5
                     case 2: return this.zhiye.Value;
-     
+     //5
                     case 3: return this.level.Value;
-     
+     //5
                     case 4: return this.levelupid.Value;
-     
+     //5
                     case 5: return this.exp.Value;
-     
+     //5
                     case 6: return this.shengming.Value;
-     
+     //5
                     case 7: return this.fali.Value;
-     
+     //5
                     case 8: return this.tizhi.Value;
-     
+     //5
                     case 9: return this.liliang.Value;
-     
+     //5
                     case 10: return this.minjie.Value;
-     
+     //5
                     case 11: return this.moli.Value;
-     
+     //5
                     case 12: return this.meili.Value;
-     
+     //5
                     case 13: return this.xingyun.Value;
-     
+     //5
                     case 14: return this.lianjin.Value;
-     
+     //5
                     case 15: return this.duanzao.Value;
-     
+     //5
                     case 16: return this.jinbi.Value;
-     
+     //5
                     case 17: return this.zuanshi.Value;
-     
+     //5
                     case 18: return this.chenghao.Value;
-     
+     //5
                     case 19: return this.friends.Value;
-     
+     //5
                     case 20: return this.skills.Value;
-     
+     //5
                     case 21: return this.prefabpath.Value;
-     
+     //5
                     case 22: return this.headpath.Value;
-     
+     //5
                     case 23: return this.lihuipath.Value;
-     
+     //5
                     case 24: return this.wuqi.Value;
-     
+     //5
                     case 25: return this.toukui.Value;
-     
+     //5
                     case 26: return this.yifu.Value;
-     
+     //5
                     case 27: return this.xiezi.Value;
-     
+     //5
                     case 28: return this.mapID.Value;
-     
+     //5
                     case 29: return this.mapPosX.Value;
-     
+     //5
                     case 30: return this.mapPosY.Value;
-     
+     //5
                     case 31: return this.mapPosZ.Value;
-     
+     //5
                     case 32: return this.uid.Value;
-     
+     //5
                     case 33: return this.lastDate.Value;
-     
+     //5
                     case 34: return this.delRole.Value;
-     
+     //6
                 }
                 throw new Exception("错误");
             }
@@ -1981,147 +1981,376 @@ namespace Titansiege
             {
                 switch (index)
                 {
-     
+     //7
                     case 0:
                         this.iD = (Int64)value;
                         break;
-     
+     //7
                     case 1:
                         CheckNameValue((String)value, -1);
                         break;
-     
+     //7
                     case 2:
                         CheckZhiyeValue((SByte)value, -1);
                         break;
-     
+     //7
                     case 3:
                         CheckLevelValue((SByte)value, -1);
                         break;
-     
+     //7
                     case 4:
                         CheckLevelupidValue((Int32)value, -1);
                         break;
-     
+     //7
                     case 5:
                         CheckExpValue((Int32)value, -1);
                         break;
-     
+     //7
                     case 6:
                         CheckShengmingValue((Int32)value, -1);
                         break;
-     
+     //7
                     case 7:
                         CheckFaliValue((Int32)value, -1);
                         break;
-     
+     //7
                     case 8:
                         CheckTizhiValue((Int16)value, -1);
                         break;
-     
+     //7
                     case 9:
                         CheckLiliangValue((Int16)value, -1);
                         break;
-     
+     //7
                     case 10:
                         CheckMinjieValue((Int16)value, -1);
                         break;
-     
+     //7
                     case 11:
                         CheckMoliValue((Int16)value, -1);
                         break;
-     
+     //7
                     case 12:
                         CheckMeiliValue((Int16)value, -1);
                         break;
-     
+     //7
                     case 13:
                         CheckXingyunValue((Int16)value, -1);
                         break;
-     
+     //7
                     case 14:
                         CheckLianjinValue((Int16)value, -1);
                         break;
-     
+     //7
                     case 15:
                         CheckDuanzaoValue((Int16)value, -1);
                         break;
-     
+     //7
                     case 16:
                         CheckJinbiValue((Int32)value, -1);
                         break;
-     
+     //7
                     case 17:
                         CheckZuanshiValue((Int32)value, -1);
                         break;
-     
+     //7
                     case 18:
                         CheckChenghaoValue((String)value, -1);
                         break;
-     
+     //7
                     case 19:
                         CheckFriendsValue((String)value, -1);
                         break;
-     
+     //7
                     case 20:
                         CheckSkillsValue((String)value, -1);
                         break;
-     
+     //7
                     case 21:
                         CheckPrefabpathValue((String)value, -1);
                         break;
-     
+     //7
                     case 22:
                         CheckHeadpathValue((String)value, -1);
                         break;
-     
+     //7
                     case 23:
                         CheckLihuipathValue((String)value, -1);
                         break;
-     
+     //7
                     case 24:
                         CheckWuqiValue((Int16)value, -1);
                         break;
-     
+     //7
                     case 25:
                         CheckToukuiValue((Int16)value, -1);
                         break;
-     
+     //7
                     case 26:
                         CheckYifuValue((Int16)value, -1);
                         break;
-     
+     //7
                     case 27:
                         CheckXieziValue((Int16)value, -1);
                         break;
-     
+     //7
                     case 28:
                         CheckMapIDValue((Int32)value, -1);
                         break;
-     
+     //7
                     case 29:
                         CheckMapPosXValue((Int32)value, -1);
                         break;
-     
+     //7
                     case 30:
                         CheckMapPosYValue((Int32)value, -1);
                         break;
-     
+     //7
                     case 31:
                         CheckMapPosZValue((Int32)value, -1);
                         break;
-     
+     //7
                     case 32:
                         CheckUidValue((Int64)value, -1);
                         break;
-     
+     //7
                     case 33:
                         CheckLastDateValue((DateTime)value, -1);
                         break;
-     
+     //7
                     case 34:
                         CheckDelRoleValue((Boolean)value, -1);
                         break;
-     
+     //8
+                }
+            }
+        }
+
+        public object this[string name]
+        {
+            get
+            {
+                switch (name)
+                {
+     //9
+                    case "iD": return this.iD;
+     //9
+                    case "name": return this.name.Value;
+     //9
+                    case "zhiye": return this.zhiye.Value;
+     //9
+                    case "level": return this.level.Value;
+     //9
+                    case "levelupid": return this.levelupid.Value;
+     //9
+                    case "exp": return this.exp.Value;
+     //9
+                    case "shengming": return this.shengming.Value;
+     //9
+                    case "fali": return this.fali.Value;
+     //9
+                    case "tizhi": return this.tizhi.Value;
+     //9
+                    case "liliang": return this.liliang.Value;
+     //9
+                    case "minjie": return this.minjie.Value;
+     //9
+                    case "moli": return this.moli.Value;
+     //9
+                    case "meili": return this.meili.Value;
+     //9
+                    case "xingyun": return this.xingyun.Value;
+     //9
+                    case "lianjin": return this.lianjin.Value;
+     //9
+                    case "duanzao": return this.duanzao.Value;
+     //9
+                    case "jinbi": return this.jinbi.Value;
+     //9
+                    case "zuanshi": return this.zuanshi.Value;
+     //9
+                    case "chenghao": return this.chenghao.Value;
+     //9
+                    case "friends": return this.friends.Value;
+     //9
+                    case "skills": return this.skills.Value;
+     //9
+                    case "prefabpath": return this.prefabpath.Value;
+     //9
+                    case "headpath": return this.headpath.Value;
+     //9
+                    case "lihuipath": return this.lihuipath.Value;
+     //9
+                    case "wuqi": return this.wuqi.Value;
+     //9
+                    case "toukui": return this.toukui.Value;
+     //9
+                    case "yifu": return this.yifu.Value;
+     //9
+                    case "xiezi": return this.xiezi.Value;
+     //9
+                    case "mapID": return this.mapID.Value;
+     //9
+                    case "mapPosX": return this.mapPosX.Value;
+     //9
+                    case "mapPosY": return this.mapPosY.Value;
+     //9
+                    case "mapPosZ": return this.mapPosZ.Value;
+     //9
+                    case "uid": return this.uid.Value;
+     //9
+                    case "lastDate": return this.lastDate.Value;
+     //9
+                    case "delRole": return this.delRole.Value;
+     //10
+                }
+                throw new Exception("错误");
+            }
+            set
+            {
+                switch (name)
+                {
+     //11
+                    case "iD":
+                        this.iD = (Int64)value;
+                        break;
+     //11
+                    case "name":
+                        CheckNameValue((String)value, -1);
+                        break;
+     //11
+                    case "zhiye":
+                        CheckZhiyeValue((SByte)value, -1);
+                        break;
+     //11
+                    case "level":
+                        CheckLevelValue((SByte)value, -1);
+                        break;
+     //11
+                    case "levelupid":
+                        CheckLevelupidValue((Int32)value, -1);
+                        break;
+     //11
+                    case "exp":
+                        CheckExpValue((Int32)value, -1);
+                        break;
+     //11
+                    case "shengming":
+                        CheckShengmingValue((Int32)value, -1);
+                        break;
+     //11
+                    case "fali":
+                        CheckFaliValue((Int32)value, -1);
+                        break;
+     //11
+                    case "tizhi":
+                        CheckTizhiValue((Int16)value, -1);
+                        break;
+     //11
+                    case "liliang":
+                        CheckLiliangValue((Int16)value, -1);
+                        break;
+     //11
+                    case "minjie":
+                        CheckMinjieValue((Int16)value, -1);
+                        break;
+     //11
+                    case "moli":
+                        CheckMoliValue((Int16)value, -1);
+                        break;
+     //11
+                    case "meili":
+                        CheckMeiliValue((Int16)value, -1);
+                        break;
+     //11
+                    case "xingyun":
+                        CheckXingyunValue((Int16)value, -1);
+                        break;
+     //11
+                    case "lianjin":
+                        CheckLianjinValue((Int16)value, -1);
+                        break;
+     //11
+                    case "duanzao":
+                        CheckDuanzaoValue((Int16)value, -1);
+                        break;
+     //11
+                    case "jinbi":
+                        CheckJinbiValue((Int32)value, -1);
+                        break;
+     //11
+                    case "zuanshi":
+                        CheckZuanshiValue((Int32)value, -1);
+                        break;
+     //11
+                    case "chenghao":
+                        CheckChenghaoValue((String)value, -1);
+                        break;
+     //11
+                    case "friends":
+                        CheckFriendsValue((String)value, -1);
+                        break;
+     //11
+                    case "skills":
+                        CheckSkillsValue((String)value, -1);
+                        break;
+     //11
+                    case "prefabpath":
+                        CheckPrefabpathValue((String)value, -1);
+                        break;
+     //11
+                    case "headpath":
+                        CheckHeadpathValue((String)value, -1);
+                        break;
+     //11
+                    case "lihuipath":
+                        CheckLihuipathValue((String)value, -1);
+                        break;
+     //11
+                    case "wuqi":
+                        CheckWuqiValue((Int16)value, -1);
+                        break;
+     //11
+                    case "toukui":
+                        CheckToukuiValue((Int16)value, -1);
+                        break;
+     //11
+                    case "yifu":
+                        CheckYifuValue((Int16)value, -1);
+                        break;
+     //11
+                    case "xiezi":
+                        CheckXieziValue((Int16)value, -1);
+                        break;
+     //11
+                    case "mapID":
+                        CheckMapIDValue((Int32)value, -1);
+                        break;
+     //11
+                    case "mapPosX":
+                        CheckMapPosXValue((Int32)value, -1);
+                        break;
+     //11
+                    case "mapPosY":
+                        CheckMapPosYValue((Int32)value, -1);
+                        break;
+     //11
+                    case "mapPosZ":
+                        CheckMapPosZValue((Int32)value, -1);
+                        break;
+     //11
+                    case "uid":
+                        CheckUidValue((Int64)value, -1);
+                        break;
+     //11
+                    case "lastDate":
+                        CheckLastDateValue((DateTime)value, -1);
+                        break;
+     //11
+                    case "delRole":
+                        CheckDelRoleValue((Boolean)value, -1);
+                        break;
+     //12
                 }
             }
         }
@@ -2187,122 +2416,119 @@ namespace Titansiege
         public void Update()
         {
             if (RowState == DataRowState.Deleted | RowState == DataRowState.Detached | RowState == DataRowState.Added | RowState == 0) return;
-     
-            RowState = DataRowState.Modified;
-            TitansiegeDB.I.Update(this);
-     
+     //14
         }
     #endif
 
         public void Init(DataRow row)
         {
             RowState = DataRowState.Unchanged;
-     
+     //15
             if (row[0] is Int64 iD)
                 this.iD = iD;
-     
+     //15
             if (row[1] is String name)
                 CheckNameValue(name, -1);
-     
+     //15
             if (row[2] is SByte zhiye)
                 CheckZhiyeValue(zhiye, -1);
-     
+     //15
             if (row[3] is SByte level)
                 CheckLevelValue(level, -1);
-     
+     //15
             if (row[4] is Int32 levelupid)
                 CheckLevelupidValue(levelupid, -1);
-     
+     //15
             if (row[5] is Int32 exp)
                 CheckExpValue(exp, -1);
-     
+     //15
             if (row[6] is Int32 shengming)
                 CheckShengmingValue(shengming, -1);
-     
+     //15
             if (row[7] is Int32 fali)
                 CheckFaliValue(fali, -1);
-     
+     //15
             if (row[8] is Int16 tizhi)
                 CheckTizhiValue(tizhi, -1);
-     
+     //15
             if (row[9] is Int16 liliang)
                 CheckLiliangValue(liliang, -1);
-     
+     //15
             if (row[10] is Int16 minjie)
                 CheckMinjieValue(minjie, -1);
-     
+     //15
             if (row[11] is Int16 moli)
                 CheckMoliValue(moli, -1);
-     
+     //15
             if (row[12] is Int16 meili)
                 CheckMeiliValue(meili, -1);
-     
+     //15
             if (row[13] is Int16 xingyun)
                 CheckXingyunValue(xingyun, -1);
-     
+     //15
             if (row[14] is Int16 lianjin)
                 CheckLianjinValue(lianjin, -1);
-     
+     //15
             if (row[15] is Int16 duanzao)
                 CheckDuanzaoValue(duanzao, -1);
-     
+     //15
             if (row[16] is Int32 jinbi)
                 CheckJinbiValue(jinbi, -1);
-     
+     //15
             if (row[17] is Int32 zuanshi)
                 CheckZuanshiValue(zuanshi, -1);
-     
+     //15
             if (row[18] is String chenghao)
                 CheckChenghaoValue(chenghao, -1);
-     
+     //15
             if (row[19] is String friends)
                 CheckFriendsValue(friends, -1);
-     
+     //15
             if (row[20] is String skills)
                 CheckSkillsValue(skills, -1);
-     
+     //15
             if (row[21] is String prefabpath)
                 CheckPrefabpathValue(prefabpath, -1);
-     
+     //15
             if (row[22] is String headpath)
                 CheckHeadpathValue(headpath, -1);
-     
+     //15
             if (row[23] is String lihuipath)
                 CheckLihuipathValue(lihuipath, -1);
-     
+     //15
             if (row[24] is Int16 wuqi)
                 CheckWuqiValue(wuqi, -1);
-     
+     //15
             if (row[25] is Int16 toukui)
                 CheckToukuiValue(toukui, -1);
-     
+     //15
             if (row[26] is Int16 yifu)
                 CheckYifuValue(yifu, -1);
-     
+     //15
             if (row[27] is Int16 xiezi)
                 CheckXieziValue(xiezi, -1);
-     
+     //15
             if (row[28] is Int32 mapID)
                 CheckMapIDValue(mapID, -1);
-     
+     //15
             if (row[29] is Int32 mapPosX)
                 CheckMapPosXValue(mapPosX, -1);
-     
+     //15
             if (row[30] is Int32 mapPosY)
                 CheckMapPosYValue(mapPosY, -1);
-     
+     //15
             if (row[31] is Int32 mapPosZ)
                 CheckMapPosZValue(mapPosZ, -1);
-     
+     //15
             if (row[32] is Int64 uid)
                 CheckUidValue(uid, -1);
-     
+     //15
             if (row[33] is DateTime lastDate)
                 CheckLastDateValue(lastDate, -1);
-     
+     //15
             if (row[34] is Boolean delRole)
                 CheckDelRoleValue(delRole, -1);
-     
+     //16
         }
 
         public void AddedSql(StringBuilder sb)

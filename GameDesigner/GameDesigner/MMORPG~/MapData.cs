@@ -54,6 +54,10 @@ namespace Net.MMORPG
         /// 地图九宫格数据
         /// </summary>
         public MapAOIData aoiData = new MapAOIData();
+        /// <summary>
+        /// 寻路网格文件路径
+        /// </summary>
+        public string navmeshPath;
 
         /// <summary>
         /// 读取地图数据
@@ -100,6 +104,11 @@ namespace Net.MMORPG
                     width = aoiMgr.width,
                     height = aoiMgr.height,
                 };
+            }
+            var navmesh = UnityEngine.Object.FindObjectOfType<AI.NavmeshSystemUnity>();
+            if (navmesh != null)
+            {
+                sceneData.navmeshPath = navmesh.navMashPath;
             }
             var jsonStr = Newtonsoft_X.Json.JsonConvert.SerializeObject(sceneData);
             File.WriteAllText(path, jsonStr);

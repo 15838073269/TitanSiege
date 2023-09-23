@@ -177,7 +177,9 @@ namespace MySqlDataBuild
                 var sb = new StringBuilder(codeTexts[0]);
                 var sb1 = new StringBuilder();
                 var sb2 = new StringBuilder();
+                var sb22 = new StringBuilder();
                 var sb3 = new StringBuilder();
+                var sb33 = new StringBuilder();
                 var sb4 = new StringBuilder();
                 var sb5 = new StringBuilder();
                 var sb6 = new StringBuilder();
@@ -200,6 +202,10 @@ namespace MySqlDataBuild
                     indexCode1 = indexCode1.Replace("{INDEXNAME}", $"{(isKey ? fieldName1 : $"{fieldName1}.Value")}");
                     sb2.Append(indexCode1);
 
+                    var indexCode11 = codeTexts[9].Replace("{FIELDNAME1}", $"\"{fieldName1}\"");
+                    indexCode11 = indexCode11.Replace("{INDEXNAME}", $"{(isKey ? fieldName1 : $"{fieldName1}.Value")}");
+                    sb22.Append(indexCode11);
+
                     bool isArray = cell.DataType == typeof(byte[]);
                     var isAtk = !isArray & cell.DataType != typeof(bool) & cell.DataType != typeof(string) & cell.DataType != typeof(DateTime); 
                     var indexCode2 = codeTexts[7].Replace("{INDEX}", $"{i}");
@@ -209,14 +215,21 @@ namespace MySqlDataBuild
                         indexCode2 = indexCode2.Replace("{ADDORCUTROW}", $"Check{fieldName2}{(isArray ? "Bytes" : "")}Value(({GetCodeType(cell.DataType)})value, -1);");
                     sb3.Append(indexCode2);
 
-                    var indexCode4 = codeTexts[11].Replace("{INDEX}", $"{i}");
+                    var indexCode22 = codeTexts[11].Replace("{FIELDNAME1}", $"\"{fieldName1}\"");
+                    if (isKey)
+                        indexCode22 = indexCode22.Replace("{ADDORCUTROW}", $"this.{fieldName1} = ({GetCodeType(cell.DataType)})value;");
+                    else
+                        indexCode22 = indexCode22.Replace("{ADDORCUTROW}", $"Check{fieldName2}{(isArray ? "Bytes" : "")}Value(({GetCodeType(cell.DataType)})value, -1);");
+                    sb33.Append(indexCode22);
+
+                    var indexCode4 = codeTexts[15].Replace("{INDEX}", $"{i}");
                     indexCode4 = indexCode4.Replace("{FIELDTYPE}", $"{GetCodeType(cell.DataType)}");
                     indexCode4 = indexCode4.Replace("{FIELDTYPE1}", $"{GetCodeType1(cell.DataType)}Obs");
                     indexCode4 = indexCode4.Replace("{FIELDNAME1}", $"{fieldName1}");
                     indexCode4 = indexCode4.Replace("{INIT}", isKey ? $"this.{fieldName1} = {fieldName1};" : $"Check{fieldName2}{(isArray ? "Bytes" : "")}Value({(isArray ? $"Convert.FromBase64String(Encoding.ASCII.GetString({fieldName1}))" : $"{fieldName1}")}, -1);");
                     sb5.Append(indexCode4);
 
-                    sb6.Append($"{fieldName2}:{{{fieldName2}}} ");
+                    sb6.Append($"{fieldName2}:{{{fieldName2}{(isArray ? "Bytes" : "")}}} ");
 
                     if (isKey)
                         continue;
@@ -253,7 +266,7 @@ namespace MySqlDataBuild
                     sb.Append(fieldCode);
                 }
 
-                codeTexts[15] = codeTexts[15].Replace("{TOSTRING}", sb6.ToString());
+                codeTexts[19] = codeTexts[19].Replace("{TOSTRING}", sb6.ToString());
 
                 sb.Append(codeTexts[2]);
                 sb.Append(sb1);
@@ -262,13 +275,18 @@ namespace MySqlDataBuild
                 sb.Append(codeTexts[6]);
                 sb.Append(sb3);
                 sb.Append(codeTexts[8]);
-                sb.Append(codeTexts[9]);
-                sb.Append(sb4);
+                sb.Append(sb22);
                 sb.Append(codeTexts[10]);
-                sb.Append(sb5);
+                sb.Append(sb33);
                 sb.Append(codeTexts[12]);
-                sb.Append(codeTexts[13]);
-                sb.Append(codeTexts[15]);
+                //sb.Append(codeTexts[9]);
+                //sb.Append(sb4);
+                sb.Append(codeTexts[14]);
+                sb.Append(sb5);
+                sb.Append(codeTexts[16]);
+                sb.Append(codeTexts[17]);
+                //sb.Append(codeTexts[18]);
+                sb.Append(codeTexts[19]);
 
                 var codeText1 = sb.ToString();
 

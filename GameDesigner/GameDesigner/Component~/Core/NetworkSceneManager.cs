@@ -33,7 +33,7 @@ namespace Net.UnityComponent
         public MyDictionary<int, NetworkObject> identitys = new MyDictionary<int, NetworkObject>();
         [Tooltip("如果onExitDelectAll=true 当客户端退出游戏,客户端所创建的所有网络物体也将随之被删除? onExitDelectAll=false只删除玩家物体")]
         public bool onExitDelectAll = true;
-        internal List<WaitDestroy> waitDestroyList = new List<WaitDestroy>();
+        public List<WaitDestroy> waitDestroyList = new List<WaitDestroy>();
         protected ClientBase client; //当多场景时, 退出战斗场景, 回主场景时, 先进入主场景再卸载战斗场景, 而ClientBase.Instance被赋值到其他多连接客户端对象上就会出现OnDestry时没有正确移除OnOperationSync事件
         protected Queue<Action> waitNetworkIdentityQueue = new Queue<Action>();
 

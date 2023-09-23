@@ -17,7 +17,7 @@
 */
 namespace Net.Server
 {
-    
+
     using global::System;
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
@@ -262,9 +262,10 @@ namespace Net.Server
         /// 采用md5 + 随机种子校验
         /// </summary>
         [Obsolete("此属性已不再使用,请使用AddAdapter方法添加数据加密适配器!")]
-        public virtual bool MD5CRC {
+        public virtual bool MD5CRC
+        {
             get => md5crc;
-            set 
+            set
             {
                 md5crc = value;
                 //frame = (byte)(value ? 1 + 16 : 1);
@@ -755,15 +756,22 @@ namespace Net.Server
                     {
                         var result = Parallel.ForEach(Scenes.Values, scene =>
                         {
-                            scene.UpdateLock(this, NetCmd.OperationSync);
-                            scene.currFps++;
+                            try
+                            {
+                                scene.UpdateLock(this, NetCmd.OperationSync);
+                                scene.currFps++;
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.LogError("场景轮询异常:" + ex);
+                            }
                         });
                         while (!result.IsCompleted)
                         {
                             Thread.Sleep(1);
                         }
                     }
-                    if (tick >= fpsTick) 
+                    if (tick >= fpsTick)
                     {
                         foreach (var scene in Scenes.Values)
                         {
@@ -866,7 +874,7 @@ namespace Net.Server
 
         protected int GetCurrUserID()
         {
-            lock (SyncRoot) 
+            lock (SyncRoot)
             {
                 return CurrUserID++;
             }
@@ -929,7 +937,7 @@ namespace Net.Server
             }
         }
 
-        protected virtual void OnCheckPerSecond(Player client) 
+        protected virtual void OnCheckPerSecond(Player client)
         {
             if (client.CRCError > 0)
             {
@@ -1041,13 +1049,13 @@ namespace Net.Server
             return client;
         }
 
-        protected virtual void OnThreadQueueSet(Player client) 
+        protected virtual void OnThreadQueueSet(Player client)
         {
             var value = threadNum++;
             client.Group = ThreadGroups[value % ThreadGroups.Count];
         }
 
-        protected virtual void AcceptHander(Player client) 
+        protected virtual void AcceptHander(Player client)
         {
         }
 
@@ -1120,7 +1128,7 @@ namespace Net.Server
                     model.methodHash = func.hash;
                 }
                 DataHandler(client, model, buffer);//解析协议完成
-                J: buffer.Position = position;
+            J: buffer.Position = position;
             }
         }
 
@@ -1267,7 +1275,7 @@ namespace Net.Server
                 SendFile(client, key, fileData);
         }
 
-        private bool CheckIsQueueUp(Player client) 
+        private bool CheckIsQueueUp(Player client)
         {
             var isQueueUp = client.QueueUpNo > 0;
             if (isQueueUp)
@@ -1780,7 +1788,7 @@ namespace Net.Server
             return null;
         }
 
-        protected virtual void OnSceneGroupSet(Scene scene) 
+        protected virtual void OnSceneGroupSet(Scene scene)
         {
         }
 
@@ -1803,7 +1811,7 @@ namespace Net.Server
         public Scene EnterScene(Player player, string name) => SwitchScene(player, name);
 
         public Scene EnterScene(Player player, Scene scene) => SwitchScene(player, scene);
-        
+
         /// <summary>
         /// 切换场景
         /// </summary>
@@ -1952,7 +1960,7 @@ namespace Net.Server
                 UserIDStack.Push(client.UserID);
             if (client.IsQueueUp)
                 return;
-        J: if (QueueUp.TryDequeue(out var client1))
+            J: if (QueueUp.TryDequeue(out var client1))
             {
                 if (client1.isDispose)
                     goto J;
@@ -2446,7 +2454,7 @@ namespace Net.Server
             SignOutInternal(client);
         }
 
-        protected void SignOutInternal(Player client) 
+        protected void SignOutInternal(Player client)
         {
             SendDirect(client);
             ExitScene(client, false);

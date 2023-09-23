@@ -95,15 +95,15 @@
                             client1 = AcceptHander(client, client.RemoteEndPoint);
                             goto J;
                         }
-                        if (!client1.Client.Connected) //防止出错或者假冒的客户端设置, 导致直接替换真实的客户端
+                        if (!client1.Connected | !client1.Client.Connected) //防止出错或者假冒的客户端设置, 导致直接替换真实的客户端
                         {
                             client1.Client = client;
                             client1.Connected = true;
                             SetClientIdentity(client1);
-                            client1.OnReconnecting();
-                            OnReconnecting(client1);
                         }
                         else AcceptHander(client, client.RemoteEndPoint);//如果取出的客户端不断线, 那说明是客户端有问题或者错乱, 给他个新的连接
+                        client1.OnReconnecting();
+                        OnReconnecting(client1);
                         J: acceptList.RemoveAt(i);
                     }
                 }

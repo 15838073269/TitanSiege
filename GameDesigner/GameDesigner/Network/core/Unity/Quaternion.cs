@@ -503,6 +503,26 @@ namespace Net
             return result;
         }
 
+        public static Quaternion LookRotation(Vector3 forward, Vector3 upwards)
+        {
+            forward.Normalize();
+            upwards.Normalize();
+
+            Vector3 right = Vector3.Cross(upwards, forward);
+            Vector3 normalizedUpwards = Vector3.Cross(forward, right);
+
+            Quaternion rotation = identity;
+
+            // 计算旋转矩阵的各个元素
+            rotation.w = Mathf.Sqrt(1f + right.x + normalizedUpwards.y + forward.z) * 0.5f;
+            float w4Recip = 1f / (4f * rotation.w);
+            rotation.x = (normalizedUpwards.z - forward.y) * w4Recip;
+            rotation.y = (forward.x - right.z) * w4Recip;
+            rotation.z = (right.y - normalizedUpwards.x) * w4Recip;
+
+            return rotation;
+        }
+
         public static void CreateFromYawPitchRoll(float yaw, float pitch, float roll, out Quaternion result)
         {
             float num1 = roll * 0.5f;
