@@ -85,17 +85,7 @@ namespace GF.MainGame.UI {
             if (m_IsInscreen) {//判断是否在屏幕内
                 //血条位置跟随
                 Vector3 scenepos = Camera.main.WorldToScreenPoint(m_HPRoot.transform.position);//通过摄像机将怪物的血条位置转换成屏幕坐标,世界坐标转屏幕坐标   
-                //float dis = Vector3.Distance(m_HPRoot.transform.position,UserService.GetInstance.m_CurrentPlayer.transform.position);
-                //if ((dis > lastdis)&&lastdis!=0 && dis <= 5f) {//远小,距离近时才出发近大远小
-                //    if (m_Rect.sizeDelta.magnitude>m_MinScale.magnitude) { //比较模长
-                //        m_Rect.sizeDelta -= m_Zengliang;
-                //    }
-                //} else if (dis < lastdis && dis <= 5f) {//近大，距离近时才出发近大远小
-                //    if (m_Rect.sizeDelta.magnitude < m_MaxScale.magnitude) { //比较模长
-                //        m_Rect.sizeDelta += m_Zengliang;
-                //    }
-                //}
-                //lastdis = dis;
+        
                 Vector2 uipos = ScreenPointToUILocalPoint(scenepos);//将屏幕坐标转换成ui的anchoredPosition
                 m_Rect.anchoredPosition = uipos;
             } 

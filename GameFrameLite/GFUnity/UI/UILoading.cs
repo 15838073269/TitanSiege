@@ -34,8 +34,8 @@ namespace GF.Unity.UI {
             if (m_arg == null) {
                 m_arg = new UILoadingArg();
             }
-            GameSceneService.GetInstance.SceneLoadedBegain = SceneLoadedBegain;
-            GameSceneService.GetInstance.SceneLoadedOver = SceneLoadedOver;
+            GameSceneService.GetInstance.SceneLoadedBegain += SceneLoadedBegain;
+            GameSceneService.GetInstance.SceneLoadedOver += SceneLoadedOver;
             UpdateText();
         }
         /// <summary>

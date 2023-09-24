@@ -9,13 +9,13 @@ namespace Net.MMORPG
     public class MonsterData
     {
         /// <summary>
-        /// 怪物索引
+        /// 怪物的索引id
         /// </summary>
         public int id;
         /// <summary>
-        /// 怪物生命值
+        /// 怪物在数据库中npcs表的id
         /// </summary>
-        public int health;
+        public int mysqlid;
         /// <summary>
         /// 可以赋值更多信息
         /// </summary>

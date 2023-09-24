@@ -7,6 +7,9 @@ using Titansiege;
 using Net.MMORPG;
 using cmd;
 using System.IO;
+using System.Data;
+using System.Security.Principal;
+using MySqlX.XDevAPI;
 
 //文件最好与服务器端VisualStudio项目的MyCommand.cs同名且代码一样
 namespace GDServer.Services
@@ -57,6 +60,20 @@ namespace GDServer.Services
                     }
                     break;
                 default:
+                    break;
+            }
+            //其实只需要一个这个switch就够了，但因为我不想改以前写好的代码了，就写了两种，两种方式都可以，推荐这一种
+            switch (model.methodHash) {
+                case (ushort)ProtoType.relogin://重新登录，一般用于断线重连
+                    string username = model.pars[0].ToString();
+                   
+                    if (TitansiegeDB.I.m_Users.TryGetValue(username, out var data)) {
+                        unClient.PlayerID = username;
+                        unClient.User = data;
+                        LoginHandler(unClient);//这一句和return true效果是一样的
+                        Debuger.Log($"玩家{username}[{unClient.UserID}]断线重连登陆成功");
+                        TServer.Instance.SendRT(unClient, (ushort)ProtoType.relogin, 1);
+                    }
                     break;
             }
             return false;//100%必须理解这个, 返回false则永远在这里被调用, 返回true才被服务器认可
@@ -117,6 +134,10 @@ namespace GDServer.Services
                     } else {
                         TServer.Instance.SendRT(client, (ushort)ProtoType.playerupdateprop, 0);
                     }
+                    break;
+                case (ushort)ProtoType.reenterscene://重新进入场景，一般是断线重连后重新登录成功后使用的
+                    string scenename = model.pars[0].ToString();
+                    UserService.GetInstance.SwitchScene(client, scenename);
                     break;
                 default:
                     base.OnRpcExecute(client, model);//反射调用rpc

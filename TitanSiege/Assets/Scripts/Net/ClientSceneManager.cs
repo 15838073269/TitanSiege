@@ -132,6 +132,9 @@ namespace GF.NetWork {
                 case Command.EnemyPatrol://1、未发生攻击时，服务端同步场景怪物行为
                     //2、死亡时也是发送这个命令，不同的是，死亡只发一次，客户端处理死亡后，直到收到怪物复活命令之前，不会再进行任何同步和命令
                     var monster = CheckMonster(opt);
+                    if (monster == null) {
+                        return;
+                    }
                     ////如果原本是死亡的状态，证明这里需要复活了，就需要加载复活特效
                     //if ((monster.m_PatrolState == monster.m_AllStateID["die"])&& opt.cmd2 != monster.m_AllStateID["die"]) {
                     //    monster.Fuhuo();
@@ -161,6 +164,9 @@ namespace GF.NetWork {
                     break;
                 case Command.EnemySync://怪物同步，客户端怪物状态同步
                     var monster3 = CheckMonster(opt);
+                    if (monster3 == null) {
+                        return;
+                    }
                     monster3.m_NetState = opt.cmd1;
                     monster3.m_PatrolState = opt.cmd2;
                     monster3.FP.FightHP = opt.index1;
@@ -173,6 +179,9 @@ namespace GF.NetWork {
                     break;
                 case Command.EnemyUpdateProp://怪物属性同步给客户端，一般是第一次创建怪物或者怪物属性发生变化时使用
                     var monster4 = CheckMonster(opt);
+                    if (monster4 == null) {
+                        return;
+                    }
                     monster4.FP.FightHP = opt.index1;
                     monster4.FP.FightMaxHp = opt.index2;
                     //更新血条
@@ -191,7 +200,6 @@ namespace GF.NetWork {
         /// 这个函数用来同步怪物位置和数据，现在有个bug，服务器同步过来时，可能是脚本启动顺序问题，接受服务端消息时，monster列表中还是空的，导致monster创建失败报错，（bug已解决）
         /// 这里可以修改成，代码加载本场景的怪物预制体，检查脚本如果发现为空，就先加载预制体
         /// 这样也正好能通过配置表的方式配置monseter
-        /// todo
         /// </summary>
         /// <param name="opt"></param>
         /// <returns></returns>

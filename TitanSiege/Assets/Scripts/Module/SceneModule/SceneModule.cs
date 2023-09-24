@@ -1,4 +1,4 @@
-﻿/****************************************************
+/****************************************************
     文件：SceneModule.cs
 	作者：昔莘
     邮箱: 304183153@qq.com
@@ -16,6 +16,7 @@ using Net.Component;
 using Net.Config;
 using Net.Share;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 namespace GF.MainGame.Module {
     public class SceneModule:GeneralModule {
@@ -40,17 +41,21 @@ namespace GF.MainGame.Module {
             UILoadingArg uiarg = new UILoadingArg();
             uiarg.tips = "神话世界的故事由你书写";
             uiarg.title = "正在加载神话纪元，请稍等...";
-            //GameSceneService.GetInstance.SceneLoadedOver += SendSwtichScene;
+            GameSceneService.GetInstance.SceneLoadedOver += new System.Action<object>(SendSwtichScene);
+            Debuger.Log(GameSceneService.GetInstance.SceneLoadedOver);
             GameSceneService.GetInstance.AsyncLoadScene(scenename, uiarg: uiarg,arg:scenename);
             m_Current = scenename;
         }
-        //public void SendSwtichScene(object o) {
-        //    Debuger.Log(1233);
-        //    //发送服务器切换场景角色,先发送了，这里改成先切场景，场景切换成功后，再发送？
-        //    ClientManager.Instance.SendRT("SwitchScene", o as string);
-        //    GameSceneService.GetInstance.SceneLoadedOver -= SendSwtichScene;
-        //}
-        
+        public void SendSwtichScene(object o) {
+            //发送服务器切换场景角色,先发送了，这里改成先切场景，场景切换成功后，再发送？
+            string SceneName = o as string;
+            Debuger.Log("发送场景"+ SceneName);
+            if (SceneName != "CreateRole") {//排除一下创建角色的场景
+                ClientManager.Instance.SendRT("SwitchScene", SceneName);
+            }
+            GameSceneService.GetInstance.SceneLoadedOver -= SendSwtichScene;
+        }
+      
         public override void Release() {
             base.Release();
              AppTools.Remove<string>( (int)SceneEvent.OpenScene, OpenScene);

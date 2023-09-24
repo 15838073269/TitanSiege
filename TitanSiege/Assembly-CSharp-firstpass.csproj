@@ -68,10 +68,12 @@
     <Compile Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Scripts\WaterBase.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\StateMachine\State.cs" />
     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\ColorCorrectionEffect.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\Recast\NavmeshSystemUnity.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Common\Singleton.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\StateMachine\TransitionModel.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Component\Core\NetworkSceneManager.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\StateMachine\StateEvent.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\Recast\RecastDll.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\ECS\GSystem.cs" />
     <Compile Include="Assets\Standard Assets\ImageEffects\Scripts\BloomOptimized.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\MMORPG\MapData.cs" />
@@ -96,11 +98,13 @@
     <Compile Include="Assets\Standard Assets\ImageEffects\Scripts\GlobalFog.cs" />
     <Compile Include="Assets\Standard Assets\ImageEffects\Scripts\PostEffectsBase.cs" />
     <Compile Include="Assets\Standard Assets\ImageEffects\Scripts\ScreenSpaceAmbientObscurance.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\Recast\FindPathMode.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\MMORPG\MapMonsterPoint.cs" />
     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\SSAOEffect.cs" />
     <Compile Include="Assets\Standard Assets\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
     <Compile Include="Assets\Standard Assets\ImageEffects\Scripts\ImageEffectBase.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\ECS\UpdateComponent.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\Recast\AgentUnity.cs" />
     <Compile Include="Assets\Standard Assets\ImageEffects\Scripts\NoiseAndGrain.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Component\Core\NetworkTransformMulti.cs" />
     <Compile Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Scripts\PlanarReflection.cs" />
@@ -119,6 +123,8 @@
     <Compile Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Scripts\WaterTile.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\StateMachine\TransitionBehaviour.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\AOI\Grid.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\Recast\AgentEntity.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\Common\TransformEntity.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Common\RoomData.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Network\Gcp\Plugins\GcpKernel.cs" />
     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\BlurEffect.cs" />
@@ -140,7 +146,9 @@
     <Compile Include="Assets\Standard Assets\ImageEffects\Scripts\NoiseAndScratches.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\AOI\IGridBody.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\AOI\IGridActor.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\Recast\RenderTriangle.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Component\Generate\NetworkAnimation.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\Recast\NavmeshSystem.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Common\NTransform.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Common\PropertyObserver.cs" />
     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\GlowEffect.cs" />
@@ -172,18 +180,10 @@
     <Compile Include="Assets\Plugins\GameDesigner\Component\Manager\ClientManager.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\MMORPG\PatrolPath.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\StateMachine\AudioManager.cs" />
+    <Compile Include="Assets\Plugins\GameDesigner\Recast\RecastManager.cs" />
     <Compile Include="Assets\Standard Assets\ImageEffects\Scripts\CreaseShading.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\Component\Core\NetworkObject.cs" />
     <Compile Include="Assets\Plugins\GameDesigner\ECS\IUpdate.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\Common\TransformEntity.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\Recast\NavmeshSystem.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\Recast\NavmeshSystemUnity.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\Recast\RecastDll.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\Recast\AgentEntity.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\Recast\RecastManager.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\Recast\AgentUnity.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\Recast\FindPathMode.cs" />
-    <Compile Include="Assets\Plugins\GameDesigner\Recast\RenderTriangle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\ImageEffects\Shaders\Tonemapper.shader" />
@@ -541,6 +541,9 @@
     <Reference Include="DOTweenPro">
       <HintPath>Assets\Demigiant\DOTweenPro\DOTweenPro.dll</HintPath>
     </Reference>
+    <Reference Include="AmazingAssets.TerrainToMesh">
+      <HintPath>Assets\Plugins\GameDesigner\Recast\Library\AmazingAssets.TerrainToMesh.dll</HintPath>
+    </Reference>
     <Reference Include="DemiLib">
       <HintPath>Assets\Demigiant\DemiLib\Core\DemiLib.dll</HintPath>
     </Reference>
@@ -559,14 +562,11 @@
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>Library\PackageCache\com.unity.analytics@3.5.3\Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
-    <Reference Include="Pathfinding.Poly2Tri">
-      <HintPath>Assets\AstarPathfindingProject\Plugins\Poly2Tri\Pathfinding.Poly2Tri.dll</HintPath>
-    </Reference>
-    <Reference Include="AmazingAssets.TerrainToMesh">
-      <HintPath>Assets\Plugins\GameDesigner\Recast\Library\AmazingAssets.TerrainToMesh.dll</HintPath>
-    </Reference>
     <Reference Include="RecastNet">
       <HintPath>Assets\Plugins\GameDesigner\Recast\Library\RecastNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Pathfinding.Poly2Tri">
+      <HintPath>Assets\AstarPathfindingProject\Plugins\Poly2Tri\Pathfinding.Poly2Tri.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Android.Types">
       <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>

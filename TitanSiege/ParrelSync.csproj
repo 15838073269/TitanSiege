@@ -385,6 +385,9 @@
     <Reference Include="DOTweenPro">
       <HintPath>Assets\Demigiant\DOTweenPro\DOTweenPro.dll</HintPath>
     </Reference>
+    <Reference Include="AmazingAssets.TerrainToMesh">
+      <HintPath>Assets\Plugins\GameDesigner\Recast\Library\AmazingAssets.TerrainToMesh.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Plastic.Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -421,17 +424,14 @@
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>Library\PackageCache\com.unity.analytics@3.5.3\Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
+    <Reference Include="RecastNet">
+      <HintPath>Assets\Plugins\GameDesigner\Recast\Library\RecastNet.dll</HintPath>
+    </Reference>
     <Reference Include="Pathfinding.Poly2Tri">
       <HintPath>Assets\AstarPathfindingProject\Plugins\Poly2Tri\Pathfinding.Poly2Tri.dll</HintPath>
     </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
-    </Reference>
-    <Reference Include="AmazingAssets.TerrainToMesh">
-      <HintPath>Assets\Plugins\GameDesigner\Recast\Library\AmazingAssets.TerrainToMesh.dll</HintPath>
-    </Reference>
-    <Reference Include="RecastNet">
-      <HintPath>Assets\Plugins\GameDesigner\Recast\Library\RecastNet.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>

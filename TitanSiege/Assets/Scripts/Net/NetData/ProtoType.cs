@@ -3,6 +3,8 @@ namespace cmd {
         signout = 403,
         selectcharacter = 404,
         playerupdateprop = 405,
+        relogin = 406,
+        reenterscene = 407,
     }
 }
 

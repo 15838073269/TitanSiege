@@ -15,6 +15,7 @@ using GF.Unity.UI;
 using System.Threading.Tasks;
 using GF.MainGame.Module.NPC;
 using Titansiege;
+using Cysharp.Threading.Tasks;
 
 namespace GF.Service {
     public class UserService : Utils.Singleton<UserService> {
@@ -25,7 +26,7 @@ namespace GF.Service {
         public UnityEngine.Events.UnityAction<bool, string> OnLogin;
         public UnityEngine.Events.UnityAction<bool, string> OnRegister;
         public UnityEngine.Events.UnityAction<bool, string> OnCharacterCreate;
-        bool connected = false;
+        public bool connected = false;
         bool isQuitGame = false;
 
         public UserService() {

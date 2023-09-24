@@ -1,1 +1,1 @@
-{"onReloadInvoke":true,"syncVarClientEnable":false,"syncVarServerEnable":false,"collectRpc":false,"recordType":false,"savePath":"Assets/Scripts/Helper","dllPaths":["D:/project/Titansiege/TitanSiege/Assets/../Library/ScriptAssemblies/Assembly-CSharp.dll"],"rpcConfig":[],"foldout":false,"rpcConfigSize":0}
+{"onReloadInvoke":false,"syncVarClientEnable":false,"syncVarServerEnable":false,"collectRpc":false,"recordType":false,"savePath":"Assets/Scripts/Helper","dllPaths":["Library/ScriptAssemblies/Assembly-CSharp.dll"],"rpcConfig":[],"foldout":true,"rpcConfigSize":0}

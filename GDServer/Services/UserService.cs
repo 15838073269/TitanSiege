@@ -127,7 +127,7 @@ namespace GDServer.Services
             TServer.Instance.SignOut(client);
         }
         [Rpc(cmd = NetCmd.SafeCall)]
-        private void SwitchScene(GDClient client, string enterscenename) {
+        public void SwitchScene(GDClient client, string enterscenename) {
             //TServer.Instance.ExitScene(client,false);
             GDScene gs = TServer.Instance.JoinScene(client, enterscenename);//退出当前场景，加入目标场景
             Debuger.Log(gs);

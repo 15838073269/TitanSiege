@@ -4,6 +4,7 @@
     邮箱: 304183153@qq.com
     日期：2021/8/12 10:54:3
 	功能：项目的启动类，初始化debuger，各类模块，网络等，同时系统关闭时，清理所有资源，APPMain一定要最优先启动，记得在Script Execution Order中设置
+     INetworkHandle是网络消息接口，如果是网络项目，必须继承网络消息接口，实现对网络消息的处理
 *****************************************************/
 using UnityEngine;
 using GF.Module;
@@ -20,9 +21,16 @@ using System.Collections.Generic;
 using GF.MainGame.Module.NPC;
 using System.Threading;
 using Net.System;
+using Cysharp.Threading.Tasks;
+using Net.Client;
+using System.Net.Sockets;
+using cmd;
+using Net.Share;
+using Net.Component;
+using System.Security.Principal;
 
 namespace GF.MainGame {
-    public class AppMain : MonoBehaviour {
+    public class AppMain : MonoBehaviour,INetworkHandle {
         private static  AppMain m_Instance;
         public static AppMain GetInstance { get { return m_Instance; } }
         private void Awake() {
@@ -49,6 +57,8 @@ namespace GF.MainGame {
             InitDebuger();
             //开启防作弊
             OpenDeCheat();
+            //开启网络监听,处理网络事件
+            ClientManager.I.client.BindNetworkHandle(this);
             //初始化AppConfig
             AppConfig.Init();
             MsgCenter.Init(ReturnAllModuleName());
@@ -76,37 +86,7 @@ namespace GF.MainGame {
             }
             return moddic;
         }
-        /// <summary>
-        /// 打开防作弊功能，防止内存修改，需添加宏定义ANTICHEAT
-        /// </summary>
-        private void OpenDeCheat() { 
-            Net.Helper.AntiCheatHelper.IsActive = true;
-            Net.Helper.AntiCheatHelper.OnDetected = OnDetected;
-            Debuger.Log("已开启防作弊！");
-        }
-        /// <summary>
-        ///  检测到作弊后的执行函数
-        /// </summary>
-        /// <param name="name">字段名称</param>
-        /// <param name="oldvalue">旧值</param>
-        /// <param name="newvalue">修改值</param>
-        private void OnDetected(string name,object oldvalue,object newvalue) {
-            Debuger.LogError($"发现作弊，修改字段{name},原值{oldvalue},修改值{newvalue}");
-            UIMsgBoxArg arg = new UIMsgBoxArg();
-            arg.title = "警告";
-            arg.content = "检测到修改作弊,系统已拦截，本游戏即将退出，杜绝作弊，健康游戏，健康生活！";
-            arg.btnname = "退出游戏";
-            UIMsgBox temp = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox,arg) as UIMsgBox;
-            temp.oncloseevent += OnFailed;
-        }
-        /// <summary>
-        /// 退出游戏
-        /// </summary>
-        /// <param name="args"></param>
-        private void OnFailed(object args = null) {
-            Exit("作弊！");
-            Application.Quit();
-        }
+       
 #if UNITY_EDITOR
         /// <summary>
         /// 一般在网络通讯时，涉及到子线程 ，如果运行关闭，需要及时结束子线程，否则会出现问题，这个时候就需要这个函数起作用。
@@ -126,7 +106,7 @@ namespace GF.MainGame {
         /// 退出编辑器时的操作，如果运行关闭，需要及时结束子线程，否则会出现问题，这个时候就需要这个函数起作用。
         /// </summary>
         /// <param name="reason">退出的原因</param>
-        private static void Exit(string reason) {
+        public static void Exit(string reason) {
             //清理模块管理器
             ModuleManager.GetInstance.ReleaseAll();
             //清理UI管理器
@@ -135,6 +115,7 @@ namespace GF.MainGame {
             AssetBundleManager.GetInstance.RealseAll();
             ResourceManager.GetInstance.ReleaseAll();
             ObjectManager.GetInstance.RealseAll();
+            
             //清理网络管理器
             //清理热更新管理器
             //清楚版本管理器
@@ -247,6 +228,148 @@ namespace GF.MainGame {
         private void OnDestroy() {
             //Exit("正常退出！");
         }
+        #region 网络方面的处理,处理各类网络消息
+        /// <summary>
+        /// 打开防作弊功能，防止内存修改，需添加宏定义ANTICHEAT
+        /// </summary>
+        private void OpenDeCheat() {
+            Net.Helper.AntiCheatHelper.IsActive = true;
+            Net.Helper.AntiCheatHelper.OnDetected = OnDetected;
+            Debuger.Log("已开启防作弊！");
+        }
+        /// <summary>
+        ///  检测到作弊后的执行函数
+        /// </summary>
+        /// <param name="name">字段名称</param>
+        /// <param name="oldvalue">旧值</param>
+        /// <param name="newvalue">修改值</param>
+        private async void OnDetected(string name, object oldvalue, object newvalue) {
+            Debuger.LogError($"发现作弊，修改字段{name},原值{oldvalue},修改值{newvalue}");
+            await UniTask.Yield();//等待一帧，防止多个弹窗重复
+            UIMsgBoxArg arg = new UIMsgBoxArg();
+            arg.title = "警告";
+            arg.content = "检测到修改作弊,系统已拦截，本游戏即将退出，杜绝作弊，健康游戏，健康生活！";
+            arg.btnname = "退出游戏";
+            UIMsgBox temp = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox, arg) as UIMsgBox;
+            temp.oncloseevent += OnFailed;
+        }
+        /// <summary>
+        /// 退出游戏
+        /// </summary>
+        /// <param name="args"></param>
+        private async void OnFailed(object args = null) {
+            var task = await ClientBase.Instance.Call((ushort)ProtoType.signout);
+            if (!task.IsCompleted) {//超时
+                UIMsgBoxArg arg = new UIMsgBoxArg();
+                arg.title = "警告";
+                arg.content = "网络故障，请求超时！";
+                arg.btnname = "退出游戏";
+                UIMsgBox temp = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox, arg) as UIMsgBox;
+                temp.oncloseevent += OnFailed2;
+                return;
+            }
+            Exit("作弊！");
+            Application.Quit();
+        }
+        private async void OnFailed2(object args = null) {
+            Exit("网络问题退出！");
+            Application.Quit();
+        }
+        /// <summary>
+        /// 当连接成功
+        /// </summary>
+        public void OnConnected() {
+            
+        }
+        /// <summary>
+        /// 当连接失败
+        /// </summary>
+        public void OnConnectFailed() {
+            UIMsgBoxArg arg = new UIMsgBoxArg();
+            arg.title = "网络错误";
+            arg.content = "网络连接错误，可能是服务器未启动，请稍后重试，或者联系管理员！";
+            arg.btnname = "关闭游戏";
+            UIMsgBox box = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox, arg) as UIMsgBox;
+            box.oncloseevent += OnFailed2;
+        }
+        /// <summary>
+        /// 当连接中断
+        /// </summary>
+        public void OnConnectLost() {
+            UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "网络中断，正在准备重连") ;
+        }
+        /// <summary>
+        /// 当主动断开连接
+        /// </summary>
+        public void OnDisconnect() {
+            
+        }
+        /// <summary>
+        /// 当尝试重连
+        /// </summary>
+        public void OnTryToConnect() {
+            if (ClientBase.Instance.CurrReconnect <= ClientBase.Instance.ReconnectCount) {
+                UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"网络中断，正在准备第{ClientBase.Instance.CurrReconnect}次重连");
+            } else {
+                UIMsgBoxArg arg = new UIMsgBoxArg();
+                arg.title = "网络错误";
+                arg.content = "网络连接错误，重连失败，请稍后重试，或者联系管理员！";
+                arg.btnname = "关闭游戏";
+                UIMsgBox box = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox, arg) as UIMsgBox;
+                box.oncloseevent += OnFailed2;
+            }
+        }
+        /// <summary>
+        /// 当重连成功
+        /// </summary>
+        public async void OnReconnect() {
+            UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"网络连接已恢复！");
+            //重新发送登录
+            var task = await ClientBase.Instance.Call((ushort)ProtoType.relogin,UserService.GetInstance.m_UserModel.m_Users.Username,AppTools.GetModule<SceneModule>(MDef.SceneModule).m_Current);
+            if (!task.IsCompleted) {//重新登录失败，就让玩家退出游戏再试
+                UIMsgBoxArg arg = new UIMsgBoxArg();
+                arg.title = "网络错误";
+                arg.content = "网络连接错误，重连失败，请稍后重试，或者联系管理员！";
+                arg.btnname = "关闭游戏";
+                UIMsgBox box = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox, arg) as UIMsgBox;
+                box.oncloseevent += OnFailed2;
+            } else {
+                ClientBase.Instance.SendRT((ushort)ProtoType.reenterscene, AppTools.GetModule<SceneModule>(MDef.SceneModule).m_Current);
+            }
+        }
+        /// <summary>
+        /// 当关闭连接
+        /// </summary>
+        public void OnCloseConnect() {
+            
+        }
+        /// <summary>
+        /// 当排队时调用
+        /// </summary>
+        /// <param name="count"></param>
+        public void OnWhenQueuing(int totalCount, int count) {
+            
+        }
+        /// <summary>
+        /// 当排队结束调用
+        /// </summary>
+        public void OnQueueCancellation() {
+            
+        }
+        /// <summary>
+        /// 当服务器爆炸，积极拒绝客户端连接
+        /// </summary>
+        public void OnServerFull() {
+            UIMsgBoxArg arg = new UIMsgBoxArg();
+            arg.title = "重要提示";
+            arg.content = "服务器爆满，已超出运行负荷，请稍后再试！";
+            arg.btnname = "关闭游戏";
+            UIMsgBox box = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox, arg) as UIMsgBox;
+            box.oncloseevent += OnFailed2;
+        }
+
+
+        #endregion
     }
-   
+
 }

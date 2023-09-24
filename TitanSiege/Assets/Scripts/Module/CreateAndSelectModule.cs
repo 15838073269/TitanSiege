@@ -183,9 +183,8 @@ namespace GF.MainGame.Module {
             //先把选择的角色数据id传给服务器，让服务器知道选择的哪个角色
             ClientBase.Instance.SendRT((ushort)ProtoType.selectcharacter,UserService.GetInstance.m_CurrentChar.ID);
             //加载游戏主城场景
-            UILoadingArg arg = new UILoadingArg();
-            arg.tips = "正在加载神话世界....";
-            GameSceneService.GetInstance.AsyncLoadScene(AppConfig.MainScene,true, arg);
+            AppTools.Send<string>((int)SceneEvent.OpenScene, AppConfig.MainScene);
+
         }
         public void DeletePlayer(long delid) {
             ClientManager.Instance.SendRT("DeletePlayer", delid);
