@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using GF.MainGame.Module.NPC;
 using Titansiege;
 using Cysharp.Threading.Tasks;
+using cmd;
 
 namespace GF.Service {
     public class UserService : Utils.Singleton<UserService> {
@@ -57,6 +58,7 @@ namespace GF.Service {
             return true;
         }
          private void OnFailed(object args = null) {
+            AppMain.Exit("网络问题退出！");
             Application.Quit();
         }
         void OnGameServerConnect() {//连接成功才会调用，不成功不调用
@@ -110,7 +112,19 @@ namespace GF.Service {
 
             }
         }
-
+        /// <summary>
+        /// 用来接收服务端退出登录的命令，
+        /// 使用rpc，如果不生效，检查是否adddRPC
+        /// </summary>
+        [Net.Share.RPC(hash = (ushort)ProtoType.signout)]
+        private void SignOut() {
+            UIMsgBoxArg arg = new UIMsgBoxArg();
+            arg.title = "重复登录提示";
+            arg.content = "该账号已在其他地方登录，如非本人，请修改登录密码！";
+            arg.btnname = "关闭游戏";
+            UIMsgBox box = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox, arg) as UIMsgBox;
+            box.oncloseevent += OnFailed;
+        }
 
     }
    

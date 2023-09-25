@@ -71,10 +71,12 @@ namespace GDServer {
         public string pic { get; set; }
 
         [XmlAttribute("类型")]
-        public ushort itemtype { get; set; }
+        public int itemtype { get; set; }
 
         [XmlAttribute("物品等级")]
         public ushort level { get; set; }
+        [XmlAttribute("品质")]
+        public int pinzhi { get; set; }
 
         [XmlAttribute("贩卖价格")]
         public int price { get; set; }
@@ -85,45 +87,76 @@ namespace GDServer {
         [XmlAttribute("冷却")]
         public ushort cd { get; set; }
 
-        [XmlAttribute("天赋")]
-        public string talent { get; set; }
-
         [XmlAttribute("效果1")]
-        public ushort xiaoguo1 { get; set; }
+        public int xiaoguo1 { get; set; }
 
         [XmlAttribute("效果值1")]
         public string xiaoguo1zhi { get; set; }
 
         [XmlAttribute("效果2")]
-        public ushort xiaoguo2 { get; set; }
+        public int xiaoguo2 { get; set; }
 
         [XmlAttribute("效果值2")]
         public string xiaoguo2zhi { get; set; }
 
         [XmlAttribute("效果3")]
-        public ushort xiaoguo3 { get; set; }
+        public int xiaoguo3 { get; set; }
 
         [XmlAttribute("效果值3")]
         public string xiaoguo3zhi { get; set; }
 
         [XmlAttribute("需求1")]
-        public string xuqiu1 { get; set; }
+        public int xuqiu1 { get; set; }
 
         [XmlAttribute("需求值1")]
-        public ushort xuqiu1zhi { get; set; }
+        public string xuqiu1zhi { get; set; }
 
         [XmlAttribute("需求2")]
-         public string xuqiu2 { get; set; }
+         public int xuqiu2 { get; set; }
 
         [XmlAttribute("需求值2")]
-        public ushort xuqiu2zhi { get; set; }
+        public string xuqiu2zhi { get; set; }
 
         [XmlAttribute("需求3")]
-        public string xuqiu3 { get; set; }
+        public int xuqiu3 { get; set; }
 
         [XmlAttribute("需求值3")]
-        public ushort xuqiu3zhi { get; set; }
+        public string xuqiu3zhi { get; set; }
 
     }
-    
+    public enum XiaoGuo { 
+        addhp=1,//回血
+        addmp,//回蓝
+        addfightprop,//增加战斗属性
+        addprop,//增加常规属性
+        addskill,//新增技能
+        addjinbi,//添加金币
+        addzhuanshi,//添加钻石
+        additem,//添加物品，例如宝箱
+    }
+    public enum ItemType { 
+        yaopin=1,//药品
+        yifu,//衣服装备
+        kuzi,//裤子装备
+        wuqi,//武器装备
+        xianglian,//项链装备
+        jiezhi,//戒指装备
+        xiezi,//鞋子装备
+        jinengshu,//技能书
+        renwu,//任务物品
+        zawu,//杂物
+    }
+    public enum XuQiu {
+        fightprop=1,//需要战斗属性
+        prop,//需要基本属性
+        level,//需要等级
+        item,//需要某个物品
+    }
+    public enum Pinzhi { 
+        bai = 1,//白
+        lv,//绿
+        lan,//蓝
+        zi,//紫
+        ceng,//橙
+    }
 }

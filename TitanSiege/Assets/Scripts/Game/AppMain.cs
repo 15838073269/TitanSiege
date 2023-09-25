@@ -28,10 +28,11 @@ using cmd;
 using Net.Share;
 using Net.Component;
 using System.Security.Principal;
+using System.Security.Policy;
 
 namespace GF.MainGame {
-    public class AppMain : MonoBehaviour,INetworkHandle {
-        private static  AppMain m_Instance;
+    public class AppMain : MonoBehaviour, INetworkHandle {
+        private static AppMain m_Instance;
         public static AppMain GetInstance { get { return m_Instance; } }
         private void Awake() {
             Application.runInBackground = true;//用于后台挂起
@@ -44,9 +45,8 @@ namespace GF.MainGame {
         /// <summary>
         /// 角色的唯一id，网络游戏开发常用，所以存在这里
         /// </summary>
-        public int Uid=0;
+        public int Uid = 0;
         void Start() {
-            
             //Init();
         }
         void Init() {
@@ -62,10 +62,10 @@ namespace GF.MainGame {
             //初始化AppConfig
             AppConfig.Init();
             MsgCenter.Init(ReturnAllModuleName());
-            
+
             //初始化版本
             InitVesion();
-           
+
             //这里的代码是判断在编辑器下，工程是否运行，如果运行就执行委托的函数。
 #if UNITY_EDITOR
             //为了防止重复添加，所以先减再加，没有委托时减是无效的。
@@ -82,11 +82,11 @@ namespace GF.MainGame {
             Array intarray = Enum.GetValues(typeof(MDef));
             for (int i = 0; i < intarray.Length; i++) {
                 var m = intarray.GetValue(i);
-                moddic.Add((int)m,m.ToString());
+                moddic.Add((int)m, m.ToString());
             }
             return moddic;
         }
-       
+
 #if UNITY_EDITOR
         /// <summary>
         /// 一般在网络通讯时，涉及到子线程 ，如果运行关闭，需要及时结束子线程，否则会出现问题，这个时候就需要这个函数起作用。
@@ -115,7 +115,7 @@ namespace GF.MainGame {
             AssetBundleManager.GetInstance.RealseAll();
             ResourceManager.GetInstance.ReleaseAll();
             ObjectManager.GetInstance.RealseAll();
-            
+
             //清理网络管理器
             //清理热更新管理器
             //清楚版本管理器
@@ -126,7 +126,7 @@ namespace GF.MainGame {
         /// 初始化debuger的函数
         /// </summary>
         private void InitDebuger() {
-            Debuger.Init(Application.persistentDataPath+"/Debuger/",new UnityDebugerConsole());
+            Debuger.Init(Application.persistentDataPath + "/Debuger/", new UnityDebugerConsole());
             //设置日志开关
             Debuger.EnableLog = true;//打开日志
             Debuger.Log("日志系统已开启！");
@@ -152,7 +152,7 @@ namespace GF.MainGame {
         public Transform HpUIRoot;
         public CameraController MainCamera = null;
         public UIRoot uiroot = null;
-        public Camera uicamera=null;
+        public Camera uicamera = null;
         public GameObject eventsystem = null;
         /// <summary>
         /// 初始化服务层模块
@@ -162,18 +162,18 @@ namespace GF.MainGame {
             //初始化模块管理器
             ModuleManager.GetInstance.Init();
             //注册普通模块的创建器，这里的普通模块就是不需要热更新的模块
-            ModuleManager.GetInstance.RegisterModuleActivator(new NativeModuleActivator(ModuleDef.NameSpace,ModuleDef.NativeAssemblyName));
+            ModuleManager.GetInstance.RegisterModuleActivator(new NativeModuleActivator(ModuleDef.NameSpace, ModuleDef.NativeAssemblyName));
             //初始化UI模块
-            if ((uiroot==null)|| (uicamera == null)) {
+            if ((uiroot == null) || (uicamera == null)) {
                 uiroot = GameObject.Find("UIRoot").GetComponent<UIRoot>();
                 uicamera = uiroot.FindUI("UICamera").GetComponent<Camera>();
                 eventsystem = uiroot.FindUI("EventSystem");
             }
 
-            UIManager.GetInstance.Init(uiroot,uicamera, eventsystem);//UI预制体的路径
+            UIManager.GetInstance.Init(uiroot, uicamera, eventsystem);//UI预制体的路径
             UIManager.MainPage = AppConfig.MainUIPage;
             UIManager.MainScene = AppConfig.MainScene;
-            
+
             //加载AB包资源配置表
             ObjectManager.GetInstance.IsEditor = AppConfig.IsEditor;
             if (ObjectManager.GetInstance.IsEditor) {
@@ -188,7 +188,7 @@ namespace GF.MainGame {
             AssetBundleManager.GetInstance.ABPathDic = AppConfig.ABPathDic;
             AssetBundleManager.GetInstance.LoadAssetBundleConfig(AppConfig.ABConfigPath);
             //场景管理初始化
-            GameSceneService.GetInstance.Init(this,AppConfig.SceneLoading);
+            GameSceneService.GetInstance.Init(this, AppConfig.SceneLoading);
             GameSceneService.GetInstance.CurrenSceneName = AppConfig.LoginScene;
             GameSceneService.GetInstance.EmptyScene = AppConfig.EmptyScene;
             //加载版本管理模块
@@ -202,7 +202,7 @@ namespace GF.MainGame {
             AppTools.CreateModule<NPCModule>(MDef.NPCModule);
             AppTools.CreateModule<DieUIModule>(MDef.DieUIModule);
         }
-        
+
         /// <summary>
         /// 加载配置表的方法
         /// </summary>
@@ -212,16 +212,16 @@ namespace GF.MainGame {
             ConfigerManager.GetInstance.LoadData<LevelUpData>(CT.TABLE_LEVEL);
             //ConfigerManager.GetInstance.LoadData<NameData>(CT.TABLE_NAME);  //名字不是每次都用，换到其他地方初始化
         }
-        
+
         private void Update() {
-            if (GlobalEvent.OnUpdate!=null) {
+            if (GlobalEvent.OnUpdate != null) {
                 GlobalEvent.OnUpdate?.Invoke();//让其他非mono的脚本 ，可以使用update的事件
             }
             //每帧调用事件事件
             ThreadManager.Run(17);//时间计数间隔，17为默认的60帧，1000/17，约为60
         }
         private void FixedUpdate() {
-            if (GlobalEvent.OnFixedUpdate!=null) {
+            if (GlobalEvent.OnFixedUpdate != null) {
                 GlobalEvent.OnFixedUpdate?.Invoke();//让其他非mono的脚本 ，可以使用OnFixedUpdate的事件
             }
         }
@@ -279,7 +279,7 @@ namespace GF.MainGame {
         /// 当连接成功
         /// </summary>
         public void OnConnected() {
-            
+
         }
         /// <summary>
         /// 当连接失败
@@ -296,13 +296,13 @@ namespace GF.MainGame {
         /// 当连接中断
         /// </summary>
         public void OnConnectLost() {
-            UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "网络中断，正在准备重连") ;
+            UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "网络中断，正在准备重连");
         }
         /// <summary>
         /// 当主动断开连接
         /// </summary>
         public void OnDisconnect() {
-            
+
         }
         /// <summary>
         /// 当尝试重连
@@ -325,7 +325,7 @@ namespace GF.MainGame {
         public async void OnReconnect() {
             UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"网络连接已恢复！");
             //重新发送登录
-            var task = await ClientBase.Instance.Call((ushort)ProtoType.relogin,UserService.GetInstance.m_UserModel.m_Users.Username,AppTools.GetModule<SceneModule>(MDef.SceneModule).m_Current);
+            var task = await ClientBase.Instance.Call((ushort)ProtoType.relogin, UserService.GetInstance.m_UserModel.m_Users.Username, AppTools.GetModule<SceneModule>(MDef.SceneModule).m_Current);
             if (!task.IsCompleted) {//重新登录失败，就让玩家退出游戏再试
                 UIMsgBoxArg arg = new UIMsgBoxArg();
                 arg.title = "网络错误";
@@ -341,20 +341,20 @@ namespace GF.MainGame {
         /// 当关闭连接
         /// </summary>
         public void OnCloseConnect() {
-            
+
         }
         /// <summary>
         /// 当排队时调用
         /// </summary>
         /// <param name="count"></param>
         public void OnWhenQueuing(int totalCount, int count) {
-            
+
         }
         /// <summary>
         /// 当排队结束调用
         /// </summary>
         public void OnQueueCancellation() {
-            
+
         }
         /// <summary>
         /// 当服务器爆炸，积极拒绝客户端连接
@@ -367,8 +367,7 @@ namespace GF.MainGame {
             UIMsgBox box = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox, arg) as UIMsgBox;
             box.oncloseevent += OnFailed2;
         }
-
-
+       
         #endregion
     }
 

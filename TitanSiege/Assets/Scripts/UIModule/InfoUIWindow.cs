@@ -15,11 +15,13 @@ using UnityEngine.UI;
 using GF.MainGame.Module.NPC;
 using GF.Service;
 using Titansiege;
+using GF.MainGame.Data;
 
 namespace GF.MainGame.UI {
     public class InfoUIWindow : UIWindow {
         public Text m_NameTxt;
         public Text m_GdidTxt;
+        public Text m_ChenghaoTxt;
         public Text m_ZhiyeTxt;
         public Text m_LvTxt;
         public Text m_ShengmingTxt;
@@ -39,14 +41,81 @@ namespace GF.MainGame.UI {
         public Text m_MeiliTxt;
         public Text m_XingyunTxt;
         public Text m_ZhandouliTxt;
-
+        /// <summary>
+        /// 装备栏
+        /// </summary>
+        public Button yifubtn;
+        public Button kuzibtn;
+        public Button wuqibtn;
+        public Button xianglianbtn;
+        public Button jiezhibtn;
+        public Button xiezibtn;
+        public Button xiexiabtn;
+        public Text yitxt;
+        public Text kutxt;
+        public Text wutxt;
+        public Text xiangtxt;
+        public Text jietxt;
+        public Text xietxt;
+        /// <summary>
+        /// 装备选择的界面，会自动筛选
+        /// </summary>
+        public Image xuanze;
+        /// <summary>
+        /// 显示的模型
+        /// </summary>
         private ModelShow m_ModelShow;
+
         public void Start() {
             if (m_ModelShow == null) {
                 GameObject go = ObjectManager.GetInstance.InstanceObject("NPCPrefab/modelcamera.prefab",bClear:false);
                 if (go!=null) {
                     m_ModelShow = go.GetComponent<ModelShow>();
                 }
+            }
+            yifubtn.onClick.AddListener(() => {
+                ShowBtnOrPanel(ItemType.yifu);
+            });
+            kuzibtn.onClick.AddListener(() => {
+                ShowBtnOrPanel(ItemType.kuzi);
+            });
+            wuqibtn.onClick.AddListener(() => {
+                ShowBtnOrPanel(ItemType.wuqi);
+            });
+            xianglianbtn.onClick.AddListener(() => {
+                ShowBtnOrPanel(ItemType.xianglian);
+            });
+            jiezhibtn.onClick.AddListener(() => {
+                ShowBtnOrPanel(ItemType.jiezhi);
+            });
+            xiezibtn.onClick.AddListener(() => {
+                ShowBtnOrPanel(ItemType.xiezi);
+            });
+        }
+        /// <summary>
+        /// 显示卸下装备按钮，或者显示选择装备面板
+        /// </summary>
+        public void ShowBtnOrPanel(ItemType itemtype) {
+            CharactersData cd = UserService.GetInstance.m_CurrentChar;
+            
+            switch (itemtype) {
+                case ItemType.yifu:
+                    if (cd.Toukui != 0) {
+                        return;
+                    }
+                    break;
+                case ItemType.kuzi:
+                    break;
+                case ItemType.wuqi:
+                    break;
+                case ItemType.xianglian:
+                    break;
+                case ItemType.jiezhi:
+                    break;
+                case ItemType.xiezi:
+                    break;
+                default: 
+                    break;
             }
         }
         protected override void OnOpen(object args = null) {
@@ -62,6 +131,7 @@ namespace GF.MainGame.UI {
             Player p = UserService.GetInstance.m_CurrentPlayer;
             m_NameTxt.text = p.m_PlayerName;
             m_GdidTxt.text = $"ID:{p.m_GDID.ToString()}";
+            m_ChenghaoTxt.text = cd.Chenghao;
             m_ZhiyeTxt.text = ((Zhiye)cd.Zhiye).ToString();
             m_LvTxt.text = $"{cd.Level}级";
             m_ShengmingTxt.text = $"{p.FP.FightHP}/{p.FP.FightMaxHp}";
@@ -83,6 +153,9 @@ namespace GF.MainGame.UI {
             m_XingyunTxt.text = cd.Xingyun.ToString();
             //战斗力计算：攻击/2+防御+闪避*5000+暴击*6000+生命/4+魔力/5
             m_ZhandouliTxt.text = (p.FP.Attack/2+ p.FP.Defense+ p.FP.Dodge*5000+ p.FP.Crit*2000 + p.FP.FightMaxHp/4 + p.FP.FightMagic/6).ToString();
+            //隐藏非必要内容
+            xuanze.gameObject.SetActive(false);
+            xiexiabtn.gameObject.SetActive(false);
 
     }
     public override void Close(bool bClear = false, object arg = null) {

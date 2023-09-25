@@ -39,7 +39,7 @@ namespace GDServer.Services
 
                         }
                     }
-                    client.PlayerID = account;
+                    client.PlayerID = account;//这个唯一标识用来判断是不是一个账号，一般用来挤号登录，用账号作为身份唯一标识，需保证账号名不重复，
                     client.User.Init(dt.Rows[0]);
                     TServer.Instance.SendRT(client, "LoginCallback", true, "登录成功!", client.CharacterList, client.User);
                     return true;
@@ -117,15 +117,7 @@ namespace GDServer.Services
         //    }
         //    return maxid;
         //}
-        /// <summary>
-        /// 客户端主动发起退出登录请求
-        /// </summary>
-        /// <param name="client"></param>
-        [Rpc(NetCmd.SafeCall)]
-        private void LogOut(GDClient client) {
-            TServer.Instance.SendRT(client, "LogOut");//在客户端热更新工程的MsgPanel类找到
-            TServer.Instance.SignOut(client);
-        }
+    
         [Rpc(cmd = NetCmd.SafeCall)]
         public void SwitchScene(GDClient client, string enterscenename) {
             //TServer.Instance.ExitScene(client,false);
@@ -142,5 +134,6 @@ namespace GDServer.Services
             TServer.Instance.AddRpc(this);
 
         }
+
     }
 }

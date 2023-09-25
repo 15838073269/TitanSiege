@@ -68,7 +68,7 @@ namespace GDServer.Services
                     string username = model.pars[0].ToString();
                    
                     if (TitansiegeDB.I.m_Users.TryGetValue(username, out var data)) {
-                        unClient.PlayerID = username;
+                        unClient.PlayerID = username;//这个唯一标识用来判断是不是一个账号，一般用来挤号登录，用账号作为身份唯一标识，需保证账号名不重复，
                         unClient.User = data;
                         LoginHandler(unClient);//这一句和return true效果是一样的
                         Debuger.Log($"玩家{username}[{unClient.UserID}]断线重连登陆成功");
@@ -139,6 +139,9 @@ namespace GDServer.Services
                     string scenename = model.pars[0].ToString();
                     UserService.GetInstance.SwitchScene(client, scenename);
                     break;
+                case (ushort)ProtoType.signout://客户端主动发起退出登录
+                    SignOut(client);
+                    break;
                 default:
                     base.OnRpcExecute(client, model);//反射调用rpc
                     break;
@@ -190,7 +193,13 @@ namespace GDServer.Services
             base.OnOperationSync(client, list);//当操作同步处理, 帧同步或状态同步通用
 
         }
-
+        /// <summary>
+        /// 当退出登录时
+        /// </summary>
+        /// <param name="client"></param>
+        public override void OnSignOut(GDClient client) {
+            SendRT(client,(ushort)ProtoType.signout);
+        }
     }
 
 }

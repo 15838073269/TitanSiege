@@ -1,1 +1,1 @@
-1|天海无双|0|3|1|100|700|140|16|20|10|6|1|1|0|0|500|100|无名菜鸟|0\||5\|6\|7\|1\|2\|3\|4\||NPCPrefab/jianshi.prefab|UIRes/head/jianshi.png|UIRes/fight/fightlihui/1.png|-1|-1|-1|-1|0|0|0|0|1|2022-11-18 23:16:31|0|
+3|沉默u|0|1|1|20|500|100|8|8|6|2|1|1|0|0|500|100|无名菜鸟|0\||5\|6\|7\|1\|2\|3\|4\||NPCPrefab/jianshi.prefab|UIRes/head/jianshi.png|UIRes/fight/fightlihui/1.png|-1|-1|-1|-1|0|0|0|0|2|2022-12-11 10:58:28|0|

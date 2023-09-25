@@ -52,6 +52,7 @@ namespace GF.NetWork {
                     case 1:
                         FightProp fp = task.model.As<FightProp>();
                         p.m_PlayerName = fp.PlayerName;
+                        p.FP = fp;
                         //´´½¨ÑªÌõ
                         AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, p);
                         break;

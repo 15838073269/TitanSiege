@@ -154,7 +154,7 @@ namespace GF.MainGame.Module {
                 hpui.m_IsInscreen = true;
                 hpui.gameObject.SetActive(true);
             } else {
-                Debuger.LogError($"{npc.name}{npc.m_GDID}没有创建血条，请检查");
+                //Debuger.LogError($"{npc.name}{npc.m_GDID}没有创建血条，请检查");
             }
         }
         private void HideHP(NPCBase npc) {
@@ -165,7 +165,7 @@ namespace GF.MainGame.Module {
                 hpui.StopAni(); 
                 hpui.gameObject.SetActive(false);
             } else {
-                Debuger.LogError($"{npc.name}{npc.m_GDID}没有创建血条，请检查");
+                //Debuger.LogError($"{npc.name}{npc.m_GDID}没有创建血条，请检查");
             }
         }
         /// <summary>
