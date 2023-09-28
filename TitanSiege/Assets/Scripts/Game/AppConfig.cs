@@ -167,6 +167,7 @@ namespace GF.MainGame {
         public const string TABLE_NAME = "data/binary/NameData.bytes";
         public const string TABLE_SKILL = "data/binary/SkillData.bytes";
         public const string TABLE_LEVEL = "data/binary/LevelUpData.bytes";
+        public const string TABLE_ITEM = "data/binary/ItemData.bytes";
         // public const string TABLE_BUFF = "data/binary/BuffData.bytes";
     }
 }

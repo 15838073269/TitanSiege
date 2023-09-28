@@ -163,10 +163,10 @@ namespace Binding
                 stream.Write(value.Wuqi);
             }
 
-            if (value.Toukui != 0)
+            if (value.Kuzi != 0)
             {
                 NetConvertBase.SetBit(ref bits[3], 2, true);
-                stream.Write(value.Toukui);
+                stream.Write(value.Kuzi);
             }
 
             if (value.Yifu != 0)
@@ -175,51 +175,63 @@ namespace Binding
                 stream.Write(value.Yifu);
             }
 
-            if (value.Xiezi != 0)
+            if (value.Xianglian != 0)
             {
                 NetConvertBase.SetBit(ref bits[3], 4, true);
+                stream.Write(value.Xianglian);
+            }
+
+            if (value.Jiezi != 0)
+            {
+                NetConvertBase.SetBit(ref bits[3], 5, true);
+                stream.Write(value.Jiezi);
+            }
+
+            if (value.Xiezi != 0)
+            {
+                NetConvertBase.SetBit(ref bits[3], 6, true);
                 stream.Write(value.Xiezi);
             }
 
             if (value.MapID != 0)
             {
-                NetConvertBase.SetBit(ref bits[3], 5, true);
+                NetConvertBase.SetBit(ref bits[3], 7, true);
                 stream.Write(value.MapID);
             }
 
             if (value.MapPosX != 0)
             {
-                NetConvertBase.SetBit(ref bits[3], 6, true);
+                NetConvertBase.SetBit(ref bits[3], 8, true);
                 stream.Write(value.MapPosX);
             }
 
             if (value.MapPosY != 0)
             {
-                NetConvertBase.SetBit(ref bits[3], 7, true);
+                NetConvertBase.SetBit(ref bits[4], 1, true);
                 stream.Write(value.MapPosY);
             }
 
             if (value.MapPosZ != 0)
             {
-                NetConvertBase.SetBit(ref bits[3], 8, true);
+                NetConvertBase.SetBit(ref bits[4], 2, true);
                 stream.Write(value.MapPosZ);
             }
 
             if (value.Uid != 0)
             {
-                NetConvertBase.SetBit(ref bits[4], 1, true);
+                NetConvertBase.SetBit(ref bits[4], 3, true);
                 stream.Write(value.Uid);
             }
 
             if (value.LastDate != default)
             {
-                NetConvertBase.SetBit(ref bits[4], 2, true);
+                NetConvertBase.SetBit(ref bits[4], 4, true);
                 stream.Write(value.LastDate);
             }
 
             if (value.DelRole != false)
             {
-                NetConvertBase.SetBit(ref bits[4], 3, true);
+                NetConvertBase.SetBit(ref bits[4], 5, true);
                 stream.Write(value.DelRole);
             }
 
@@ -316,33 +328,39 @@ namespace Binding
 				value.Wuqi = stream.ReadInt16();
 
 			if(NetConvertBase.GetBit(bits[3], 2))
-				value.Toukui = stream.ReadInt16();
+				value.Kuzi = stream.ReadInt16();
 
 			if(NetConvertBase.GetBit(bits[3], 3))
 				value.Yifu = stream.ReadInt16();
 
 			if(NetConvertBase.GetBit(bits[3], 4))
-				value.Xiezi = stream.ReadInt16();
+				value.Xianglian = stream.ReadInt16();
 
 			if(NetConvertBase.GetBit(bits[3], 5))
-				value.MapID = stream.ReadInt32();
+				value.Jiezi = stream.ReadInt16();
 
 			if(NetConvertBase.GetBit(bits[3], 6))
-				value.MapPosX = stream.ReadInt32();
+				value.Xiezi = stream.ReadInt16();
 
 			if(NetConvertBase.GetBit(bits[3], 7))
-				value.MapPosY = stream.ReadInt32();
+				value.MapID = stream.ReadInt32();
 
 			if(NetConvertBase.GetBit(bits[3], 8))
-				value.MapPosZ = stream.ReadInt32();
+				value.MapPosX = stream.ReadInt32();
 
 			if(NetConvertBase.GetBit(bits[4], 1))
-				value.Uid = stream.ReadInt64();
+				value.MapPosY = stream.ReadInt32();
 
 			if(NetConvertBase.GetBit(bits[4], 2))
-				value.LastDate = stream.ReadDateTime();
+				value.MapPosZ = stream.ReadInt32();
 
 			if(NetConvertBase.GetBit(bits[4], 3))
+				value.Uid = stream.ReadInt64();
+
+			if(NetConvertBase.GetBit(bits[4], 4))
+				value.LastDate = stream.ReadDateTime();
+
+			if(NetConvertBase.GetBit(bits[4], 5))
 				value.DelRole = stream.ReadBoolean();
 
 		}

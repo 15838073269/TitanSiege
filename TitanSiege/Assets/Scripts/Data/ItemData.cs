@@ -20,9 +20,9 @@ namespace GF.MainGame.Data {
         /// </summary>
         public override void Construction() {
             //base.Construction();
-            AllItems = new List<ItemBase>();
+            AllItems = new List<ItemDataBase>();
             //初始化几个测试用的数据
-            ItemBase t = new ItemBase();
+            ItemDataBase t = new ItemDataBase();
             t.id = 1;
             t.itemtype = 1;
             t.level = 1;
@@ -71,8 +71,8 @@ namespace GF.MainGame.Data {
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ItemBase FindNPCByID(int id) {
-            ItemBase item;
+        public ItemDataBase FindItemByID(int id) {
+            ItemDataBase item;
             m_AllItemBaseDic.TryGetValue(id, out item);
             return item;
         }
@@ -82,19 +82,19 @@ namespace GF.MainGame.Data {
         }
 
         [XmlIgnore]//这个标签代表不需要序列化，dic序列化会报错
-        public Dictionary<int, ItemBase> m_AllItemBaseDic = new Dictionary<int, ItemBase>();
+        public Dictionary<int, ItemDataBase> m_AllItemBaseDic = new Dictionary<int, ItemDataBase>();
         /// <summary>
         /// 这里不要new，否则反序列化时，可能会导致数据叠加
         /// AllNPC只会用在反序列化赋值
         /// </summary>
         [XmlElement("AllItems")]
-        public List<ItemBase> AllItems { get; set; }
+        public List<ItemDataBase> AllItems { get; set; }
     }
     /// <summary>
     /// NPC的数据结构类
     /// </summary>
     [System.Serializable]
-    public class ItemBase {
+    public class ItemDataBase {
         //ID
         [XmlAttribute("ID")]
         public int id { get; set; }
@@ -178,7 +178,7 @@ namespace GF.MainGame.Data {
         kuzi,//裤子装备
         wuqi,//武器装备
         xianglian,//项链装备
-        jiezhi,//戒指装备
+        jiezi,//戒指装备
         xiezi,//鞋子装备
         jinengshu,//技能书
         renwu,//任务物品
@@ -195,6 +195,6 @@ namespace GF.MainGame.Data {
         lv,//绿
         lan,//蓝
         zi,//紫
-        ceng,//橙
+        cheng,//橙
     }
 }

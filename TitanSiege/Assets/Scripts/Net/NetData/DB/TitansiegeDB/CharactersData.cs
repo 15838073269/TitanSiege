@@ -1275,55 +1275,55 @@ namespace Titansiege
             Wuqi = value;
         }
      //1
-        private readonly Int16Obs toukui = new Int16Obs("CharactersData_toukui", true, null);
+        private readonly Int16Obs kuzi = new Int16Obs("CharactersData_kuzi", true, null);
 
-        /// <summary>头盔 --获得属性观察对象</summary>
-        internal Int16Obs ToukuiObserver => toukui;
+        /// <summary>裤子 --获得属性观察对象</summary>
+        internal Int16Obs KuziObserver => kuzi;
 
-        /// <summary>头盔</summary>
-        public Int16 Toukui { get => GetToukuiValue(); set => CheckToukuiValue(value, 0); }
+        /// <summary>裤子</summary>
+        public Int16 Kuzi { get => GetKuziValue(); set => CheckKuziValue(value, 0); }
 
-        /// <summary>头盔 --同步到数据库</summary>
-        internal Int16 SyncToukui { get => GetToukuiValue(); set => CheckToukuiValue(value, 1); }
+        /// <summary>裤子 --同步到数据库</summary>
+        internal Int16 SyncKuzi { get => GetKuziValue(); set => CheckKuziValue(value, 1); }
 
-        /// <summary>头盔 --同步带有Key字段的值到服务器Player对象上，需要处理</summary>
-        internal Int16 SyncIDToukui { get => GetToukuiValue(); set => CheckToukuiValue(value, 2); }
+        /// <summary>裤子 --同步带有Key字段的值到服务器Player对象上，需要处理</summary>
+        internal Int16 SyncIDKuzi { get => GetKuziValue(); set => CheckKuziValue(value, 2); }
 
-        private Int16 GetToukuiValue() => this.toukui.Value;
+        private Int16 GetKuziValue() => this.kuzi.Value;
 
-        private void CheckToukuiValue(Int16 value, int type) 
+        private void CheckKuziValue(Int16 value, int type) 
         {
-            if (this.toukui.Value == value)
+            if (this.kuzi.Value == value)
                 return;
-            this.toukui.Value = value;
+            this.kuzi.Value = value;
             if (type == 0)
                 CheckUpdate(25);
             else if (type == 1)
-                ToukuiCall(false);
+                KuziCall(false);
             else if (type == 2)
-                ToukuiCall(true);
-            OnValueChanged?.Invoke(TitansiegeHashProto.CHARACTERS_TOUKUI, value);
+                KuziCall(true);
+            OnValueChanged?.Invoke(TitansiegeHashProto.CHARACTERS_KUZI, value);
         }
 
-        /// <summary>头盔 --同步当前值到服务器Player对象上，需要处理</summary>
-        public void ToukuiCall(bool syncId = false)
+        /// <summary>裤子 --同步当前值到服务器Player对象上，需要处理</summary>
+        public void KuziCall(bool syncId = false)
         {
             
             object[] objects;
-            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], toukui.Value };
-            else objects = new object[] { toukui.Value };
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], kuzi.Value };
+            else objects = new object[] { kuzi.Value };
 #if SERVER
             CheckUpdate(25);
-            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_TOUKUI, objects);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_KUZI, objects);
 #else
-            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_TOUKUI, objects);
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_KUZI, objects);
 #endif
         }
 
-        [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_TOUKUI)]
-        private void ToukuiRpc(Int16 value)//重写NetPlayer的OnStart方法来处理客户端自动同步到服务器数据库, 方法内部添加AddRpc(data(CharactersData));收集Rpc
+        [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_KUZI)]
+        private void KuziRpc(Int16 value)//重写NetPlayer的OnStart方法来处理客户端自动同步到服务器数据库, 方法内部添加AddRpc(data(CharactersData));收集Rpc
         {
-            Toukui = value;
+            Kuzi = value;
         }
      //1
         private readonly Int16Obs yifu = new Int16Obs("CharactersData_yifu", true, null);
@@ -1377,6 +1377,108 @@ namespace Titansiege
             Yifu = value;
         }
      //1
+        private readonly Int16Obs xianglian = new Int16Obs("CharactersData_xianglian", true, null);
+
+        /// <summary>项链 --获得属性观察对象</summary>
+        internal Int16Obs XianglianObserver => xianglian;
+
+        /// <summary>项链</summary>
+        public Int16 Xianglian { get => GetXianglianValue(); set => CheckXianglianValue(value, 0); }
+
+        /// <summary>项链 --同步到数据库</summary>
+        internal Int16 SyncXianglian { get => GetXianglianValue(); set => CheckXianglianValue(value, 1); }
+
+        /// <summary>项链 --同步带有Key字段的值到服务器Player对象上，需要处理</summary>
+        internal Int16 SyncIDXianglian { get => GetXianglianValue(); set => CheckXianglianValue(value, 2); }
+
+        private Int16 GetXianglianValue() => this.xianglian.Value;
+
+        private void CheckXianglianValue(Int16 value, int type) 
+        {
+            if (this.xianglian.Value == value)
+                return;
+            this.xianglian.Value = value;
+            if (type == 0)
+                CheckUpdate(27);
+            else if (type == 1)
+                XianglianCall(false);
+            else if (type == 2)
+                XianglianCall(true);
+            OnValueChanged?.Invoke(TitansiegeHashProto.CHARACTERS_XIANGLIAN, value);
+        }
+
+        /// <summary>项链 --同步当前值到服务器Player对象上，需要处理</summary>
+        public void XianglianCall(bool syncId = false)
+        {
+            
+            object[] objects;
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], xianglian.Value };
+            else objects = new object[] { xianglian.Value };
+#if SERVER
+            CheckUpdate(27);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_XIANGLIAN, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_XIANGLIAN, objects);
+#endif
+        }
+
+        [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_XIANGLIAN)]
+        private void XianglianRpc(Int16 value)//重写NetPlayer的OnStart方法来处理客户端自动同步到服务器数据库, 方法内部添加AddRpc(data(CharactersData));收集Rpc
+        {
+            Xianglian = value;
+        }
+     //1
+        private readonly Int16Obs jiezi = new Int16Obs("CharactersData_jiezi", true, null);
+
+        /// <summary>戒指 --获得属性观察对象</summary>
+        internal Int16Obs JieziObserver => jiezi;
+
+        /// <summary>戒指</summary>
+        public Int16 Jiezi { get => GetJieziValue(); set => CheckJieziValue(value, 0); }
+
+        /// <summary>戒指 --同步到数据库</summary>
+        internal Int16 SyncJiezi { get => GetJieziValue(); set => CheckJieziValue(value, 1); }
+
+        /// <summary>戒指 --同步带有Key字段的值到服务器Player对象上，需要处理</summary>
+        internal Int16 SyncIDJiezi { get => GetJieziValue(); set => CheckJieziValue(value, 2); }
+
+        private Int16 GetJieziValue() => this.jiezi.Value;
+
+        private void CheckJieziValue(Int16 value, int type) 
+        {
+            if (this.jiezi.Value == value)
+                return;
+            this.jiezi.Value = value;
+            if (type == 0)
+                CheckUpdate(28);
+            else if (type == 1)
+                JieziCall(false);
+            else if (type == 2)
+                JieziCall(true);
+            OnValueChanged?.Invoke(TitansiegeHashProto.CHARACTERS_JIEZI, value);
+        }
+
+        /// <summary>戒指 --同步当前值到服务器Player对象上，需要处理</summary>
+        public void JieziCall(bool syncId = false)
+        {
+            
+            object[] objects;
+            if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], jiezi.Value };
+            else objects = new object[] { jiezi.Value };
+#if SERVER
+            CheckUpdate(28);
+            TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_JIEZI, objects);
+#else
+            TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_JIEZI, objects);
+#endif
+        }
+
+        [Rpc(hash = (ushort)TitansiegeHashProto.CHARACTERS_JIEZI)]
+        private void JieziRpc(Int16 value)//重写NetPlayer的OnStart方法来处理客户端自动同步到服务器数据库, 方法内部添加AddRpc(data(CharactersData));收集Rpc
+        {
+            Jiezi = value;
+        }
+     //1
         private readonly Int16Obs xiezi = new Int16Obs("CharactersData_xiezi", true, null);
 
         /// <summary>鞋子 --获得属性观察对象</summary>
@@ -1399,7 +1501,7 @@ namespace Titansiege
                 return;
             this.xiezi.Value = value;
             if (type == 0)
-                CheckUpdate(27);
+                CheckUpdate(29);
             else if (type == 1)
                 XieziCall(false);
             else if (type == 2)
@@ -1415,7 +1517,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], xiezi.Value };
             else objects = new object[] { xiezi.Value };
 #if SERVER
-            CheckUpdate(27);
+            CheckUpdate(29);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_XIEZI, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_XIEZI, objects);
@@ -1450,7 +1552,7 @@ namespace Titansiege
                 return;
             this.mapID.Value = value;
             if (type == 0)
-                CheckUpdate(28);
+                CheckUpdate(30);
             else if (type == 1)
                 MapIDCall(false);
             else if (type == 2)
@@ -1466,7 +1568,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], mapID.Value };
             else objects = new object[] { mapID.Value };
 #if SERVER
-            CheckUpdate(28);
+            CheckUpdate(30);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPID, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPID, objects);
@@ -1501,7 +1603,7 @@ namespace Titansiege
                 return;
             this.mapPosX.Value = value;
             if (type == 0)
-                CheckUpdate(29);
+                CheckUpdate(31);
             else if (type == 1)
                 MapPosXCall(false);
             else if (type == 2)
@@ -1517,7 +1619,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], mapPosX.Value };
             else objects = new object[] { mapPosX.Value };
 #if SERVER
-            CheckUpdate(29);
+            CheckUpdate(31);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSX, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSX, objects);
@@ -1552,7 +1654,7 @@ namespace Titansiege
                 return;
             this.mapPosY.Value = value;
             if (type == 0)
-                CheckUpdate(30);
+                CheckUpdate(32);
             else if (type == 1)
                 MapPosYCall(false);
             else if (type == 2)
@@ -1568,7 +1670,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], mapPosY.Value };
             else objects = new object[] { mapPosY.Value };
 #if SERVER
-            CheckUpdate(30);
+            CheckUpdate(32);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSY, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSY, objects);
@@ -1603,7 +1705,7 @@ namespace Titansiege
                 return;
             this.mapPosZ.Value = value;
             if (type == 0)
-                CheckUpdate(31);
+                CheckUpdate(33);
             else if (type == 1)
                 MapPosZCall(false);
             else if (type == 2)
@@ -1619,7 +1721,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], mapPosZ.Value };
             else objects = new object[] { mapPosZ.Value };
 #if SERVER
-            CheckUpdate(31);
+            CheckUpdate(33);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSZ, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_MAPPOSZ, objects);
@@ -1654,7 +1756,7 @@ namespace Titansiege
                 return;
             this.uid.Value = value;
             if (type == 0)
-                CheckUpdate(32);
+                CheckUpdate(34);
             else if (type == 1)
                 UidCall(false);
             else if (type == 2)
@@ -1670,7 +1772,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], uid.Value };
             else objects = new object[] { uid.Value };
 #if SERVER
-            CheckUpdate(32);
+            CheckUpdate(34);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_UID, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_UID, objects);
@@ -1705,7 +1807,7 @@ namespace Titansiege
                 return;
             this.lastDate.Value = value;
             if (type == 0)
-                CheckUpdate(33);
+                CheckUpdate(35);
             else if (type == 1)
                 LastDateCall(false);
             else if (type == 2)
@@ -1721,7 +1823,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], lastDate.Value };
             else objects = new object[] { lastDate.Value };
 #if SERVER
-            CheckUpdate(33);
+            CheckUpdate(35);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LASTDATE, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_LASTDATE, objects);
@@ -1756,7 +1858,7 @@ namespace Titansiege
                 return;
             this.delRole.Value = value;
             if (type == 0)
-                CheckUpdate(34);
+                CheckUpdate(36);
             else if (type == 1)
                 DelRoleCall(false);
             else if (type == 2)
@@ -1772,7 +1874,7 @@ namespace Titansiege
             if (syncId) objects = new object[] { this[TitansiegeDBEvent.CharactersData_SyncID], delRole.Value };
             else objects = new object[] { delRole.Value };
 #if SERVER
-            CheckUpdate(34);
+            CheckUpdate(36);
             TitansiegeDBEvent.OnSyncProperty?.Invoke(client, NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_DELROLE, objects);
 #else
             TitansiegeDBEvent.Client.SendRT(NetCmd.SyncPropertyData, (ushort)TitansiegeHashProto.CHARACTERS_DELROLE, objects);
@@ -1872,25 +1974,29 @@ namespace Titansiege
      //3
                 case 24: length = 0; return "wuqi";
      //3
-                case 25: length = 0; return "toukui";
+                case 25: length = 0; return "kuzi";
      //3
                 case 26: length = 0; return "yifu";
      //3
-                case 27: length = 0; return "xiezi";
+                case 27: length = 0; return "xianglian";
      //3
-                case 28: length = 0; return "mapID";
+                case 28: length = 0; return "jiezi";
      //3
-                case 29: length = 0; return "mapPosX";
+                case 29: length = 0; return "xiezi";
      //3
-                case 30: length = 0; return "mapPosY";
+                case 30: length = 0; return "mapID";
      //3
-                case 31: length = 0; return "mapPosZ";
+                case 31: length = 0; return "mapPosX";
      //3
-                case 32: length = 0; return "uid";
+                case 32: length = 0; return "mapPosY";
      //3
-                case 33: length = 0; return "lastDate";
+                case 33: length = 0; return "mapPosZ";
      //3
-                case 34: length = 0; return "delRole";
+                case 34: length = 0; return "uid";
+     //3
+                case 35: length = 0; return "lastDate";
+     //3
+                case 36: length = 0; return "delRole";
      //4
             }
             throw new Exception("错误");
@@ -1954,25 +2060,29 @@ namespace Titansiege
      //5
                     case 24: return this.wuqi.Value;
      //5
-                    case 25: return this.toukui.Value;
+                    case 25: return this.kuzi.Value;
      //5
                     case 26: return this.yifu.Value;
      //5
-                    case 27: return this.xiezi.Value;
+                    case 27: return this.xianglian.Value;
      //5
-                    case 28: return this.mapID.Value;
+                    case 28: return this.jiezi.Value;
      //5
-                    case 29: return this.mapPosX.Value;
+                    case 29: return this.xiezi.Value;
      //5
-                    case 30: return this.mapPosY.Value;
+                    case 30: return this.mapID.Value;
      //5
-                    case 31: return this.mapPosZ.Value;
+                    case 31: return this.mapPosX.Value;
      //5
-                    case 32: return this.uid.Value;
+                    case 32: return this.mapPosY.Value;
      //5
-                    case 33: return this.lastDate.Value;
+                    case 33: return this.mapPosZ.Value;
      //5
-                    case 34: return this.delRole.Value;
+                    case 34: return this.uid.Value;
+     //5
+                    case 35: return this.lastDate.Value;
+     //5
+                    case 36: return this.delRole.Value;
      //6
                 }
                 throw new Exception("错误");
@@ -2083,7 +2193,7 @@ namespace Titansiege
                         break;
      //7
                     case 25:
-                        CheckToukuiValue((Int16)value, -1);
+                        CheckKuziValue((Int16)value, -1);
                         break;
      //7
                     case 26:
@@ -2091,34 +2201,42 @@ namespace Titansiege
                         break;
      //7
                     case 27:
-                        CheckXieziValue((Int16)value, -1);
+                        CheckXianglianValue((Int16)value, -1);
                         break;
      //7
                     case 28:
-                        CheckMapIDValue((Int32)value, -1);
+                        CheckJieziValue((Int16)value, -1);
                         break;
      //7
                     case 29:
-                        CheckMapPosXValue((Int32)value, -1);
+                        CheckXieziValue((Int16)value, -1);
                         break;
      //7
                     case 30:
-                        CheckMapPosYValue((Int32)value, -1);
+                        CheckMapIDValue((Int32)value, -1);
                         break;
      //7
                     case 31:
-                        CheckMapPosZValue((Int32)value, -1);
+                        CheckMapPosXValue((Int32)value, -1);
                         break;
      //7
                     case 32:
-                        CheckUidValue((Int64)value, -1);
+                        CheckMapPosYValue((Int32)value, -1);
                         break;
      //7
                     case 33:
-                        CheckLastDateValue((DateTime)value, -1);
+                        CheckMapPosZValue((Int32)value, -1);
                         break;
      //7
                     case 34:
+                        CheckUidValue((Int64)value, -1);
+                        break;
+     //7
+                    case 35:
+                        CheckLastDateValue((DateTime)value, -1);
+                        break;
+     //7
+                    case 36:
                         CheckDelRoleValue((Boolean)value, -1);
                         break;
      //8
@@ -2183,9 +2301,13 @@ namespace Titansiege
      //9
                     case "wuqi": return this.wuqi.Value;
      //9
-                    case "toukui": return this.toukui.Value;
+                    case "kuzi": return this.kuzi.Value;
      //9
                     case "yifu": return this.yifu.Value;
+     //9
+                    case "xianglian": return this.xianglian.Value;
+     //9
+                    case "jiezi": return this.jiezi.Value;
      //9
                     case "xiezi": return this.xiezi.Value;
      //9
@@ -2311,12 +2433,20 @@ namespace Titansiege
                         CheckWuqiValue((Int16)value, -1);
                         break;
      //11
-                    case "toukui":
-                        CheckToukuiValue((Int16)value, -1);
+                    case "kuzi":
+                        CheckKuziValue((Int16)value, -1);
                         break;
      //11
                     case "yifu":
                         CheckYifuValue((Int16)value, -1);
+                        break;
+     //11
+                    case "xianglian":
+                        CheckXianglianValue((Int16)value, -1);
+                        break;
+     //11
+                    case "jiezi":
+                        CheckJieziValue((Int16)value, -1);
                         break;
      //11
                     case "xiezi":
@@ -2499,34 +2629,40 @@ namespace Titansiege
             if (row[24] is Int16 wuqi)
                 CheckWuqiValue(wuqi, -1);
      //15
-            if (row[25] is Int16 toukui)
-                CheckToukuiValue(toukui, -1);
+            if (row[25] is Int16 kuzi)
+                CheckKuziValue(kuzi, -1);
      //15
             if (row[26] is Int16 yifu)
                 CheckYifuValue(yifu, -1);
      //15
-            if (row[27] is Int16 xiezi)
+            if (row[27] is Int16 xianglian)
+                CheckXianglianValue(xianglian, -1);
+     //15
+            if (row[28] is Int16 jiezi)
+                CheckJieziValue(jiezi, -1);
+     //15
+            if (row[29] is Int16 xiezi)
                 CheckXieziValue(xiezi, -1);
      //15
-            if (row[28] is Int32 mapID)
+            if (row[30] is Int32 mapID)
                 CheckMapIDValue(mapID, -1);
      //15
-            if (row[29] is Int32 mapPosX)
+            if (row[31] is Int32 mapPosX)
                 CheckMapPosXValue(mapPosX, -1);
      //15
-            if (row[30] is Int32 mapPosY)
+            if (row[32] is Int32 mapPosY)
                 CheckMapPosYValue(mapPosY, -1);
      //15
-            if (row[31] is Int32 mapPosZ)
+            if (row[33] is Int32 mapPosZ)
                 CheckMapPosZValue(mapPosZ, -1);
      //15
-            if (row[32] is Int64 uid)
+            if (row[34] is Int64 uid)
                 CheckUidValue(uid, -1);
      //15
-            if (row[33] is DateTime lastDate)
+            if (row[35] is DateTime lastDate)
                 CheckLastDateValue(lastDate, -1);
      //15
-            if (row[34] is Boolean delRole)
+            if (row[36] is Boolean delRole)
                 CheckDelRoleValue(delRole, -1);
      //16
         }
@@ -2566,7 +2702,7 @@ namespace Titansiege
         public void BulkLoaderBuilder(StringBuilder sb)
         {
  
-            for (int i = 0; i < 35; i++)
+            for (int i = 0; i < 37; i++)
             {
                 var name = GetCellNameAndTextLength(i, out var length);
                 var value = this[i];
@@ -2640,7 +2776,7 @@ namespace Titansiege
 
         public override string ToString()
         {
-            return $"ID:{ID} Name:{Name} Zhiye:{Zhiye} Level:{Level} Levelupid:{Levelupid} Exp:{Exp} Shengming:{Shengming} Fali:{Fali} Tizhi:{Tizhi} Liliang:{Liliang} Minjie:{Minjie} Moli:{Moli} Meili:{Meili} Xingyun:{Xingyun} Lianjin:{Lianjin} Duanzao:{Duanzao} Jinbi:{Jinbi} Zuanshi:{Zuanshi} Chenghao:{Chenghao} Friends:{Friends} Skills:{Skills} Prefabpath:{Prefabpath} Headpath:{Headpath} Lihuipath:{Lihuipath} Wuqi:{Wuqi} Toukui:{Toukui} Yifu:{Yifu} Xiezi:{Xiezi} MapID:{MapID} MapPosX:{MapPosX} MapPosY:{MapPosY} MapPosZ:{MapPosZ} Uid:{Uid} LastDate:{LastDate} DelRole:{DelRole} ";
+            return $"ID:{ID} Name:{Name} Zhiye:{Zhiye} Level:{Level} Levelupid:{Levelupid} Exp:{Exp} Shengming:{Shengming} Fali:{Fali} Tizhi:{Tizhi} Liliang:{Liliang} Minjie:{Minjie} Moli:{Moli} Meili:{Meili} Xingyun:{Xingyun} Lianjin:{Lianjin} Duanzao:{Duanzao} Jinbi:{Jinbi} Zuanshi:{Zuanshi} Chenghao:{Chenghao} Friends:{Friends} Skills:{Skills} Prefabpath:{Prefabpath} Headpath:{Headpath} Lihuipath:{Lihuipath} Wuqi:{Wuqi} Kuzi:{Kuzi} Yifu:{Yifu} Xianglian:{Xianglian} Jiezi:{Jiezi} Xiezi:{Xiezi} MapID:{MapID} MapPosX:{MapPosX} MapPosY:{MapPosY} MapPosZ:{MapPosZ} Uid:{Uid} LastDate:{LastDate} DelRole:{DelRole} ";
         }
     }
 }

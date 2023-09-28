@@ -66,7 +66,6 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Affectors\BombAffector.cs" />
     <Compile Include="Assets\Scripts\Helper\SyncVarHandlerGenerate.cs" />
     <Compile Include="Assets\Scripts\Data\BuffDataTest.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\Titansiege_UsersData.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\RopeData.cs" />
     <Compile Include="Assets\Scripts\Data\SceneNData.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraEffects\ColorInverseEvent.cs" />
@@ -121,9 +120,9 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\VertexPool.cs" />
     <Compile Include="Assets\Scripts\Module\DieUIModule.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Demo\Assets\WFX_Demo_RandomDir.cs" />
+    <Compile Include="Assets\Scripts\UIModule\ItemBaseUI.cs" />
     <Compile Include="Assets\Scripts\UIModule\SelectPlayerPage.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\TimeScaleEvent.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\Titansiege_ConfigData.cs" />
     <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeHashProto.cs" />
     <Compile Include="Assets\Scripts\Game\MessageDef.cs" />
     <Compile Include="Assets\Scripts\UIModule\CreatePlayerPage.cs" />
@@ -184,9 +183,10 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Cone.cs" />
     <Compile Include="Assets\Scripts\Data\ItemData.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraShakeEvent.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\Titansiege_CharactersData.cs" />
     <Compile Include="Assets\Scripts\Module\NPC\RenderInCamera.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\UsersData.cs" />
     <Compile Include="Assets\Scripts\Module\NPC\PlayerAnimator.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\CharactersData.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Tutorial\API Usage\MagicChain\XftMagicChainDemo.cs" />
     <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenAnimation.cs" />
     <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenTk2d.cs" />
@@ -227,6 +227,7 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Tutorial\GettingStart\ReleaseYourEffect.cs" />
     <Compile Include="Assets\RealToon\RealToon Tools\FrameByFrameRendering\FrameByFrameRendering_Manual.cs" />
     <Compile Include="Assets\XWeaponTrail\Scripts\XWeaponTrailDemo.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\ConfigData.cs" />
     <Compile Include="Assets\XWeaponTrail\Scripts\Spline.cs" />
     <Compile Include="Assets\Scripts\Module\VersionModule.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Affectors\SineAffector.cs" />
@@ -237,6 +238,7 @@
     <Compile Include="Assets\Scripts\UIModule\DieUIWindow.cs" />
     <Compile Include="Assets\RealToon\RealToon Tools\CustomShadowResolution.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraComponent\ImageEffects\XftGlowPerObj.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\NpcsData.cs" />
     <Compile Include="Assets\Scripts\Game\AppLoading.cs" />
     <Compile Include="Assets\Scripts\UIModule\TouchArea.cs" />
     <Compile Include="Assets\Scripts\Net\NetData\Bind\TitansiegeUsersDataBind.cs" />
@@ -265,13 +267,13 @@
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\SpriteMaker\SpriteMaker.cs" />
     <Compile Include="Assets\Scripts\Module\SceneModule\CreateRoleScene.cs" />
-    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\Titansiege_NpcsData.cs" />
     <Compile Include="Assets\Scripts\Module\NPC\Skill\PSkillAction.cs" />
     <Compile Include="Assets\Scripts\Module\Fight\State\HurtState.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
     <Compile Include="Assets\Scripts\Module\LoginModule.cs" />
     <Compile Include="Assets\Scripts\UIModule\LoginUIPage.cs" />
     <Compile Include="Assets\Scripts\UIModule\UIBG.cs" />
+    <Compile Include="Assets\Scripts\Module\ItemModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -16,6 +16,8 @@ using GF.MainGame.Module.NPC;
 using GF.Service;
 using Titansiege;
 using GF.MainGame.Data;
+using DG.Tweening;
+using System.Collections.Generic;
 
 namespace GF.MainGame.UI {
     public class InfoUIWindow : UIWindow {
@@ -45,11 +47,17 @@ namespace GF.MainGame.UI {
         /// 装备栏
         /// </summary>
         public Button yifubtn;
+        public ItemBaseUI yifuitem;//这里直接固定在ui面板上了，省得再来回加载了
         public Button kuzibtn;
+        public ItemBaseUI kuziitem;
         public Button wuqibtn;
+        public ItemBaseUI wuqiitem;
         public Button xianglianbtn;
-        public Button jiezhibtn;
+        public ItemBaseUI xianglianitem;
+        public Button jiezibtn;
+        public ItemBaseUI jieziitem;
         public Button xiezibtn;
+        public ItemBaseUI xieziitem;
         public Button xiexiabtn;
         public Text yitxt;
         public Text kutxt;
@@ -65,7 +73,11 @@ namespace GF.MainGame.UI {
         /// 显示的模型
         /// </summary>
         private ModelShow m_ModelShow;
-
+        /// <summary>
+        /// 当前装备栏对应的装备id
+        /// </summary>
+        private Dictionary<ItemType, int> m_EquPosDic = new Dictionary<ItemType, int>();
+        private ItemBaseUI m_CurrentItem = null;
         public void Start() {
             if (m_ModelShow == null) {
                 GameObject go = ObjectManager.GetInstance.InstanceObject("NPCPrefab/modelcamera.prefab",bClear:false);
@@ -76,6 +88,7 @@ namespace GF.MainGame.UI {
             yifubtn.onClick.AddListener(() => {
                 ShowBtnOrPanel(ItemType.yifu);
             });
+            
             kuzibtn.onClick.AddListener(() => {
                 ShowBtnOrPanel(ItemType.kuzi);
             });
@@ -85,34 +98,85 @@ namespace GF.MainGame.UI {
             xianglianbtn.onClick.AddListener(() => {
                 ShowBtnOrPanel(ItemType.xianglian);
             });
-            jiezhibtn.onClick.AddListener(() => {
-                ShowBtnOrPanel(ItemType.jiezhi);
+            jiezibtn.onClick.AddListener(() => {
+                ShowBtnOrPanel(ItemType.jiezi);
             });
             xiezibtn.onClick.AddListener(() => {
                 ShowBtnOrPanel(ItemType.xiezi);
             });
+            xiexiabtn.onClick.AddListener(() => {
+                ClickXiexia();
+            });
+            AppTools.Regist<ItemType>((int)MainUIEvent.ShowXiexia, ShowXiexia);
+            //初始化装备栏
+            m_EquPosDic[ItemType.wuqi] = -1;
+            m_EquPosDic[ItemType.yifu] = -1;
+            m_EquPosDic[ItemType.kuzi] = -1;
+            m_EquPosDic[ItemType.xianglian] = -1;
+            m_EquPosDic[ItemType.jiezi] = -1;
+            m_EquPosDic[ItemType.xiezi] = -1;
+           
         }
         /// <summary>
         /// 显示卸下装备按钮，或者显示选择装备面板
         /// </summary>
         public void ShowBtnOrPanel(ItemType itemtype) {
             CharactersData cd = UserService.GetInstance.m_CurrentChar;
-            
             switch (itemtype) {
                 case ItemType.yifu:
-                    if (cd.Toukui != 0) {
-                        return;
+                    if (cd.Yifu > 0) {//如果装备的id不等于0,那就说明有装备的，此时不应该响应此点击
+                        cd.Yifu = -1;
+                        //发送服务器，卸下装备，让服务器计算数值后，传递给服务端
+                    } else { //显示选择装备界面
+                        xuanze.gameObject.SetActive(true);
+                        //显示对应类型装备
+                        //todo
                     }
                     break;
                 case ItemType.kuzi:
+                    if (cd.Kuzi > 0) {//如果装备的id不等于0,那就说明有装备的，此时不应该响应此点击
+                        return;
+                    } else { //显示选择装备界面
+                        xuanze.gameObject.SetActive(true);
+                        //显示对应类型装备
+                        //todo
+                    }
                     break;
                 case ItemType.wuqi:
+                    if (cd.Wuqi > 0) {//如果装备的id不等于0,那就说明有装备的，此时不应该响应此点击
+                        return;
+                    } else { //显示选择装备界面
+                        xuanze.gameObject.SetActive(true);
+                        //显示对应类型装备
+                        //todo
+                    }
                     break;
                 case ItemType.xianglian:
+                    if (cd.Xianglian > 0) {//如果装备的id不等于0,那就说明有装备的，此时不应该响应此点击
+                        return;
+                    } else { //显示选择装备界面
+                        xuanze.gameObject.SetActive(true);
+                        //显示对应类型装备
+                        //todo
+                    }
                     break;
-                case ItemType.jiezhi:
+                case ItemType.jiezi:
+                    if (cd.Jiezi > 0) {//如果装备的id不等于0,那就说明有装备的，此时不应该响应此点击
+                        return;
+                    } else { //显示选择装备界面
+                        xuanze.gameObject.SetActive(true);
+                        //显示对应类型装备
+                        //todo
+                    }
                     break;
                 case ItemType.xiezi:
+                    if (cd.Xiezi > 0) {//如果装备的id不等于0,那就说明有装备的，此时不应该响应此点击
+                        return;
+                    } else { //显示选择装备界面
+                        xuanze.gameObject.SetActive(true);
+                        //显示对应类型装备
+                        //todo
+                    }
                     break;
                 default: 
                     break;
@@ -120,6 +184,7 @@ namespace GF.MainGame.UI {
         }
         protected override void OnOpen(object args = null) {
             base.OnOpen(args);
+
             if (m_ModelShow == null) {
                 GameObject go = ObjectManager.GetInstance.InstanceObject("NPCPrefab/modelcamera.prefab", bClear: false);
                 if (go != null) {
@@ -153,19 +218,132 @@ namespace GF.MainGame.UI {
             m_XingyunTxt.text = cd.Xingyun.ToString();
             //战斗力计算：攻击/2+防御+闪避*5000+暴击*6000+生命/4+魔力/5
             m_ZhandouliTxt.text = (p.FP.Attack/2+ p.FP.Defense+ p.FP.Dodge*5000+ p.FP.Crit*2000 + p.FP.FightMaxHp/4 + p.FP.FightMagic/6).ToString();
+            #region 显示装备并存储
+            //衣服装备栏
+            if (cd.Yifu > 0) {
+                if (m_EquPosDic[ItemType.yifu] != cd.Yifu) {//避免重复初始化,浪费性能
+                    m_EquPosDic[ItemType.yifu] = cd.Yifu;
+                    yifuitem.Init(cd.Yifu, false);
+                }
+                yifuitem.gameObject.SetActive(true);
+            } else {//有可能会等于0
+                yifuitem.gameObject.SetActive(false);
+            }
+            //裤子装备栏
+            if (cd.Kuzi > 0) {
+                if (m_EquPosDic[ItemType.kuzi] != cd.Kuzi) {//避免重复初始化
+                    m_EquPosDic[ItemType.kuzi] = cd.Kuzi;
+                    kuziitem.Init(cd.Kuzi, false);
+                }
+                kuziitem.gameObject.SetActive(true);
+            } else {//有可能会等于0
+                kuziitem.gameObject.SetActive(false);
+            }
+            //武器装备栏
+            if (cd.Wuqi > 0) {
+                if (m_EquPosDic[ItemType.wuqi] != cd.Wuqi) {//避免重复初始化
+                    m_EquPosDic[ItemType.wuqi] = cd.Wuqi;
+                    wuqiitem.Init(cd.Wuqi, false);
+                }
+                wuqiitem.gameObject.SetActive(true);
+            } else {//有可能会等于0
+                wuqiitem.gameObject.SetActive(false);
+            }
+            //项链装备栏
+            if (cd.Xianglian > 0) {
+                if (m_EquPosDic[ItemType.xianglian] != cd.Xianglian) {//避免重复初始化
+                    m_EquPosDic[ItemType.xianglian] = cd.Xianglian;
+                    xianglianitem.Init(cd.Xianglian, false);
+                }
+                xianglianitem.gameObject.SetActive(true);
+            } else {//有可能会等于0
+                xianglianitem.gameObject.SetActive(false);
+            }
+            //戒子装备栏
+            if (cd.Jiezi > 0) {
+                if (m_EquPosDic[ItemType.jiezi] != cd.Jiezi) {//避免重复初始化
+                    m_EquPosDic[ItemType.jiezi] = cd.Jiezi;
+                    jieziitem.Init(cd.Kuzi, false);
+                }
+                jieziitem.gameObject.SetActive(true);
+            } else {//有可能会等于0
+                jieziitem.gameObject.SetActive(false);
+            } 
+            //鞋子装备栏
+            if (cd.Xiezi > 0) {
+                if (m_EquPosDic[ItemType.xiezi] != cd.Xiezi) {//避免重复初始化
+                    m_EquPosDic[ItemType.xiezi] = cd.Xiezi;
+                    xieziitem.Init(cd.Kuzi, false);
+                }
+                xieziitem.gameObject.SetActive(true);
+            } else {//有可能会等于0
+                xieziitem.gameObject.SetActive(false);
+            }
+            #endregion
             //隐藏非必要内容
             xuanze.gameObject.SetActive(false);
             xiexiabtn.gameObject.SetActive(false);
-
-    }
-    public override void Close(bool bClear = false, object arg = null) {
-            base.Close(bClear, arg);
-            m_ModelShow.gameObject.SetActive(false);
         }
-
+        /// <summary>
+        /// 点击装备栏装备的处理
+        /// </summary>
+        /// <param name="pos">点击装备所在的位置</param>
+        public void ShowXiexia(ItemType tp) {
+            Vector3 pos = Vector3.one;
+            switch (tp) {
+                case ItemType.yifu:
+                    pos = yifuitem.transform.position;
+                    m_CurrentItem = yifuitem;
+                    break;
+                case ItemType.kuzi:
+                    pos = kuziitem.transform.position;
+                    m_CurrentItem = kuziitem;
+                    break;
+                case ItemType.wuqi:
+                    pos = wuqiitem.transform.position;
+                    m_CurrentItem = wuqiitem;
+                    break;
+                case ItemType.xianglian:
+                    pos = xianglianitem.transform.position;
+                    m_CurrentItem = xianglianitem;
+                    break;
+                case ItemType.jiezi:
+                    pos = jieziitem.transform.position;
+                    m_CurrentItem = jieziitem;
+                    break;
+                case ItemType.xiezi:
+                    pos = xieziitem.transform.position;
+                    m_CurrentItem = xieziitem;
+                    break;
+                default:
+                    m_CurrentItem = null;
+                    Debuger.LogError("装备类型错误，请检查");
+                    break;
+            }
+            xiexiabtn.transform.position = pos;
+            xiexiabtn.transform.DOMoveX(97.4f,2f);
+            xiexiabtn.gameObject.SetActive(true);
+        }
+        /// <summary>
+        /// 装备卸下按钮的处理
+        /// </summary>
+        public void ClickXiexia() {
+            if (m_CurrentItem != null) {
+                m_CurrentItem.gameObject.SetActive(false);
+            } else {
+                Debuger.LogError("显示错误，m_CurrentItem为空，请检查代码");
+            }
+        }
+        public override void Close(bool bClear = false, object arg = null) {
+             base.Close(bClear, arg);
+             m_ModelShow.gameObject.SetActive(false);
+            m_CurrentItem = null;
+        }
         protected override void OnClose(bool bClear = false, object arg = null) {
             base.OnClose(bClear, arg);
         }
-
+        public void OnDestroy() {
+            AppTools.Remove<ItemType>((int)MainUIEvent.ShowXiexia, ShowXiexia);
+        }
     }
 }

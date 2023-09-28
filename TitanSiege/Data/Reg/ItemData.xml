@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <data name="ItemData" from="道具配置表.xlsx" to="ItemData.xml">
 	<variable name= "AllItems" type = "list">
-		<list name="ItemBase" sheetname="道具配置表" mainKey = "id">
+		<list name="ItemDataBase" sheetname="道具配置表" mainKey = "id">
 			<variable name="id" col="ID" type="int" />
 			<variable name="name" col="物品名" type="string" />
 			<variable name="desc" col="描述" type="string" />

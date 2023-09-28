@@ -48,10 +48,14 @@ public enum TitansiegeHashProto : ushort
     CHARACTERS_LIHUIPATH,
     /// <summary>武器</summary>
     CHARACTERS_WUQI,
-    /// <summary>头盔</summary>
-    CHARACTERS_TOUKUI,
+    /// <summary>裤子</summary>
+    CHARACTERS_KUZI,
     /// <summary>衣服</summary>
     CHARACTERS_YIFU,
+    /// <summary>项链</summary>
+    CHARACTERS_XIANGLIAN,
+    /// <summary>戒指</summary>
+    CHARACTERS_JIEZI,
     /// <summary>鞋子</summary>
     CHARACTERS_XIEZI,
     /// <summary></summary>

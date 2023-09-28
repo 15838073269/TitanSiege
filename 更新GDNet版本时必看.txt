@@ -1,7 +1,8 @@
 如果要更新GDNet的版本，请注意一下几点：
 1、GameDesigner\MMORPG文件夹下的MonsterData文件和MonsterPoint文件已修改过，务必保留，并且服务端中的MonsterData也必须和客户端一致
 2、Mysql工具的路径务必选到DB那一级别，并且最好把DB目录下的内容全部删除，重新生成
-3、Mysql工具的选择数据库名，兼容
+3、Mysql工具的选择数据库名，兼容可以不勾选
+4、更新换mysql数据需要更新绑定，然后再同步客户端服务端net代码
 4、添加ANTICHEAT宏定义，可以开启防作弊，使用mysqldatabulid工具时，生成的代码中带有这个宏定义，只需加上检测代码和回调函数即可启动防CE修改
 当前正在开发功能：
 5、背包和道具

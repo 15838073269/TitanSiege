@@ -60,6 +60,7 @@ namespace GF.MainGame {
     }
     public enum MainUIEvent {
         UpdateHpMp = (int)MDef.MainUIModule + 1,
+        ShowXiexia,
     }
     public enum SkillEvent {
         ClickSkill = (int)MDef.SkillModule + 1,
