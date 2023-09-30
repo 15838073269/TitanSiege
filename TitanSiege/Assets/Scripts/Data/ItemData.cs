@@ -197,4 +197,9 @@ namespace GF.MainGame.Data {
         zi,//紫
         cheng,//橙
     }
+    public enum ItemPos {
+        inBag = 0,//在背包内
+        inEqu,//在装备栏
+        inSelect,//在装备选择栏上
+    }
 }

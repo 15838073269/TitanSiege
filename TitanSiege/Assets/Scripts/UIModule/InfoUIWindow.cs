@@ -18,6 +18,7 @@ using Titansiege;
 using GF.MainGame.Data;
 using DG.Tweening;
 using System.Collections.Generic;
+using GF.Pool;
 
 namespace GF.MainGame.UI {
     public class InfoUIWindow : UIWindow {
@@ -77,7 +78,12 @@ namespace GF.MainGame.UI {
         /// 当前装备栏对应的装备id
         /// </summary>
         private Dictionary<ItemType, int> m_EquPosDic = new Dictionary<ItemType, int>();
+        /// <summary>
+        /// 当前选择中的装备栏
+        /// 目前用来显示装备信息和卸下装备
+        /// </summary>
         private ItemBaseUI m_CurrentItem = null;
+        
         public void Start() {
             if (m_ModelShow == null) {
                 GameObject go = ObjectManager.GetInstance.InstanceObject("NPCPrefab/modelcamera.prefab",bClear:false);
@@ -223,7 +229,7 @@ namespace GF.MainGame.UI {
             if (cd.Yifu > 0) {
                 if (m_EquPosDic[ItemType.yifu] != cd.Yifu) {//避免重复初始化,浪费性能
                     m_EquPosDic[ItemType.yifu] = cd.Yifu;
-                    yifuitem.Init(cd.Yifu, false);
+                    yifuitem.Init(cd.Yifu, ItemPos.inEqu);
                 }
                 yifuitem.gameObject.SetActive(true);
             } else {//有可能会等于0
@@ -233,7 +239,7 @@ namespace GF.MainGame.UI {
             if (cd.Kuzi > 0) {
                 if (m_EquPosDic[ItemType.kuzi] != cd.Kuzi) {//避免重复初始化
                     m_EquPosDic[ItemType.kuzi] = cd.Kuzi;
-                    kuziitem.Init(cd.Kuzi, false);
+                    kuziitem.Init(cd.Kuzi, ItemPos.inEqu);
                 }
                 kuziitem.gameObject.SetActive(true);
             } else {//有可能会等于0
@@ -243,7 +249,7 @@ namespace GF.MainGame.UI {
             if (cd.Wuqi > 0) {
                 if (m_EquPosDic[ItemType.wuqi] != cd.Wuqi) {//避免重复初始化
                     m_EquPosDic[ItemType.wuqi] = cd.Wuqi;
-                    wuqiitem.Init(cd.Wuqi, false);
+                    wuqiitem.Init(cd.Wuqi, ItemPos.inEqu);
                 }
                 wuqiitem.gameObject.SetActive(true);
             } else {//有可能会等于0
@@ -253,7 +259,7 @@ namespace GF.MainGame.UI {
             if (cd.Xianglian > 0) {
                 if (m_EquPosDic[ItemType.xianglian] != cd.Xianglian) {//避免重复初始化
                     m_EquPosDic[ItemType.xianglian] = cd.Xianglian;
-                    xianglianitem.Init(cd.Xianglian, false);
+                    xianglianitem.Init(cd.Xianglian, ItemPos.inEqu);
                 }
                 xianglianitem.gameObject.SetActive(true);
             } else {//有可能会等于0
@@ -263,7 +269,7 @@ namespace GF.MainGame.UI {
             if (cd.Jiezi > 0) {
                 if (m_EquPosDic[ItemType.jiezi] != cd.Jiezi) {//避免重复初始化
                     m_EquPosDic[ItemType.jiezi] = cd.Jiezi;
-                    jieziitem.Init(cd.Kuzi, false);
+                    jieziitem.Init(cd.Kuzi, ItemPos.inEqu);
                 }
                 jieziitem.gameObject.SetActive(true);
             } else {//有可能会等于0
@@ -273,7 +279,7 @@ namespace GF.MainGame.UI {
             if (cd.Xiezi > 0) {
                 if (m_EquPosDic[ItemType.xiezi] != cd.Xiezi) {//避免重复初始化
                     m_EquPosDic[ItemType.xiezi] = cd.Xiezi;
-                    xieziitem.Init(cd.Kuzi, false);
+                    xieziitem.Init(cd.Kuzi, ItemPos.inEqu);
                 }
                 xieziitem.gameObject.SetActive(true);
             } else {//有可能会等于0

@@ -108,6 +108,7 @@ namespace GDServer {
         public const string TABLE_NAME = "NameData.bytes";
         public const string TABLE_SKILL = "SkillData.bytes";
         public const string TABLE_LEVEL = "LevelUpData.bytes";
+        public const string TABLE_ITEM = "ItemData.bytes";
         // public const string TABLE_BUFF = "data/binary/BuffData.bytes";
     }
 

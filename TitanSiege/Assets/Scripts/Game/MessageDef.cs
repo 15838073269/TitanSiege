@@ -88,5 +88,11 @@ namespace GF.MainGame {
         HideUI,
 
     }
+    public enum ItemEvent {
+        GetItemUI = (int)MDef.ItemModule + 1,
+        RecycleItemUI,
+        ShowBag,
+
+    }
 }
 

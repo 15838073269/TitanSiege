@@ -1,6 +1,8 @@
 ﻿using Net.Component;
 using Net.Server;
 using Net.Share;
+using Net.System;
+using System.Text;
 using System.Xml.Linq;
 using Titansiege;
 using static Google.Protobuf.Reflection.FieldOptions.Types;
@@ -16,7 +18,7 @@ namespace GDServer {
         public GDScene scene;
         public bool m_IsDie = false;
         public LevelUpDataBase m_LevelUp;
-
+        private SafeDictionary<int, int> m_UserItem = new SafeDictionary<int, int>();//玩家拥有的道具字典
         public FightProp FP = new FightProp();//战斗属性
         public override void OnEnter() {
             m_IsDie = false;
@@ -204,6 +206,39 @@ namespace GDServer {
                 index2 = FP.FightMaxHp,//客户端网络玩家使用
             });
             
+        }
+        /// <summary>
+        /// 将数据库中的字符串道具数据初始化成字典
+        /// 字符串的结构为：1|1,2|1,234|10,12|1,
+        /// </summary>
+        /// <param name="str"></param>
+        public void InitUserItem(string str) {
+            string[] strarr = str.Split(',');
+            for (int i = 0; i < strarr.Length; i++) {
+                if (!string.IsNullOrEmpty(strarr[i])) {//保险起见，加一层判断
+                    string[] strarr1 = strarr[i].Split("|");
+                    int itemid = int.Parse(strarr1[0]);
+                    int itemnum = int.Parse(strarr1[1]);
+                    if (itemid != 0 && itemnum >= 1) {
+                        m_UserItem.Add(itemid, itemnum);
+                    } else {
+                        Debuger.LogError("道具数据解析错误，请检查");
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// 将现有道具转换成字符串，数据库写入使用
+        /// </summary>
+        /// <returns></returns>
+        public string UserItemToStr() {
+            StringBuilder sb = new StringBuilder();
+            foreach (KeyValuePair<int, int> tmp in m_UserItem) {
+                if (tmp.Key != 0 && tmp.Value > 0) {
+                    sb.Append($"{tmp.Key}|{tmp.Value},");
+                }
+            }
+            return sb.ToString();
         }
     }
 }

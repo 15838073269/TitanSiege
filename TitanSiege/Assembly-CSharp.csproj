@@ -167,6 +167,7 @@
     <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenTextMeshPro.cs" />
     <Compile Include="Assets\Scripts\UIModule\DamageUIWidget.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraComponent\ImageEffects\XftRadialBlurTexAdd.cs" />
+    <Compile Include="Assets\Scripts\Module\ItemModule.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Cartoon FX\Scripts\CFX_LightIntensityFade.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets02\Cartoon FX\Demo\Assets\CFX_Demo.cs" />
     <Compile Include="Assets\Scripts\UIModule\RoleInfo.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\CustomMesh.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\XftEvent.cs" />
     <Compile Include="Assets\Scripts\Module\Fight\HPModlue.cs" />
+    <Compile Include="Assets\Scripts\UIModule\BagUIWindow.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Cartoon FX\Demo\Assets\CFX_Demo_RotateCamera.cs" />
     <Compile Include="Assets\Ultimate 10 Plus Shaders\Scripts\U10PS_MouseRotation.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Tutorial\GettingStart\ReleaseYourEffect.cs" />
@@ -273,7 +275,6 @@
     <Compile Include="Assets\Scripts\Module\LoginModule.cs" />
     <Compile Include="Assets\Scripts\UIModule\LoginUIPage.cs" />
     <Compile Include="Assets\Scripts\UIModule\UIBG.cs" />
-    <Compile Include="Assets\Scripts\Module\ItemModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

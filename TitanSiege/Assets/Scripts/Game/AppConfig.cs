@@ -67,6 +67,7 @@ namespace GF.MainGame {
         public const string DamageUIPath = "UIPrefab/DamgeUIWidget.prefab";
         public const string DieUIWindow = "DieUIWindow";
         public const string InfoUIWindow = "InfoUIWindow";
+        public const string BagUIWindow = "BagUIWindow";
         /// <summary>
         /// 各个场景的名称
         /// </summary>

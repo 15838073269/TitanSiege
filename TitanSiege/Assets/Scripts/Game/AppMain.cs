@@ -196,11 +196,12 @@ namespace GF.MainGame {
             //加载所有数据配置表
             LoadConfigTable();
             ConfigerManager.GetInstance.InitData();//加载完后，按照数据类型定义一些常用的数据变量,方便直接使用
-            //加载登录模块
+            //加载模块
             AppTools.CreateModule<LoginModule>(MDef.LoginModule);
             AppTools.CreateModule<SceneModule>(MDef.SceneModule);
             AppTools.CreateModule<NPCModule>(MDef.NPCModule);
             AppTools.CreateModule<DieUIModule>(MDef.DieUIModule);
+            AppTools.CreateModule<ItemModule>(MDef.ItemModule);
         }
 
         /// <summary>

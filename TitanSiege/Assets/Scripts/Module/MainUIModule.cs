@@ -55,6 +55,7 @@ namespace GF.MainGame.Module {
                     UIManager.GetInstance.OpenWindow(AppConfig.InfoUIWindow);
                     break;
                 case "bag":
+                    AppTools.Send((int)ItemEvent.ShowBag);
                     break;
                 case "skill":
                     break;

@@ -104,6 +104,7 @@ namespace GDServer.Services
                             client.current = client.CharacterList[i];
                             client.AddRpc(client.current);
                             client.UpdateFightProps();
+                            client.InitUserItem("");//初始化拥有的道具
                             //读取升级配置表数据
                             if (client.current.Levelupid!=0) { //0就是没配置
                                 client.m_LevelUp = ConfigerManager.GetInstance.FindData<LevelUpData>(CT.TABLE_LEVEL).FindByID((ushort)client.current.Levelupid);
