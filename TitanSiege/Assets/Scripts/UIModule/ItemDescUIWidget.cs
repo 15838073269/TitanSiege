@@ -57,14 +57,34 @@ namespace GF.MainGame.UI {
 
         private Vector3 m_OldPos;//默认的详情栏位置，默认时，是详情和对比栏都存在的 
         private Vector3 m_OldBtnPos;
-        private void Start() {
+        /// <summary>
+        /// 定义部分颜色，不同品级的物品，名称颜色跟着变
+        /// </summary>
+        public Color m_Bai;
+        public Color m_Lv;
+        public Color m_lan;
+        public Color m_Zi;
+        public Color m_Cheng;
+        private void Awake() {
             m_OldPos = m_Desc.transform.localPosition;
             m_OldBtnPos = m_BtnFather.transform.localPosition;
-        }
+            m_CloseBtn.onClick.AddListener(()=>{
+                Close();
+            });
+            m_Bai = new Color(0.79f, 0.77f, 0.77f);
+            m_Lv = new Color(0.22f, 0.83f, 0.16f);
+            m_lan = new Color(0f, 0.44f, 1f);
+            m_Zi = new Color(0.6f, 0.13f, 1f);
+            m_Cheng = new Color(1f, 0.41f, 0f);
+    }
+
         protected override void OnOpen(object args = null) {
             base.OnOpen(args);
             ItemBaseUI itemui = args as ItemBaseUI;
             if (itemui != null) {
+                //加载道具界面
+                InitDesc(itemui);
+                //处理对比装备详情
                 CharactersData cd = UserService.GetInstance.m_CurrentChar;
                 if (itemui.m_Pos == ItemPos.inEqu) { //在装备栏上,只显示卸下和关闭
                     m_UseBtn.gameObject.SetActive(false);
@@ -73,7 +93,7 @@ namespace GF.MainGame.UI {
                     m_XiexiaBtn.gameObject.SetActive(true);
                     //m_CloseBtn.gameObject.SetActive(true);  //关闭按钮永远不会隐藏
                 } else if (itemui.m_Pos == ItemPos.inBag) {//在背包中
-                    //如果是武器，如果有已装备，就需要显示已装备项，
+                    //如果是装备，如果有已装备，就需要显示已装备项，
                     switch (itemui.m_Data.itemtype) {
                         case (int)ItemType.yifu:
                             InitCompareDesc(cd.Yifu);
@@ -98,7 +118,7 @@ namespace GF.MainGame.UI {
                             break;
                     }
                 } else if(itemui.m_Pos == ItemPos.inSelect) { //在选择栏中
-                    //如果是武器，如果有已装备，就需要显示已装备项，
+                    //如果是装备，如果有已装备，就需要显示已装备项，
                     switch (itemui.m_Data.itemtype) {
                         case (int)ItemType.yifu:
                             InitCompareDesc(cd.Yifu,ItemPos.inSelect);
@@ -123,6 +143,7 @@ namespace GF.MainGame.UI {
                             break;
                     }
                 }
+               
             }  
         }
         /// <summary>
@@ -130,7 +151,7 @@ namespace GF.MainGame.UI {
         /// </summary>
         /// <param name="itemid">参数为-1，意味着不需要对比栏</param>
         private void InitCompareDesc(int itemid,ItemPos itemPos = ItemPos.inBag) {
-            if (itemid == -1) { //说明不是装备，不需要显示对比栏,恢复原状
+            if (itemid == -1) { //说明不是装备，或者装备栏为空，不需要显示对比栏,恢复原状
                 if (m_Desc.transform.localPosition == m_OldPos) { //如果在默认位置（默认有对比栏）,就需要移动隐藏对比栏
                     m_Desc.transform.localPosition = new Vector3(m_OldPos.x-300f, m_OldPos.y, m_OldPos.z);
                     m_BtnFather.transform.localPosition = new Vector3(m_OldBtnPos.x-300f,m_OldBtnPos.y,m_OldBtnPos.z);
@@ -153,17 +174,17 @@ namespace GF.MainGame.UI {
                     m_Desc.transform.localPosition = m_OldPos;
                     m_BtnFather.transform.localPosition = m_OldBtnPos;
                     m_CompareDesc.gameObject.SetActive(true);
-                    if (itemPos == ItemPos.inBag) {
-                        m_UseBtn.gameObject.SetActive(false);
-                        m_EquBtn.gameObject.SetActive(true);
-                        m_DeleBtn.gameObject.SetActive(true);
-                        m_XiexiaBtn.gameObject.SetActive(false);
-                    } else if (itemPos == ItemPos.inSelect) {
-                        m_UseBtn.gameObject.SetActive(false);
-                        m_EquBtn.gameObject.SetActive(true);
-                        m_DeleBtn.gameObject.SetActive(false);
-                        m_XiexiaBtn.gameObject.SetActive(false);
-                    }
+                }
+                if (itemPos == ItemPos.inBag) {
+                    m_UseBtn.gameObject.SetActive(false);
+                    m_EquBtn.gameObject.SetActive(true);
+                    m_DeleBtn.gameObject.SetActive(true);
+                    m_XiexiaBtn.gameObject.SetActive(false);
+                } else if (itemPos == ItemPos.inSelect) {
+                    m_UseBtn.gameObject.SetActive(false);
+                    m_EquBtn.gameObject.SetActive(true);
+                    m_DeleBtn.gameObject.SetActive(false);
+                    m_XiexiaBtn.gameObject.SetActive(false);
                 }
                 ItemModule mod = AppTools.GetModule<ItemModule>(MDef.ItemModule);
                 ItemDataBase data = mod.m_Data.FindItemByID(itemid);
@@ -177,7 +198,7 @@ namespace GF.MainGame.UI {
                 m_CItemType.text = GetItemTypeName((ItemType)data.itemtype);
                 m_CMiaoshu.text = data.desc;
                 m_CShuxing.text = PropToStr(data);
-
+                m_CPinzhi.text = GetPinzhiText((Pinzhi)data.pinzhi);
             }
         }
         /// <summary>
@@ -197,7 +218,18 @@ namespace GF.MainGame.UI {
         /// </summary>
         /// <param name="ui"></param>
         private void InitDesc(ItemBaseUI ui) {
-            
+            ItemDataBase data = ui.m_Data;
+            //开始写入数据到对比栏
+            m_ItemColor.sprite = ui.m_ItemColor.sprite;
+            //打开背包一瞬间可能同一时间加载大量图片，所以选择异步加载
+            //这里没必要缓存，因为内部加载已经做了缓存了
+            m_ItemImg.sprite = ui.m_ItemBtn.image.sprite;
+            m_ItemLevel.text = $"{data.level}级";
+            m_ItemName.text = data.name;
+            m_ItemType.text = GetItemTypeName((ItemType)data.itemtype);
+            m_Miaoshu.text = data.desc;
+            m_Shuxing.text = PropToStr(data);
+            m_Pinzhi.text = GetPinzhiText((Pinzhi)data.pinzhi);
         }
         /// <summary>
         /// 道具效果转成字符串显示
@@ -273,9 +305,9 @@ namespace GF.MainGame.UI {
                 case XiaoGuo.addexp:
                     int num4 = int.Parse(xiaoguozhi);
                     if (num4 > 0) {
-                        str.Append($"钻石+{num4}");
+                        str.Append($"经验+{num4}");
                     } else {
-                        str.Append($"钻石{num4}");
+                        str.Append($"经验{num4}");
                     }
                     break;
             }
@@ -297,6 +329,7 @@ namespace GF.MainGame.UI {
                     for (int i = 0; i < strarr.Length; i++) {
                         if (!string.IsNullOrEmpty(strarr[i])) {//判断一下空白，防止配表的多写
                             string[] strarr1 = strarr[i].Split('|');
+                            Debuger.Log(strarr1[0]+"14234134"+ strarr1[1]);
                             str.Append(GetPropName(strarr1[0]));
                             if (strarr1[0] == "baoji" || strarr1[0] == "shanbi") {
                                 float num = float.Parse(strarr1[1]);
@@ -376,7 +409,7 @@ namespace GF.MainGame.UI {
                 case "fangyu":
                     str = "防御";
                     break;
-                case "shangbi":
+                case "shanbi":
                     str = "闪避";
                     break;
                 case "baoji":
@@ -440,6 +473,96 @@ namespace GF.MainGame.UI {
                     break;
             }
             return str;
+        }
+        private string GetPinzhiText(Pinzhi p, bool iscompare = false) {
+            string s = "";
+            switch (p) {
+                case Pinzhi.bai:
+                    s = "普通物品";
+                    if (iscompare) {
+                        if (m_CItemName.color != m_Bai) {
+                            m_CItemName.color = m_Bai;
+                            m_CPinzhi.color = m_Bai;
+                        }
+                    } else {
+                        if (m_ItemName.color != m_Bai) {
+                            m_ItemName.color = m_Bai;
+                            m_Pinzhi.color = m_Bai;
+                        }
+                    }
+                    break;
+                case Pinzhi.lv:
+                    s = "精良物品";
+                    if (iscompare) {
+                        if (m_CItemName.color != m_Lv) {
+                            m_CItemName.color = m_Lv;
+                            m_CPinzhi.color = m_Lv;
+                        }
+                    } else {
+                        if (m_ItemName.color != m_Lv) {
+                            m_ItemName.color = m_Lv;
+                            m_Pinzhi.color = m_Lv;
+                        }
+                    }
+                    break;
+                case Pinzhi.lan:
+                    s = "卓越物品";
+                    if (iscompare) {
+                        if (m_CItemName.color != m_lan) {
+                            m_CItemName.color = m_lan;
+                            m_CPinzhi.color = m_lan;
+                        }
+                    } else {
+                        if (m_ItemName.color != m_lan) {
+                            m_ItemName.color = m_lan;
+                            m_Pinzhi.color = m_lan;
+                        }
+                    }
+                    break;
+                case Pinzhi.zi:
+                    s = "传奇物品";
+                    if (iscompare) {
+                        if (m_CItemName.color != m_Zi) {
+                            m_CItemName.color = m_Zi;
+                            m_CPinzhi.color = m_Zi;
+                        }
+                    } else {
+                        if (m_ItemName.color != m_Zi) {
+                            m_ItemName.color = m_Zi;
+                            m_Pinzhi.color = m_Zi;
+                        }
+                    }
+                    break;
+                case Pinzhi.cheng:
+                    s = "史诗物品";
+                    if (iscompare) {
+                        if (m_CItemName.color != m_Cheng) {
+                            m_CItemName.color = m_Cheng;
+                            m_CPinzhi.color = m_Cheng;
+                        }
+                    } else {
+                        if (m_ItemName.color != m_Cheng) {
+                            m_ItemName.color = m_Cheng;
+                            m_Pinzhi.color = m_Cheng;
+                        }
+                    }
+                    break;
+                default:
+                    s = "未知品级";
+                    if (iscompare) {
+                        if (m_CItemName.color != m_Bai) {
+                            m_CItemName.color = m_Bai;
+                            m_CPinzhi.color = m_Bai;
+                        }
+                    } else {
+                        if (m_ItemName.color != m_Bai) {
+                            m_ItemName.color = m_Bai;
+                            m_Pinzhi.color = m_Bai;
+                        }
+                    }
+                    break;
+            }
+            return s;
         }
         protected override void OnClose(bool bClear = false, object arg = null) {
             base.OnClose(bClear, arg);

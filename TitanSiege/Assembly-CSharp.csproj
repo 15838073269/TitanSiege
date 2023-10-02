@@ -276,8 +276,8 @@
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
     <Compile Include="Assets\Scripts\Module\LoginModule.cs" />
     <Compile Include="Assets\Scripts\UIModule\LoginUIPage.cs" />
-    <Compile Include="Assets\Scripts\UIModule\UIBG.cs" />
     <Compile Include="Assets\Scripts\UIModule\ItemDescUIWidget.cs" />
+    <Compile Include="Assets\Scripts\UIModule\UIBG.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -2846,10 +2846,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 0
+  m_Color: {r: 0, g: 0, b: 0, a: 0.17254902}
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2903,6 +2903,11 @@ MonoBehaviour:
   m_DeleBtn: {fileID: 1178299281270532099}
   m_XiexiaBtn: {fileID: 1972245857060679492}
   m_CloseBtn: {fileID: 1075708496812025627}
+  m_Bai: {r: 0, g: 0, b: 0, a: 0}
+  m_Lv: {r: 0, g: 0, b: 0, a: 0}
+  m_lan: {r: 0, g: 0, b: 0, a: 0}
+  m_Zi: {r: 0, g: 0, b: 0, a: 0}
+  m_Cheng: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &6645885734781642138
 GameObject:
   m_ObjectHideFlags: 0

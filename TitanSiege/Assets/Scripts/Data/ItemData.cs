@@ -193,11 +193,11 @@ namespace GF.MainGame.Data {
         zhiye,//需求某个职业
     }
     public enum Pinzhi { 
-        bai = 1,//白
-        lv,//绿
-        lan,//蓝
-        zi,//紫
-        cheng,//橙
+        bai = 1,//白,普通
+        lv,//绿，精良
+        lan,//蓝，卓越
+        zi,//紫，传奇
+        cheng,//橙，史诗
     }
     public enum ItemPos {
         inBag = 0,//在背包内

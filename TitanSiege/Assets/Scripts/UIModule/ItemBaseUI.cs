@@ -88,7 +88,7 @@ namespace GF.MainGame.UI {
         private void ClickBtn() {
             switch (m_Pos) {
                 case ItemPos.inBag: //在背包内的点击，就显示装备介绍的UI
-
+                    AppTools.Send<ItemBaseUI>((int)ItemEvent.ShowItemDesc,this);
                     break;
                 case ItemPos.inEqu:
                     //在装备栏上，显示卸下按钮
@@ -177,8 +177,10 @@ namespace GF.MainGame.UI {
                             e.effname = strarr1[0];
                             if (strarr1[0] == "baoji" || strarr1[0] == "shanbi") {
                                 e.fvalue = float.Parse(strarr1[1]);
+                                e.ivalue = 0;
                             } else {
                                 e.ivalue = int.Parse(strarr1[1]);
+                                e.fvalue = 0f;
                             }
                             tempdic.Add(strarr1[0], e);
                         }
