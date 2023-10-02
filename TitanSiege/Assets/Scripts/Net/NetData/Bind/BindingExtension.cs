@@ -68,4 +68,20 @@ public static class BindingExtension
         return value;
     }
 
+    public static ISegment SerializeObject(this Titansiege.BagitemData value)
+    {
+        var segment = BufferPool.Take();
+        var bind = new TitansiegeBagitemDataBind();
+        bind.Write(value, segment);
+        return segment;
+    }
+
+    public static Titansiege.BagitemData DeserializeObject(this Titansiege.BagitemData value, ISegment segment, bool isPush = true)
+    {
+        var bind = new TitansiegeBagitemDataBind();
+        bind.Read(ref value, segment);
+        if (isPush) BufferPool.Push(segment);
+        return value;
+    }
+
 }

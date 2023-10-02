@@ -101,10 +101,15 @@ namespace GDServer.Services
                     for (int i = 0; i < client.CharacterList?.Count; i++) {
                         if (client.CharacterList[i].ID  == charid) {
                             //选择角色数据赋值
+                            client.m_UserItem.Clear();
                             client.current = client.CharacterList[i];
                             client.AddRpc(client.current);
                             client.UpdateFightProps();
-                            client.InitUserItem("");//初始化拥有的道具
+                            if (TitansiegeDB.I.m_BagItems.TryGetValue(client.CharacterList[i].ID, out var itemdata)&& itemdata!=null) {
+                                client.m_BagItem = itemdata;
+                                client.InitUserItem();//初始化拥有的道具
+                                
+                            }
                             //读取升级配置表数据
                             if (client.current.Levelupid!=0) { //0就是没配置
                                 client.m_LevelUp = ConfigerManager.GetInstance.FindData<LevelUpData>(CT.TABLE_LEVEL).FindByID((ushort)client.current.Levelupid);

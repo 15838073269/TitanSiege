@@ -25,6 +25,9 @@ namespace Binding
 				{ typeof(Titansiege.CharactersData), typeof(TitansiegeCharactersDataBind) },
 				{ typeof(Titansiege.CharactersData[]), typeof(TitansiegeCharactersDataArrayBind) },
 				{ typeof(List<Titansiege.CharactersData>), typeof(SystemCollectionsGenericListTitansiegeCharactersDataBind) },
+				{ typeof(Titansiege.BagitemData), typeof(TitansiegeBagitemDataBind) },
+				{ typeof(Titansiege.BagitemData[]), typeof(TitansiegeBagitemDataArrayBind) },
+				{ typeof(List<Titansiege.BagitemData>), typeof(SystemCollectionsGenericListTitansiegeBagitemDataBind) },
             };
         }
     }

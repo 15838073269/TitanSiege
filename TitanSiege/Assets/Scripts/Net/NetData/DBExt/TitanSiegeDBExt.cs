@@ -17,6 +17,7 @@ namespace Titansiege {
         public Dictionary<string, UsersData> m_Users = new Dictionary<string, UsersData>(); 
         public Dictionary<ConfigType, ConfigData> m_Configs = new Dictionary<ConfigType, ConfigData>();
         public Dictionary<long, NpcsData> m_Npcs = new Dictionary<long, NpcsData>();
+        public Dictionary<long, BagitemData> m_BagItems = new Dictionary<long, BagitemData>();//注意这里的key指的是Cid，就是角色id
         public void InitData() {
             TitansiegeDB.I.Init((list) => {
                 foreach (var item in list) {
@@ -31,6 +32,9 @@ namespace Titansiege {
                     }
                     if (item is NpcsData data4) {
                         m_Npcs.Add(data4.ID, data4);
+                    }
+                    if (item is BagitemData data5 ) {
+                        m_BagItems.Add(data5.Cid, data5);
                     }
                 }
             });

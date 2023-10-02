@@ -4084,8 +4084,8 @@ MonoBehaviour:
   - {fileID: 8579900100081492010}
   - {fileID: 436440021421513570}
   - {fileID: 1264109706180464356}
-  m_Jinbi: {fileID: 0}
-  m_Zhuanshi: {fileID: 0}
+  m_Jinbi: {fileID: 5463444832404252213}
+  m_Zhuanshi: {fileID: 6739820097618528160}
 --- !u!1 &4469104050089584438
 GameObject:
   m_ObjectHideFlags: 0

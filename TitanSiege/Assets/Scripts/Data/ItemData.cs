@@ -171,6 +171,7 @@ namespace GF.MainGame.Data {
         addjinbi,//添加金币
         addzhuanshi,//添加钻石
         additem,//添加物品，例如宝箱
+        addexp,//增加经验
     }
     public enum ItemType { 
         yaopin=1,//药品
@@ -189,6 +190,7 @@ namespace GF.MainGame.Data {
         prop,//需要基本属性
         level,//需要等级
         item,//需要某个物品
+        zhiye,//需求某个职业
     }
     public enum Pinzhi { 
         bai = 1,//白

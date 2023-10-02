@@ -306,7 +306,7 @@ namespace GF.Unity.AB {
                             if (item.m_Obj != null) {
                                 obj = item.m_Obj;
                             } else {
-                                #region asset转sprite没有问题，这里应该不用，先注释，使用看看
+                                #region  实际测试，异步加载回调时Object对象不能直接转Sprite，需要先转成Texture2d,然后通过Texture2d和Sprite互转 （asset转sprite没有问题，这里应该不用，先注释，使用看看）
                                 //AssetBundleRequest abrequest = null;
                                 //if (loadingparam.m_IsSprite) {//加这个变量是因为Ab包异步加载的asset是无法转换成图片的，需要加载时加上spite类型才行。因此区分一下sprite图片类型
                                 //    abrequest = item.m_LoadedAB.LoadAssetAsync<Sprite>(item.m_AssetName);

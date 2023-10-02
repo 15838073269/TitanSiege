@@ -68,6 +68,15 @@ namespace Titansiege
             InitConnection(connLen);
             List<object> list = new List<object>();
      // -- 1
+            var bagitemTable = ExecuteReader($"SELECT * FROM bagitem");
+            foreach (DataRow row in bagitemTable.Rows)
+            {
+                var data = new BagitemData();
+                data.Init(row);
+                list.Add(data);
+            }
+            bagitemTable.Dispose();
+     // -- 1
             var charactersTable = ExecuteReader($"SELECT * FROM characters");
             foreach (DataRow row in charactersTable.Rows)
             {
@@ -542,6 +551,19 @@ namespace Titansiege
                 connStr = @"Database='titansiege';Data Source='127.0.0.1';Port=3306;User Id='root';Password='titansiege';charset='utf8mb4';pooling=true;useCompression=true;allowBatch=true;connectionTimeout=60;allowloadlocalinfile=true;";
                 InitConnection();
  // -- 6
+                count = (int)ExecuteScalar<long>($"SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'Titansiege' AND table_name = 'bagitem'");
+                if (count <= 0)
+                {
+                    count = ExecuteNonQuery(@"CREATE TABLE `bagitem` (
+  `id` int(11) NOT NULL COMMENT '表id',
+  `cid` int(11) NOT NULL COMMENT '角色表id',
+  `inbag` varchar(500) CHARACTER SET utf8 DEFAULT NULL COMMENT '背包内的道具及数量',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='每个玩家背包中的道具'");
+                    NDebug.Log($"创建数据表:bagitem{(count >= 0 ? "成功" : "失败")}!");
+                }
+                else NDebug.Log($"数据表:bagitem已存在!");
+ // -- 6
                 count = (int)ExecuteScalar<long>($"SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'Titansiege' AND table_name = 'characters'");
                 if (count <= 0)
                 {
@@ -600,7 +622,7 @@ namespace Titansiege
   `describle` varchar(200) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '表描述',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='配置表，将数据库所有数据表配置到这里面备用'");
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COMMENT='配置表，将数据库所有数据表配置到这里面备用'");
                     NDebug.Log($"创建数据表:config{(count >= 0 ? "成功" : "失败")}!");
                 }
                 else NDebug.Log($"数据表:config已存在!");

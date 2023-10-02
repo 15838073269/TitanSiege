@@ -92,7 +92,7 @@ namespace GF.MainGame {
         GetItemUI = (int)MDef.ItemModule + 1,
         RecycleItemUI,
         ShowBag,
-
+        ShowItemDesc,
     }
 }
 

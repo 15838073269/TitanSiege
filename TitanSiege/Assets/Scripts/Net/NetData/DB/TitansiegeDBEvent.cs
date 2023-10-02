@@ -26,7 +26,9 @@ namespace Titansiege
         /// </summary>
         public static System.Action<Net.Server.NetPlayer, byte, ushort, object[]> OnSyncProperty;
 
-        /// <summary>CharactersData类对象属性同步id索引</summary>
+        /// <summary>BagitemData类对象属性同步id索引</summary>
+		public static int BagitemData_SyncID = 0;
+		/// <summary>CharactersData类对象属性同步id索引</summary>
 		public static int CharactersData_SyncID = 0;
 		/// <summary>ConfigData类对象属性同步id索引</summary>
 		public static int ConfigData_SyncID = 0;

@@ -33,3 +33,6 @@
 尽量在状态机周期函数中加上重复调用的判定
 
 12、添加ANTICHEAT宏定义，可以开启防作弊，使用mysqldatabulid工具时，生成的代码中带有这个宏定义，只需加上检测代码和回调函数即可启动防CE修改
+
+13、异步加载图片资源时，loadasset的Object无法直接转换成sprite，需要先转换成Texture2D，然后再和sprite互转
+转换方法：Sprite.Create(t2d, new Rect(0, 0, t2d.width, t2d.height), Vector2.zero);

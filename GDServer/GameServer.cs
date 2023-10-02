@@ -69,7 +69,7 @@ namespace GDServer
         /// </summary>
         private static void LoadConfigTable() {
             //ConfigerManager.GetInstance.LoadData<NPCData>(CT.TABLE_NPC);
-            ConfigerManager.GetInstance.LoadData<SkillData>(CT.TABLE_ITEM);
+            ConfigerManager.GetInstance.LoadData<ItemData>(CT.TABLE_ITEM);
             ConfigerManager.GetInstance.LoadData<LevelUpData>(CT.TABLE_LEVEL);
             //ConfigerManager.GetInstance.LoadData<NameData>(CT.TABLE_NAME);  //名字不是每次都用，换到其他地方初始化
         }

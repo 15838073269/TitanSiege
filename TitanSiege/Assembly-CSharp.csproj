@@ -170,6 +170,7 @@
     <Compile Include="Assets\Scripts\Module\ItemModule.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Cartoon FX\Scripts\CFX_LightIntensityFade.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets02\Cartoon FX\Demo\Assets\CFX_Demo.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\Bind\TitansiegeBagitemDataBind.cs" />
     <Compile Include="Assets\Scripts\UIModule\RoleInfo.cs" />
     <Compile Include="Assets\Scripts\Module\SceneModule\TerrainProp.cs" />
     <Compile Include="Assets\Scripts\Net\NetData\Bind\TitansiegeNpcsDataBind.cs" />
@@ -215,6 +216,7 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Component\XffectComponent.cs" />
     <Compile Include="Assets\Scripts\Module\SceneModule\ChuanSong.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Cartoon FX\Scripts\CFX_ShurikenThreadFix.cs" />
+    <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDB\BagitemData.cs" />
     <Compile Include="Assets\Scripts\Module\Fight\State\AttackState.cs" />
     <Compile Include="Assets\Scripts\Module\NPC\RotateSelf.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Affectors\GravityAffector.cs" />
@@ -275,6 +277,7 @@
     <Compile Include="Assets\Scripts\Module\LoginModule.cs" />
     <Compile Include="Assets\Scripts\UIModule\LoginUIPage.cs" />
     <Compile Include="Assets\Scripts\UIModule\UIBG.cs" />
+    <Compile Include="Assets\Scripts\UIModule\ItemDescUIWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

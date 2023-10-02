@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 2596401640430744612}
   - component: {fileID: 9069182837931279949}
   m_Layer: 5
-  m_Name: equitem
+  m_Name: ItemBaseUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,9 +262,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef0b95cfdb3ff6469a6a52b05c478a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ItemColor: {fileID: 0}
-  m_ItemBtn: {fileID: 0}
-  m_ItemLevel: {fileID: 0}
+  m_ItemColor: {fileID: 9069182837931279949}
+  m_ItemBtn: {fileID: 3883384031592421987}
+  m_ItemNum: {fileID: 2219773166912790009}
 --- !u!114 &9069182837931279949
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,7 @@
-﻿using Net.Component;
+﻿using cmd;
+using GDServer.Services;
+using MySqlX.XDevAPI;
+using Net.Component;
 using Net.Server;
 using Net.Share;
 using Net.System;
@@ -18,8 +21,9 @@ namespace GDServer {
         public GDScene scene;
         public bool m_IsDie = false;
         public LevelUpDataBase m_LevelUp;
-        private SafeDictionary<int, int> m_UserItem = new SafeDictionary<int, int>();//玩家拥有的道具字典
+        public Dictionary<int, int> m_UserItem = new Dictionary<int, int>();//玩家拥有的道具字典
         public FightProp FP = new FightProp();//战斗属性
+        public BagitemData m_BagItem;
         public override void OnEnter() {
             m_IsDie = false;
             scene = Scene as GDScene;
@@ -85,6 +89,7 @@ namespace GDServer {
             base.OnSignOut();
             RemoveRpc(User);
             RemoveRpc(current);
+           
             User = null;
             current = null;
         }
@@ -93,7 +98,8 @@ namespace GDServer {
         /// </summary>
         public override void OnStart() {
             base.OnStart();
-            AddRpc(User);
+            AddRpc(User); 
+
             //AddRpc(current); //登陆成功后没有选择角色，此时为空，所以不能在这里加载，应该在选择角色后加载
         }
         public override void OnRpcExecute(RPCModel model) {
@@ -212,19 +218,28 @@ namespace GDServer {
         /// 字符串的结构为：1|1,2|1,234|10,12|1,
         /// </summary>
         /// <param name="str"></param>
-        public void InitUserItem(string str) {
-            string[] strarr = str.Split(',');
-            for (int i = 0; i < strarr.Length; i++) {
-                if (!string.IsNullOrEmpty(strarr[i])) {//保险起见，加一层判断
-                    string[] strarr1 = strarr[i].Split("|");
-                    int itemid = int.Parse(strarr1[0]);
-                    int itemnum = int.Parse(strarr1[1]);
-                    if (itemid != 0 && itemnum >= 1) {
-                        m_UserItem.Add(itemid, itemnum);
-                    } else {
-                        Debuger.LogError("道具数据解析错误，请检查");
+        public void InitUserItem() {
+            if (m_BagItem!=null) {
+                string str = m_BagItem.Inbag;
+                string[] strarr = str.Split(',');
+                for (int i = 0; i < strarr.Length; i++) {
+                    if (!string.IsNullOrEmpty(strarr[i])) {//保险起见，加一层判断
+                        string[] strarr1 = strarr[i].Split('|');
+                        int itemid = int.Parse(strarr1[0]);
+                        int itemnum = int.Parse(strarr1[1]);
+                        if (itemid != 0 && itemnum >= 1) {
+                            m_UserItem.Add(itemid, itemnum);
+                        } else {
+                            Debuger.LogError("道具数据解析错误，请检查");
+                        }
                     }
                 }
+                if (m_UserItem.Count > 0) {
+                    TServer.Instance.SendRT(this, (ushort)ProtoType.returnbagitem, str);
+                }
+            }
+            else{
+                Debuger.Log($"{UserID}角色背包为空");
             }
         }
         /// <summary>

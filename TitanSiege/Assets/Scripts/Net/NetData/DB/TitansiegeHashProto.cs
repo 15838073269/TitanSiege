@@ -1,7 +1,11 @@
 public enum TitansiegeHashProto : ushort
 {
+    /// <summary>角色表id</summary>
+    BAGITEM_CID = 4096,
+    /// <summary>背包内的道具及数量</summary>
+    BAGITEM_INBAG,
     /// <summary></summary>
-    CHARACTERS_NAME = 4096,
+    CHARACTERS_NAME = 5096,
     /// <summary>职业</summary>
     CHARACTERS_ZHIYE,
     /// <summary>等级</summary>
@@ -73,13 +77,13 @@ public enum TitansiegeHashProto : ushort
     /// <summary>是否删除</summary>
     CHARACTERS_DELROLE,
     /// <summary>表名称</summary>
-    CONFIG_TNAME = 5096,
+    CONFIG_TNAME = 6096,
     /// <summary>表计数</summary>
     CONFIG_COUNT,
     /// <summary>表描述</summary>
     CONFIG_DESCRIBLE,
     /// <summary>职业</summary>
-    NPCS_ZHIYE = 6096,
+    NPCS_ZHIYE = 7096,
     /// <summary>等级</summary>
     NPCS_LEVEL,
     /// <summary>经验</summary>
@@ -115,7 +119,7 @@ public enum TitansiegeHashProto : ushort
     /// <summary>最后登录时间</summary>
     NPCS_LASTDATE,
     /// <summary></summary>
-    USERS_USERNAME = 7096,
+    USERS_USERNAME = 8096,
     /// <summary></summary>
     USERS_PASSWORD,
     /// <summary></summary>

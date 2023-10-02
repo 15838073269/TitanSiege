@@ -5,6 +5,7 @@ namespace cmd {
         playerupdateprop = 405,
         relogin = 406,
         reenterscene = 407,
+        returnbagitem = 408,
     }
 }
 

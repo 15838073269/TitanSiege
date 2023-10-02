@@ -17,6 +17,9 @@ using GF.MainGame.Module.NPC;
 using Titansiege;
 using Cysharp.Threading.Tasks;
 using cmd;
+using GF.MainGame.UI;
+using Net.System;
+using System.Text;
 
 namespace GF.Service {
     public class UserService : Utils.Singleton<UserService> {
@@ -24,6 +27,8 @@ namespace GF.Service {
         public CharactersData m_CurrentChar = null;//当前使用的角色数据
         public int m_CurrentID = -1;//当前使用角色的本地配置表id,用来加载模型和头像
         public Player m_CurrentPlayer=null;//当前控制的角色
+        public Dictionary<int, int> m_UserItem = new Dictionary<int, int>();//当前角色的背包数据，选择角色时获取
+        
         public UnityEngine.Events.UnityAction<bool, string> OnLogin;
         public UnityEngine.Events.UnityAction<bool, string> OnRegister;
         public UnityEngine.Events.UnityAction<bool, string> OnCharacterCreate;
@@ -125,7 +130,49 @@ namespace GF.Service {
             UIMsgBox box = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox, arg) as UIMsgBox;
             box.oncloseevent += OnFailed;
         }
-
+        /// <summary>
+        /// 用来接收背包数据的命令，
+        /// 使用rpc，如果不生效，检查是否adddRPC
+        /// </summary>
+        [Net.Share.RPC(hash = (ushort)ProtoType.returnbagitem)]
+        public void ReturnBagItem(string useritemstr) {
+            if (!string.IsNullOrEmpty(useritemstr)) { 
+                InitUserItem(useritemstr);
+            }
+        }
+        /// <summary>
+        /// 将现有道具转换成字符串，数据库写入使用
+        /// </summary>
+        /// <returns></returns>
+        public string UserItemToStr() {
+            StringBuilder sb = new StringBuilder();
+            foreach (KeyValuePair<int, int> tmp in m_UserItem) {
+                if (tmp.Key != 0 && tmp.Value > 0) {
+                    sb.Append($"{tmp.Key}|{tmp.Value},");
+                }
+            }
+            return sb.ToString();
+        }
+        /// <summary>
+        /// 将数据库中的字符串道具数据初始化成字典
+        /// 字符串的结构为：1|1,2|1,234|10,12|1,
+        /// </summary>
+        /// <param name="str"></param>
+        public void InitUserItem(string str) {
+            string[] strarr = str.Split(',');
+            for (int i = 0; i < strarr.Length; i++) {
+                if (!string.IsNullOrEmpty(strarr[i])) {//保险起见，加一层判断
+                    string[] strarr1 = strarr[i].Split('|');
+                    int itemid = int.Parse(strarr1[0]);
+                    int itemnum = int.Parse(strarr1[1]);
+                    if (itemid != 0 && itemnum >= 1) {
+                        m_UserItem.Add(itemid, itemnum);
+                    } else {
+                        Debuger.LogError("道具数据解析错误，请检查");
+                    }
+                }
+            }
+        }
     }
    
 }
