@@ -39,6 +39,14 @@ namespace GF.MainGame.UI {
         /// </summary>
         public Dictionary<XiaoGuo, int> m_IntXiaoguoDic = new Dictionary<XiaoGuo,int>();
         /// <summary>
+        /// 需求值的存储，属性类效果值，一般是装备上使用，需要大量字符串匹配
+        /// </summary>
+        public Dictionary<XuQiu, Dictionary<string, EffArgs>> m_XuqiuDic = new Dictionary<XuQiu, Dictionary<string, EffArgs>>();
+        /// <summary>
+        /// 需求值的存储，使用类效果，一般是添加某个数值，例如等级
+        /// </summary>
+        public Dictionary<XuQiu, int> m_IntXuqiuDic = new Dictionary<XuQiu, int>();
+        /// <summary>
         /// 初始化方法
         /// </summary>
         /// <param name="id">物品数据配置表id</param>
@@ -102,19 +110,20 @@ namespace GF.MainGame.UI {
                     break;
             }
         }
+        
         /// <summary>
-        /// 道具效果转成字符串显示
+        /// 道具效果转成字典
         /// </summary>
         /// <returns></returns>
-        private void XiaoguoToDic(ItemDataBase data) {
-            if (data.xiaoguo1 > 0) { //无效果时，默认为0
-                XiaoguoTo(data.xiaoguo1, data.xiaoguo1zhi);
+        private void XiaoguoToDic() {
+            if (m_Data.xiaoguo1 > 0) { //无效果时，默认为0
+                XiaoguoTo(m_Data.xiaoguo1, m_Data.xiaoguo1zhi);
             }
-            if (data.xiaoguo2 > 0) {
-                XiaoguoTo(data.xiaoguo2, data.xiaoguo2zhi);
+            if (m_Data.xiaoguo2 > 0) {
+                XiaoguoTo(m_Data.xiaoguo2, m_Data.xiaoguo2zhi);
             }
-            if (data.xiaoguo3 > 0) {
-                XiaoguoTo(data.xiaoguo3, data.xiaoguo3zhi);
+            if (m_Data.xiaoguo3 > 0) {
+                XiaoguoTo(m_Data.xiaoguo3, m_Data.xiaoguo3zhi);
             }
         }
         /// <summary>
@@ -203,7 +212,85 @@ namespace GF.MainGame.UI {
                 m_PropXiaoguoDic.Add(xiaoguo, tempdic);
             }
         }
-        
+        #region 需求存字典
+        private void XuqiuToDic() {
+            if (m_Data.xuqiu1 > 0) { //无效果时，默认为0
+                XiaoguoTo(m_Data.xuqiu1, m_Data.xuqiu1zhi);
+            }
+            if (m_Data.xuqiu2 > 0) {
+                XiaoguoTo(m_Data.xuqiu2, m_Data.xuqiu2zhi);
+            }
+            if (m_Data.xuqiu3 > 0) {
+                XiaoguoTo(m_Data.xuqiu3, m_Data.xuqiu3zhi);
+            }
+        }
+
+        private void XuqiuTo(int xuqiu,string xuqiuzhi) {
+            switch ((XuQiu)xuqiu) {
+                case XuQiu.level:
+                    int num1 = int.Parse(xuqiuzhi);
+                    m_IntXuqiuDic.Add(XuQiu.level, num1);
+                    break;
+                case XuQiu.zhiye:
+                    int num2 = int.Parse(xuqiuzhi);
+                    m_IntXuqiuDic.Add(XuQiu.zhiye, num2);
+                    break;
+                case XuQiu.fightprop:
+                    XuqiuPropToDic(XuQiu.fightprop, xuqiuzhi);
+                    break;
+                case XuQiu.prop:
+                    XuqiuPropToDic(XuQiu.prop, xuqiuzhi);
+                    break;
+
+            }
+        }
+        /// <summary>
+        /// 将效果值中的addfightprop和addprop转化为字典存储
+        /// </summary>
+        /// <param name="propstr"></param>
+        /// <returns></returns>
+        private void XuqiuPropToDic(XuQiu xuqiu, string propstr) {
+            if (propstr == "0") { //效果值为空时默认为“0”
+                return;
+            }
+            if (propstr.Contains(",")) {
+                string[] strarr = propstr.Split(',');
+                if (strarr.Length > 0) {
+                    Dictionary<string, EffArgs> tempdic = new Dictionary<string, EffArgs>();
+                    for (int i = 0; i < strarr.Length; i++) {
+                        if (!string.IsNullOrEmpty(strarr[i])) {//判断一下空白，防止配表的多写
+                            string[] strarr1 = strarr[i].Split('|');
+                            EffArgs e = new EffArgs();
+                            e.effname = strarr1[0];
+                            if (strarr1[0] == "baoji" || strarr1[0] == "shanbi") {
+                                e.fvalue = float.Parse(strarr1[1]);
+                                e.ivalue = 0;
+                            } else {
+                                e.ivalue = int.Parse(strarr1[1]);
+                                e.fvalue = 0f;
+                            }
+                            tempdic.Add(strarr1[0], e);
+                        }
+                    }
+                    m_XuqiuDic.Add(xuqiu, tempdic);
+                }
+            } else { //前面已经判断过空了，所以这里只可能时只有一个元素的情况
+                Dictionary<string, EffArgs> tempdic = new Dictionary<string, EffArgs>();
+                string[] strarr = propstr.Split('|');
+                EffArgs e = new EffArgs();
+                e.effname = strarr[0];
+                if (strarr[0] == "baoji" || strarr[0] == "shanbi") {
+                    e.fvalue = float.Parse(strarr[1]);
+                    e.ivalue = 0;
+                } else {
+                    e.ivalue = int.Parse(strarr[1]);
+                    e.fvalue = 0f;
+                }
+                tempdic.Add(strarr[0], e);
+                m_XuqiuDic.Add(xuqiu, tempdic);
+            }
+        }
+        #endregion
     }
-    
+
 }

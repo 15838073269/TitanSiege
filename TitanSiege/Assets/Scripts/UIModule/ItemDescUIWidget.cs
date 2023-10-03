@@ -11,6 +11,7 @@ using GF.MainGame.Module;
 using GF.Service;
 using GF.Unity.AB;
 using GF.Unity.UI;
+using System.Collections.Generic;
 using System.Text;
 using Titansiege;
 using Unity.VisualScripting;
@@ -57,6 +58,7 @@ namespace GF.MainGame.UI {
 
         private Vector3 m_OldPos;//默认的详情栏位置，默认时，是详情和对比栏都存在的 
         private Vector3 m_OldBtnPos;
+        private ItemBaseUI m_CurrenItem;
         /// <summary>
         /// 定义部分颜色，不同品级的物品，名称颜色跟着变
         /// </summary>
@@ -65,6 +67,7 @@ namespace GF.MainGame.UI {
         public Color m_lan;
         public Color m_Zi;
         public Color m_Cheng;
+     
         private void Awake() {
             m_OldPos = m_Desc.transform.localPosition;
             m_OldBtnPos = m_BtnFather.transform.localPosition;
@@ -82,6 +85,7 @@ namespace GF.MainGame.UI {
             base.OnOpen(args);
             ItemBaseUI itemui = args as ItemBaseUI;
             if (itemui != null) {
+                m_CurrenItem = itemui;
                 //加载道具界面
                 InitDesc(itemui);
                 //处理对比装备详情
@@ -199,6 +203,7 @@ namespace GF.MainGame.UI {
                 m_CMiaoshu.text = data.desc;
                 m_CShuxing.text = PropToStr(data);
                 m_CPinzhi.text = GetPinzhiText((Pinzhi)data.pinzhi);
+                m_CXuqiu.text = XuqiuToStr(data);
             }
         }
         /// <summary>
@@ -230,7 +235,9 @@ namespace GF.MainGame.UI {
             m_Miaoshu.text = data.desc;
             m_Shuxing.text = PropToStr(data);
             m_Pinzhi.text = GetPinzhiText((Pinzhi)data.pinzhi);
+            m_Xuqiu.text = XuqiuToStr(data);
         }
+        #region 道具效果转字符串
         /// <summary>
         /// 道具效果转成字符串显示
         /// </summary>
@@ -248,8 +255,12 @@ namespace GF.MainGame.UI {
             }
             //最后处理一下逗号
             string finstr = str.ToString();
-            if (finstr.EndsWith("，")) { //判断一下最后是否为逗号
-                finstr = finstr.Substring(0, finstr.Length-1);
+            if (string.IsNullOrEmpty(finstr)) {
+                finstr = "无";
+            } else {
+                if (finstr.EndsWith("，")) { //判断一下最后是否为逗号
+                    finstr = finstr.Substring(0, finstr.Length - 1);
+                }
             }
             return finstr;
         }
@@ -318,7 +329,7 @@ namespace GF.MainGame.UI {
         /// </summary>
         /// <param name="propstr"></param>
         /// <returns></returns>
-        private string GetPropStr(string propstr) {
+        private string GetPropStr(string propstr,bool isxuqiu = false) {
             if (propstr =="0") { //效果值为空时默认为“0”
                 return "";
             }
@@ -329,48 +340,124 @@ namespace GF.MainGame.UI {
                     for (int i = 0; i < strarr.Length; i++) {
                         if (!string.IsNullOrEmpty(strarr[i])) {//判断一下空白，防止配表的多写
                             string[] strarr1 = strarr[i].Split('|');
-                            Debuger.Log(strarr1[0]+"14234134"+ strarr1[1]);
-                            str.Append(GetPropName(strarr1[0]));
+                            if (isxuqiu) {
+                                str.Append($"{GetPropName(strarr1[0])}要求");
+                            } else {
+                                str.Append(GetPropName(strarr1[0]));
+                            }
                             if (strarr1[0] == "baoji" || strarr1[0] == "shanbi") {
                                 float num = float.Parse(strarr1[1]);
-                                if (num > 0) {
-                                    str.Append($"+{num.ToString("P1")}，");//用中文逗号，好看些
-                                } else {
+                                if (isxuqiu) {
                                     str.Append($"{num.ToString("P1")}，");
+                                } else {
+                                    if (num > 0) {
+                                        str.Append($"+{num.ToString("P1")}，");//用中文逗号，好看些
+                                    } else {
+                                        str.Append($"{num.ToString("P1")}，");
+                                    }
                                 }
-                                
                             } else {
                                 int num = int.Parse(strarr1[1]);
-                                if (num > 0) {
-                                    str.Append($"+{num}，");//用中文逗号，好看些
-                                } else {
+                                if (isxuqiu) {
                                     str.Append($"{num}，");
+                                } else {
+                                    if (num > 0) {
+                                        str.Append($"+{num}，");//用中文逗号，好看些
+                                    } else {
+                                        str.Append($"{num}，");
+                                    }
                                 }
+                              
                             }
                         }
                     }
                 }
             } else { //前面已经判断过空了，所以这里只可能时只有一个元素的情况
                 string[] strarr = propstr.Split('|');
-                str.Append(GetPropName(strarr[0]));
+                if (isxuqiu) {
+                    str.Append($"{GetPropName(strarr[0])}要求");
+                } else {
+                    str.Append(GetPropName(strarr[0]));
+                }
                 if (strarr[0] == "baoji" || strarr[0] == "shanbi") {
                     float num = float.Parse(strarr[1]);
-                    if (num > 0) {
-                        str.Append($"+{num.ToString("P1")}，");//用中文逗号，好看些
-                    } else {
+                    if (isxuqiu) {
                         str.Append($"{num.ToString("P1")}，");
+                    } else {
+                        if (num > 0) {
+                            str.Append($"+{num.ToString("P1")}，");//用中文逗号，好看些
+                        } else {
+                            str.Append($"{num.ToString("P1")}，");
+                        }
                     }
                 } else {
                     int num = int.Parse(strarr[1]);
-                    if (num > 0) {
-                        str.Append($"+{num}，");//用中文逗号，好看些
-                    } else {
+                    if (isxuqiu) {
                         str.Append($"{num}，");
+                    } else {
+                        if (num > 0) {
+                            str.Append($"+{num}，");//用中文逗号，好看些
+                        } else {
+                            str.Append($"{num}，");
+                        }
                     }
                 }
             }
             return str.ToString();
         }
+        #endregion
+        #region 道具需求转字符串
+        /// <summary>
+        /// 道具效果转成字符串显示
+        /// </summary>
+        /// <returns></returns>
+        private string XuqiuToStr(ItemDataBase data) {
+            StringBuilder str = new StringBuilder();
+            if (data.xuqiu1 > 0) { //无效果时，默认为0
+                str.Append(GetXuqiuToStr(data.xuqiu1, data.xuqiu1zhi));
+            }
+            if (data.xuqiu2 > 0) {
+                str.Append(GetXuqiuToStr(data.xuqiu2, data.xuqiu2zhi));
+            }
+            if (data.xuqiu3 > 0) {
+                str.Append(GetXuqiuToStr(data.xuqiu3, data.xuqiu3zhi));
+            }
+            //最后处理一下逗号
+            string finstr = str.ToString();
+            if (string.IsNullOrEmpty(finstr)) {
+                finstr = "无";
+            } else {
+                if (finstr.EndsWith("，")) { //判断一下最后是否为逗号
+                    finstr = finstr.Substring(0, finstr.Length - 1);
+                }
+            }
+            return finstr;
+        }
+        /// <summary>
+        /// 根据效果的类型，用不同的方式处理效果值
+        /// </summary>
+        /// <param name="xiaoguo"></param>
+        /// <param name="xiaoguozhi"></param>
+        /// <returns></returns>
+        private string GetXuqiuToStr(int xuqiu, string xuqiuzhi) {
+            StringBuilder str = new StringBuilder();
+            switch ((XuQiu)xuqiu) {
+                case XuQiu.level:
+                    int num = int.Parse(xuqiuzhi);
+                    str.Append($"等级要求{num}级，");
+                    break;
+                case XuQiu.zhiye:
+                    Zhiye zy = (Zhiye)int.Parse(xuqiuzhi);
+                    str.Append($"职业要求{zy.ToString()}，");
+                    break;
+                case XuQiu.fightprop:
+                case XuQiu.prop:
+                    str.Append(GetPropStr(xuqiuzhi, true));
+                    break;
+            }
+            return str.ToString();
+        }
+        #endregion
         /// <summary>
         /// 匹配战斗数据和基础属性的名称
         /// </summary>
@@ -419,9 +506,6 @@ namespace GF.MainGame.UI {
                     str = "炼金";
                     break;
                 case "duanzao":
-                    str = "锻造";
-                    break;
-                case "zhiye":
                     str = "锻造";
                     break;
                 default:
@@ -564,11 +648,36 @@ namespace GF.MainGame.UI {
             }
             return s;
         }
+        /// <summary>
+        /// 点击卸载按钮
+        /// </summary>
+        public void OnXiezai() { 
+            
+        }
+        /// <summary>
+        /// 点击装备按钮
+        /// </summary>
+        public void OnZhuangbei() { 
+            
+        }
+        /// <summary>
+        /// 丢弃道具
+        /// </summary>
+        public void OnDiuqi() { 
+
+        }
+        /// <summary>
+        /// 使用某个道具
+        /// </summary>
+        public void OnShiyong() { 
+
+        }
         protected override void OnClose(bool bClear = false, object arg = null) {
             base.OnClose(bClear, arg);
         }
         public override void Close(bool bClear = false, object arg = null) {
             base.Close(bClear, arg);
+            m_CurrenItem = null;
         }
 
     }
