@@ -32,6 +32,9 @@ namespace GF.MainGame.Module {
         /// 所有品质的图片，目前品质为：白、绿、蓝、紫、橙，五种
         /// </summary>
         public Dictionary<int,Sprite> m_PinzhiDic;
+        /// <summary>
+        /// 当前玩家的道具
+        /// </summary>
         private List<ItemBaseUI> m_CurItem;
         /// <summary>
         /// 对象池

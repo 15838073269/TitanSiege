@@ -343,7 +343,7 @@ namespace GF.MainGame.UI {
         public override void Close(bool bClear = false, object arg = null) {
              base.Close(bClear, arg);
              m_ModelShow.gameObject.SetActive(false);
-            m_CurrentItem = null;
+             m_CurrentItem = null;
         }
         protected override void OnClose(bool bClear = false, object arg = null) {
             base.OnClose(bClear, arg);

@@ -58,14 +58,19 @@ namespace GF.MainGame.Module {
                     AppTools.Send((int)ItemEvent.ShowBag);
                     break;
                 case "skill":
+                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "功能正在开发中");
                     break;
                 case "ronglu":
+                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "功能正在开发中");
                     break;
                 case "renwu":
+                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "功能正在开发中");
                     break;
                 case "shezhi":
+                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "功能正在开发中");
                     break;
                 case "pengyou":
+                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "功能正在开发中");
                     break;
                 default:
                     break;

@@ -138,20 +138,7 @@ namespace GF.MainGame.UI {
                 }
             }
         }
-        /// <summary>
-        /// 使用道具
-        /// </summary>
-        /// <param name="item"></param>
-        public void UserItem(ItemBaseUI item) { 
-            
-        }
-        /// <summary>
-        /// 删除道具
-        /// </summary>
-        /// <param name="item"></param>
-        private void DeleItem(ItemBaseUI item) { 
-            
-        }
+       
         protected override void OnClose(bool bClear = false, object arg = null) {
             base.OnClose(bClear, arg);
         }

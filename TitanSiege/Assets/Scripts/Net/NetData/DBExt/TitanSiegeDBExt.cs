@@ -86,6 +86,8 @@ namespace Titansiege {
     public enum ConfigType{
         Users = 1,
         CharacterData = 2,
+        Npcs =3,
+        BagItem =4,
     }
 }
 

@@ -105,11 +105,18 @@ namespace GDServer.Services
                             client.current = client.CharacterList[i];
                             client.AddRpc(client.current);
                             client.UpdateFightProps();
-                            if (TitansiegeDB.I.m_BagItems.TryGetValue(client.CharacterList[i].ID, out var itemdata)&& itemdata!=null) {
+                            if (TitansiegeDB.I.m_BagItems.TryGetValue(client.CharacterList[i].ID, out var itemdata) && itemdata != null) {
                                 client.m_BagItem = itemdata;
-                                client.InitUserItem();//初始化拥有的道具
-                                
+                            } else { //如果查询对应角色没有背包，就创建一个背包数据给它
+                                BagitemData bagitemdata = new BagitemData();
+                                bagitemdata.Id = TitansiegeDB.I.GetConfigID(ConfigType.BagItem);
+                                bagitemdata.Cid = (int)client.CharacterList[i].ID;
+                                bagitemdata.Inbag = "36|5,39|5";//默认给5个小血瓶
+                                bagitemdata.NewTableRow();
+                                TitansiegeDB.I.m_BagItems.Add(client.CharacterList[i].ID, bagitemdata);
+                                client.m_BagItem = bagitemdata;
                             }
+                            client.InitUserItem();//初始化拥有的道具
                             //读取升级配置表数据
                             if (client.current.Levelupid!=0) { //0就是没配置
                                 client.m_LevelUp = ConfigerManager.GetInstance.FindData<LevelUpData>(CT.TABLE_LEVEL).FindByID((ushort)client.current.Levelupid);
