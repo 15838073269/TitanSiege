@@ -10,6 +10,7 @@ using System.IO;
 using System.Data;
 using System.Security.Principal;
 using MySqlX.XDevAPI;
+using static System.Reflection.Metadata.BlobBuilder;
 
 //文件最好与服务器端VisualStudio项目的MyCommand.cs同名且代码一样
 namespace GDServer.Services
@@ -126,6 +127,7 @@ namespace GDServer.Services
                             break;
                         }
                     }
+                    
                     break;
                 case (ushort)ProtoType.playerupdateprop://这种做法其实是有问题的，每一个网络对象创建时都会请求一次服务器，如果有100人同时在一个场景，
                                                         //一个玩家上线后，100个客户端都会同时请求一次服务器获取这个玩家数据，极容易造成大量并发，

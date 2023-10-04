@@ -19,6 +19,8 @@ using GF.MainGame.Data;
 using DG.Tweening;
 using System.Collections.Generic;
 using GF.Pool;
+using static UnityEditor.PlayerSettings;
+using System.Security.Cryptography;
 
 namespace GF.MainGame.UI {
     public class InfoUIWindow : UIWindow {
@@ -59,7 +61,6 @@ namespace GF.MainGame.UI {
         public ItemBaseUI jieziitem;
         public Button xiezibtn;
         public ItemBaseUI xieziitem;
-        public Button xiexiabtn;
         public Text yitxt;
         public Text kutxt;
         public Text wutxt;
@@ -110,10 +111,9 @@ namespace GF.MainGame.UI {
             xiezibtn.onClick.AddListener(() => {
                 ShowBtnOrPanel(ItemType.xiezi);
             });
-            xiexiabtn.onClick.AddListener(() => {
-                ClickXiexia();
-            });
+           
             AppTools.Regist<ItemType>((int)MainUIEvent.ShowXiexia, ShowXiexia);
+            AppTools.Regist<ItemBaseUI>((int)MainUIEvent.ChangeEquItem, ChangeEquItem);
             //初始化装备栏
             m_EquPosDic[ItemType.wuqi] = -1;
             m_EquPosDic[ItemType.yifu] = -1;
@@ -288,7 +288,6 @@ namespace GF.MainGame.UI {
             #endregion
             //隐藏非必要内容
             xuanze.gameObject.SetActive(false);
-            xiexiabtn.gameObject.SetActive(false);
         }
         /// <summary>
         /// 点击装备栏装备的处理
@@ -326,18 +325,201 @@ namespace GF.MainGame.UI {
                     Debuger.LogError("装备类型错误，请检查");
                     break;
             }
-            xiexiabtn.transform.position = pos;
-            xiexiabtn.transform.DOMoveX(97.4f,2f);
-            xiexiabtn.gameObject.SetActive(true);
+
         }
         /// <summary>
         /// 装备卸下按钮的处理
         /// </summary>
-        public void ClickXiexia() {
-            if (m_CurrentItem != null) {
-                m_CurrentItem.gameObject.SetActive(false);
-            } else {
-                Debuger.LogError("显示错误，m_CurrentItem为空，请检查代码");
+        public void XiexiaItem(ItemType itemtype) {
+            
+        }
+        /// <summary>
+        /// 说是交换，其实就是装备，装备有两种情况，一种在背包内直接点击装备，另一种在选择栏上，在背包中，装备栏上不一定有装备，但在选择栏上，装备栏上一定没装备，因为按照设计逻辑，只有装备栏为空才能打开选择栏
+        /// </summary>
+        /// <param name="equ"></param>
+        public void ChangeEquItem(ItemBaseUI equ) {
+            if (equ!=null) {
+                CharactersData cd = UserService.GetInstance.m_CurrentChar;
+                FightProp fp = UserService.GetInstance.m_CurrentPlayer.FP;
+               
+                switch ((ItemType)equ.m_Data.itemtype ) {
+                    case ItemType.yifu:
+                        if (cd.Yifu > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
+                            UpdateCharacterData(equ,yifuitem,cd,fp);
+                            //数据处理完毕，开始处理ui显示
+                            int tempid = equ.m_Data.id;//先缓存起来，方便交换
+                            if (equ.Num > 1) {
+                                equ.Num -= 1;
+                                //先查找背包内有没有物品，没有的话新建一个物品到背包
+                                //这个方法里已经加过数量了
+                                AppTools.Send<ItemDataBase,int>((int)ItemEvent.AddItemUIIfNoneCreateInBag, yifuitem.m_Data,1);
+
+                            } else { //只有一个,就直接把两个道具交换
+                                equ.Init(yifuitem.m_Data.id, ItemPos.inBag);
+                            }
+                            yifuitem.Init(tempid, ItemPos.inEqu);
+                        } else { //在选择栏
+                            UpdateCharacterData(equ, null, cd, fp);
+                            yifuitem.Init(equ.m_Data.id, ItemPos.inEqu);
+                        }
+                        //发送服务器计算玩家数据，这里只发送玩家数据，背包变化由另一个模块发送，这里是客户端自己计算完后发送服务端，其实安全考虑，可以改成服务端计算完成后，发给客户端同步，但同步费浏览，如果网络差的话，客户体验不太好。
+                        //先用两套计算吧，最后加个关键数据核对
+                        //todo
+                        break;
+                    case ItemType.kuzi:
+                        kuziitem.gameObject.SetActive(false);
+                        break;
+                    case ItemType.wuqi:
+                        wuqiitem.gameObject.SetActive(false);
+                        break;
+                    case ItemType.xianglian:
+                        xianglianitem.gameObject.SetActive(false);
+                        break;
+                    case ItemType.jiezi:
+                        jieziitem.gameObject.SetActive(false);
+                        break;
+                    case ItemType.xiezi:
+                        xieziitem.gameObject.SetActive(false);
+                        break;
+                    default:
+                        Debuger.LogError("卸下的装备类型错误，请检查");
+                        break;
+                }
+            }
+        }
+        /// <summary>
+        /// 处理玩家数据，m1新，m2旧
+        /// </summary>
+        /// <param name="m1"></param>
+        /// <param name="m2"></param>
+        private void UpdateCharacterData(ItemBaseUI m1, ItemBaseUI m2 = null, CharactersData cd = null, FightProp fp = null) {
+            if (cd == null) {
+                cd = UserService.GetInstance.m_CurrentChar;
+                fp = UserService.GetInstance.m_CurrentPlayer.FP;
+            }
+            //减去旧的数据
+            if (m2 != null) {
+                if (m2.m_PropXiaoguoDic.Count > 0) {//有属性类的需求
+                    foreach (KeyValuePair<XiaoGuo, Dictionary<string, EffArgs>> xiaoguo in m2.m_PropXiaoguoDic) {
+                        if (xiaoguo.Value.Count > 0) {
+                            foreach (KeyValuePair<string, EffArgs> xg in xiaoguo.Value) {
+                                switch (xg.Key) {
+                                    case "liliang":
+                                        cd.Liliang -= (short)xg.Value.ivalue;
+                                        break;
+                                    case "tizhi":
+                                        cd.Tizhi -= (short)xg.Value.ivalue;
+                                        break;
+                                    case "minjie":
+                                        cd.Minjie -= (short)xg.Value.ivalue;
+                                        break;
+                                    case "moli":
+                                        cd.Moli -= (short)xg.Value.ivalue;
+                                        break;
+                                    case "xingyun":
+                                        cd.Xingyun -= (short)xg.Value.ivalue;
+                                        break;
+                                    case "meili":
+                                        cd.Meili -= (short)xg.Value.ivalue;
+                                        break;
+                                    case "maxhp":
+                                        fp.FightMaxHp -= (short)xg.Value.ivalue;
+                                        fp.FightHP -= (short)xg.Value.ivalue;
+                                        if (fp.FightHP<=0) {
+                                            fp.FightHP = 1;
+                                        }
+                                        break;
+                                    case "maxmagic":
+                                        fp.FightMaxMagic -= (short)xg.Value.ivalue;
+                                        fp.FightMagic -= (short)xg.Value.ivalue;
+                                        if (fp.FightMagic < 0) {
+                                            fp.FightMagic = 0;
+                                        }
+                                        break;
+                                    case "gongji":
+                                        fp.Attack -= (short)xg.Value.ivalue;
+                                        break;
+                                    case "fangyu":
+                                        fp.Defense -= (short)xg.Value.ivalue;
+                                        break;
+                                    case "shanbi":
+                                        fp.Dodge -= xg.Value.fvalue;
+                                        break;
+                                    case "baoji":
+                                        fp.Crit -= xg.Value.fvalue;
+                                        break;
+                                    case "lianjin":
+                                        cd.Lianjin -= (short)xg.Value.ivalue;
+                                        break;
+                                    case "duanzao":
+                                        cd.Duanzao -= (short)xg.Value.ivalue;
+                                        break;
+                                    default:
+                                        Debuger.LogError($"未知属性{xg.Key}，无法匹配计算，请检查数据表");
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+                //加上新的数据
+                if (m1.m_PropXiaoguoDic.Count > 0) {//有属性类的需求
+                    foreach (KeyValuePair<XiaoGuo, Dictionary<string, EffArgs>> xiaoguo in m1.m_PropXiaoguoDic) {
+                        if (xiaoguo.Value.Count > 0) {
+                            foreach (KeyValuePair<string, EffArgs> xg in xiaoguo.Value) {
+                                switch (xg.Key) {
+                                    case "liliang":
+                                        cd.Liliang += (short)xg.Value.ivalue;
+                                        break;
+                                    case "tizhi":
+                                        cd.Tizhi += (short)xg.Value.ivalue;
+                                        break;
+                                    case "minjie":
+                                        cd.Minjie += (short)xg.Value.ivalue;
+                                        break;
+                                    case "moli":
+                                        cd.Moli += (short)xg.Value.ivalue;
+                                        break;
+                                    case "xingyun":
+                                        cd.Xingyun += (short)xg.Value.ivalue;
+                                        break;
+                                    case "meili":
+                                        cd.Meili += (short)xg.Value.ivalue;
+                                        break;
+                                    case "maxhp":
+                                        fp.FightMaxHp += (short)xg.Value.ivalue;
+                                        fp.FightHP += (short)xg.Value.ivalue;
+                                        break;
+                                    case "maxmagic":
+                                        fp.FightMaxMagic += (short)xg.Value.ivalue;
+                                        fp.FightMagic += (short)xg.Value.ivalue;
+                                        break;
+                                    case "gongji":
+                                        fp.Attack += (short)xg.Value.ivalue;
+                                        break;
+                                    case "fangyu":
+                                        fp.Defense += (short)xg.Value.ivalue;
+                                        break;
+                                    case "shanbi":
+                                        fp.Dodge += xg.Value.fvalue;
+                                        break;
+                                    case "baoji":
+                                        fp.Crit += xg.Value.fvalue;
+                                        break;
+                                    case "lianjin":
+                                        cd.Lianjin += (short)xg.Value.ivalue;
+                                        break;
+                                    case "duanzao":
+                                        cd.Duanzao += (short)xg.Value.ivalue;
+                                        break;
+                                    default:
+                                        Debuger.LogError($"未知属性{xg.Key}，无法匹配计算，请检查数据表");
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         public override void Close(bool bClear = false, object arg = null) {
@@ -350,6 +532,7 @@ namespace GF.MainGame.UI {
         }
         public void OnDestroy() {
             AppTools.Remove<ItemType>((int)MainUIEvent.ShowXiexia, ShowXiexia);
+            AppTools.Remove<ItemBaseUI>((int)MainUIEvent.ChangeEquItem, ChangeEquItem);
         }
     }
 }

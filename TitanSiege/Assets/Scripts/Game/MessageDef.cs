@@ -61,6 +61,7 @@ namespace GF.MainGame {
     public enum MainUIEvent {
         UpdateHpMp = (int)MDef.MainUIModule + 1,
         ShowXiexia,
+        ChangeEquItem,
     }
     public enum SkillEvent {
         ClickSkill = (int)MDef.SkillModule + 1,
@@ -89,10 +90,10 @@ namespace GF.MainGame {
 
     }
     public enum ItemEvent {
-        GetItemUI = (int)MDef.ItemModule + 1,
-        RecycleItemUI,
-        ShowBag,
+        ShowBag = (int)MDef.ItemModule + 1,
         ShowItemDesc,
+        ChangeEquItem,
+        AddItemUIIfNoneCreateInBag,
     }
 }
 

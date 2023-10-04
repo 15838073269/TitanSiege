@@ -67,7 +67,8 @@ namespace GF.MainGame.UI {
         public Color m_lan;
         public Color m_Zi;
         public Color m_Cheng;
-     
+
+        CharactersData cd;//玩家数据，方便使用
         private void Awake() {
             m_OldPos = m_Desc.transform.localPosition;
             m_OldBtnPos = m_BtnFather.transform.localPosition;
@@ -79,6 +80,7 @@ namespace GF.MainGame.UI {
             m_lan = new Color(0f, 0.44f, 1f);
             m_Zi = new Color(0.6f, 0.13f, 1f);
             m_Cheng = new Color(1f, 0.41f, 0f);
+            cd = UserService.GetInstance.m_CurrentChar;
     }
 
         protected override void OnOpen(object args = null) {
@@ -89,7 +91,6 @@ namespace GF.MainGame.UI {
                 //加载道具界面
                 InitDesc(itemui);
                 //处理对比装备详情
-                CharactersData cd = UserService.GetInstance.m_CurrentChar;
                 if (itemui.m_Pos == ItemPos.inEqu) { //在装备栏上,只显示卸下和关闭
                     m_UseBtn.gameObject.SetActive(false);
                     m_EquBtn.gameObject.SetActive(false);
@@ -121,31 +122,32 @@ namespace GF.MainGame.UI {
                             InitCompareDesc(-1);
                             break;
                     }
-                } else if(itemui.m_Pos == ItemPos.inSelect) { //在选择栏中
-                    //如果是装备，如果有已装备，就需要显示已装备项，
-                    switch (itemui.m_Data.itemtype) {
-                        case (int)ItemType.yifu:
-                            InitCompareDesc(cd.Yifu,ItemPos.inSelect);
-                            break;
-                        case (int)ItemType.kuzi:
-                            InitCompareDesc(cd.Kuzi, ItemPos.inSelect);
-                            break;
-                        case (int)ItemType.xianglian:
-                            InitCompareDesc(cd.Xianglian, ItemPos.inSelect);
-                            break;
-                        case (int)ItemType.wuqi:
-                            InitCompareDesc(cd.Wuqi, ItemPos.inSelect);
-                            break;
-                        case (int)ItemType.jiezi:
-                            InitCompareDesc(cd.Jiezi, ItemPos.inSelect);
-                            break;
-                        case (int)ItemType.xiezi:
-                            InitCompareDesc(cd.Xiezi, ItemPos.inSelect);
-                            break;
-                        default://这里正常不会进入，因为选择栏是给选择装备使用的，所以非装备，不会进入，先留着，备用
-                            InitCompareDesc(-1, ItemPos.inSelect);
-                            break;
-                    }
+                } else if(itemui.m_Pos == ItemPos.inSelect) { //在选择栏中，只有没装备时才会打开选择栏，所以这里必定不会出现对比栏
+                    InitCompareDesc(-1,ItemPos.inSelect);
+                    ////如果是装备，如果有已装备，就需要显示已装备项，
+                    //switch (itemui.m_Data.itemtype) {
+                    //    case (int)ItemType.yifu:
+                    //        InitCompareDesc(cd.Yifu,ItemPos.inSelect);
+                    //        break;
+                    //    case (int)ItemType.kuzi:
+                    //        InitCompareDesc(cd.Kuzi, ItemPos.inSelect);
+                    //        break;
+                    //    case (int)ItemType.xianglian:
+                    //        InitCompareDesc(cd.Xianglian, ItemPos.inSelect);
+                    //        break;
+                    //    case (int)ItemType.wuqi:
+                    //        InitCompareDesc(cd.Wuqi, ItemPos.inSelect);
+                    //        break;
+                    //    case (int)ItemType.jiezi:
+                    //        InitCompareDesc(cd.Jiezi, ItemPos.inSelect);
+                    //        break;
+                    //    case (int)ItemType.xiezi:
+                    //        InitCompareDesc(cd.Xiezi, ItemPos.inSelect);
+                    //        break;
+                    //    default://这里正常不会进入，因为选择栏是给选择装备使用的，所以非装备，不会进入，先留着，备用
+                    //        InitCompareDesc(-1, ItemPos.inSelect);
+                    //        break;
+                    //}
                 }
                
             }  
@@ -184,11 +186,11 @@ namespace GF.MainGame.UI {
                     m_EquBtn.gameObject.SetActive(true);
                     m_DeleBtn.gameObject.SetActive(true);
                     m_XiexiaBtn.gameObject.SetActive(false);
-                } else if (itemPos == ItemPos.inSelect) {
-                    m_UseBtn.gameObject.SetActive(false);
-                    m_EquBtn.gameObject.SetActive(true);
-                    m_DeleBtn.gameObject.SetActive(false);
-                    m_XiexiaBtn.gameObject.SetActive(false);
+                } else if (itemPos == ItemPos.inSelect) {//这里不会进入
+                    //m_UseBtn.gameObject.SetActive(false);
+                    //m_EquBtn.gameObject.SetActive(true);
+                    //m_DeleBtn.gameObject.SetActive(false);
+                    //m_XiexiaBtn.gameObject.SetActive(false);
                 }
                 ItemModule mod = AppTools.GetModule<ItemModule>(MDef.ItemModule);
                 ItemDataBase data = mod.m_Data.FindItemByID(itemid);
@@ -651,14 +653,84 @@ namespace GF.MainGame.UI {
         /// <summary>
         /// 点击卸载按钮
         /// </summary>
-        public void OnXiezai() { 
-            
+        public void OnXiexia() {
+            if (m_CurrenItem!=null) {
+               
+                switch ((ItemType)m_CurrenItem.m_Data.itemtype) {
+                    case ItemType.yifu:
+                        cd.Yifu = -1;
+                        if (m_CurrenItem.m_Pos == ItemPos.inEqu) {//如果是在装备栏上，要实时显示装备卸下的效果，其他就不用
+                            //这里隐藏就好，新装备时，会把原本ui数据替换掉
+                            m_CurrenItem.gameObject.SetActive(false);
+                        }
+                        //发送服务器，让服务器计算卸下后的玩家数据，再回传给客户端
+                        break;
+                    case ItemType.kuzi:
+                        cd.Kuzi = -1;
+                        break;
+                    case ItemType.wuqi:
+                        cd .Wuqi = -1;
+                        break;
+                    case ItemType.xianglian:
+                        cd.Xianglian = -1;
+                        break;
+                    case ItemType.jiezi:
+                        cd.Jiezi = -1;
+                        break;
+                    case ItemType.xiezi:
+                        cd.Xiezi = -1;
+                        break;
+                    default:
+                        Debuger.LogError("装备类型错误，请检查数据表数据！");
+                        break;
+                }
+            }
         }
         /// <summary>
         /// 点击装备按钮
         /// </summary>
-        public void OnZhuangbei() { 
-            
+        public void OnZhuangbei() {
+            if (m_CurrenItem != null) {
+                //判断一下是否符合装备需求
+                if (m_CurrenItem.IsCanEqu()) {
+                    switch ((ItemType)m_CurrenItem.m_Data.itemtype) {
+                        case ItemType.yifu:
+                            //装备有两种情况，一种在背包内直接点击装备，另一种在选择栏上，在背包中，装备栏上不一定有装备，但在选择栏上，装备栏上一定没装备，因为按照设计逻辑，只有装备栏为空才能打开选择栏
+                            AppTools.Send<ItemBaseUI>((int)MainUIEvent.ChangeEquItem, m_CurrenItem);
+                            break;
+                        case ItemType.kuzi:
+                            if (cd.Kuzi > 0) {
+                                OnXiexia();//先卸下装备
+                            }
+                            break;
+                        case ItemType.wuqi:
+                            if (cd.Wuqi > 0) {
+                                OnXiexia();//先卸下装备
+                            }
+                            break;
+                        case ItemType.xianglian:
+                            if (cd.Xianglian > 0) {
+                                OnXiexia();//先卸下装备
+                            }
+                            break;
+                        case ItemType.jiezi:
+                            if (cd.Jiezi > 0) {
+                                OnXiexia();//先卸下装备
+                            }
+                            break;
+                        case ItemType.xiezi:
+                            if (cd.Xiezi > 0) {
+                                OnXiexia();//先卸下装备
+                            }
+                            break;
+                        default:
+                            Debuger.LogError("装备类型错误，请检查数据表数据！");
+                            break;
+                    }
+                } else { //提示不满足装备
+                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips,"角色不满足装备需求，无法装备！");
+                }
+            }
         }
         /// <summary>
         /// 丢弃道具

@@ -9,9 +9,13 @@
 using GF.ConfigTable;
 using GF.MainGame.Data;
 using GF.MainGame.Module;
+using GF.MainGame.Module.NPC;
+using GF.Service;
 using GF.Unity.AB;
 using System.Collections.Generic;
 using System.Text;
+using Titansiege;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 namespace GF.MainGame.UI {
@@ -26,6 +30,15 @@ namespace GF.MainGame.UI {
         public Text m_ItemNum;
         public ItemDataBase m_Data;
         private int m_Num;//道具数量
+        public int Num { 
+            get { 
+                return m_Num;
+            }
+            set {
+                m_Num = value;
+                m_ItemNum.text = m_Num.ToString();
+            } 
+        }
         /// <summary>
         /// 是否在背包内，因为装备界面用的也是这个，所以判断一下，如果不在背包内，就是装备栏上的，或者在选择装备界面
         /// </summary>
@@ -46,6 +59,9 @@ namespace GF.MainGame.UI {
         /// 需求值的存储，使用类效果，一般是添加某个数值，例如等级
         /// </summary>
         public Dictionary<XuQiu, int> m_IntXuqiuDic = new Dictionary<XuQiu, int>();
+
+        
+
         /// <summary>
         /// 初始化方法
         /// </summary>
@@ -75,7 +91,7 @@ namespace GF.MainGame.UI {
                 m_ItemNum.text = num.ToString();
                 m_ItemNum.gameObject.SetActive(true);
             }
-            m_Num = num;
+            Num = num;
             m_Pos = pos;
         }
         /// <summary>
@@ -289,6 +305,121 @@ namespace GF.MainGame.UI {
                 tempdic.Add(strarr[0], e);
                 m_XuqiuDic.Add(xuqiu, tempdic);
             }
+        }
+        /// <summary>
+        /// 能否装备
+        /// </summary>
+        /// <returns></returns>
+        public bool IsCanEqu(CharactersData cd = null,FightProp fp = null) {
+            if (cd == null) {
+                cd = UserService.GetInstance.m_CurrentChar;
+                fp = UserService.GetInstance.m_CurrentPlayer.FP;
+            }
+            if (m_XuqiuDic.Count>0) {//有属性类的需求
+                foreach (KeyValuePair<XuQiu,Dictionary<string,EffArgs>> xuqiu in m_XuqiuDic) {
+                    if (xuqiu.Value.Count>0) {
+                        foreach (KeyValuePair<string, EffArgs> xq in xuqiu.Value) {
+                            switch (xq.Key) {
+                                case "liliang":
+                                    if (cd.Liliang <xq.Value.ivalue) {
+                                        return false;
+                                    }
+                                    break;
+                                case "tizhi":
+                                    if (cd.Tizhi < xq.Value.ivalue) {
+                                        return false;
+                                    }
+                                    break;
+                                case "minjie":
+                                    if (cd.Minjie < xq.Value.ivalue) {
+                                        return false;
+                                    }
+                                    break;
+                                case "moli":
+                                    if (cd.Moli < xq.Value.ivalue) {
+                                        return false;
+                                    }
+                                    break;
+                                case "xingyun":
+                                    if (cd.Xingyun < xq.Value.ivalue) {
+                                        return false;
+                                    }
+                                    break;
+                                case "meili":
+                                    if (cd.Meili < xq.Value.ivalue) {
+                                        return false;
+                                    }
+                                    break;
+                                case "maxhp":
+                                    if (fp.FightMaxHp < xq.Value.ivalue) {
+                                        return false;
+                                    }
+                                    break;
+                                case "maxmagic":
+                                    if (fp.FightMaxMagic < xq.Value.ivalue) {
+                                        return false;
+                                    }
+                                    break;
+                                case "gongji":
+                                    if (fp.Attack < xq.Value.ivalue) {
+                                        return false;
+                                    }
+                                    break;
+                                case "fangyu":
+                                    if (fp.Defense < xq.Value.ivalue) {
+                                        return false;
+                                    }
+                                    break;
+                                case "shanbi":
+                                    if (fp.Dodge < xq.Value.fvalue) {
+                                        return false;
+                                    }
+                                    break;
+                                case "baoji":
+                                    if (fp.Crit < xq.Value.fvalue) {
+                                        return false;
+                                    }
+                                    break;
+                                case "lianjin":
+                                    if (cd.Lianjin < xq.Value.ivalue) {
+                                        return false;
+                                    }
+                                    break;
+                                case "duanzao":
+                                    if (cd.Duanzao < xq.Value.ivalue) {
+                                        return false;
+                                    }
+                                    break;
+                                default:
+                                    Debuger.LogError($"位置属性{xq.Key}，无法匹配计算，请检查数据表");
+                                    return false;
+                            }
+                        }
+                    }
+                }
+            }
+            if (m_IntXuqiuDic.Count > 0) {//有数值类的需求
+                foreach (KeyValuePair<XuQiu,int> xuqiu in m_IntXuqiuDic) {
+                    switch (xuqiu.Key) {
+                        case XuQiu.level:
+                            if (cd.Level < xuqiu.Value) {
+                                return false;
+                            }
+                            break;
+                        case XuQiu.zhiye:
+                            if (cd.Zhiye != xuqiu.Value) {
+                                return false;
+                            }
+                            break;
+                        default:
+                            Debuger.LogError($"位置属性{xuqiu.Key}，无法匹配计算，请检查数据表");
+                            return false;
+                            break;
+                    }
+                }
+            }
+            //以上情况都满足，就是可以佩戴
+            return true;
         }
         #endregion
     }

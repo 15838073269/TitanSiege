@@ -53,6 +53,7 @@ namespace GF.MainGame.Module {
             m_PinzhiDic[(int)Pinzhi.cheng] = Unity.AB.ResourceManager.GetInstance.LoadResource<Sprite>("UIRes/item/cheng.PNG", bClear: false);
             AppTools.Regist((int)ItemEvent.ShowBag, ShowBag);
             AppTools.Regist<ItemBaseUI>((int)ItemEvent.ShowItemDesc, ShowItemDesc);
+            AppTools.Regist<ItemDataBase,int>((int)ItemEvent.AddItemUIIfNoneCreateInBag, AddItemUIIfNoneCreateInBag);
         }
        
         /// <summary>
@@ -66,9 +67,7 @@ namespace GF.MainGame.Module {
                 if (UserService.GetInstance.m_UserItem.Count > 0) {//这里默认没有处理已装备的装备，所以需要装备时，将数据排除掉
                     foreach (KeyValuePair<int, int> tmp in UserService.GetInstance.m_UserItem) {
                         //注意通过objectmager加载的ui路径和UImanager加载的不同
-                        ItemBaseUI itemui = ObjectManager.GetInstance.InstanceObject(AppConfig.ItemBaseUI,father:AppMain.GetInstance.uiroot.transform,bClear:false).GetComponent<ItemBaseUI>();
-                        itemui.Init(tmp.Key, ItemPos.inBag, tmp.Value);
-                        m_CurItem.Add(itemui);
+                        CreateItemUI(tmp.Key, ItemPos.inBag, tmp.Value);
                     }
                 } else { //空背包，无物品
 
@@ -107,6 +106,42 @@ namespace GF.MainGame.Module {
                 return;
             }
             UIManager.GetInstance.OpenUIWidget(AppConfig.ItemDescUIWidget,itemui);
+        }
+        /// <summary>
+        /// 查询背包里是否有这个物品，如果没有，就创建一个
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public void AddItemUIIfNoneCreateInBag(ItemDataBase data,int num = 1) {
+            ItemBaseUI itemui = null;
+            for (int i = 0; i < m_CurItem.Count; i++) {
+                if (m_CurItem[i].m_Data.id == data.id) {
+                    itemui = m_CurItem[i];
+                    itemui.Num += num;
+                    break;
+                }
+            }
+            if (itemui == null) {//如果没有就创建一个
+                itemui = CreateItemUI(data.id,ItemPos.inBag, num);
+                //创建完还要通知一下背包新增了一个物品
+                //todo
+            }
+            //发送服务器通知背包的数据变化
+            //todo
+        }
+        /// <summary>
+        /// 往背包中创建物品的ui
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="itempos"></param>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        private ItemBaseUI CreateItemUI(int id,ItemPos itempos,int num = 1) {
+            //注意通过objectmager加载的ui路径和UImanager加载的不同
+            ItemBaseUI itemui = ObjectManager.GetInstance.InstanceObject(AppConfig.ItemBaseUI, father: AppMain.GetInstance.uiroot.transform, bClear: false).GetComponent<ItemBaseUI>();
+            itemui.Init(id, itempos, num);
+            m_CurItem.Add(itemui);
+            return itemui;
         }
         public override void Release() {
             base.Release();
