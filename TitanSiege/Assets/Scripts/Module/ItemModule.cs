@@ -21,6 +21,7 @@ using GF.Unity.UI;
 using System.Text;
 using cmd;
 using GF.Service;
+using UnityEditor;
 
 namespace GF.MainGame.Module {
     public class ItemModule : GeneralModule {
@@ -38,11 +39,18 @@ namespace GF.MainGame.Module {
         private List<ItemBaseUI> m_CurItem;
         /// <summary>
         /// 对象池
-        /// objectmanger的加载中自带对象池，没必要再用对象池管理一次了
+        /// ui的对象池需要单独管理，objectmanger中的对象池是给gameobject物体用的，并没有针对ui，所以ui的对象池需要单独处理一下
         /// </summary>
-        //private ClassObjectPool<ItemBaseUI> m_Pool;
+        private ClassObjectPool<ItemBaseUI> m_Pool;
+        
+        /// <summary>
+        /// 背包的ui，存着备用
+        /// </summary>
+        private BagUIWindow m_BagUI;
         public override void Create() {
             base.Create();
+            m_Pool = new ClassObjectPool<ItemBaseUI>(50,true);
+            m_Pool.CretateObj = CreateItemUIToPool;
             m_Data = ConfigerManager.GetInstance.FindData<ItemData>(CT.TABLE_ITEM);
             m_PinzhiDic = new Dictionary<int, Sprite>();
             m_CurItem = new List<ItemBaseUI>();
@@ -53,9 +61,42 @@ namespace GF.MainGame.Module {
             m_PinzhiDic[(int)Pinzhi.cheng] = Unity.AB.ResourceManager.GetInstance.LoadResource<Sprite>("UIRes/item/cheng.PNG", bClear: false);
             AppTools.Regist((int)ItemEvent.ShowBag, ShowBag);
             AppTools.Regist<ItemBaseUI>((int)ItemEvent.ShowItemDesc, ShowItemDesc);
-            AppTools.Regist<ItemDataBase,int>((int)ItemEvent.AddItemUIIfNoneCreateInBag, AddItemUIIfNoneCreateInBag);
+            AppTools.Regist<ItemDataBase,int,bool>((int)ItemEvent.AddItemUIIfNoneCreateInBag, AddItemUIIfNoneCreateInBag);
+            AppTools.Regist<ItemBaseUI>((int)ItemEvent.RecycleItemUI, RecycleItemUI);
+            AppTools.Regist<int,ItemPos,int,ItemBaseUI>((int)ItemEvent.CreateItemUI, CreateItemUI);
         }
-       
+        /// <summary>
+        /// 给对象池使用的创建物品ui
+        /// </summary>
+        /// <returns></returns>
+        private ItemBaseUI CreateItemUIToPool() {
+            //注意通过objectmager加载的ui路径和UImanager加载的不同
+            ItemBaseUI itemui = ObjectManager.GetInstance.InstanceObject(AppConfig.ItemBaseUI, father: AppMain.GetInstance.uiroot.transform, bClear: false).GetComponent<ItemBaseUI>();
+            return itemui;
+        }
+        /// <summary>
+        /// 回收物品对象池
+        /// </summary>
+        /// <param name="itemui"></param>
+        public void RecycleItemUI(ItemBaseUI itemui) {
+            m_CurItem.Remove(itemui);//从背包存储中先删除
+            for (int i = 0; i < m_BagUI.m_Boxs.Count; i++) {//再把格子里的清理掉
+                if (m_BagUI.m_Boxs[i].Item == itemui) {
+                    m_BagUI.m_Boxs[i].Item = null; 
+                    break;
+                }
+            }
+            if (m_Pool.Recycle(itemui)) {
+                itemui.transform.SetParent(AppMain.GetInstance.m_UIPoolRoot.transform);
+                itemui.gameObject.SetActive(false);
+            } else {
+                Object.Destroy(itemui.gameObject);
+            }
+        }
+        public ItemBaseUI GetItemUI() {
+            ItemBaseUI itemui = m_Pool.GetObj(true);
+            return itemui;
+        }
         /// <summary>
         /// 显示背包ui界面
         /// </summary>
@@ -73,7 +114,11 @@ namespace GF.MainGame.Module {
 
                 }
             }
-            UIManager.GetInstance.OpenWindow(AppConfig.BagUIWindow, m_CurItem);
+            if (m_BagUI == null) {
+                m_BagUI = UIManager.GetInstance.OpenWindow(AppConfig.BagUIWindow, m_CurItem) as BagUIWindow;
+            } else {
+                UIManager.GetInstance.OpenWindow(AppConfig.BagUIWindow, m_CurItem);
+            }
         }
         
         /// <summary>
@@ -112,7 +157,7 @@ namespace GF.MainGame.Module {
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public void AddItemUIIfNoneCreateInBag(ItemDataBase data,int num = 1) {
+        public bool AddItemUIIfNoneCreateInBag(ItemDataBase data,int num = 1) {
             ItemBaseUI itemui = null;
             for (int i = 0; i < m_CurItem.Count; i++) {
                 if (m_CurItem[i].m_Data.id == data.id) {
@@ -122,10 +167,14 @@ namespace GF.MainGame.Module {
                 }
             }
             if (itemui == null) {//如果没有就创建一个
-                itemui = CreateItemUI(data.id,ItemPos.inBag, num);
-                //创建完还要通知一下背包新增了一个物品
-                //todo
+                if (!m_BagUI.m_IsFull) {
+                    itemui = CreateItemUI(data.id, ItemPos.inBag, num);
+                } else {
+                   
+                    return false;
+                }
             }
+            return true;
             //发送服务器通知背包的数据变化
             //todo
         }
@@ -138,9 +187,19 @@ namespace GF.MainGame.Module {
         /// <returns></returns>
         private ItemBaseUI CreateItemUI(int id,ItemPos itempos,int num = 1) {
             //注意通过objectmager加载的ui路径和UImanager加载的不同
-            ItemBaseUI itemui = ObjectManager.GetInstance.InstanceObject(AppConfig.ItemBaseUI, father: AppMain.GetInstance.uiroot.transform, bClear: false).GetComponent<ItemBaseUI>();
+            ItemBaseUI itemui = GetItemUI();
             itemui.Init(id, itempos, num);
+            if (!itemui.gameObject.activeSelf) {
+                itemui.gameObject.SetActive(true);
+            }
             m_CurItem.Add(itemui);
+            //处理背包
+            if (m_BagUI!=null && m_BagUI.m_IsInit) {//只有初始化之后的背包，出现变化才需要手动添加
+                BagBoxUI box = m_BagUI.ReturnEmptyBox;
+                box.Item = itemui;
+                itemui.transform.parent = box.transform;
+                itemui.transform.localPosition = Vector3.zero;
+            }
             return itemui;
         }
         public override void Release() {

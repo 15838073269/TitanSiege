@@ -79,6 +79,7 @@ namespace GDServer.Services
                 data.LastDate = TimeUtil.GetCstDateTime();//linux和win下datetime获取时间不一样，需要用这个方法保持一致
                 data.NewTableRow();
                 TitansiegeDB.I.m_CharactersData.Add(data.ID, data);
+                client.CharacterList?.Add(data);
                 TServer.Instance.SendRT(client, "CreateRoleCallBack", true, "创建成功！", data);
                 //string sql = $"insert into Characters ({data.GetCellName(1)},{data.GetCellName(2)},{data.GetCellName(3)},{data.GetCellName(4)},{data.GetCellName(5)},{data.GetCellName(6)},{data.GetCellName(7)},{data.GetCellName(8)},{data.GetCellName(9)},{data.GetCellName(10)},{data.GetCellName(11)},{data.GetCellName(12)},{data.GetCellName(13)},{data.GetCellName(14)},{data.GetCellName(15)},{data.GetCellName(16)},{data.GetCellName(17)}) values ('{data[1]}',{data[2]},{data[3]},{data[4]},{data[5]},{data[6]},{data[7]},{data[8]},{data[9]},{data[10]},{data[11]},{data[12]},{data[13]},{data[14]},{data[15]},{data[16]},'{data[17]}')";
                 //int i = MySqlHelper.ExecuteNonQuery(sql);

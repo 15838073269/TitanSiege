@@ -127,7 +127,6 @@ namespace GDServer.Services
                             break;
                         }
                     }
-                    
                     break;
                 case (ushort)ProtoType.playerupdateprop://这种做法其实是有问题的，每一个网络对象创建时都会请求一次服务器，如果有100人同时在一个场景，
                                                         //一个玩家上线后，100个客户端都会同时请求一次服务器获取这个玩家数据，极容易造成大量并发，

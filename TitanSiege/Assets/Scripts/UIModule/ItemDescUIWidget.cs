@@ -75,6 +75,8 @@ namespace GF.MainGame.UI {
             m_CloseBtn.onClick.AddListener(()=>{
                 Close();
             });
+            m_EquBtn.onClick.AddListener(OnZhuangbei);
+            m_XiexiaBtn.onClick.AddListener(OnXiexia);
             m_Bai = new Color(0.79f, 0.77f, 0.77f);
             m_Lv = new Color(0.22f, 0.83f, 0.16f);
             m_lan = new Color(0f, 0.44f, 1f);
@@ -88,68 +90,50 @@ namespace GF.MainGame.UI {
             ItemBaseUI itemui = args as ItemBaseUI;
             if (itemui != null) {
                 m_CurrenItem = itemui;
-                //加载道具界面
-                InitDesc(itemui);
+                bool isequ = false;
                 //处理对比装备详情
-                if (itemui.m_Pos == ItemPos.inEqu) { //在装备栏上,只显示卸下和关闭
-                    m_UseBtn.gameObject.SetActive(false);
-                    m_EquBtn.gameObject.SetActive(false);
-                    m_DeleBtn.gameObject.SetActive(false);
-                    m_XiexiaBtn.gameObject.SetActive(true);
-                    //m_CloseBtn.gameObject.SetActive(true);  //关闭按钮永远不会隐藏
-                } else if (itemui.m_Pos == ItemPos.inBag) {//在背包中
+                if (itemui.m_Pos == ItemPos.inBag) {//在背包中
                     //如果是装备，如果有已装备，就需要显示已装备项，
                     switch (itemui.m_Data.itemtype) {
                         case (int)ItemType.yifu:
                             InitCompareDesc(cd.Yifu);
+                            isequ = true;
                             break;
                         case (int)ItemType.kuzi:
                             InitCompareDesc(cd.Kuzi);
+                            isequ = true;
                             break;
                         case (int)ItemType.xianglian:
                             InitCompareDesc(cd.Xianglian);
+                            isequ = true;
                             break;
                         case (int)ItemType.wuqi:
                             InitCompareDesc(cd.Wuqi);
+                            isequ = true;
                             break;
                         case (int)ItemType.jiezi:
                             InitCompareDesc(cd.Jiezi);
+                            isequ = true;
                             break;
                         case (int)ItemType.xiezi:
                             InitCompareDesc(cd.Xiezi);
+                            isequ = true;
                             break;
                         default:
                             InitCompareDesc(-1);
+                            isequ = false;
                             break;
                     }
-                } else if(itemui.m_Pos == ItemPos.inSelect) { //在选择栏中，只有没装备时才会打开选择栏，所以这里必定不会出现对比栏
-                    InitCompareDesc(-1,ItemPos.inSelect);
-                    ////如果是装备，如果有已装备，就需要显示已装备项，
-                    //switch (itemui.m_Data.itemtype) {
-                    //    case (int)ItemType.yifu:
-                    //        InitCompareDesc(cd.Yifu,ItemPos.inSelect);
-                    //        break;
-                    //    case (int)ItemType.kuzi:
-                    //        InitCompareDesc(cd.Kuzi, ItemPos.inSelect);
-                    //        break;
-                    //    case (int)ItemType.xianglian:
-                    //        InitCompareDesc(cd.Xianglian, ItemPos.inSelect);
-                    //        break;
-                    //    case (int)ItemType.wuqi:
-                    //        InitCompareDesc(cd.Wuqi, ItemPos.inSelect);
-                    //        break;
-                    //    case (int)ItemType.jiezi:
-                    //        InitCompareDesc(cd.Jiezi, ItemPos.inSelect);
-                    //        break;
-                    //    case (int)ItemType.xiezi:
-                    //        InitCompareDesc(cd.Xiezi, ItemPos.inSelect);
-                    //        break;
-                    //    default://这里正常不会进入，因为选择栏是给选择装备使用的，所以非装备，不会进入，先留着，备用
-                    //        InitCompareDesc(-1, ItemPos.inSelect);
-                    //        break;
-                    //}
+                } else if (itemui.m_Pos == ItemPos.inSelect) { //在选择栏中，只有没装备时才会打开选择栏，所以这里必定不会出现对比栏
+                    InitCompareDesc(-1);
+                    isequ = true;//选择栏上只有装备
+
+                } else if (itemui.m_Pos == ItemPos.inEqu) {
+                    InitCompareDesc(-1);
+                    isequ = true;//装备栏上只有装备
                 }
-               
+                //加载道具界面
+                InitDesc(itemui,isequ);
             }  
         }
         /// <summary>
@@ -162,17 +146,6 @@ namespace GF.MainGame.UI {
                     m_Desc.transform.localPosition = new Vector3(m_OldPos.x-300f, m_OldPos.y, m_OldPos.z);
                     m_BtnFather.transform.localPosition = new Vector3(m_OldBtnPos.x-300f,m_OldBtnPos.y,m_OldBtnPos.z);
                     m_CompareDesc.gameObject.SetActive(false);
-                    if (itemPos == ItemPos.inBag) {//选择栏是给选择装备使用的，所以非装备，不会进入
-                        m_UseBtn.gameObject.SetActive(true);
-                        m_EquBtn.gameObject.SetActive(false);
-                        m_DeleBtn.gameObject.SetActive(true);
-                        m_XiexiaBtn.gameObject.SetActive(false);
-                    } else if (itemPos == ItemPos.inSelect) {
-                        m_UseBtn.gameObject.SetActive(true);
-                        m_EquBtn.gameObject.SetActive(false);
-                        m_DeleBtn.gameObject.SetActive(false);
-                        m_XiexiaBtn.gameObject.SetActive(false);
-                    }
                 }
                 return;
             } else {
@@ -195,7 +168,7 @@ namespace GF.MainGame.UI {
                 ItemModule mod = AppTools.GetModule<ItemModule>(MDef.ItemModule);
                 ItemDataBase data = mod.m_Data.FindItemByID(itemid);
                 //开始写入数据到对比栏
-                m_ItemColor.sprite = mod.m_PinzhiDic[data.pinzhi];
+                m_CItemColor.sprite = mod.m_PinzhiDic[data.pinzhi];
                 //打开背包一瞬间可能同一时间加载大量图片，所以选择异步加载
                 //这里没必要缓存，因为内部加载已经做了缓存了
                 ResourceManager.GetInstance.AsyncLoadResource(data.pic, OnLoadSpriteOver, LoadResPriority.RES_HIGHT, bclear: false);
@@ -204,7 +177,7 @@ namespace GF.MainGame.UI {
                 m_CItemType.text = GetItemTypeName((ItemType)data.itemtype);
                 m_CMiaoshu.text = data.desc;
                 m_CShuxing.text = PropToStr(data);
-                m_CPinzhi.text = GetPinzhiText((Pinzhi)data.pinzhi);
+                m_CPinzhi.text = GetPinzhiText((Pinzhi)data.pinzhi,true);
                 m_CXuqiu.text = XuqiuToStr(data);
             }
         }
@@ -224,7 +197,29 @@ namespace GF.MainGame.UI {
         /// 将数据写入详情栏
         /// </summary>
         /// <param name="ui"></param>
-        private void InitDesc(ItemBaseUI ui) {
+        private void InitDesc(ItemBaseUI ui,bool isequ = false) {
+            if (ui.m_Pos == ItemPos.inBag) {//在背包中
+                if (isequ) {//如果是装备
+                    m_UseBtn.gameObject.SetActive(false);
+                    m_EquBtn.gameObject.SetActive(true);
+                } else {
+                    m_UseBtn.gameObject.SetActive(true);
+                    m_EquBtn.gameObject.SetActive(false);
+                }
+                m_DeleBtn.gameObject.SetActive(true);
+                m_XiexiaBtn.gameObject.SetActive(false);
+            } else if (ui.m_Pos == ItemPos.inSelect) {//选择栏是给选择装备使用的，所以非装备，不会进入
+                m_UseBtn.gameObject.SetActive(true);
+                m_EquBtn.gameObject.SetActive(false);
+                m_DeleBtn.gameObject.SetActive(false);
+                m_XiexiaBtn.gameObject.SetActive(false);
+            }else if (ui.m_Pos == ItemPos.inEqu) { //在装备栏上,只显示卸下和关闭
+                m_UseBtn.gameObject.SetActive(false);
+                m_EquBtn.gameObject.SetActive(false);
+                m_DeleBtn.gameObject.SetActive(false);
+                m_XiexiaBtn.gameObject.SetActive(true);
+                //m_CloseBtn.gameObject.SetActive(true);  //关闭按钮永远不会隐藏
+            }
             ItemDataBase data = ui.m_Data;
             //开始写入数据到对比栏
             m_ItemColor.sprite = ui.m_ItemColor.sprite;
@@ -655,15 +650,9 @@ namespace GF.MainGame.UI {
         /// </summary>
         public void OnXiexia() {
             if (m_CurrenItem!=null) {
-               
                 switch ((ItemType)m_CurrenItem.m_Data.itemtype) {
                     case ItemType.yifu:
                         cd.Yifu = -1;
-                        if (m_CurrenItem.m_Pos == ItemPos.inEqu) {//如果是在装备栏上，要实时显示装备卸下的效果，其他就不用
-                            //这里隐藏就好，新装备时，会把原本ui数据替换掉
-                            m_CurrenItem.gameObject.SetActive(false);
-                        }
-                        //发送服务器，让服务器计算卸下后的玩家数据，再回传给客户端
                         break;
                     case ItemType.kuzi:
                         cd.Kuzi = -1;
@@ -684,6 +673,14 @@ namespace GF.MainGame.UI {
                         Debuger.LogError("装备类型错误，请检查数据表数据！");
                         break;
                 }
+                bool isxiexia = AppTools.SendReturn<ItemBaseUI,bool>((int)MainUIEvent.XiexiaItem,m_CurrenItem);
+                if (isxiexia && m_CurrenItem.m_Pos == ItemPos.inEqu) {//如果是在装备栏上，要实时显示装备卸下的效果，其实只有装备栏上才会显示卸下，也不会有其他情况
+                    //这里隐藏就好，新装备时，会把原本ui数据替换掉
+                    m_CurrenItem.gameObject.SetActive(false);
+                }
+                Close();
+                //发送服务器，让服务器计算卸下后的玩家数据
+                //todo
             }
         }
         /// <summary>
@@ -693,40 +690,8 @@ namespace GF.MainGame.UI {
             if (m_CurrenItem != null) {
                 //判断一下是否符合装备需求
                 if (m_CurrenItem.IsCanEqu()) {
-                    switch ((ItemType)m_CurrenItem.m_Data.itemtype) {
-                        case ItemType.yifu:
-                            //装备有两种情况，一种在背包内直接点击装备，另一种在选择栏上，在背包中，装备栏上不一定有装备，但在选择栏上，装备栏上一定没装备，因为按照设计逻辑，只有装备栏为空才能打开选择栏
-                            AppTools.Send<ItemBaseUI>((int)MainUIEvent.ChangeEquItem, m_CurrenItem);
-                            break;
-                        case ItemType.kuzi:
-                            if (cd.Kuzi > 0) {
-                                OnXiexia();//先卸下装备
-                            }
-                            break;
-                        case ItemType.wuqi:
-                            if (cd.Wuqi > 0) {
-                                OnXiexia();//先卸下装备
-                            }
-                            break;
-                        case ItemType.xianglian:
-                            if (cd.Xianglian > 0) {
-                                OnXiexia();//先卸下装备
-                            }
-                            break;
-                        case ItemType.jiezi:
-                            if (cd.Jiezi > 0) {
-                                OnXiexia();//先卸下装备
-                            }
-                            break;
-                        case ItemType.xiezi:
-                            if (cd.Xiezi > 0) {
-                                OnXiexia();//先卸下装备
-                            }
-                            break;
-                        default:
-                            Debuger.LogError("装备类型错误，请检查数据表数据！");
-                            break;
-                    }
+                    AppTools.Send<ItemBaseUI>((int)MainUIEvent.ChangeEquItem, m_CurrenItem);
+                    Close();
                 } else { //提示不满足装备
                     UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips,"角色不满足装备需求，无法装备！");
                 }

@@ -42,10 +42,7 @@ namespace GF.MainGame {
             //单独在Awake中调用一次，不直接写在Start中，是为了以后拓展，有其他代码需要在start执行时方便排序
             Init();
         }
-        /// <summary>
-        /// 角色的唯一id，网络游戏开发常用，所以存在这里
-        /// </summary>
-        public int Uid = 0;
+
         void Start() {
             //Init();
         }
@@ -154,6 +151,7 @@ namespace GF.MainGame {
         public UIRoot uiroot = null;
         public Camera uicamera = null;
         public GameObject eventsystem = null;
+        public GameObject m_UIPoolRoot=null;
         /// <summary>
         /// 初始化服务层模块
         /// </summary>
@@ -169,7 +167,10 @@ namespace GF.MainGame {
                 uicamera = uiroot.FindUI("UICamera").GetComponent<Camera>();
                 eventsystem = uiroot.FindUI("EventSystem");
             }
-
+            if (m_UIPoolRoot == null) {
+                m_UIPoolRoot = new GameObject("UIPoolRoot");
+                m_UIPoolRoot.transform.SetParent(uiroot.transform);
+            }
             UIManager.GetInstance.Init(uiroot, uicamera, eventsystem);//UI预制体的路径
             UIManager.MainPage = AppConfig.MainUIPage;
             UIManager.MainScene = AppConfig.MainScene;
@@ -273,7 +274,7 @@ namespace GF.MainGame {
             Exit("作弊！");
             Application.Quit();
         }
-        private async void OnFailed2(object args = null) {
+        private void OnFailed2(object args = null) {
             Exit("网络问题退出！");
             Application.Quit();
         }

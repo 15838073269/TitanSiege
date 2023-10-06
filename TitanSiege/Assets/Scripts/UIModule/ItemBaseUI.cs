@@ -36,7 +36,15 @@ namespace GF.MainGame.UI {
             }
             set {
                 m_Num = value;
+                if (m_Num == 1) {
+                    m_ItemNum.gameObject.SetActive(false);
+                } else {
+                    if (!m_ItemNum.gameObject.activeSelf) {
+                        m_ItemNum.gameObject.SetActive(true);
+                    }
+                }
                 m_ItemNum.text = m_Num.ToString();
+
             } 
         }
         /// <summary>
@@ -93,6 +101,8 @@ namespace GF.MainGame.UI {
             }
             Num = num;
             m_Pos = pos;
+            XiaoguoToDic();
+            XuqiuToDic();
         }
         /// <summary>
         /// 异步资源加载完成后的回调
@@ -110,21 +120,22 @@ namespace GF.MainGame.UI {
             m_ItemBtn.onClick.AddListener(ClickBtn);
         }
         private void ClickBtn() {
-            switch (m_Pos) {
-                case ItemPos.inBag: //在背包内的点击，就显示装备介绍的UI
-                    AppTools.Send<ItemBaseUI>((int)ItemEvent.ShowItemDesc,this);
-                    break;
-                case ItemPos.inEqu:
-                    //在装备栏上，显示卸下按钮
-                    AppTools.Send<ItemType>((int)MainUIEvent.ShowXiexia, (ItemType)m_Data.itemtype);
-                    break;
-                case ItemPos.inSelect:
-
-                    break;
-                default:
-                    Debuger.Log("未知道具位置，请检查参数！");
-                    break;
-            }
+            AppTools.Send<ItemBaseUI>((int)ItemEvent.ShowItemDesc, this);
+            //switch (m_Pos) {
+            //    case ItemPos.inBag: //在背包内的点击，就显示装备介绍的UI
+            //        AppTools.Send<ItemBaseUI>((int)ItemEvent.ShowItemDesc,this);
+            //        break;
+            //    case ItemPos.inEqu:
+            //        //在装备栏上，显示卸下按钮
+            //        AppTools.Send<ItemBaseUI>((int)ItemEvent.ShowItemDesc, this);
+            //        break;
+            //    case ItemPos.inSelect:
+            //        AppTools.Send<ItemBaseUI>((int)ItemEvent.ShowItemDesc, this);
+            //        break;
+            //    default:
+            //        Debuger.Log("未知道具位置，请检查参数！");
+            //        break;
+            //}
         }
         
         /// <summary>
@@ -231,13 +242,13 @@ namespace GF.MainGame.UI {
         #region 需求存字典
         private void XuqiuToDic() {
             if (m_Data.xuqiu1 > 0) { //无效果时，默认为0
-                XiaoguoTo(m_Data.xuqiu1, m_Data.xuqiu1zhi);
+                XuqiuTo(m_Data.xuqiu1, m_Data.xuqiu1zhi);
             }
             if (m_Data.xuqiu2 > 0) {
-                XiaoguoTo(m_Data.xuqiu2, m_Data.xuqiu2zhi);
+                XuqiuTo(m_Data.xuqiu2, m_Data.xuqiu2zhi);
             }
             if (m_Data.xuqiu3 > 0) {
-                XiaoguoTo(m_Data.xuqiu3, m_Data.xuqiu3zhi);
+                XuqiuTo(m_Data.xuqiu3, m_Data.xuqiu3zhi);
             }
         }
 
@@ -414,7 +425,6 @@ namespace GF.MainGame.UI {
                         default:
                             Debuger.LogError($"位置属性{xuqiu.Key}，无法匹配计算，请检查数据表");
                             return false;
-                            break;
                     }
                 }
             }

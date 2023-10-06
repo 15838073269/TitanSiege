@@ -15,6 +15,7 @@ using Titansiege;
 namespace GF.MainGame.Module {
     public class MainUIModule : GeneralModule {
         MainUIPage m_Ui;
+        InfoUIWindow m_Info;
         public override void Create() {
             base.Create();
             ///测试使用，生产可以注释
@@ -22,11 +23,9 @@ namespace GF.MainGame.Module {
                 TestScene t1 = new TestScene();
             }
             Show();
-            ///创建血条模块
-            if (!AppTools.HasModule(MDef.HPModule)) {
-                AppTools.CreateModule<HPModule>(MDef.HPModule);
-            }
             AppTools.Regist((int)MainUIEvent.UpdateHpMp, UpdateHpMp);
+            AppTools.Regist<ItemBaseUI>((int)MainUIEvent.ChangeEquItem, ChangeEquItem);
+            AppTools.Regist<ItemBaseUI,bool>((int)MainUIEvent.XiexiaItem, XiexiaItem);
         } 
         public override void Release() {
             base.Release();
@@ -42,6 +41,19 @@ namespace GF.MainGame.Module {
                 AppTools.CreateModule<FightModule>(MDef.FightModule);
             }
             m_Ui.Init();
+            ///创建血条模块
+            if (!AppTools.HasModule(MDef.HPModule)) {
+                AppTools.CreateModule<HPModule>(MDef.HPModule);
+            }
+            InitUI();
+        }
+        public void InitUI() {
+            //这里需要先加载一次，不然背包模块没启动，数据过不来
+            AppTools.Send((int)ItemEvent.ShowBag);
+            UIManager.GetInstance.CloseWindow(AppConfig.BagUIWindow);
+            //这里需要先加载一次，不然角色信息模块没启动，装备数据过不来
+            m_Info = UIManager.GetInstance.OpenWindow(AppConfig.InfoUIWindow) as InfoUIWindow;
+            UIManager.GetInstance.CloseWindow(AppConfig.InfoUIWindow);
         }
         /// <summary>
         /// 更新ui面板上的血条和蓝条
@@ -75,6 +87,12 @@ namespace GF.MainGame.Module {
                 default:
                     break;
             }
+        }
+        private void ChangeEquItem(ItemBaseUI itemui) {
+            m_Info.ChangeEquItem(itemui);
+        }
+        private bool XiexiaItem(ItemBaseUI itemui) {
+           return m_Info.XiexiaItem(itemui);
         }
     }
 }

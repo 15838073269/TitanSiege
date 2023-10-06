@@ -352,6 +352,66 @@ namespace GF.Msg {
             }
         }
         #endregion
+        #region Funciton Remove
+
+        public static void Remove<T1>(int ownermodule, int key, Func<T1> func) {
+            Dictionary<int, IMessageAction> msgdatadic;
+            if (m_ActionDic.TryGetValue(ownermodule, out msgdatadic)) {
+                if (msgdatadic.TryGetValue(key, out var previousAction)) {
+                    if (previousAction is MessageFun<T1> messageData) {
+                        messageData.MessageEvents -= func;
+                    }
+                } else {
+                    Debuger.LogWarning($"{ownermodule}模块不存在{key}方法，请检查");
+                }
+            } else {
+                Debuger.LogWarning($"{ownermodule}模块还未启动或者不存在，请检查");
+            }
+        }
+        public static void Remove<T1, T2>(int ownermodule, int key, Func<T1, T2> func) {
+            Dictionary<int, IMessageAction> msgdatadic;
+            if (m_ActionDic.TryGetValue(ownermodule, out msgdatadic)) {
+                if (msgdatadic.TryGetValue(key, out var previousAction)) {
+                    if (previousAction is MessageFun<T1, T2> messageData) {
+                        messageData.MessageEvents -= func;
+                    }
+                } else {
+                    Debuger.LogWarning($"{ownermodule}模块不存在{key}方法，请检查");
+                }
+            } else {
+                Debuger.LogWarning($"{ownermodule}模块还未启动或者不存在，请检查");
+            }
+        }
+        public static void Remove<T1, T2, T3>(int ownermodule, int key, Func<T1, T2, T3> func) {
+            Dictionary<int, IMessageAction> msgdatadic;
+            if (m_ActionDic.TryGetValue(ownermodule, out msgdatadic)) {
+                if (msgdatadic.TryGetValue(key, out var previousAction)) {
+                    if (previousAction is MessageFun<T1, T2, T3> messageData) {
+                        messageData.MessageEvents -= func;
+                    }
+                } else {
+                    Debuger.LogWarning($"{ownermodule}模块不存在{key}方法，请检查");
+                }
+            } else {
+                Debuger.LogWarning($"{ownermodule}模块还未启动或者不存在，请检查");
+            }
+        }
+        public static void Remove<T1, T2, T3, T4>(int ownermodule, int key, Func<T1, T2, T3, T4> func) {
+            Dictionary<int, IMessageAction> msgdatadic;
+            if (m_ActionDic.TryGetValue(ownermodule, out msgdatadic)) {
+                if (msgdatadic.TryGetValue(key, out var previousAction)) {
+                    if (previousAction is MessageFun<T1, T2, T3, T4> messageData) {
+                        messageData.MessageEvents -= func;
+                    }
+                } else {
+                    Debuger.LogWarning($"{ownermodule}模块不存在{key}方法，请检查");
+                }
+            } else {
+                Debuger.LogWarning($"{ownermodule}模块还未启动或者不存在，请检查");
+            }
+        }
+        #endregion
+
         #region Action Remove
         public static void Remove(int ownermodule, int key, Action action) {
             Dictionary<int, IMessageAction> msgdatadic;

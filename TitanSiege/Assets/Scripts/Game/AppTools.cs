@@ -98,6 +98,22 @@ namespace GF.MainGame {
         public static T4 SendReturn<T1, T2, T3, T4>(int enumid, T1 arg1, T2 arg2, T3 arg3) {
             return MsgCenter.SendMessageWithReturn<T1, T2, T3, T4>(GetModuleId(enumid), enumid, arg1, arg2, arg3);
         }
+        public static void Remove<T1>(int enumid, Func<T1> actionname) {
+            MsgCenter.Remove<T1>(GetModuleId(enumid), enumid, actionname);
+
+        }
+        public static void Remove<T1, T2>(int enumid, Func<T1, T2> actionname) {
+            MsgCenter.Remove<T1, T2>(GetModuleId(enumid), enumid, actionname);
+
+        }
+        public static void Remove<T1, T2, T3>(int enumid, Func<T1, T2, T3> actionname) {
+            MsgCenter.Remove<T1, T2, T3>(GetModuleId(enumid), enumid, actionname);
+
+        }
+        public static void Remove<T1, T2, T3, T4>(int enumid, Func<T1, T2, T3, T4> actionname) {
+            MsgCenter.Remove<T1, T2, T3, T4>(GetModuleId(enumid), enumid, actionname);
+
+        }
         #endregion
         public static void RemoveModuleMsg(int moduleid) {
             MsgCenter.ClearModuleMsg(moduleid);

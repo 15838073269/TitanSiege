@@ -130,10 +130,11 @@ namespace GF.MainGame.Module {
             data = new CharactersData();
             data.Name = cpp.createname.text;
             data.Level = (sbyte)nb.Level;
+            data.Levelupid = (int)nb.Levelupid;
             data.Zhiye = (sbyte)nb.Zhiye;
             data.Exp =nb.Exp;
-            data.Shengming = (short)nb.Shengming;
-            data.Fali = (short)nb.Fali;
+            data.Shengming = (int)nb.Shengming;
+            data.Fali = (int)nb.Fali;
             data.Tizhi = (short)nb.Tizhi;
             data.Liliang = (short)nb.Liliang;
             data.Minjie = (short)nb.Minjie;
@@ -145,6 +146,12 @@ namespace GF.MainGame.Module {
             data.Jinbi = nb.Jinbi;
             data.Zuanshi = nb.Zuanshi;
             data.Chenghao = nb.Chenghao;
+            data.Yifu = -1;
+            data.Kuzi = -1;
+            data.Wuqi = -1;
+            data.Xianglian = -1;
+            data.Jiezi = -1;
+            data.Xiezi = -1;
             StringBuilder friendstr = new StringBuilder();
             if (nb.Friends.Count > 0) {
                 for (int i = 0; i < nb.Friends.Count; i++) {
@@ -181,7 +188,7 @@ namespace GF.MainGame.Module {
                 return;
             }
             //先把选择的角色数据id传给服务器，让服务器知道选择的哪个角色
-            ClientBase.Instance.SendRT((ushort)ProtoType.selectcharacter,UserService.GetInstance.m_CurrentChar.ID);
+             ClientBase.Instance.SendRT((ushort)ProtoType.selectcharacter,UserService.GetInstance.m_CurrentChar.ID);
             //加载游戏主城场景
             AppTools.Send<string>((int)SceneEvent.OpenScene, AppConfig.MainScene);
 

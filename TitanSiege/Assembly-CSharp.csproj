@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\UIModule\VideoUIPage.cs" />
     <Compile Include="Assets\Scripts\ConfigTable\ExcelBase.cs" />
     <Compile Include="Assets\Ultimate 10 Plus Shaders\Shaders\Plexus\Plexus.cs" />
+    <Compile Include="Assets\Scripts\UIModule\BagBoxUI.cs" />
     <Compile Include="Assets\Scripts\Net\NetData\Bind\TitansiegeCharactersDataBind.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Component\SimpleRotate.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\FT_Slasher_volume01\SampleScene\Scripts\Button.cs" />

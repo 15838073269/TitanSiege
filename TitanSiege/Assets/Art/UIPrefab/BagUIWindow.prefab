@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6371223681729541887}
   - component: {fileID: 7516592375454950255}
   - component: {fileID: 6709748401947425165}
+  - component: {fileID: 4334093691883336892}
   m_Layer: 5
   m_Name: gezi (46)
   m_TagString: Untagged
@@ -33,10 +34,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 46
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 204, y: -745}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7516592375454950255
 CanvasRenderer:
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4334093691883336892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146528326335826101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &150783519313773689
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,6 +101,7 @@ GameObject:
   - component: {fileID: 7390429472732994941}
   - component: {fileID: 4358785152388203130}
   - component: {fileID: 8218276634070367239}
+  - component: {fileID: 527706848327087523}
   m_Layer: 5
   m_Name: gezi (76)
   m_TagString: Untagged
@@ -109,10 +124,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 76
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 606, y: -1150}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4358785152388203130
 CanvasRenderer:
@@ -152,6 +167,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &527706848327087523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150783519313773689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &190757242096081598
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,6 +191,7 @@ GameObject:
   - component: {fileID: 3892261952379705782}
   - component: {fileID: 825110506165073880}
   - component: {fileID: 3046446716775582258}
+  - component: {fileID: 8241940879447218553}
   m_Layer: 5
   m_Name: gezi (82)
   m_TagString: Untagged
@@ -185,10 +214,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 82
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 204, y: -1285}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &825110506165073880
 CanvasRenderer:
@@ -228,6 +257,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8241940879447218553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190757242096081598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &499331222655886698
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +281,7 @@ GameObject:
   - component: {fileID: 9108599232350685413}
   - component: {fileID: 7238568256319072171}
   - component: {fileID: 9183821305296006266}
+  - component: {fileID: 4696342944201705409}
   m_Layer: 5
   m_Name: gezi (57)
   m_TagString: Untagged
@@ -261,10 +304,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 57
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 472, y: -880}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7238568256319072171
 CanvasRenderer:
@@ -304,6 +347,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4696342944201705409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499331222655886698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &735634778195929613
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,6 +371,7 @@ GameObject:
   - component: {fileID: 1249713795163680390}
   - component: {fileID: 7946921035941574549}
   - component: {fileID: 8293734211124680041}
+  - component: {fileID: 8453554493390259744}
   m_Layer: 5
   m_Name: gezi (54)
   m_TagString: Untagged
@@ -337,10 +394,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 54
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 70, y: -880}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7946921035941574549
 CanvasRenderer:
@@ -380,6 +437,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8453554493390259744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735634778195929613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &913055422236126512
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,6 +461,7 @@ GameObject:
   - component: {fileID: 4604629625207912502}
   - component: {fileID: 4512780431884041837}
   - component: {fileID: 1718031712571942457}
+  - component: {fileID: 7958286796778387730}
   m_Layer: 5
   m_Name: gezi (26)
   m_TagString: Untagged
@@ -413,10 +484,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1142, y: -340}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4512780431884041837
 CanvasRenderer:
@@ -456,6 +527,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7958286796778387730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913055422236126512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &1268736394385593283
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,6 +551,7 @@ GameObject:
   - component: {fileID: 1919694250586404755}
   - component: {fileID: 3600230601795199966}
   - component: {fileID: 7718562461253273142}
+  - component: {fileID: 683106757481290947}
   m_Layer: 5
   m_Name: gezi (37)
   m_TagString: Untagged
@@ -489,10 +574,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 204, y: -610}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3600230601795199966
 CanvasRenderer:
@@ -532,6 +617,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &683106757481290947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268736394385593283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &1443506560597702461
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,6 +641,7 @@ GameObject:
   - component: {fileID: 1854153016585888566}
   - component: {fileID: 2224808353578627414}
   - component: {fileID: 4263256851874348612}
+  - component: {fileID: 748644841782572191}
   m_Layer: 5
   m_Name: gezi (53)
   m_TagString: Untagged
@@ -565,10 +664,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 53
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1142, y: -745}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2224808353578627414
 CanvasRenderer:
@@ -608,6 +707,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &748644841782572191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443506560597702461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &1503775046273035967
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,6 +731,7 @@ GameObject:
   - component: {fileID: 4254393013531833731}
   - component: {fileID: 6131058950090993450}
   - component: {fileID: 5754673926211537639}
+  - component: {fileID: 5981414048248937379}
   m_Layer: 5
   m_Name: gezi (32)
   m_TagString: Untagged
@@ -641,10 +754,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 740, y: -475}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6131058950090993450
 CanvasRenderer:
@@ -684,6 +797,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5981414048248937379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503775046273035967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &1511984493271774249
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,6 +821,7 @@ GameObject:
   - component: {fileID: 4062217827240737734}
   - component: {fileID: 2984785456705917495}
   - component: {fileID: 5332681195425955974}
+  - component: {fileID: 2311959623113920548}
   m_Layer: 5
   m_Name: gezi (68)
   m_TagString: Untagged
@@ -717,10 +844,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 68
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 740, y: -1015}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2984785456705917495
 CanvasRenderer:
@@ -760,6 +887,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2311959623113920548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511984493271774249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &1590403352593710518
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,6 +911,7 @@ GameObject:
   - component: {fileID: 986073287920592642}
   - component: {fileID: 6227522882460717543}
   - component: {fileID: 7172003516954841719}
+  - component: {fileID: 8918561740590612225}
   m_Layer: 5
   m_Name: gezi (33)
   m_TagString: Untagged
@@ -793,10 +934,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 874, y: -475}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6227522882460717543
 CanvasRenderer:
@@ -836,6 +977,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8918561740590612225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590403352593710518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &1701348475779668775
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,6 +1001,7 @@ GameObject:
   - component: {fileID: 6909459928130159706}
   - component: {fileID: 2967080018154680175}
   - component: {fileID: 2579274302633209895}
+  - component: {fileID: 6954361294420906458}
   m_Layer: 5
   m_Name: gezi (15)
   m_TagString: Untagged
@@ -869,10 +1024,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 874, y: -205}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2967080018154680175
 CanvasRenderer:
@@ -912,6 +1067,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6954361294420906458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701348475779668775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &1788643496524505353
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,6 +1091,7 @@ GameObject:
   - component: {fileID: 9037308576909308808}
   - component: {fileID: 5788670343595291051}
   - component: {fileID: 6149558420048129692}
+  - component: {fileID: 2657946487820610019}
   m_Layer: 5
   m_Name: gezi (21)
   m_TagString: Untagged
@@ -945,10 +1114,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 472, y: -340}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5788670343595291051
 CanvasRenderer:
@@ -988,6 +1157,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2657946487820610019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788643496524505353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &1854638417712376548
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,6 +1181,7 @@ GameObject:
   - component: {fileID: 3002956251042477996}
   - component: {fileID: 3877831752605745658}
   - component: {fileID: 4327275255752081489}
+  - component: {fileID: 3658770865093551740}
   m_Layer: 5
   m_Name: gezi (80)
   m_TagString: Untagged
@@ -1021,10 +1204,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 80
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1142, y: -1150}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3877831752605745658
 CanvasRenderer:
@@ -1064,6 +1247,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3658770865093551740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854638417712376548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &2133647405116061367
 GameObject:
   m_ObjectHideFlags: 0
@@ -1197,6 +1393,7 @@ GameObject:
   - component: {fileID: 3650658343244370618}
   - component: {fileID: 9125762785786831634}
   - component: {fileID: 4677015109147931283}
+  - component: {fileID: 8769895243767280367}
   m_Layer: 5
   m_Name: gezi (77)
   m_TagString: Untagged
@@ -1219,10 +1416,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 77
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 740, y: -1150}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9125762785786831634
 CanvasRenderer:
@@ -1262,6 +1459,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8769895243767280367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2204000946273766796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &2215575084065973841
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,6 +1483,7 @@ GameObject:
   - component: {fileID: 8885273131274660064}
   - component: {fileID: 6144900278845518120}
   - component: {fileID: 1273601715668513086}
+  - component: {fileID: 9029195887457245678}
   m_Layer: 5
   m_Name: gezi (44)
   m_TagString: Untagged
@@ -1295,10 +1506,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 44
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1142, y: -610}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6144900278845518120
 CanvasRenderer:
@@ -1338,6 +1549,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &9029195887457245678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2215575084065973841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &2321883610647260058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1349,6 +1573,7 @@ GameObject:
   - component: {fileID: 4744111903493652936}
   - component: {fileID: 7586483537390800541}
   - component: {fileID: 7414692940684948900}
+  - component: {fileID: 7286410334785534413}
   m_Layer: 5
   m_Name: gezi (74)
   m_TagString: Untagged
@@ -1371,10 +1596,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 74
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 338, y: -1150}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7586483537390800541
 CanvasRenderer:
@@ -1414,6 +1639,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7286410334785534413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2321883610647260058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &2352990583602365946
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,6 +1663,7 @@ GameObject:
   - component: {fileID: 3365713373686185027}
   - component: {fileID: 4242492762232427651}
   - component: {fileID: 208520912968736273}
+  - component: {fileID: 3248225507114682681}
   m_Layer: 5
   m_Name: gezi (1)
   m_TagString: Untagged
@@ -1447,10 +1686,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 204, y: -70}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4242492762232427651
 CanvasRenderer:
@@ -1490,6 +1729,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3248225507114682681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2352990583602365946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &2486911270626468178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,6 +1753,7 @@ GameObject:
   - component: {fileID: 8872586054459738878}
   - component: {fileID: 6329563212614605357}
   - component: {fileID: 2450797185056385546}
+  - component: {fileID: 7943218440150407455}
   m_Layer: 5
   m_Name: gezi (59)
   m_TagString: Untagged
@@ -1523,10 +1776,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 59
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 740, y: -880}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6329563212614605357
 CanvasRenderer:
@@ -1566,6 +1819,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7943218440150407455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2486911270626468178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &2511713484887929897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,6 +1843,7 @@ GameObject:
   - component: {fileID: 3499097897359884684}
   - component: {fileID: 6908945036985797582}
   - component: {fileID: 2607298603758724844}
+  - component: {fileID: 6529956329323092900}
   m_Layer: 5
   m_Name: gezi (86)
   m_TagString: Untagged
@@ -1599,10 +1866,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 86
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 740, y: -1285}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6908945036985797582
 CanvasRenderer:
@@ -1642,6 +1909,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6529956329323092900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2511713484887929897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &2558181857942301894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1653,6 +1933,7 @@ GameObject:
   - component: {fileID: 4683023437118795623}
   - component: {fileID: 4327315522178413585}
   - component: {fileID: 8765256285505653282}
+  - component: {fileID: 8310635256673424130}
   m_Layer: 5
   m_Name: gezi (60)
   m_TagString: Untagged
@@ -1675,10 +1956,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 60
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 874, y: -880}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4327315522178413585
 CanvasRenderer:
@@ -1718,6 +1999,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8310635256673424130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2558181857942301894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &2673237622421324905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,6 +2023,7 @@ GameObject:
   - component: {fileID: 4946778204277469521}
   - component: {fileID: 4329092466486660110}
   - component: {fileID: 2302596647922146597}
+  - component: {fileID: 5724483394069466439}
   m_Layer: 5
   m_Name: gezi (3)
   m_TagString: Untagged
@@ -1751,10 +2046,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 472, y: -70}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4329092466486660110
 CanvasRenderer:
@@ -1794,6 +2089,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5724483394069466439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2673237622421324905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &2742119692960959961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1805,6 +2113,7 @@ GameObject:
   - component: {fileID: 3490919115169792154}
   - component: {fileID: 5670023661101858867}
   - component: {fileID: 3258772686563966099}
+  - component: {fileID: 1747040741915263022}
   m_Layer: 5
   m_Name: gezi (79)
   m_TagString: Untagged
@@ -1827,10 +2136,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 79
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1008, y: -1150}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5670023661101858867
 CanvasRenderer:
@@ -1870,6 +2179,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1747040741915263022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742119692960959961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &2794846139455797965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1881,6 +2203,7 @@ GameObject:
   - component: {fileID: 8358175848442904030}
   - component: {fileID: 8997041180339077132}
   - component: {fileID: 9076231387592969462}
+  - component: {fileID: 2056740515741802093}
   m_Layer: 5
   m_Name: gezi (12)
   m_TagString: Untagged
@@ -1903,10 +2226,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 472, y: -205}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8997041180339077132
 CanvasRenderer:
@@ -1946,6 +2269,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2056740515741802093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2794846139455797965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &2897798039752999297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1957,6 +2293,7 @@ GameObject:
   - component: {fileID: 3511870023930534965}
   - component: {fileID: 666546278958585327}
   - component: {fileID: 8223414519802186989}
+  - component: {fileID: 1078741610681376243}
   m_Layer: 5
   m_Name: gezi (72)
   m_TagString: Untagged
@@ -1979,10 +2316,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 72
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 70, y: -1150}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &666546278958585327
 CanvasRenderer:
@@ -2022,6 +2359,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1078741610681376243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2897798039752999297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &3030077241732677522
 GameObject:
   m_ObjectHideFlags: 0
@@ -2205,6 +2555,7 @@ GameObject:
   - component: {fileID: 3412674289994896518}
   - component: {fileID: 2683331566318490791}
   - component: {fileID: 8402009990078996640}
+  - component: {fileID: 221155526807163633}
   m_Layer: 5
   m_Name: gezi (70)
   m_TagString: Untagged
@@ -2227,10 +2578,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 70
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1008, y: -1015}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2683331566318490791
 CanvasRenderer:
@@ -2270,6 +2621,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &221155526807163633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3225021238518471532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &3253468232491251943
 GameObject:
   m_ObjectHideFlags: 0
@@ -2281,6 +2645,7 @@ GameObject:
   - component: {fileID: 7742693004581902540}
   - component: {fileID: 5125045137786283746}
   - component: {fileID: 6381117814775377149}
+  - component: {fileID: 4211232641911863520}
   m_Layer: 5
   m_Name: gezi (84)
   m_TagString: Untagged
@@ -2303,10 +2668,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 84
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 472, y: -1285}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5125045137786283746
 CanvasRenderer:
@@ -2346,6 +2711,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4211232641911863520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3253468232491251943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &3316857484436527207
 GameObject:
   m_ObjectHideFlags: 0
@@ -2357,6 +2735,7 @@ GameObject:
   - component: {fileID: 2334594698490435025}
   - component: {fileID: 4782042699602193971}
   - component: {fileID: 3157734541270247587}
+  - component: {fileID: 5335046077577882587}
   m_Layer: 5
   m_Name: gezi (61)
   m_TagString: Untagged
@@ -2379,10 +2758,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 61
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1008, y: -880}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4782042699602193971
 CanvasRenderer:
@@ -2422,6 +2801,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5335046077577882587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3316857484436527207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &3349408460048863745
 GameObject:
   m_ObjectHideFlags: 0
@@ -2433,6 +2825,7 @@ GameObject:
   - component: {fileID: 7716074280955573264}
   - component: {fileID: 2667654587071824269}
   - component: {fileID: 5623000265365477334}
+  - component: {fileID: 1834607022874196047}
   m_Layer: 5
   m_Name: gezi (41)
   m_TagString: Untagged
@@ -2455,10 +2848,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 740, y: -610}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2667654587071824269
 CanvasRenderer:
@@ -2498,6 +2891,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1834607022874196047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3349408460048863745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &3388488681334307113
 GameObject:
   m_ObjectHideFlags: 0
@@ -2509,6 +2915,7 @@ GameObject:
   - component: {fileID: 6023655814704110037}
   - component: {fileID: 6996448215106734126}
   - component: {fileID: 2867523896031191511}
+  - component: {fileID: 3784848434722460162}
   m_Layer: 5
   m_Name: gezi (19)
   m_TagString: Untagged
@@ -2531,10 +2938,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 204, y: -340}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6996448215106734126
 CanvasRenderer:
@@ -2574,6 +2981,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3784848434722460162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3388488681334307113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &3612758631862931155
 GameObject:
   m_ObjectHideFlags: 0
@@ -3199,6 +3619,7 @@ GameObject:
   - component: {fileID: 896325860671057630}
   - component: {fileID: 2883136274052061584}
   - component: {fileID: 7100315315975736376}
+  - component: {fileID: 630330263291850562}
   m_Layer: 5
   m_Name: gezi (85)
   m_TagString: Untagged
@@ -3221,10 +3642,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 85
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 606, y: -1285}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2883136274052061584
 CanvasRenderer:
@@ -3264,6 +3685,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &630330263291850562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3634756834076537982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &3954669355946622033
 GameObject:
   m_ObjectHideFlags: 0
@@ -3275,6 +3709,7 @@ GameObject:
   - component: {fileID: 5837121752895049141}
   - component: {fileID: 7506399076155924432}
   - component: {fileID: 3548281128435452693}
+  - component: {fileID: 6627766656076706805}
   m_Layer: 5
   m_Name: gezi (49)
   m_TagString: Untagged
@@ -3297,10 +3732,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 49
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 606, y: -745}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7506399076155924432
 CanvasRenderer:
@@ -3340,6 +3775,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6627766656076706805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3954669355946622033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &4080175872789511597
 GameObject:
   m_ObjectHideFlags: 0
@@ -3447,6 +3895,7 @@ GameObject:
   - component: {fileID: 7918565833923829709}
   - component: {fileID: 5339597306770423067}
   - component: {fileID: 515962018833963751}
+  - component: {fileID: 6649298525489640413}
   m_Layer: 5
   m_Name: gezi (23)
   m_TagString: Untagged
@@ -3469,10 +3918,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 740, y: -340}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5339597306770423067
 CanvasRenderer:
@@ -3512,6 +3961,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6649298525489640413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4103882799316259953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &4131674369339463284
 GameObject:
   m_ObjectHideFlags: 0
@@ -3523,6 +3985,7 @@ GameObject:
   - component: {fileID: 8151942725228602845}
   - component: {fileID: 3634946728716566470}
   - component: {fileID: 245244550720171874}
+  - component: {fileID: 3413362402562299637}
   m_Layer: 5
   m_Name: gezi (17)
   m_TagString: Untagged
@@ -3545,10 +4008,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1142, y: -205}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3634946728716566470
 CanvasRenderer:
@@ -3588,6 +4051,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3413362402562299637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4131674369339463284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &4167557971173569386
 GameObject:
   m_ObjectHideFlags: 0
@@ -3675,6 +4151,7 @@ GameObject:
   - component: {fileID: 4610416721579798702}
   - component: {fileID: 7499155601806316686}
   - component: {fileID: 5005762970093772647}
+  - component: {fileID: 7872915446983570580}
   m_Layer: 5
   m_Name: gezi (81)
   m_TagString: Untagged
@@ -3697,10 +4174,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 81
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 70, y: -1285}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7499155601806316686
 CanvasRenderer:
@@ -3740,6 +4217,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7872915446983570580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4238966570590204678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &4374348466695910239
 GameObject:
   m_ObjectHideFlags: 0
@@ -3751,6 +4241,7 @@ GameObject:
   - component: {fileID: 7212459954219579734}
   - component: {fileID: 7900707577203888270}
   - component: {fileID: 6900852849931105789}
+  - component: {fileID: 2089309298603075014}
   m_Layer: 5
   m_Name: gezi (58)
   m_TagString: Untagged
@@ -3773,10 +4264,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 58
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 606, y: -880}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7900707577203888270
 CanvasRenderer:
@@ -3816,6 +4307,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2089309298603075014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4374348466695910239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &4402854590687340929
 GameObject:
   m_ObjectHideFlags: 0
@@ -3827,6 +4331,7 @@ GameObject:
   - component: {fileID: 605860853692601269}
   - component: {fileID: 7708274532125276135}
   - component: {fileID: 954215118722372529}
+  - component: {fileID: 8337740006260905764}
   m_Layer: 5
   m_Name: gezi (78)
   m_TagString: Untagged
@@ -3849,10 +4354,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 78
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 874, y: -1150}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7708274532125276135
 CanvasRenderer:
@@ -3892,6 +4397,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8337740006260905764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402854590687340929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &4469104049925904486
 GameObject:
   m_ObjectHideFlags: 0
@@ -3925,7 +4443,6 @@ RectTransform:
   m_Children:
   - {fileID: 3612758631862931154}
   - {fileID: 6481932284438908838}
-  - {fileID: 5339287983153923687}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3993,99 +4510,100 @@ MonoBehaviour:
   m_Zhuangbei: {fileID: 4469104051244273847}
   m_Renwu: {fileID: 4469104051547502980}
   m_Zawu: {fileID: 4469104050691952905}
-  m_Gezi:
-  - {fileID: 6095331644030049178}
-  - {fileID: 208520912968736273}
-  - {fileID: 6405589011772284246}
-  - {fileID: 2302596647922146597}
-  - {fileID: 6141117800249975128}
-  - {fileID: 143652941836630197}
-  - {fileID: 8502902788473365007}
-  - {fileID: 619445493621381464}
-  - {fileID: 3690837453651792795}
-  - {fileID: 5620300073746004142}
-  - {fileID: 1934542229290941347}
-  - {fileID: 3340326157631828721}
-  - {fileID: 9076231387592969462}
-  - {fileID: 7019432099162178856}
-  - {fileID: 1731712677302050054}
-  - {fileID: 2579274302633209895}
-  - {fileID: 9007031702511484809}
-  - {fileID: 245244550720171874}
-  - {fileID: 6903702586645524571}
-  - {fileID: 2867523896031191511}
-  - {fileID: 4458219606759427894}
-  - {fileID: 6149558420048129692}
-  - {fileID: 8467601236019501835}
-  - {fileID: 515962018833963751}
-  - {fileID: 4221496396364363456}
-  - {fileID: 4669336976949109069}
-  - {fileID: 1718031712571942457}
-  - {fileID: 556922343231933513}
-  - {fileID: 3405704274526014576}
-  - {fileID: 7165452598259767486}
-  - {fileID: 8198795935103162969}
-  - {fileID: 2007163392716871173}
-  - {fileID: 5754673926211537639}
-  - {fileID: 7172003516954841719}
-  - {fileID: 7948253230645981440}
-  - {fileID: 4084643128613629605}
-  - {fileID: 1763926094738807904}
-  - {fileID: 7718562461253273142}
-  - {fileID: 7164575928171631392}
-  - {fileID: 8925184029345290816}
-  - {fileID: 2678577455687269453}
-  - {fileID: 5623000265365477334}
-  - {fileID: 2674531440440008481}
-  - {fileID: 7477536610112724252}
-  - {fileID: 1273601715668513086}
-  - {fileID: 1533793541208863740}
-  - {fileID: 6709748401947425165}
-  - {fileID: 5833218519727493286}
-  - {fileID: 6449571053243956066}
-  - {fileID: 3548281128435452693}
-  - {fileID: 8320642239671709590}
-  - {fileID: 1866937954887308347}
-  - {fileID: 7380875377527689953}
-  - {fileID: 4263256851874348612}
-  - {fileID: 8293734211124680041}
-  - {fileID: 8288934514675880764}
-  - {fileID: 8663801260356838842}
-  - {fileID: 9183821305296006266}
-  - {fileID: 6900852849931105789}
-  - {fileID: 2450797185056385546}
-  - {fileID: 8765256285505653282}
-  - {fileID: 3157734541270247587}
-  - {fileID: 6220506377637895095}
-  - {fileID: 5404652956242820856}
-  - {fileID: 2817380681968075191}
-  - {fileID: 6168030706937327005}
-  - {fileID: 6413968835234823170}
-  - {fileID: 8286826665070256340}
-  - {fileID: 5332681195425955974}
-  - {fileID: 7400614969071055520}
-  - {fileID: 8402009990078996640}
-  - {fileID: 9002895315599930687}
-  - {fileID: 8223414519802186989}
-  - {fileID: 8732888345119159458}
-  - {fileID: 7414692940684948900}
-  - {fileID: 1633631765309844310}
-  - {fileID: 8218276634070367239}
-  - {fileID: 4677015109147931283}
-  - {fileID: 954215118722372529}
-  - {fileID: 3258772686563966099}
-  - {fileID: 4327275255752081489}
-  - {fileID: 5005762970093772647}
-  - {fileID: 3046446716775582258}
-  - {fileID: 5623285472129159023}
-  - {fileID: 6381117814775377149}
-  - {fileID: 7100315315975736376}
-  - {fileID: 2607298603758724844}
-  - {fileID: 8579900100081492010}
-  - {fileID: 436440021421513570}
-  - {fileID: 1264109706180464356}
+  m_Boxs:
+  - {fileID: 704856864243626992}
+  - {fileID: 3248225507114682681}
+  - {fileID: 5031474742221568999}
+  - {fileID: 5724483394069466439}
+  - {fileID: 7220209248383443244}
+  - {fileID: 6434977816654103649}
+  - {fileID: 995998294653092987}
+  - {fileID: 3555990501269748739}
+  - {fileID: 2516825734290375953}
+  - {fileID: 6307255441701624127}
+  - {fileID: 6960343509147173508}
+  - {fileID: 2376819090698212063}
+  - {fileID: 2056740515741802093}
+  - {fileID: 6489400733110363105}
+  - {fileID: 6550693943749464745}
+  - {fileID: 6954361294420906458}
+  - {fileID: 9093853163491702320}
+  - {fileID: 3413362402562299637}
+  - {fileID: 6264307588739513300}
+  - {fileID: 3784848434722460162}
+  - {fileID: 2073025498555810146}
+  - {fileID: 2657946487820610019}
+  - {fileID: 3789819710111454994}
+  - {fileID: 6649298525489640413}
+  - {fileID: 8979238335532826167}
+  - {fileID: 5426247274159766986}
+  - {fileID: 7958286796778387730}
+  - {fileID: 7131601939545193621}
+  - {fileID: 4367752840756244025}
+  - {fileID: 2158880678127817462}
+  - {fileID: 795233363574968505}
+  - {fileID: 6322921072441011156}
+  - {fileID: 5981414048248937379}
+  - {fileID: 8918561740590612225}
+  - {fileID: 5047056177329516571}
+  - {fileID: 70248830043146009}
+  - {fileID: 4896643967817909683}
+  - {fileID: 683106757481290947}
+  - {fileID: 7367882635559542353}
+  - {fileID: 4134540249557378264}
+  - {fileID: 2097516716385455283}
+  - {fileID: 1834607022874196047}
+  - {fileID: 4467895030892267900}
+  - {fileID: 7312140857288615358}
+  - {fileID: 9029195887457245678}
+  - {fileID: 943345073662789713}
+  - {fileID: 4334093691883336892}
+  - {fileID: 6461657991063010129}
+  - {fileID: 3724952391451255016}
+  - {fileID: 6627766656076706805}
+  - {fileID: 4300182519488647242}
+  - {fileID: 6374647097765373410}
+  - {fileID: 518603232435029768}
+  - {fileID: 748644841782572191}
+  - {fileID: 8453554493390259744}
+  - {fileID: 5539183729970111305}
+  - {fileID: 6280806400760494823}
+  - {fileID: 4696342944201705409}
+  - {fileID: 2089309298603075014}
+  - {fileID: 7943218440150407455}
+  - {fileID: 8310635256673424130}
+  - {fileID: 5335046077577882587}
+  - {fileID: 8333727207780599432}
+  - {fileID: 6298477801409710389}
+  - {fileID: 4836384889288242563}
+  - {fileID: 3020925658759345096}
+  - {fileID: 4524663496557184141}
+  - {fileID: 8254679279411709563}
+  - {fileID: 2311959623113920548}
+  - {fileID: 2364611796445293721}
+  - {fileID: 221155526807163633}
+  - {fileID: 130006257023672708}
+  - {fileID: 1078741610681376243}
+  - {fileID: 7150486611338565906}
+  - {fileID: 7286410334785534413}
+  - {fileID: 1308414201020136854}
+  - {fileID: 527706848327087523}
+  - {fileID: 8769895243767280367}
+  - {fileID: 8337740006260905764}
+  - {fileID: 1747040741915263022}
+  - {fileID: 3658770865093551740}
+  - {fileID: 7872915446983570580}
+  - {fileID: 8241940879447218553}
+  - {fileID: 1707171959942680876}
+  - {fileID: 4211232641911863520}
+  - {fileID: 630330263291850562}
+  - {fileID: 6529956329323092900}
+  - {fileID: 4882272038278065608}
+  - {fileID: 601963116355690519}
+  - {fileID: 2254270874305263078}
   m_Jinbi: {fileID: 5463444832404252213}
   m_Zhuanshi: {fileID: 6739820097618528160}
+  m_IsFull: 0
 --- !u!1 &4469104050089584438
 GameObject:
   m_ObjectHideFlags: 0
@@ -5712,6 +6230,7 @@ GameObject:
   - component: {fileID: 464164687823053022}
   - component: {fileID: 1552573203707104092}
   - component: {fileID: 6405589011772284246}
+  - component: {fileID: 5031474742221568999}
   m_Layer: 5
   m_Name: gezi (2)
   m_TagString: Untagged
@@ -5734,10 +6253,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 338, y: -70}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1552573203707104092
 CanvasRenderer:
@@ -5777,6 +6296,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5031474742221568999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568198697871810735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &4670215867968731564
 GameObject:
   m_ObjectHideFlags: 0
@@ -5788,6 +6320,7 @@ GameObject:
   - component: {fileID: 8903685014265304484}
   - component: {fileID: 8949925806516315753}
   - component: {fileID: 6168030706937327005}
+  - component: {fileID: 3020925658759345096}
   m_Layer: 5
   m_Name: gezi (65)
   m_TagString: Untagged
@@ -5810,10 +6343,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 65
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 338, y: -1015}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8949925806516315753
 CanvasRenderer:
@@ -5853,6 +6386,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3020925658759345096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4670215867968731564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &4788723196415091509
 GameObject:
   m_ObjectHideFlags: 0
@@ -5864,6 +6410,7 @@ GameObject:
   - component: {fileID: 40666197378389659}
   - component: {fileID: 880728806387816343}
   - component: {fileID: 7164575928171631392}
+  - component: {fileID: 7367882635559542353}
   m_Layer: 5
   m_Name: gezi (38)
   m_TagString: Untagged
@@ -5886,10 +6433,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 38
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 338, y: -610}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &880728806387816343
 CanvasRenderer:
@@ -5929,6 +6476,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7367882635559542353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4788723196415091509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &4792664145361397811
 GameObject:
   m_ObjectHideFlags: 0
@@ -5940,6 +6500,7 @@ GameObject:
   - component: {fileID: 2932771983915941229}
   - component: {fileID: 7053765691090578297}
   - component: {fileID: 4084643128613629605}
+  - component: {fileID: 70248830043146009}
   m_Layer: 5
   m_Name: gezi (35)
   m_TagString: Untagged
@@ -5962,10 +6523,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1142, y: -475}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7053765691090578297
 CanvasRenderer:
@@ -6005,6 +6566,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &70248830043146009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4792664145361397811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &4896410907940944656
 GameObject:
   m_ObjectHideFlags: 0
@@ -6016,6 +6590,7 @@ GameObject:
   - component: {fileID: 62441998538497565}
   - component: {fileID: 7674651460926067436}
   - component: {fileID: 1866937954887308347}
+  - component: {fileID: 6374647097765373410}
   m_Layer: 5
   m_Name: gezi (51)
   m_TagString: Untagged
@@ -6038,10 +6613,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 51
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 874, y: -745}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7674651460926067436
 CanvasRenderer:
@@ -6081,6 +6656,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6374647097765373410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4896410907940944656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &4964232386085450302
 GameObject:
   m_ObjectHideFlags: 0
@@ -6092,6 +6680,7 @@ GameObject:
   - component: {fileID: 4358929434645022724}
   - component: {fileID: 1079137945113350365}
   - component: {fileID: 1633631765309844310}
+  - component: {fileID: 1308414201020136854}
   m_Layer: 5
   m_Name: gezi (75)
   m_TagString: Untagged
@@ -6114,10 +6703,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 75
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 472, y: -1150}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1079137945113350365
 CanvasRenderer:
@@ -6157,6 +6746,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1308414201020136854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4964232386085450302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &4998143972231824075
 GameObject:
   m_ObjectHideFlags: 0
@@ -6168,6 +6770,7 @@ GameObject:
   - component: {fileID: 6735781989688815849}
   - component: {fileID: 672702835583599953}
   - component: {fileID: 4458219606759427894}
+  - component: {fileID: 2073025498555810146}
   m_Layer: 5
   m_Name: gezi (20)
   m_TagString: Untagged
@@ -6190,10 +6793,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 338, y: -340}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &672702835583599953
 CanvasRenderer:
@@ -6233,6 +6836,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2073025498555810146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4998143972231824075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &5019715680407968885
 GameObject:
   m_ObjectHideFlags: 0
@@ -6365,6 +6981,7 @@ GameObject:
   - component: {fileID: 3502883446024997914}
   - component: {fileID: 8013955974046292492}
   - component: {fileID: 8286826665070256340}
+  - component: {fileID: 8254679279411709563}
   m_Layer: 5
   m_Name: gezi (67)
   m_TagString: Untagged
@@ -6387,10 +7004,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 67
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 606, y: -1015}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8013955974046292492
 CanvasRenderer:
@@ -6430,6 +7047,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8254679279411709563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5069101828289103248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &5371899750319145243
 GameObject:
   m_ObjectHideFlags: 0
@@ -6441,6 +7071,7 @@ GameObject:
   - component: {fileID: 5240435957742977221}
   - component: {fileID: 4451366801322156223}
   - component: {fileID: 8925184029345290816}
+  - component: {fileID: 4134540249557378264}
   m_Layer: 5
   m_Name: gezi (39)
   m_TagString: Untagged
@@ -6463,10 +7094,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 472, y: -610}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4451366801322156223
 CanvasRenderer:
@@ -6506,6 +7137,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4134540249557378264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5371899750319145243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &5512319443776100163
 GameObject:
   m_ObjectHideFlags: 0
@@ -6590,6 +7234,7 @@ GameObject:
   - component: {fileID: 1556360233049006298}
   - component: {fileID: 6265961029681596482}
   - component: {fileID: 8732888345119159458}
+  - component: {fileID: 7150486611338565906}
   m_Layer: 5
   m_Name: gezi (73)
   m_TagString: Untagged
@@ -6612,10 +7257,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 73
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 204, y: -1150}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6265961029681596482
 CanvasRenderer:
@@ -6655,6 +7300,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7150486611338565906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726622283965186486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &5731087265295969309
 GameObject:
   m_ObjectHideFlags: 0
@@ -6666,6 +7324,7 @@ GameObject:
   - component: {fileID: 512101705647450272}
   - component: {fileID: 3832794690309249801}
   - component: {fileID: 7019432099162178856}
+  - component: {fileID: 6489400733110363105}
   m_Layer: 5
   m_Name: gezi (13)
   m_TagString: Untagged
@@ -6688,10 +7347,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 606, y: -205}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3832794690309249801
 CanvasRenderer:
@@ -6731,6 +7390,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6489400733110363105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5731087265295969309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &5799436701416634164
 GameObject:
   m_ObjectHideFlags: 0
@@ -6818,6 +7490,7 @@ GameObject:
   - component: {fileID: 8917724492229581685}
   - component: {fileID: 4884872561307959017}
   - component: {fileID: 8502902788473365007}
+  - component: {fileID: 995998294653092987}
   m_Layer: 5
   m_Name: gezi (6)
   m_TagString: Untagged
@@ -6840,10 +7513,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 874, y: -70}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4884872561307959017
 CanvasRenderer:
@@ -6883,6 +7556,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &995998294653092987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5808790880445441993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &5817470750863319807
 GameObject:
   m_ObjectHideFlags: 0
@@ -6894,6 +7580,7 @@ GameObject:
   - component: {fileID: 4027450344130077586}
   - component: {fileID: 7396710608096467498}
   - component: {fileID: 6449571053243956066}
+  - component: {fileID: 3724952391451255016}
   m_Layer: 5
   m_Name: gezi (48)
   m_TagString: Untagged
@@ -6916,10 +7603,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 48
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 472, y: -745}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7396710608096467498
 CanvasRenderer:
@@ -6959,6 +7646,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3724952391451255016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5817470750863319807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &5902423309871105172
 GameObject:
   m_ObjectHideFlags: 0
@@ -6970,6 +7670,7 @@ GameObject:
   - component: {fileID: 5023467669926413426}
   - component: {fileID: 7718827082572685126}
   - component: {fileID: 6095331644030049178}
+  - component: {fileID: 704856864243626992}
   m_Layer: 5
   m_Name: gezi
   m_TagString: Untagged
@@ -6992,10 +7693,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 70, y: -70}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7718827082572685126
 CanvasRenderer:
@@ -7035,6 +7736,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &704856864243626992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5902423309871105172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &6081493483706195592
 GameObject:
   m_ObjectHideFlags: 0
@@ -7046,6 +7760,7 @@ GameObject:
   - component: {fileID: 4226104741000126136}
   - component: {fileID: 290212114807818551}
   - component: {fileID: 8579900100081492010}
+  - component: {fileID: 4882272038278065608}
   m_Layer: 5
   m_Name: gezi (87)
   m_TagString: Untagged
@@ -7068,10 +7783,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 87
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 874, y: -1285}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &290212114807818551
 CanvasRenderer:
@@ -7111,6 +7826,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4882272038278065608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6081493483706195592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &6153644915203817534
 GameObject:
   m_ObjectHideFlags: 0
@@ -7198,6 +7926,7 @@ GameObject:
   - component: {fileID: 3961914979732257650}
   - component: {fileID: 6257930274721309474}
   - component: {fileID: 2817380681968075191}
+  - component: {fileID: 4836384889288242563}
   m_Layer: 5
   m_Name: gezi (64)
   m_TagString: Untagged
@@ -7220,10 +7949,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 64
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 204, y: -1015}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6257930274721309474
 CanvasRenderer:
@@ -7263,6 +7992,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4836384889288242563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6163965114854128929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &6224266819210211187
 GameObject:
   m_ObjectHideFlags: 0
@@ -7274,6 +8016,7 @@ GameObject:
   - component: {fileID: 4575803339959500890}
   - component: {fileID: 4478743381524311072}
   - component: {fileID: 9007031702511484809}
+  - component: {fileID: 9093853163491702320}
   m_Layer: 5
   m_Name: gezi (16)
   m_TagString: Untagged
@@ -7296,10 +8039,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1008, y: -205}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4478743381524311072
 CanvasRenderer:
@@ -7339,6 +8082,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &9093853163491702320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6224266819210211187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &6399625518672698888
 GameObject:
   m_ObjectHideFlags: 0
@@ -7350,6 +8106,7 @@ GameObject:
   - component: {fileID: 5620069614243493664}
   - component: {fileID: 8158191110506399015}
   - component: {fileID: 8198795935103162969}
+  - component: {fileID: 795233363574968505}
   m_Layer: 5
   m_Name: gezi (30)
   m_TagString: Untagged
@@ -7372,10 +8129,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 472, y: -475}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8158191110506399015
 CanvasRenderer:
@@ -7415,6 +8172,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &795233363574968505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6399625518672698888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &6624268036128782657
 GameObject:
   m_ObjectHideFlags: 0
@@ -7426,6 +8196,7 @@ GameObject:
   - component: {fileID: 6763998593742153534}
   - component: {fileID: 7746073604164164856}
   - component: {fileID: 2678577455687269453}
+  - component: {fileID: 2097516716385455283}
   m_Layer: 5
   m_Name: gezi (40)
   m_TagString: Untagged
@@ -7448,10 +8219,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 606, y: -610}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7746073604164164856
 CanvasRenderer:
@@ -7491,6 +8262,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2097516716385455283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624268036128782657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &6641348768014003856
 GameObject:
   m_ObjectHideFlags: 0
@@ -7502,6 +8286,7 @@ GameObject:
   - component: {fileID: 7337533493654771481}
   - component: {fileID: 2454016942985746135}
   - component: {fileID: 2007163392716871173}
+  - component: {fileID: 6322921072441011156}
   m_Layer: 5
   m_Name: gezi (31)
   m_TagString: Untagged
@@ -7524,10 +8309,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 606, y: -475}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2454016942985746135
 CanvasRenderer:
@@ -7567,6 +8352,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6322921072441011156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6641348768014003856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &6688325445522431308
 GameObject:
   m_ObjectHideFlags: 0
@@ -7578,6 +8376,7 @@ GameObject:
   - component: {fileID: 2945467232065157049}
   - component: {fileID: 5868004405528582646}
   - component: {fileID: 1731712677302050054}
+  - component: {fileID: 6550693943749464745}
   m_Layer: 5
   m_Name: gezi (14)
   m_TagString: Untagged
@@ -7600,10 +8399,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 740, y: -205}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5868004405528582646
 CanvasRenderer:
@@ -7643,6 +8442,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6550693943749464745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6688325445522431308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &6776230140776570715
 GameObject:
   m_ObjectHideFlags: 0
@@ -7654,6 +8466,7 @@ GameObject:
   - component: {fileID: 3568198992120530878}
   - component: {fileID: 814886784067844995}
   - component: {fileID: 7477536610112724252}
+  - component: {fileID: 7312140857288615358}
   m_Layer: 5
   m_Name: gezi (43)
   m_TagString: Untagged
@@ -7676,10 +8489,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 43
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1008, y: -610}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &814886784067844995
 CanvasRenderer:
@@ -7719,6 +8532,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7312140857288615358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6776230140776570715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &6783731825752773393
 GameObject:
   m_ObjectHideFlags: 0
@@ -7730,6 +8556,7 @@ GameObject:
   - component: {fileID: 8740549810489739647}
   - component: {fileID: 4055408674272682417}
   - component: {fileID: 8467601236019501835}
+  - component: {fileID: 3789819710111454994}
   m_Layer: 5
   m_Name: gezi (22)
   m_TagString: Untagged
@@ -7752,10 +8579,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 606, y: -340}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4055408674272682417
 CanvasRenderer:
@@ -7795,6 +8622,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3789819710111454994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6783731825752773393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &6800442921913920966
 GameObject:
   m_ObjectHideFlags: 0
@@ -7806,6 +8646,7 @@ GameObject:
   - component: {fileID: 1356973570338107715}
   - component: {fileID: 1373747730473518705}
   - component: {fileID: 8663801260356838842}
+  - component: {fileID: 6280806400760494823}
   m_Layer: 5
   m_Name: gezi (56)
   m_TagString: Untagged
@@ -7828,10 +8669,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 56
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 338, y: -880}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1373747730473518705
 CanvasRenderer:
@@ -7871,6 +8712,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6280806400760494823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6800442921913920966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &6811322229538060284
 GameObject:
   m_ObjectHideFlags: 0
@@ -7955,6 +8809,7 @@ GameObject:
   - component: {fileID: 8286117363720715824}
   - component: {fileID: 7753090080984338469}
   - component: {fileID: 6903702586645524571}
+  - component: {fileID: 6264307588739513300}
   m_Layer: 5
   m_Name: gezi (18)
   m_TagString: Untagged
@@ -7977,10 +8832,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 70, y: -340}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7753090080984338469
 CanvasRenderer:
@@ -8020,6 +8875,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6264307588739513300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6886955389983563138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &6929172121232107360
 GameObject:
   m_ObjectHideFlags: 0
@@ -8031,6 +8899,7 @@ GameObject:
   - component: {fileID: 4362047091963156660}
   - component: {fileID: 4257137646605806407}
   - component: {fileID: 1533793541208863740}
+  - component: {fileID: 943345073662789713}
   m_Layer: 5
   m_Name: gezi (45)
   m_TagString: Untagged
@@ -8053,10 +8922,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 45
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 70, y: -745}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4257137646605806407
 CanvasRenderer:
@@ -8096,6 +8965,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &943345073662789713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6929172121232107360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &6952240180646334408
 GameObject:
   m_ObjectHideFlags: 0
@@ -8203,6 +9085,7 @@ GameObject:
   - component: {fileID: 2995177591617757937}
   - component: {fileID: 1497342780365180487}
   - component: {fileID: 8288934514675880764}
+  - component: {fileID: 5539183729970111305}
   m_Layer: 5
   m_Name: gezi (55)
   m_TagString: Untagged
@@ -8225,10 +9108,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 55
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 204, y: -880}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1497342780365180487
 CanvasRenderer:
@@ -8268,6 +9151,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5539183729970111305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6966783874797952281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &7004754141672689496
 GameObject:
   m_ObjectHideFlags: 0
@@ -8279,6 +9175,7 @@ GameObject:
   - component: {fileID: 7858469321071956985}
   - component: {fileID: 7395315199046340222}
   - component: {fileID: 5404652956242820856}
+  - component: {fileID: 6298477801409710389}
   m_Layer: 5
   m_Name: gezi (63)
   m_TagString: Untagged
@@ -8301,10 +9198,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 63
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 70, y: -1015}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7395315199046340222
 CanvasRenderer:
@@ -8344,6 +9241,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6298477801409710389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004754141672689496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &7073577139333007409
 GameObject:
   m_ObjectHideFlags: 0
@@ -8355,6 +9265,7 @@ GameObject:
   - component: {fileID: 8054694771781503045}
   - component: {fileID: 1695488131566895801}
   - component: {fileID: 6141117800249975128}
+  - component: {fileID: 7220209248383443244}
   m_Layer: 5
   m_Name: gezi (4)
   m_TagString: Untagged
@@ -8377,10 +9288,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 606, y: -70}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1695488131566895801
 CanvasRenderer:
@@ -8420,6 +9331,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7220209248383443244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7073577139333007409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &7078294006739108087
 GameObject:
   m_ObjectHideFlags: 0
@@ -8431,6 +9355,7 @@ GameObject:
   - component: {fileID: 7338074278063603093}
   - component: {fileID: 7844836878696096071}
   - component: {fileID: 436440021421513570}
+  - component: {fileID: 601963116355690519}
   m_Layer: 5
   m_Name: gezi (88)
   m_TagString: Untagged
@@ -8453,10 +9378,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 88
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1008, y: -1285}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7844836878696096071
 CanvasRenderer:
@@ -8496,6 +9421,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &601963116355690519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7078294006739108087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &7096243577997226943
 GameObject:
   m_ObjectHideFlags: 0
@@ -8507,6 +9445,7 @@ GameObject:
   - component: {fileID: 2972225581140548409}
   - component: {fileID: 1271890599838287427}
   - component: {fileID: 6220506377637895095}
+  - component: {fileID: 8333727207780599432}
   m_Layer: 5
   m_Name: gezi (62)
   m_TagString: Untagged
@@ -8529,10 +9468,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 62
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1142, y: -880}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1271890599838287427
 CanvasRenderer:
@@ -8572,6 +9511,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8333727207780599432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7096243577997226943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &7183100349977857973
 GameObject:
   m_ObjectHideFlags: 0
@@ -8583,6 +9535,7 @@ GameObject:
   - component: {fileID: 3891094527360480277}
   - component: {fileID: 5333171454381822588}
   - component: {fileID: 4221496396364363456}
+  - component: {fileID: 8979238335532826167}
   m_Layer: 5
   m_Name: gezi (24)
   m_TagString: Untagged
@@ -8605,10 +9558,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 874, y: -340}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5333171454381822588
 CanvasRenderer:
@@ -8648,6 +9601,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8979238335532826167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7183100349977857973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &7195931716124503231
 GameObject:
   m_ObjectHideFlags: 0
@@ -8659,6 +9625,7 @@ GameObject:
   - component: {fileID: 1998167451773771475}
   - component: {fileID: 7440313532649382271}
   - component: {fileID: 556922343231933513}
+  - component: {fileID: 7131601939545193621}
   m_Layer: 5
   m_Name: gezi (27)
   m_TagString: Untagged
@@ -8681,10 +9648,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 70, y: -475}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7440313532649382271
 CanvasRenderer:
@@ -8724,6 +9691,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7131601939545193621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7195931716124503231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &7256480448880803564
 GameObject:
   m_ObjectHideFlags: 0
@@ -8847,6 +9827,7 @@ GameObject:
   - component: {fileID: 7622746543384639095}
   - component: {fileID: 5121041419688930291}
   - component: {fileID: 5623285472129159023}
+  - component: {fileID: 1707171959942680876}
   m_Layer: 5
   m_Name: gezi (83)
   m_TagString: Untagged
@@ -8869,10 +9850,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 83
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 338, y: -1285}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5121041419688930291
 CanvasRenderer:
@@ -8912,6 +9893,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1707171959942680876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7311364958793393991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &7335263359418389296
 GameObject:
   m_ObjectHideFlags: 0
@@ -8923,6 +9917,7 @@ GameObject:
   - component: {fileID: 1582141983233744959}
   - component: {fileID: 5445137365130564100}
   - component: {fileID: 3690837453651792795}
+  - component: {fileID: 2516825734290375953}
   m_Layer: 5
   m_Name: gezi (8)
   m_TagString: Untagged
@@ -8945,10 +9940,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1142, y: -70}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5445137365130564100
 CanvasRenderer:
@@ -8988,6 +9983,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2516825734290375953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7335263359418389296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &7449764962014204104
 GameObject:
   m_ObjectHideFlags: 0
@@ -9120,6 +10128,7 @@ GameObject:
   - component: {fileID: 6961438014391885438}
   - component: {fileID: 3681545077979324850}
   - component: {fileID: 1934542229290941347}
+  - component: {fileID: 6960343509147173508}
   m_Layer: 5
   m_Name: gezi (10)
   m_TagString: Untagged
@@ -9142,10 +10151,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 204, y: -205}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3681545077979324850
 CanvasRenderer:
@@ -9185,6 +10194,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6960343509147173508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7475466029631243322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &7834908459484915525
 GameObject:
   m_ObjectHideFlags: 0
@@ -9196,6 +10218,7 @@ GameObject:
   - component: {fileID: 6203446618424740364}
   - component: {fileID: 4556862209400264100}
   - component: {fileID: 3405704274526014576}
+  - component: {fileID: 4367752840756244025}
   m_Layer: 5
   m_Name: gezi (28)
   m_TagString: Untagged
@@ -9218,10 +10241,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 204, y: -475}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4556862209400264100
 CanvasRenderer:
@@ -9261,6 +10284,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4367752840756244025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834908459484915525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &7849021802231610528
 GameObject:
   m_ObjectHideFlags: 0
@@ -9272,6 +10308,7 @@ GameObject:
   - component: {fileID: 8339561785047275672}
   - component: {fileID: 3664959230249504071}
   - component: {fileID: 1763926094738807904}
+  - component: {fileID: 4896643967817909683}
   m_Layer: 5
   m_Name: gezi (36)
   m_TagString: Untagged
@@ -9294,10 +10331,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 70, y: -610}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3664959230249504071
 CanvasRenderer:
@@ -9337,6 +10374,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4896643967817909683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7849021802231610528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &7934599414713342472
 GameObject:
   m_ObjectHideFlags: 0
@@ -9348,6 +10398,7 @@ GameObject:
   - component: {fileID: 7165538452434094559}
   - component: {fileID: 415502782579962302}
   - component: {fileID: 2674531440440008481}
+  - component: {fileID: 4467895030892267900}
   m_Layer: 5
   m_Name: gezi (42)
   m_TagString: Untagged
@@ -9370,10 +10421,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 42
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 874, y: -610}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &415502782579962302
 CanvasRenderer:
@@ -9413,6 +10464,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4467895030892267900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7934599414713342472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &8005717815838011424
 GameObject:
   m_ObjectHideFlags: 0
@@ -9424,6 +10488,7 @@ GameObject:
   - component: {fileID: 4362528370518411048}
   - component: {fileID: 5213480965543555851}
   - component: {fileID: 619445493621381464}
+  - component: {fileID: 3555990501269748739}
   m_Layer: 5
   m_Name: gezi (7)
   m_TagString: Untagged
@@ -9446,10 +10511,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1008, y: -70}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5213480965543555851
 CanvasRenderer:
@@ -9489,6 +10554,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3555990501269748739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8005717815838011424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &8043254947841054867
 GameObject:
   m_ObjectHideFlags: 0
@@ -9500,6 +10578,7 @@ GameObject:
   - component: {fileID: 8001209921825652956}
   - component: {fileID: 1133256845928271612}
   - component: {fileID: 7165452598259767486}
+  - component: {fileID: 2158880678127817462}
   m_Layer: 5
   m_Name: gezi (29)
   m_TagString: Untagged
@@ -9522,10 +10601,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 338, y: -475}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1133256845928271612
 CanvasRenderer:
@@ -9565,6 +10644,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2158880678127817462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8043254947841054867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &8079461354059178999
 GameObject:
   m_ObjectHideFlags: 0
@@ -9576,6 +10668,7 @@ GameObject:
   - component: {fileID: 1207828168030213033}
   - component: {fileID: 4173899648773036364}
   - component: {fileID: 5620300073746004142}
+  - component: {fileID: 6307255441701624127}
   m_Layer: 5
   m_Name: gezi (9)
   m_TagString: Untagged
@@ -9598,10 +10691,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 70, y: -205}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4173899648773036364
 CanvasRenderer:
@@ -9641,6 +10734,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6307255441701624127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8079461354059178999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &8143708545503855528
 GameObject:
   m_ObjectHideFlags: 0
@@ -9652,6 +10758,7 @@ GameObject:
   - component: {fileID: 7249513733303225965}
   - component: {fileID: 6923072368284660042}
   - component: {fileID: 3340326157631828721}
+  - component: {fileID: 2376819090698212063}
   m_Layer: 5
   m_Name: gezi (11)
   m_TagString: Untagged
@@ -9674,10 +10781,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 338, y: -205}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6923072368284660042
 CanvasRenderer:
@@ -9717,6 +10824,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2376819090698212063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8143708545503855528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &8237679834590091221
 GameObject:
   m_ObjectHideFlags: 0
@@ -9728,6 +10848,7 @@ GameObject:
   - component: {fileID: 2077893309294838725}
   - component: {fileID: 5147607867172308883}
   - component: {fileID: 5833218519727493286}
+  - component: {fileID: 6461657991063010129}
   m_Layer: 5
   m_Name: gezi (47)
   m_TagString: Untagged
@@ -9750,10 +10871,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 47
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 338, y: -745}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5147607867172308883
 CanvasRenderer:
@@ -9793,6 +10914,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6461657991063010129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8237679834590091221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &8302335747979607650
 GameObject:
   m_ObjectHideFlags: 0
@@ -9804,6 +10938,7 @@ GameObject:
   - component: {fileID: 5953186134264640156}
   - component: {fileID: 2591410357005965583}
   - component: {fileID: 6413968835234823170}
+  - component: {fileID: 4524663496557184141}
   m_Layer: 5
   m_Name: gezi (66)
   m_TagString: Untagged
@@ -9826,10 +10961,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 66
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 472, y: -1015}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2591410357005965583
 CanvasRenderer:
@@ -9869,6 +11004,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4524663496557184141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8302335747979607650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &8321649106261862165
 GameObject:
   m_ObjectHideFlags: 0
@@ -9956,6 +11104,7 @@ GameObject:
   - component: {fileID: 7314373199185245623}
   - component: {fileID: 6754630231830181300}
   - component: {fileID: 7948253230645981440}
+  - component: {fileID: 5047056177329516571}
   m_Layer: 5
   m_Name: gezi (34)
   m_TagString: Untagged
@@ -9978,10 +11127,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1008, y: -475}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6754630231830181300
 CanvasRenderer:
@@ -10021,6 +11170,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5047056177329516571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8451439997467637038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &8454312803363266005
 GameObject:
   m_ObjectHideFlags: 0
@@ -10032,6 +11194,7 @@ GameObject:
   - component: {fileID: 2791844616315286018}
   - component: {fileID: 1491293013479910382}
   - component: {fileID: 7380875377527689953}
+  - component: {fileID: 518603232435029768}
   m_Layer: 5
   m_Name: gezi (52)
   m_TagString: Untagged
@@ -10054,10 +11217,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 52
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1008, y: -745}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1491293013479910382
 CanvasRenderer:
@@ -10097,6 +11260,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &518603232435029768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8454312803363266005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &8491197363703607095
 GameObject:
   m_ObjectHideFlags: 0
@@ -10187,6 +11363,7 @@ GameObject:
   - component: {fileID: 5234150649465202287}
   - component: {fileID: 8327843022285490529}
   - component: {fileID: 8320642239671709590}
+  - component: {fileID: 4300182519488647242}
   m_Layer: 5
   m_Name: gezi (50)
   m_TagString: Untagged
@@ -10209,10 +11386,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 50
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 740, y: -745}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8327843022285490529
 CanvasRenderer:
@@ -10252,6 +11429,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4300182519488647242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504734185198736885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &8568699835380888266
 GameObject:
   m_ObjectHideFlags: 0
@@ -10263,6 +11453,7 @@ GameObject:
   - component: {fileID: 7419329742255107775}
   - component: {fileID: 8777019375524922447}
   - component: {fileID: 4669336976949109069}
+  - component: {fileID: 5426247274159766986}
   m_Layer: 5
   m_Name: gezi (25)
   m_TagString: Untagged
@@ -10285,10 +11476,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1008, y: -340}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8777019375524922447
 CanvasRenderer:
@@ -10328,6 +11519,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5426247274159766986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8568699835380888266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &8646706404458828938
 GameObject:
   m_ObjectHideFlags: 0
@@ -10339,6 +11543,7 @@ GameObject:
   - component: {fileID: 1878764474400787290}
   - component: {fileID: 6059469977736755355}
   - component: {fileID: 1264109706180464356}
+  - component: {fileID: 2254270874305263078}
   m_Layer: 5
   m_Name: gezi (89)
   m_TagString: Untagged
@@ -10361,10 +11566,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 89
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1142, y: -1285}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6059469977736755355
 CanvasRenderer:
@@ -10404,6 +11609,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2254270874305263078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8646706404458828938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &8925526603532681795
 GameObject:
   m_ObjectHideFlags: 0
@@ -10415,6 +11633,7 @@ GameObject:
   - component: {fileID: 3059373525383767425}
   - component: {fileID: 200995990732505481}
   - component: {fileID: 7400614969071055520}
+  - component: {fileID: 2364611796445293721}
   m_Layer: 5
   m_Name: gezi (69)
   m_TagString: Untagged
@@ -10437,10 +11656,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 69
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 874, y: -1015}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &200995990732505481
 CanvasRenderer:
@@ -10480,6 +11699,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2364611796445293721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8925526603532681795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &9028755126170792270
 GameObject:
   m_ObjectHideFlags: 0
@@ -10491,6 +11723,7 @@ GameObject:
   - component: {fileID: 5924515373265921021}
   - component: {fileID: 2930104176681744803}
   - component: {fileID: 9002895315599930687}
+  - component: {fileID: 130006257023672708}
   m_Layer: 5
   m_Name: gezi (71)
   m_TagString: Untagged
@@ -10513,10 +11746,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 71
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1142, y: -1015}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2930104176681744803
 CanvasRenderer:
@@ -10556,6 +11789,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &130006257023672708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9028755126170792270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}
 --- !u!1 &9115999356268757713
 GameObject:
   m_ObjectHideFlags: 0
@@ -10567,6 +11813,7 @@ GameObject:
   - component: {fileID: 4116776549322408437}
   - component: {fileID: 2892985281650670934}
   - component: {fileID: 143652941836630197}
+  - component: {fileID: 6434977816654103649}
   m_Layer: 5
   m_Name: gezi (5)
   m_TagString: Untagged
@@ -10589,10 +11836,10 @@ RectTransform:
   m_Father: {fileID: 4469104050848574114}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 740, y: -70}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2892985281650670934
 CanvasRenderer:
@@ -10632,133 +11879,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1001 &6659878187907044029
-PrefabInstance:
+--- !u!114 &6434977816654103649
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 4469104049925904487}
-    m_Modifications:
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -11
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6519937591395674879, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_Name
-      value: ItemDescUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 6519937591395674879, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 30892cd846ea4dc49bc5ee36e05c4336, type: 3}
---- !u!224 &5339287983153923687 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1618012504568665306, guid: 30892cd846ea4dc49bc5ee36e05c4336,
-    type: 3}
-  m_PrefabInstance: {fileID: 6659878187907044029}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9115999356268757713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d8b5c6e89d8274eb88404adefa9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 0}

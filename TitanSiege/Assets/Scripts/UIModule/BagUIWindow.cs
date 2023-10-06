@@ -31,13 +31,34 @@ namespace GF.MainGame.UI {
         public Toggle m_Zhuangbei;
         public Toggle m_Renwu;
         public Toggle m_Zawu;
-        public List<Image> m_Gezi;
+        public List<BagBoxUI> m_Boxs;
         public Text m_Jinbi;
         public Text m_Zhuanshi;
 
-        private bool m_IsInit = false;
-        private bool m_IsFull = false;
+        public bool m_IsInit = false;
+        public bool m_IsFull = false;
         private List<ItemBaseUI> m_AllItem;
+        
+        public BagBoxUI ReturnEmptyBox {
+            get {
+                if (!m_IsFull) {
+                    BagBoxUI box = null;
+                    for (int i = 0; i < m_Boxs.Count; i++) {
+                        if (m_Boxs[i].Item==null) {
+                            box = m_Boxs[i];
+                            break;
+                        }
+                    }
+                    return box;
+                } else{
+                    return null;
+                }
+                
+            }
+            set {
+                ReturnEmptyBox = value;
+            }
+        }
         private void Start() {
             m_Quanbu.onValueChanged.AddListener((bool ison) => {
                 ToggleValueChange(ison, ToggleBtnType.quanbu);
@@ -54,6 +75,14 @@ namespace GF.MainGame.UI {
             m_Zawu.onValueChanged.AddListener((bool ison) => {
                 ToggleValueChange(ison, ToggleBtnType.zawu);
             });
+            AppTools.Regist<bool>((int)ItemEvent.BagIsFull, BagIsFull);
+        }
+        /// <summary>
+        /// 其他模块用来判断背包是否满了
+        /// </summary>
+        /// <returns></returns>
+        public bool BagIsFull() {
+            return m_IsFull;
         }
         /// <summary>
         /// toggle变化时监听的方法
@@ -127,13 +156,14 @@ namespace GF.MainGame.UI {
         public void InitBag(List<ItemBaseUI> list) {
             if (list.Count > 0) {
                 m_AllItem = list;
-                if (list.Count > m_Gezi.Count) { //物品超了，这种情况应该禁止继续添加物品
+                if (list.Count > m_Boxs.Count) { //物品超了，这种情况应该禁止继续添加物品
                     m_IsFull = true;
                 }
                 for (int i = 0; i < list.Count; i++) {
                     if (list[i]!=null && list[i].gameObject.activeSelf) {
-                        list[i].transform.parent = m_Gezi[i].transform;
+                        list[i].transform.parent = m_Boxs[i].transform;
                         list[i].transform.localPosition = Vector3.zero;
+                        m_Boxs[i].Item= list[i];
                     }
                 }
             }
@@ -144,6 +174,9 @@ namespace GF.MainGame.UI {
         }
         public override void Close(bool bClear = false, object arg = null) {
             base.Close(bClear, arg);
+        }
+        public void OnDestroy() {
+            AppTools.Remove<bool>((int)ItemEvent.BagIsFull, BagIsFull);
         }
     }
 }
