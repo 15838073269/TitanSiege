@@ -16,22 +16,22 @@ namespace GF.Unity.Audio {
         protected override void InitSingleton() {
             base.InitSingleton();
             GameObject audiolist = new GameObject("AudioList");
-            audiolist.transform.parent = AppMain.GetInstance.SceneTransform;
+            audiolist.transform.SetParent(AppMain.GetInstance.SceneTransform);
             audiolist.transform.position = Vector3.zero;
             PublicAudio = new GameObject("PublicAudio").AddComponent<AudioSource>();
-            PublicAudio.transform.parent = audiolist.transform;
+            PublicAudio.transform.SetParent(audiolist.transform);
             PublicAudio.playOnAwake = false;
             BGAudio = new GameObject("BGAudio").AddComponent<AudioSource>();
-            BGAudio.transform.parent = audiolist.transform;
+            BGAudio.transform.SetParent(audiolist.transform);
             BGAudio.playOnAwake = false;
             UIAudio = new GameObject("UIAudio").AddComponent<AudioSource>();
-            UIAudio.transform.parent = audiolist.transform;
+            UIAudio.transform.SetParent(audiolist.transform);
             UIAudio.playOnAwake = false;
             FTAudio = new GameObject("FTAudio").AddComponent<AudioSource>();
-            FTAudio.transform.parent = audiolist.transform;
+            FTAudio.transform.SetParent(audiolist.transform);
             FTAudio.playOnAwake = false;
             JQAudio = new GameObject("JQAudio").AddComponent<AudioSource>();
-            JQAudio.transform.parent = audiolist.transform;
+            JQAudio.transform.SetParent(audiolist.transform);
             JQAudio.playOnAwake = false;
         }
         private AudioSource PublicAudio;//¹«ÓÃ²¥·ÅÆ÷

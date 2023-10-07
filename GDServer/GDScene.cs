@@ -91,6 +91,12 @@ namespace GDServer {
                             }
                         }
                         break;
+                    case Command.addrexp:
+                        client.AddExp(opt.index);
+                        break;
+                    case Command.AddHpOrMp:
+                        client.AddHpOrMp(opt.index,opt.index1);
+                        break;
                     case Command.EnemyAttack://怪物攻击玩家时
                         for (int n = 0; n < Clients.Count; n++) {
                             if (Clients[n].UserID == opt.identity) {

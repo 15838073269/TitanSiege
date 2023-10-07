@@ -76,7 +76,7 @@ namespace GF.MainGame.Module {
             NPCDataBase nb = ConfigerManager.m_NPCData.FindNPCByID((ushort)UserService.GetInstance.m_CurrentID);
             if (m_FatherTrans == null) {
                 m_FatherTrans = (new GameObject("PlayerFahter")).transform;
-                m_FatherTrans.parent = AppMain.GetInstance.SceneTransform;
+                m_FatherTrans.SetParent(AppMain.GetInstance.SceneTransform);
             }
             if ( UserService.GetInstance.m_CurrentChar != null) {
                 GameObject player = ObjectManager.GetInstance.InstanceObject(nb.Prefabpath, bClear: false, father: m_FatherTrans);
@@ -113,7 +113,7 @@ namespace GF.MainGame.Module {
         public void SetMoveObj(NPCBase moveobj) {
             if (m_FatherTrans == null) {//这里其实不用加，但考虑到如果玩家主控角色不是默认模型，例如后期元神夺舍其他角色时，且直接读取存档的话，就可能出现m_FatherTrans为空的情况，需要考虑进去
                 m_FatherTrans = (new GameObject("PlayerFahter")).transform;
-                m_FatherTrans.parent = AppMain.GetInstance.SceneTransform;
+                m_FatherTrans.SetParent(AppMain.GetInstance.SceneTransform);
             }
             
             m_MoveObj = moveobj;
@@ -127,7 +127,7 @@ namespace GF.MainGame.Module {
             m_MoveObj.transform.localPosition = Vector3.zero;
             m_CanMove = true;
             GameObject go = new GameObject("target");
-            go.transform.parent = m_FatherTrans;
+            go.transform.SetParent(m_FatherTrans);
             go.transform.position = m_MoveObj.transform.position;
             m_CameraTarget = go.transform;
             //再执行摄像机跟随
@@ -318,7 +318,7 @@ namespace GF.MainGame.Module {
             } else {
                 //如果位置近，就把follow放到team物体下，并添加到team list中处理
                 follow.transform.rotation = Befollow.transform.rotation;
-                follow.transform.parent = m_FatherTrans;
+                follow.transform.SetParent(m_FatherTrans);
                 AddMoveDic();
             }
         }
@@ -327,7 +327,7 @@ namespace GF.MainGame.Module {
         /// </summary>
         public void OnTwComplete() {
             if (m_Follow!=null) {
-                m_Follow.transform.parent = m_FatherTrans;
+                m_Follow.transform.SetParent(m_FatherTrans);
                 m_Follow.transform.rotation = Befollow.transform.rotation;
                 Befollow = null;
                 AddMoveDic();
@@ -350,7 +350,7 @@ namespace GF.MainGame.Module {
             if (m_TeamQueue.IsContainsNPC(follow)) {
                 follow.m_Character.enabled = true;
                 m_TeamQueue.m_ListQueue.Remove(follow);
-                //follow.transform.parent = AppTools.SendReturn<Transform>((int)SceneEvent.GetAllNPCFather);
+                //follow.transform.SetParent(AppTools.SendReturn<Transform>((int)SceneEvent.GetAllNPCFather));
             } else {
                 Debuger.Log($"队伍没有{follow.name}这个角色");
             }

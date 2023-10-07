@@ -10,6 +10,7 @@ using GF.MainGame.Data;
 using GF.Service;
 using GF.Unity.UI;
 using System.Collections.Generic;
+using Titansiege;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -161,14 +162,33 @@ namespace GF.MainGame.UI {
                 }
                 for (int i = 0; i < list.Count; i++) {
                     if (list[i]!=null && list[i].gameObject.activeSelf) {
-                        list[i].transform.parent = m_Boxs[i].transform;
+                        list[i].transform.SetParent(m_Boxs[i].transform);
                         list[i].transform.localPosition = Vector3.zero;
                         m_Boxs[i].Item= list[i];
                     }
                 }
             }
         }
-       
+        /// <summary>
+        /// 增加金币或者钻石
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="typenum"></param>
+        public void AddJinbiOrZuanshi(int num,ushort typenum) {
+            CharactersData cd = UserService.GetInstance.m_CurrentChar;
+            switch (typenum) {
+                case 0:
+                    cd.Jinbi += num;
+                    m_Jinbi.text= cd.Jinbi.ToString();
+                    break;
+                case 1:
+                    cd.Zuanshi += num;
+                    m_Zhuanshi.text = cd.Zuanshi.ToString();
+                    break;
+                default:
+                    break;
+            }
+        }
         protected override void OnClose(bool bClear = false, object arg = null) {
             base.OnClose(bClear, arg);
         }

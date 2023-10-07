@@ -153,6 +153,14 @@ namespace GDServer.Services
                     string scenename = model.pars[0].ToString();
                     UserService.GetInstance.SwitchScene(client, scenename);
                     break;
+                case (ushort)ProtoType.addjinbiorzuanshi://客户端主动发起退出登录
+                    int jinbi = (int)model.pars[0];
+                    int zuanshi = (int)model.pars[1];
+                    client.current.Jinbi += jinbi;
+                    client.current.Zuanshi += zuanshi;
+                    //返回玩家属性数据
+                    TServer.Instance.SendRT(client, (ushort)ProtoType.addjinbiorzuanshi, 0);
+                    break;
                 case (ushort)ProtoType.signout://客户端主动发起退出登录
                     SignOut(client);
                     break;

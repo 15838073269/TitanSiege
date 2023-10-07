@@ -96,7 +96,7 @@ namespace GF.MainGame.Module.NPC {
                 EffectArg arg = new EffectArg(temp, temp.transform.localPosition, temp.transform.localRotation);
                 ThreadManager.Event.AddEvent(temp.m_Particle.main.duration, PlayEffectOver, arg);
                 if (!temp.m_IsFollow) {
-                    temp.transform.parent = AppMain.GetInstance.SceneTransform;
+                    temp.transform.SetParent(AppMain.GetInstance.SceneTransform);
                 }
                 m_CurrentEffect = temp;
                 //这里改成通过对象池创建技能效果
@@ -109,7 +109,7 @@ namespace GF.MainGame.Module.NPC {
             if (arg != null) {
                 if (arg.CurrentEffect != null) {
                     if (!arg.CurrentEffect.m_IsFollow) {
-                        arg.CurrentEffect.transform.parent = m_EffectFather;
+                        arg.CurrentEffect.transform.SetParent(m_EffectFather);
                         arg.CurrentEffect.transform.localPosition = arg.LastEffectLocalPos;
                         arg.CurrentEffect.transform.localRotation = arg.LastEffectLocalRotate;
                     }

@@ -255,5 +255,16 @@ namespace GDServer {
             }
             return sb.ToString();
         }
+
+        internal void AddHpOrMp(int hp,int mp) {
+            FP.FightHP += hp;
+            FP.FightMagic += mp;
+            scene.AddOperation(new Operation(Command.PlayerState, UserID) {
+                index = FP.FightHP,
+                index1 = FP.FightMagic,
+                index2 = FP.FightMaxHp,
+                index3 = FP.FightMaxMagic,
+            });
+        }
     }
 }

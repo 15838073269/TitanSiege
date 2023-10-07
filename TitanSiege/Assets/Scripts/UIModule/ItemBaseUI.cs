@@ -101,6 +101,10 @@ namespace GF.MainGame.UI {
             }
             Num = num;
             m_Pos = pos;
+            m_PropXiaoguoDic.Clear();
+            m_IntXiaoguoDic.Clear();
+            m_XuqiuDic.Clear();
+            m_IntXuqiuDic.Clear();
             XiaoguoToDic();
             XuqiuToDic();
         }

@@ -6,15 +6,21 @@
 	功能：Nothing
 *****************************************************/
 
+using cmd;
+using Cysharp.Threading.Tasks;
 using GF.MainGame.Data;
 using GF.MainGame.Module;
 using GF.Service;
 using GF.Unity.AB;
 using GF.Unity.UI;
+using Net.Client;
+using Net.Component;
+using Net.Share;
 using System.Collections.Generic;
 using System.Text;
 using Titansiege;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.PlayerSettings;
@@ -77,13 +83,15 @@ namespace GF.MainGame.UI {
             });
             m_EquBtn.onClick.AddListener(OnZhuangbei);
             m_XiexiaBtn.onClick.AddListener(OnXiexia);
+            m_DeleBtn.onClick.AddListener(OnDiuqi);
+            m_UseBtn.onClick.AddListener(OnUse);
             m_Bai = new Color(0.79f, 0.77f, 0.77f);
             m_Lv = new Color(0.22f, 0.83f, 0.16f);
             m_lan = new Color(0f, 0.44f, 1f);
             m_Zi = new Color(0.6f, 0.13f, 1f);
             m_Cheng = new Color(1f, 0.41f, 0f);
             cd = UserService.GetInstance.m_CurrentChar;
-    }
+        }
 
         protected override void OnOpen(object args = null) {
             base.OnOpen(args);
@@ -700,14 +708,110 @@ namespace GF.MainGame.UI {
         /// <summary>
         /// 丢弃道具
         /// </summary>
-        public void OnDiuqi() { 
+        public void OnDiuqi() {
+            if (m_CurrenItem!=null) {
+                if (m_CurrenItem.m_Data.pinzhi>1) { //白板以上物品给个提示
+                    UIMsgBoxArg arg = new UIMsgBoxArg();
+                    arg.title = "警告";
+                    arg.content = "道具丢弃无法找回，请确认是否要进行丢弃，确认后系统将永久销毁此道具！";
+                    arg.btnname = "确认|取消";
+                    UIMsgBox temp = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox, arg) as UIMsgBox;
+                    temp.oncloseevent += IsDiuqi;
+                }
+            }
+        }
+        private void IsDiuqi(object args = null) {
+            ushort btnindex = ushort.Parse(args.ToString());
+            if (btnindex == 0) {//点击第一个按钮，也就是确认
+                AppTools.Send<ItemBaseUI>((int)ItemEvent.RecycleItemUI, m_CurrenItem);
+                Close();
+            } else { //点击取消，什么都不用做，基类已经处理了
 
+            }
         }
         /// <summary>
         /// 使用某个道具
         /// </summary>
-        public void OnShiyong() { 
+        public async void OnUse() {
+            if (m_CurrenItem.m_IntXiaoguoDic.Count>0) {
+                if (m_CurrenItem.IsCanEqu()) {
+                    foreach (KeyValuePair<XiaoGuo,int> xiaoguo in m_CurrenItem.m_IntXiaoguoDic) {
+                        switch (xiaoguo.Key) {
+                            case XiaoGuo.addhp:
+                                ClientBase.Instance.AddOperation(new Operation(Command.AddHpOrMp, ClientBase.Instance.UID) {
+                                    index = xiaoguo.Value,//回血
+                                    index1  = 0,//回蓝
+                                });
+                                UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家回复血量{xiaoguo.Value}点");
+                                break;
+                            case XiaoGuo.addmp:
+                                ClientBase.Instance.AddOperation(new Operation(Command.AddHpOrMp, ClientBase.Instance.UID) {
+                                    index = 0,//回血
+                                    index1 = xiaoguo.Value,//回蓝
+                                });
+                                UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家回复魔力{xiaoguo.Value}点");
+                                break;
+                            case XiaoGuo.addjinbi:
+                                RPCModelTask task = await ClientBase.Instance.Call((int)ProtoType.addjinbiorzuanshi, pars: (xiaoguo.Value,0));
+                                if (!task.IsCompleted) {
+                                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"请求超时，请检查网络链接");
+                                    return;
+                                } else {
+                                    int code = task.model.AsInt;
+                                    switch (code) {
+                                        case 0:
+                                            //通知ui
+                                            UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家增加{xiaoguo.Value}金币");
+                                            break;
+                                        case 1:
+                                            UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"请求超时，请检查网络链接");
+                                            return;
+                                        default:
+                                            Debuger.LogError("网络参数错误，请检查！");
+                                            break;
+                                    }
+                                }
+                                break;
+                            case XiaoGuo.addzhuanshi:
+                                //设计的第二个参数是钻石
+                                RPCModelTask task1 = await ClientBase.Instance.Call((int)ProtoType.addjinbiorzuanshi, pars:(0, xiaoguo.Value));
+                                if (!task1.IsCompleted) {
+                                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"请求超时，请检查网络链接");
+                                    return;
+                                } else {
+                                    int code = task1.model.AsInt;
+                                    switch (code) {
+                                        case 0:
+                                            //通知ui
+                                            UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家增加{xiaoguo.Value}钻石");
+                                            break;
+                                        case 1:
+                                            UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"请求超时，请检查网络链接");
+                                            return;
+                                        default:
+                                            Debuger.LogError("网络参数错误，请检查！");
+                                            break;
+                                    }
+                                }
+                                break;
+                            case XiaoGuo.addexp:
+                                //发送服务器即可，如果升级，服务器会计算
+                                ClientBase.Instance.AddOperation(new Operation(Command.addrexp,ClientBase.Instance.UID) {
+                                    index = xiaoguo.Value,
+                                });
+                                UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家增加经验{xiaoguo.Value}点");
+                                break; 
+                            case XiaoGuo.addskill:
 
+                                break;
+                            case XiaoGuo.additem:
+
+                                break;
+                        }
+                    }
+                }
+            }
+            Close();
         }
         protected override void OnClose(bool bClear = false, object arg = null) {
             base.OnClose(bClear, arg);

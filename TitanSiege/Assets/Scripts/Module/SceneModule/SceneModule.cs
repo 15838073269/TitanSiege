@@ -90,10 +90,10 @@ namespace GF.MainGame.Module {
                         }
                     }
                 } else if (index == 1) {
-                    m_MsgBox.Close();
+                    //m_MsgBox.Close();
                 }
             }
-            m_MsgBox.oncloseevent -= CloseTishi;
+            
         }
         /// <summary>
         /// 打开大地图ui

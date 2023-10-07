@@ -197,7 +197,7 @@ namespace GF.MainGame.Module {
             if (m_BagUI!=null && m_BagUI.m_IsInit) {//只有初始化之后的背包，出现变化才需要手动添加
                 BagBoxUI box = m_BagUI.ReturnEmptyBox;
                 box.Item = itemui;
-                itemui.transform.parent = box.transform;
+                itemui.transform.SetParent(box.transform);
                 itemui.transform.localPosition = Vector3.zero;
             }
             return itemui;

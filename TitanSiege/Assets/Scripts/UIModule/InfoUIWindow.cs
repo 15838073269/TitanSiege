@@ -196,30 +196,7 @@ namespace GF.MainGame.UI {
             m_ModelShow.gameObject.SetActive(true);
             CharactersData cd = UserService.GetInstance.m_CurrentChar;
             Player p = UserService.GetInstance.m_CurrentPlayer;
-            m_NameTxt.text = p.m_PlayerName;
-            m_GdidTxt.text = $"ID:{p.m_GDID.ToString()}";
-            m_ChenghaoTxt.text = cd.Chenghao;
-            m_ZhiyeTxt.text = ((Zhiye)cd.Zhiye).ToString();
-            m_LvTxt.text = $"{cd.Level}级";
-            m_ShengmingTxt.text = $"{p.FP.FightHP}/{p.FP.FightMaxHp}";
-            m_ShengmingImg.fillAmount = (float)p.FP.FightHP / (float)p.FP.FightMaxHp;
-            m_MofaTxt.text = $"{p.FP.FightMagic}/{p.FP.FightMaxMagic}";
-            m_MofaImg.fillAmount = (float)p.FP.FightMagic / (float)p.FP.FightMaxMagic;
-            int upexp = cd.Level * cd.Level * p.LevelData.UpExp;//升级经验算法
-            m_ExpTxt.text = $"{cd.Exp}/{upexp}";
-            m_ExpImg.fillAmount = (float)cd.Exp / (float)upexp;
-            m_GongjiTxt.text = p.FP.Attack.ToString();
-            m_FangyuTxt.text = p.FP.Defense.ToString();
-            m_ShanbiTxt.text = p.FP.Dodge.ToString("P1");
-            m_BaojiTxt.text = p.FP.Crit.ToString("P1");
-            m_TizhiTxt.text = cd.Tizhi.ToString();
-            m_LiliangTxt.text = cd.Liliang.ToString();
-            m_MinjieTxt.text = cd.Minjie.ToString();
-            m_MoliTxt.text = cd.Moli.ToString();
-            m_MeiliTxt.text = cd.Meili.ToString();
-            m_XingyunTxt.text = cd.Xingyun.ToString();
-            //战斗力计算：攻击/2+防御+闪避*5000+暴击*6000+生命/4+魔力/5
-            m_ZhandouliTxt.text = (p.FP.Attack/2+ p.FP.Defense+ p.FP.Dodge*5000+ p.FP.Crit*2000 + p.FP.FightMaxHp/4 + p.FP.FightMagic/6).ToString();
+            DataToUI(cd,p);//更新属性到ui面板
             #region 显示装备并存储
             //衣服装备栏
             if (cd.Yifu > 0) {
@@ -285,7 +262,36 @@ namespace GF.MainGame.UI {
             //隐藏非必要内容
             xuanze.gameObject.SetActive(false);
         }
-        
+        private void DataToUI(CharactersData cd=null, Player p = null) {
+            if (cd == null) {
+                cd = UserService.GetInstance.m_CurrentChar;
+                p = UserService.GetInstance.m_CurrentPlayer;
+            }
+            m_NameTxt.text = p.m_PlayerName;
+            m_GdidTxt.text = $"ID:{p.m_GDID.ToString()}";
+            m_ChenghaoTxt.text = cd.Chenghao;
+            m_ZhiyeTxt.text = ((Zhiye)cd.Zhiye).ToString();
+            m_LvTxt.text = $"{cd.Level}级";
+            m_ShengmingTxt.text = $"{p.FP.FightHP}/{p.FP.FightMaxHp}";
+            m_ShengmingImg.fillAmount = (float)p.FP.FightHP / (float)p.FP.FightMaxHp;
+            m_MofaTxt.text = $"{p.FP.FightMagic}/{p.FP.FightMaxMagic}";
+            m_MofaImg.fillAmount = (float)p.FP.FightMagic / (float)p.FP.FightMaxMagic;
+            int upexp = cd.Level * cd.Level * p.LevelData.UpExp;//升级经验算法
+            m_ExpTxt.text = $"{cd.Exp}/{upexp}";
+            m_ExpImg.fillAmount = (float)cd.Exp / (float)upexp;
+            m_GongjiTxt.text = p.FP.Attack.ToString();
+            m_FangyuTxt.text = p.FP.Defense.ToString();
+            m_ShanbiTxt.text = p.FP.Dodge.ToString("P1");
+            m_BaojiTxt.text = p.FP.Crit.ToString("P1");
+            m_TizhiTxt.text = cd.Tizhi.ToString();
+            m_LiliangTxt.text = cd.Liliang.ToString();
+            m_MinjieTxt.text = cd.Minjie.ToString();
+            m_MoliTxt.text = cd.Moli.ToString();
+            m_MeiliTxt.text = cd.Meili.ToString();
+            m_XingyunTxt.text = cd.Xingyun.ToString();
+            //战斗力计算：攻击/2+防御+闪避*5000+暴击*6000+生命/4+魔力/5
+            m_ZhandouliTxt.text = (p.FP.Attack / 2 + p.FP.Defense + p.FP.Dodge * 5000 + p.FP.Crit * 2000 + p.FP.FightMaxHp / 4 + p.FP.FightMagic / 6).ToString();
+        }
        
         /// <summary>
         /// 说是交换，其实就是装备，装备有两种情况，一种在背包内直接点击装备，另一种在选择栏上，在背包中，装备栏上不一定有装备，但在选择栏上，装备栏上一定没装备，因为按照设计逻辑，只有装备栏为空才能打开选择栏
@@ -611,67 +617,70 @@ namespace GF.MainGame.UI {
                         }
                     }
                 }
-                //加上新的数据
-                if (m1!=null) {
-                    if (m1.m_PropXiaoguoDic.Count > 0) {//有属性类的需求
-                        foreach (KeyValuePair<XiaoGuo, Dictionary<string, EffArgs>> xiaoguo in m1.m_PropXiaoguoDic) {
-                            if (xiaoguo.Value.Count > 0) {
-                                foreach (KeyValuePair<string, EffArgs> xg in xiaoguo.Value) {
-                                    switch (xg.Key) {
-                                        case "liliang":
-                                            cd.Liliang += (short)xg.Value.ivalue;
-                                            break;
-                                        case "tizhi":
-                                            cd.Tizhi += (short)xg.Value.ivalue;
-                                            break;
-                                        case "minjie":
-                                            cd.Minjie += (short)xg.Value.ivalue;
-                                            break;
-                                        case "moli":
-                                            cd.Moli += (short)xg.Value.ivalue;
-                                            break;
-                                        case "xingyun":
-                                            cd.Xingyun += (short)xg.Value.ivalue;
-                                            break;
-                                        case "meili":
-                                            cd.Meili += (short)xg.Value.ivalue;
-                                            break;
-                                        case "maxhp":
-                                            fp.FightMaxHp += (short)xg.Value.ivalue;
-                                            fp.FightHP += (short)xg.Value.ivalue;
-                                            break;
-                                        case "maxmagic":
-                                            fp.FightMaxMagic += (short)xg.Value.ivalue;
-                                            fp.FightMagic += (short)xg.Value.ivalue;
-                                            break;
-                                        case "gongji":
-                                            fp.Attack += (short)xg.Value.ivalue;
-                                            break;
-                                        case "fangyu":
-                                            fp.Defense += (short)xg.Value.ivalue;
-                                            break;
-                                        case "shanbi":
-                                            fp.Dodge += xg.Value.fvalue;
-                                            break;
-                                        case "baoji":
-                                            fp.Crit += xg.Value.fvalue;
-                                            break;
-                                        case "lianjin":
-                                            cd.Lianjin += (short)xg.Value.ivalue;
-                                            break;
-                                        case "duanzao":
-                                            cd.Duanzao += (short)xg.Value.ivalue;
-                                            break;
-                                        default:
-                                            Debuger.LogError($"未知属性{xg.Key}，无法匹配计算，请检查数据表");
-                                            break;
-                                    }
+            }
+            //加上新的数据
+            if (m1 != null) {
+                Debuger.Log(m1.m_PropXiaoguoDic.Count);
+                if (m1.m_PropXiaoguoDic.Count > 0) {//有属性类的需求
+                    foreach (KeyValuePair<XiaoGuo, Dictionary<string, EffArgs>> xiaoguo in m1.m_PropXiaoguoDic) {
+                        if (xiaoguo.Value.Count > 0) {
+                            foreach (KeyValuePair<string, EffArgs> xg in xiaoguo.Value) {
+                                switch (xg.Key) {
+                                    case "liliang":
+                                        cd.Liliang += (short)xg.Value.ivalue;
+                                        break;
+                                    case "tizhi":
+                                        cd.Tizhi += (short)xg.Value.ivalue;
+                                        break;
+                                    case "minjie":
+                                        cd.Minjie += (short)xg.Value.ivalue;
+                                        break;
+                                    case "moli":
+                                        cd.Moli += (short)xg.Value.ivalue;
+                                        break;
+                                    case "xingyun":
+                                        cd.Xingyun += (short)xg.Value.ivalue;
+                                        break;
+                                    case "meili":
+                                        cd.Meili += (short)xg.Value.ivalue;
+                                        break;
+                                    case "maxhp":
+                                        fp.FightMaxHp += (short)xg.Value.ivalue;
+                                        fp.FightHP += (short)xg.Value.ivalue;
+                                        break;
+                                    case "maxmagic":
+                                        fp.FightMaxMagic += (short)xg.Value.ivalue;
+                                        fp.FightMagic += (short)xg.Value.ivalue;
+                                        break;
+                                    case "gongji":
+                                        fp.Attack += (short)xg.Value.ivalue;
+                                        break;
+                                    case "fangyu":
+                                        fp.Defense += (short)xg.Value.ivalue;
+                                        break;
+                                    case "shanbi":
+                                        fp.Dodge += xg.Value.fvalue;
+                                        break;
+                                    case "baoji":
+                                        fp.Crit += xg.Value.fvalue;
+                                        break;
+                                    case "lianjin":
+                                        cd.Lianjin += (short)xg.Value.ivalue;
+                                        break;
+                                    case "duanzao":
+                                        cd.Duanzao += (short)xg.Value.ivalue;
+                                        break;
+                                    default:
+                                        Debuger.LogError($"未知属性{xg.Key}，无法匹配计算，请检查数据表");
+                                        break;
                                 }
                             }
                         }
                     }
                 }
             }
+            //更新数据到ui
+            DataToUI();
         }
         public override void Close(bool bClear = false, object arg = null) {
              base.Close(bClear, arg);

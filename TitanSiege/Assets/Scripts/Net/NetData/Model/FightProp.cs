@@ -75,10 +75,12 @@ public class FightProp
                 //m_IsDie = true;
                 //通知死亡 todo
             } else {
-                m_FightHp = value;
+                if (m_FightHp > m_FightMaxHp) {
+                    m_FightHp = m_FightMaxHp;
+                } else {
+                    m_FightHp = value;
+                }
             }
-            //通知ui层数据发生变化
-
         }
     }
     protected int m_FightMaxHp;//战斗时最大生命
@@ -88,6 +90,7 @@ public class FightProp
             return m_FightMaxHp;
         }
         set {
+
             m_FightMaxHp = value;
             //通知ui层数据发生变化
 
@@ -99,9 +102,16 @@ public class FightProp
             return m_FightMagic;
         }
         set {
-            m_FightMagic = value;
-            //通知ui层数据发生变化
-
+            if (value <= 0) {
+                m_FightMagic = 0;
+               
+            } else {
+                if (m_FightMagic > m_FightMaxMagic) {
+                    m_FightMagic = m_FightMaxMagic;
+                } else {
+                    m_FightMagic = value;
+                }
+            }
         }
     }
     protected int m_FightMaxMagic;//战斗时最大魔力
