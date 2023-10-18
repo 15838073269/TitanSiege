@@ -16,8 +16,10 @@ using GF.Unity.UI;
 using Net.Client;
 using Net.Component;
 using Net.Share;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Titansiege;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -195,7 +197,7 @@ namespace GF.MainGame.UI {
         /// <param name="path"></param>
         /// <param name="obj"></param>
         /// <param name="objarr"></param>
-        public void OnLoadSpriteOver(string path, Object obj, params object[] objarr) {
+        public void OnLoadSpriteOver(string path, UnityEngine.Object obj, params object[] objarr) {
             if (obj != null) {
                 Texture2D t2d = (obj as Texture2D);
                 m_CItemImg.sprite = Sprite.Create(t2d, new Rect(0, 0, t2d.width, t2d.height), Vector2.zero);
@@ -708,89 +710,98 @@ namespace GF.MainGame.UI {
         /// <summary>
         /// 丢弃道具
         /// </summary>
+        private ItemBaseUI m_DiuqiItem = null;
         public void OnDiuqi() {
             if (m_CurrenItem!=null) {
-                if (m_CurrenItem.m_Data.pinzhi>1) { //白板以上物品给个提示
-                    UIMsgBoxArg arg = new UIMsgBoxArg();
-                    arg.title = "警告";
-                    arg.content = "道具丢弃无法找回，请确认是否要进行丢弃，确认后系统将永久销毁此道具！";
-                    arg.btnname = "确认|取消";
-                    UIMsgBox temp = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox, arg) as UIMsgBox;
-                    temp.oncloseevent += IsDiuqi;
-                }
+                UIMsgBoxArg arg = new UIMsgBoxArg();
+                arg.title = "警告";
+                arg.content = $"{m_CurrenItem.m_Data.name}丢弃无法找回，请确认是否要进行丢弃，确认后系统将永久销毁此道具！";
+                arg.btnname = "确认|取消";
+                UIMsgBox temp = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox, arg) as UIMsgBox;
+                temp.oncloseevent += IsDiuqi;
+                m_DiuqiItem = m_CurrenItem;
+                Close();//close会清除m_CurrenItem，所以一定要放到后面
             }
         }
         private void IsDiuqi(object args = null) {
             ushort btnindex = ushort.Parse(args.ToString());
             if (btnindex == 0) {//点击第一个按钮，也就是确认
-                AppTools.Send<ItemBaseUI>((int)ItemEvent.RecycleItemUI, m_CurrenItem);
-                Close();
+                AppTools.Send<ItemBaseUI>((int)ItemEvent.RecycleItemUI, m_DiuqiItem);
             } else { //点击取消，什么都不用做，基类已经处理了
-
             }
+            m_DiuqiItem = null;
         }
         /// <summary>
         /// 使用某个道具
         /// </summary>
         public async void OnUse() {
+            //通知背包，使用后减少物品
+            var isusetask = await AppTools.SendReturn<ItemBaseUI, int, UniTask<bool>>((int)ItemEvent.ToDoItemNum, m_CurrenItem,-1);
+            if (!isusetask) {
+                UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用失败，该道具数量不足！");
+                return;
+            }
             if (m_CurrenItem.m_IntXiaoguoDic.Count>0) {
                 if (m_CurrenItem.IsCanEqu()) {
                     foreach (KeyValuePair<XiaoGuo,int> xiaoguo in m_CurrenItem.m_IntXiaoguoDic) {
                         switch (xiaoguo.Key) {
                             case XiaoGuo.addhp:
-                                ClientBase.Instance.AddOperation(new Operation(Command.AddHpOrMp, ClientBase.Instance.UID) {
-                                    index = xiaoguo.Value,//回血
-                                    index1  = 0,//回蓝
-                                });
-                                UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家回复血量{xiaoguo.Value}点");
+                                int huifu = UserService.GetInstance.m_CurrentPlayer.FP.FightMaxHp - UserService.GetInstance.m_CurrentPlayer.FP.FightHP;
+                                if (huifu > 0) {//需要回血了再发送数据
+                                    ClientBase.Instance.AddOperation(new Operation(Command.AddHpOrMp, ClientBase.Instance.UID) {
+                                        index = xiaoguo.Value,//回血
+                                        index1 = 0,//回蓝
+                                    });
+                                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家回复血量{huifu}点");
+                                } else { //==0
+                                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家生命已满！");
+                                }
                                 break;
                             case XiaoGuo.addmp:
-                                ClientBase.Instance.AddOperation(new Operation(Command.AddHpOrMp, ClientBase.Instance.UID) {
-                                    index = 0,//回血
-                                    index1 = xiaoguo.Value,//回蓝
-                                });
-                                UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家回复魔力{xiaoguo.Value}点");
+                                int huilan = UserService.GetInstance.m_CurrentPlayer.FP.FightMaxMagic - UserService.GetInstance.m_CurrentPlayer.FP.FightMagic;
+                                if (huilan > 0) {//需要回血了再发送数据
+                                    ClientBase.Instance.AddOperation(new Operation(Command.AddHpOrMp, ClientBase.Instance.UID) {
+                                        index = 0,//回血
+                                        index1 = xiaoguo.Value,//回蓝
+                                    });
+                                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家回复魔力{huilan}点");
+                                } else {
+                                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家法力已满！");
+                                }
                                 break;
                             case XiaoGuo.addjinbi:
-                                RPCModelTask task = await ClientBase.Instance.Call((int)ProtoType.addjinbiorzuanshi, pars: (xiaoguo.Value,0));
+                                var task = await ClientBase.Instance.Call((ushort)ProtoType.addjinbi, pars:xiaoguo.Value);
                                 if (!task.IsCompleted) {
-                                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"请求超时，请检查网络链接");
+                                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "请求超时，请检查网络链接");
                                     return;
                                 } else {
                                     int code = task.model.AsInt;
-                                    switch (code) {
-                                        case 0:
-                                            //通知ui
-                                            UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家增加{xiaoguo.Value}金币");
-                                            break;
-                                        case 1:
-                                            UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"请求超时，请检查网络链接");
-                                            return;
-                                        default:
-                                            Debuger.LogError("网络参数错误，请检查！");
-                                            break;
+                                    if (code == -1) {
+                                        //有可能是减去
+                                        UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "金币数量不足！");
+                                    } else {
+                                        //通知ui
+                                        UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家增加{xiaoguo.Value}金币");
+                                        AppTools.Send<int, ushort>((int)ItemEvent.AddJinbiOrZuanshi, xiaoguo.Value,0);
                                     }
+                                   
                                 }
                                 break;
                             case XiaoGuo.addzhuanshi:
                                 //设计的第二个参数是钻石
-                                RPCModelTask task1 = await ClientBase.Instance.Call((int)ProtoType.addjinbiorzuanshi, pars:(0, xiaoguo.Value));
+                                var task1 = await ClientBase.Instance.Call((ushort)ProtoType.addzuanshi,pars:xiaoguo.Value);
                                 if (!task1.IsCompleted) {
-                                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"请求超时，请检查网络链接");
+                                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "请求超时，请检查网络链接");
                                     return;
                                 } else {
                                     int code = task1.model.AsInt;
-                                    switch (code) {
-                                        case 0:
-                                            //通知ui
-                                            UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家增加{xiaoguo.Value}钻石");
-                                            break;
-                                        case 1:
-                                            UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"请求超时，请检查网络链接");
-                                            return;
-                                        default:
-                                            Debuger.LogError("网络参数错误，请检查！");
-                                            break;
+                                    if (code == -1) {
+                                        //addzuansh有可能是减去
+                                        UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "钻石数量不足！");
+                                    } else {
+                                        //通知ui
+                                        UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用成功，玩家增加{xiaoguo.Value}钻石");
+                                        AppTools.Send<int, ushort>((int)ItemEvent.AddJinbiOrZuanshi, xiaoguo.Value, 1);
                                     }
                                 }
                                 break;
@@ -809,6 +820,7 @@ namespace GF.MainGame.UI {
                                 break;
                         }
                     }
+                    
                 }
             }
             Close();

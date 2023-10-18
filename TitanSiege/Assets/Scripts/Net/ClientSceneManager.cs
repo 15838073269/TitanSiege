@@ -111,6 +111,12 @@ namespace GF.NetWork {
                         p.FP.FightMagic = opt.index1;
                         p.FP.FightMaxHp = opt.index2;
                         p.FP.FightMaxMagic = opt.index3;
+                        if (p.FP.FightHP> p.FP.FightMaxHp) {
+                            p.FP.FightHP = p.FP.FightMaxHp;
+                        }
+                        if (p.FP.FightMagic > p.FP.FightMaxMagic) {
+                            p.FP.FightMagic = p.FP.FightMaxMagic;
+                        }
                         if ((!string.IsNullOrEmpty(opt.name)) ) {//网络玩家赋值名称，本地的不用
                             p.m_PlayerName = opt.name;
                             //创建显示血条和名称
@@ -143,10 +149,7 @@ namespace GF.NetWork {
                     monster.m_NetState = opt.cmd1;
                     monster.m_PatrolState = opt.cmd2;
                     monster.FP.FightHP = opt.index1;
-                    //怪物死亡，给玩家加经验
-                    if (opt.index2 > 0 && monster.AttackTarget != null) {
-                        UserService.GetInstance.m_CurrentChar.Exp += opt.index2;
-                    }
+                    
                     monster.StatusEntry();
                     monster.transform.position = opt.position;
                     monster.transform.rotation = opt.rotation;

@@ -38,6 +38,8 @@ namespace GF.MainGame.UI {
                 m_Num = value;
                 if (m_Num == 1) {
                     m_ItemNum.gameObject.SetActive(false);
+                } else if (m_Num ==0) {
+                    AppTools.Send<ItemBaseUI>((int)ItemEvent.RecycleItemUI,this);
                 } else {
                     if (!m_ItemNum.gameObject.activeSelf) {
                         m_ItemNum.gameObject.SetActive(true);

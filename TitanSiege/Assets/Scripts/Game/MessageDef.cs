@@ -97,6 +97,8 @@ namespace GF.MainGame {
         BagIsFull,
         CreateItemUI,
         RecycleItemUI,
+        ToDoItemNum,
+        AddJinbiOrZuanshi,
     }
 }
 

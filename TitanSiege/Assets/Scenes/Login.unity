@@ -344,7 +344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89118d46b9629594b85b42cc2545e91c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Uid: 0
   RecyclePoolTrs: {fileID: 4494655711877340675}
   SceneTransform: {fileID: 4494655712070701384}
   HpUIRoot: {fileID: 0}
@@ -352,6 +351,7 @@ MonoBehaviour:
   uiroot: {fileID: 7068858269424249402}
   uicamera: {fileID: 6237665159356953499}
   eventsystem: {fileID: 6237665157572276745}
+  m_UIPoolRoot: {fileID: 0}
 --- !u!81 &4494655711011495441
 AudioListener:
   m_ObjectHideFlags: 0

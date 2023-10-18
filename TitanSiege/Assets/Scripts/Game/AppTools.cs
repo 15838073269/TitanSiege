@@ -159,7 +159,13 @@ namespace GF.MainGame {
             t2 = t2.Replace("-", "");
             return t2.ToLower();
         }
-        
+        /// <summary>
+        /// 作弊，网络等问题使用的强行退出游戏
+        /// </summary>
+        /// <param name="args"></param>
+        public static void OnFailed(object args = null) {
+            Application.Quit();
+        }
     }
 
 }

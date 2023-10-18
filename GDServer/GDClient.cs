@@ -176,7 +176,12 @@ namespace GDServer {
             if (uptime>0) {
                 UpProp(uptime);//递归调用，容易堆栈溢出
             }
-            
+            //为了节省带宽，这里只发送一个升级命令和，具体升级计算由客户端自己完成
+            scene.AddOperation(new Operation(Command.PlayerUpdateProp, UserID) {
+                index = uptime,//升级多少次
+                index1 = current.Exp,
+                index2 = FP.FightMaxHp,//客户端网络玩家使用
+            });
         }
         /// <summary>
         /// 升级的方法
@@ -205,12 +210,7 @@ namespace GDServer {
             //    index3 = FP.FightMaxMagic,
             //});
             //重新计算属性
-            //为了节省带宽，这里只发送一个升级命令和，具体升级计算由客户端自己完成
-            scene.AddOperation(new Operation(Command.PlayerUpdateProp, UserID) {
-                index = current.Level,
-                index1 = current.Exp,
-                index2 = FP.FightMaxHp,//客户端网络玩家使用
-            });
+            
             
         }
         /// <summary>
@@ -253,6 +253,8 @@ namespace GDServer {
                     sb.Append($"{tmp.Key}|{tmp.Value},");
                 }
             }
+            m_BagItem.Inbag = sb.ToString();
+            //m_BagItem.Update();
             return sb.ToString();
         }
 
@@ -266,5 +268,6 @@ namespace GDServer {
                 index3 = FP.FightMaxMagic,
             });
         }
+
     }
 }

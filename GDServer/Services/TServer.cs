@@ -153,13 +153,59 @@ namespace GDServer.Services
                     string scenename = model.pars[0].ToString();
                     UserService.GetInstance.SwitchScene(client, scenename);
                     break;
-                case (ushort)ProtoType.addjinbiorzuanshi://客户端主动发起退出登录
+                case (ushort)ProtoType.addjinbi://添加金币或者钻石，只添加一样，另一样0
                     int jinbi = (int)model.pars[0];
-                    int zuanshi = (int)model.pars[1];
+                    if (jinbi < 0) {//减少数量，首先先判断一下现有的,数量不足就返回false
+                        if (client.current.Jinbi < jinbi) {
+                            TServer.Instance.SendRT(client, (ushort)ProtoType.addjinbi, -1);
+                            return;
+                        }
+                    }
                     client.current.Jinbi += jinbi;
+                    //返回玩家属性数据
+                    TServer.Instance.SendRT(client, (ushort)ProtoType.addjinbi, client.current.Jinbi);
+                    break;
+                case (ushort)ProtoType.addzuanshi://添加金币或者钻石，只添加一样，另一样0
+                    int zuanshi = (int)model.pars[0];
+                    if (zuanshi < 0) {//减少数量，首先先判断一下现有的,数量不足就返回false
+                        if (client.current.Zuanshi < zuanshi) {
+                            TServer.Instance.SendRT(client, (ushort)ProtoType.addzuanshi, -1);
+                            return;
+                        }
+                    }
                     client.current.Zuanshi += zuanshi;
                     //返回玩家属性数据
-                    TServer.Instance.SendRT(client, (ushort)ProtoType.addjinbiorzuanshi, 0);
+                    TServer.Instance.SendRT(client, (ushort)ProtoType.addzuanshi, client.current.Zuanshi);
+                    break;
+                case (ushort)ProtoType.TodoItemNum://添加或减少道具
+                    int id = (int)model.pars[0];
+                    int num = (int)model.pars[1];
+                    if (client.m_UserItem.TryGetValue(id, out int ordernum)) {
+                        if (num < 0) {//减少数量，首先先判断一下现有的,数量不足就返回false
+                            if (ordernum < num) {
+                                TServer.Instance.SendRT(client, (ushort)ProtoType.TodoItemNum, -1);
+                                return;
+                            }
+                        }
+                        client.m_UserItem[id] += num;
+                        Debuger.Log($"玩家{client.UserID}的道具{id}数量{num},总数{client.m_UserItem[id]}");
+                        //将背包数据写入字符串
+                        client.UserItemToStr();
+                        TServer.Instance.SendRT(client, (ushort)ProtoType.TodoItemNum, 0);
+                    } else {
+                        //背包没有此道具，客户端非法修改，返回客户端删除道具并警告
+                        TServer.Instance.SendRT(client, (ushort)ProtoType.TodoItemNum, -2);
+                    }
+                    break;
+                case (ushort)ProtoType.DestroyItem://删除道具
+                    int itemid = (int)model.pars[0];
+                    if (client.m_UserItem.ContainsKey(itemid)) {
+                        client.m_UserItem[itemid] = 0;
+                        Debuger.Log($"玩家{client.UserID}的道具{itemid}被销毁");
+                        //将背包数据写入字符串
+                        client.UserItemToStr();
+                        TServer.Instance.SendRT(client, (ushort)ProtoType.DestroyItem, 0);
+                    }
                     break;
                 case (ushort)ProtoType.signout://客户端主动发起退出登录
                     SignOut(client);

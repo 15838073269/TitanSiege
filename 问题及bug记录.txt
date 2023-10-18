@@ -36,3 +36,9 @@
 
 13、异步加载图片资源时，loadasset的Object无法直接转换成sprite，需要先转换成Texture2D，然后再和sprite互转
 转换方法：Sprite.Create(t2d, new Rect(0, 0, t2d.width, t2d.height), Vector2.zero);
+
+
+使用钻石报内部方法错误，原因是对hash 409 类型没有序列化
+使用物品后，满血时，红蓝会超标，人物角色信息和主ui面板的都会，应该限制满血满蓝使用药品
+道具使用，没有在背包中处理减少
+

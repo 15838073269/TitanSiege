@@ -399,40 +399,45 @@ namespace GF.MainGame.Module.NPC {
         /// <summary>
         /// 升级的方法
         /// </summary>
-        /// <param name="uplv">升级多少次</param>
-        public void UpProp(int level,int exp,int hp = -1) {
+        /// <param name="levelupnum">升级多少次</param>
+        public void UpProp(int levelupnum,int exp,int hp = -1) {
             if (NpcType.player == m_NpcType) {
                 if (ClientBase.Instance.UID == m_GDID) {//本机玩家
                     CharactersData cd = UserService.GetInstance.m_CurrentChar;
-                    int uplv = level - cd.Level;
-                    cd.Liliang += (short)(LevelData.Liliang * uplv);
-                    cd.Tizhi += (short)(LevelData.Tizhi * uplv);
-                    cd.Minjie += (short)(LevelData.Minjie * uplv);
-                    cd.Moli += (short)(LevelData.Moli * uplv);
-                    cd.Shengming += (short)(LevelData.Shengming * uplv);
-                    cd.Fali += (short)(LevelData.Fali * uplv);
-                    cd.Meili += (short)(LevelData.Meili * uplv);
-                    cd.Xingyun += (short)(LevelData.Xingyun * uplv);
-                    cd.Lianjin += (short)(LevelData.Lianjin * uplv);
-                    cd.Duanzao += (short)(LevelData.Duanzao * uplv);
-                    cd.Level += (sbyte)uplv;
+                    if (levelupnum > 0) {
+                        cd.Liliang += (short)(LevelData.Liliang * levelupnum);
+                        cd.Tizhi += (short)(LevelData.Tizhi * levelupnum);
+                        cd.Minjie += (short)(LevelData.Minjie * levelupnum);
+                        cd.Moli += (short)(LevelData.Moli * levelupnum);
+                        cd.Shengming += (short)(LevelData.Shengming * levelupnum);
+                        cd.Fali += (short)(LevelData.Fali * levelupnum);
+                        cd.Meili += (short)(LevelData.Meili * levelupnum);
+                        cd.Xingyun += (short)(LevelData.Xingyun * levelupnum);
+                        cd.Lianjin += (short)(LevelData.Lianjin * levelupnum);
+                        cd.Duanzao += (short)(LevelData.Duanzao * levelupnum);
+                        cd.Level += (sbyte)levelupnum;
+                        UpdateFightProps(true);
+                    } 
                     cd.Exp = exp;
                 } else { //非本机玩家，无需处理，只需要更新血条即可
                     if (hp != -1) { 
                         FP.FightMaxHp = hp; 
                         FP.FightHP = hp;
-                    }
+                    } 
                 }
+                if (levelupnum>0) {//如果升级了，不论是本机玩家还是网络玩家，都播放升级特效
+                    //播放升级特效
+                    if (m_LevelUp.gameObject.activeSelf) {
+                        m_LevelUp.gameObject.SetActive(false);
+                    }
+                    m_LevelUp.gameObject.SetActive(true);
+                    ThreadManager.Event.AddEvent(3f, () => {
+                        m_LevelUp.gameObject.SetActive(false);
+                    });
+                }
+                
             }
-            UpdateFightProps(true);
-            //播放升级特效
-            if (m_LevelUp.gameObject.activeSelf) {
-                m_LevelUp.gameObject.SetActive(false);
-            }
-            m_LevelUp.gameObject.SetActive(true);
-            ThreadManager.Event.AddEvent(3f, () => {
-                m_LevelUp.gameObject.SetActive(false);
-            });
+            
         }
 
     }

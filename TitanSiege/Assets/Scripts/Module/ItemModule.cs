@@ -22,6 +22,11 @@ using System.Text;
 using cmd;
 using GF.Service;
 using UnityEditor;
+using Unity.VisualScripting;
+using Net.Client;
+using Cysharp.Threading.Tasks;
+using Titansiege;
+using System.Threading.Tasks;
 
 namespace GF.MainGame.Module {
     public class ItemModule : GeneralModule {
@@ -64,6 +69,8 @@ namespace GF.MainGame.Module {
             AppTools.Regist<ItemDataBase,int,bool>((int)ItemEvent.AddItemUIIfNoneCreateInBag, AddItemUIIfNoneCreateInBag);
             AppTools.Regist<ItemBaseUI>((int)ItemEvent.RecycleItemUI, RecycleItemUI);
             AppTools.Regist<int,ItemPos,int,ItemBaseUI>((int)ItemEvent.CreateItemUI, CreateItemUI);
+            AppTools.Regist<ItemBaseUI,int, UniTask<bool>>((int)ItemEvent.ToDoItemNum, ToDoItemNum);
+            AppTools.Regist<int, ushort>((int)ItemEvent.AddJinbiOrZuanshi, AddJinbiOrZuanshi);
         }
         /// <summary>
         /// 给对象池使用的创建物品ui
@@ -78,19 +85,29 @@ namespace GF.MainGame.Module {
         /// 回收物品对象池
         /// </summary>
         /// <param name="itemui"></param>
-        public void RecycleItemUI(ItemBaseUI itemui) {
-            m_CurItem.Remove(itemui);//从背包存储中先删除
-            for (int i = 0; i < m_BagUI.m_Boxs.Count; i++) {//再把格子里的清理掉
-                if (m_BagUI.m_Boxs[i].Item == itemui) {
-                    m_BagUI.m_Boxs[i].Item = null; 
-                    break;
+        public async void RecycleItemUI(ItemBaseUI itemui) {
+            //发送服务器删除背包物品
+            var task = await ClientBase.Instance.Call((ushort)ProtoType.DestroyItem,pars:itemui.m_Data.id);
+            if (task.IsCompleted) {
+                int code = task.model.AsInt;
+                if (code == 0) {//删除背包内ui
+                    m_CurItem.Remove(itemui);//从背包存储中先删除
+                    for (int i = 0; i < m_BagUI.m_Boxs.Count; i++) {//再把格子里的清理掉
+                        if (m_BagUI.m_Boxs[i].Item == itemui) {
+                            m_BagUI.m_Boxs[i].Item = null;
+                            break;
+                        }
+                    }
+                    //处理对象池
+                    if (m_Pool.Recycle(itemui)) {
+                        itemui.transform.SetParent(AppMain.GetInstance.m_UIPoolRoot.transform);
+                        itemui.gameObject.SetActive(false);
+                    } else {
+                        Object.Destroy(itemui.gameObject);
+                    }
                 }
-            }
-            if (m_Pool.Recycle(itemui)) {
-                itemui.transform.SetParent(AppMain.GetInstance.m_UIPoolRoot.transform);
-                itemui.gameObject.SetActive(false);
             } else {
-                Object.Destroy(itemui.gameObject);
+                UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"请求超时，请检查网络链接");
             }
         }
         public ItemBaseUI GetItemUI() {
@@ -126,16 +143,44 @@ namespace GF.MainGame.Module {
         /// </summary>
         /// <param name="id"></param>
         /// <param name="num"></param>
-        public bool AddItemNum(int id,int num) {
-            if (UserService.GetInstance.m_UserItem.TryGetValue(id, out int ordernum)) {
+        public async UniTask<bool> ToDoItemNum(ItemBaseUI itemui,int num) {
+            if (UserService.GetInstance.m_UserItem.TryGetValue(itemui.m_Data.id, out int ordernum)) {
                 if (num < 0) {//减少数量，首先先判断一下现有的,数量不足就返回false
-                    if (ordernum < num) {
-                        return false;
-                    } else {
-                        ordernum -= num;
+                    if (ordernum < Mathf.Abs(num)) {
+                        return false;//数量不足
+                    }
+                }
+                //发送服务器处理
+                var task = await ClientBase.Instance.Call((ushort)ProtoType.TodoItemNum, timeoutMilliseconds: 0, itemui.m_Data.id, num);
+                if (task.IsCompleted) {
+                    int code = task.model.AsInt;
+                    switch (code) {
+                        case -2:
+                            //服务器存储没有这个物品，客户端作弊非法操作，直接关闭客户端
+                            UIMsgBoxArg arg = new UIMsgBoxArg();
+                            arg.title = "警告！";
+                            arg.content = "发现数据作弊，系统发出警告，将强行退出游戏！";
+                            arg.btnname = "关闭游戏";
+                            UIMsgBox box = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox,arg) as UIMsgBox;
+                            box.oncloseevent += AppTools.OnFailed;
+                            return false;
+                        case -1:
+                            //服务器存储数量不足，客户端作弊非法操作，直接关闭客户端
+                            UIMsgBoxArg arg1 = new UIMsgBoxArg();
+                            arg1.title = "警告！";
+                            arg1.content = "发现数据作弊，系统发出警告，将强行退出游戏！";
+                            arg1.btnname = "关闭游戏";
+                            UIMsgBox box1 = UIManager.GetInstance.OpenWindow(AppConfig.UIMsgBox, arg1) as UIMsgBox;
+                            box1.oncloseevent += AppTools.OnFailed;
+                            return false;
+                        case 0:
+                            UserService.GetInstance.m_UserItem[itemui.m_Data.id] += num;
+                            itemui.Num += num;
+                            break;
                     }
                 } else {
-                    ordernum += num;
+                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"请求超时，请检查网络链接");
+                    return false;
                 }
             }
             return true;
@@ -170,7 +215,7 @@ namespace GF.MainGame.Module {
                 if (!m_BagUI.m_IsFull) {
                     itemui = CreateItemUI(data.id, ItemPos.inBag, num);
                 } else {
-                   
+                    
                     return false;
                 }
             }
@@ -201,6 +246,26 @@ namespace GF.MainGame.Module {
                 itemui.transform.localPosition = Vector3.zero;
             }
             return itemui;
+        }
+        /// <summary>
+         /// 增加金币或者钻石
+         /// </summary>
+         /// <param name="num"></param>
+         /// <param name="typenum"></param>
+        public void AddJinbiOrZuanshi(int num, ushort typenum) {
+            CharactersData cd = UserService.GetInstance.m_CurrentChar;
+            switch (typenum) {
+                case 0:
+                    cd.Jinbi += num;
+                    m_BagUI.m_Jinbi.text = cd.Jinbi.ToString();
+                    break;
+                case 1:
+                    cd.Zuanshi += num;
+                    m_BagUI.m_Zhuanshi.text = cd.Zuanshi.ToString();
+                    break;
+                default:
+                    break;
+            }
         }
         public override void Release() {
             base.Release();
