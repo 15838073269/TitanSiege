@@ -21,6 +21,10 @@ using System.Collections.Generic;
 using GF.Pool;
 using static UnityEditor.PlayerSettings;
 using System.Security.Cryptography;
+using Cysharp.Threading.Tasks;
+using Net.Client;
+using System.Net.Sockets;
+using cmd;
 
 namespace GF.MainGame.UI {
     public class InfoUIWindow : UIWindow {
@@ -215,6 +219,7 @@ namespace GF.MainGame.UI {
                     kuziitem.Init(cd.Kuzi, ItemPos.inEqu);
                 }
                 kuziitem.gameObject.SetActive(true);
+               
             } else {//有可能会等于0
                 kuziitem.gameObject.SetActive(false);
             }
@@ -235,6 +240,7 @@ namespace GF.MainGame.UI {
                     xianglianitem.Init(cd.Xianglian, ItemPos.inEqu);
                 }
                 xianglianitem.gameObject.SetActive(true);
+               
             } else {//有可能会等于0
                 xianglianitem.gameObject.SetActive(false);
             }
@@ -242,9 +248,10 @@ namespace GF.MainGame.UI {
             if (cd.Jiezi > 0) {
                 if (m_EquPosDic[ItemType.jiezi] != cd.Jiezi) {//避免重复初始化
                     m_EquPosDic[ItemType.jiezi] = cd.Jiezi;
-                    jieziitem.Init(cd.Jiezi, ItemPos.inEqu);
+                    jieziitem.Init(cd.Jiezi, ItemPos.inEqu); 
                 }
                 jieziitem.gameObject.SetActive(true);
+               
             } else {//有可能会等于0
                 jieziitem.gameObject.SetActive(false);
             } 
@@ -297,231 +304,138 @@ namespace GF.MainGame.UI {
         /// 说是交换，其实就是装备，装备有两种情况，一种在背包内直接点击装备，另一种在选择栏上，在背包中，装备栏上不一定有装备，但在选择栏上，装备栏上一定没装备，因为按照设计逻辑，只有装备栏为空才能打开选择栏
         /// </summary>
         /// <param name="equ"></param>
-        public void ChangeEquItem(ItemBaseUI equ) {
-            if (equ!=null) {
+        public async void ChangeEquItem(ItemBaseUI equ) {
+            if (equ != null) {
                 CharactersData cd = UserService.GetInstance.m_CurrentChar;
                 FightProp fp = UserService.GetInstance.m_CurrentPlayer.FP;
                 bool bagisfull = AppTools.SendReturn<bool>((int)ItemEvent.BagIsFull);
-                switch ((ItemType)equ.m_Data.itemtype ) {
-                    case ItemType.yifu:
-                        if (cd.Yifu > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
-                            //数据处理完毕，开始处理ui显示
-                            int tempid = equ.m_Data.id;//先缓存起来，方便交换
-                            if (equ.Num > 1) {
-                                equ.Num -= 1;
+
+                var equtempdic = equ.m_PropXiaoguoDic;//先缓存起来
+                Dictionary<XiaoGuo,Dictionary<string,EffArgs>> changtempdic = null;
+                int tempid = equ.m_Data.id;
+                int itemtype = equ.m_Data.itemtype;
+                //数量-1,如果为0 此时equ会被直接删除，所以需要先记录一下数据
+                bool issuccess = await AppTools.SendReturn<ItemBaseUI, int, UniTask<bool>>((int)ItemEvent.ToDoItemNum, equ, -1);
+
+                
+                if (issuccess) {//执行成功才会开始计算装备,失败了不用管，ToDoItemNum执行过程中自己会报错
+                    switch ((ItemType)itemtype) {
+                        case ItemType.yifu:
+                            if (cd.Yifu > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
                                 //先查找背包内有没有物品，没有的话新建一个物品到背包
-                                //这个方法里已经加过数量了,而且只有背包满了的时候，才会返回false
-                                bool state = AppTools.SendReturn<ItemDataBase,int,bool>((int)ItemEvent.AddItemUIIfNoneCreateInBag, yifuitem.m_Data,1);
+                                //这个方法里已经加过数量了,而且只有背包满了或者网络错误或者非法数据的时候，才会返回false
+                                bool state = await AppTools.SendReturn<ItemDataBase, int, UniTask<bool>>((int)ItemEvent.AddItemUIIfNoneCreateInBag, yifuitem.m_Data, 1);
                                 if (state == false) { //背包已满，添加失败
                                     UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "背包已满，无法装备,请先清理背包！");
                                     return;
                                 }
-                                UpdateCharacterData(equ, yifuitem, cd, fp);
-                            } else { //只有一个,就直接把两个道具交换
-                                UpdateCharacterData(equ, yifuitem, cd, fp);
-                                equ.Init(yifuitem.m_Data.id, ItemPos.inBag);
+                                changtempdic = yifuitem.m_PropXiaoguoDic;
                             }
+                            yifuitem.Init(tempid, ItemPos.inEqu);
                             cd.Yifu = (short)tempid;
                             m_EquPosDic[ItemType.yifu] = cd.Yifu;
-                            yifuitem.Init(tempid, ItemPos.inEqu);
-                        } else { //在选择栏或者在背包内装备栏无对应装备
-                            UpdateCharacterData(equ, null, cd, fp);
-                            yifuitem.Init(equ.m_Data.id, ItemPos.inEqu);
-                            cd.Yifu = (short)equ.m_Data.id;
-                            m_EquPosDic[ItemType.yifu] = cd.Yifu;
-                            if (equ.Num > 1) {
-                                equ.Num -= 1;
-                            } else { //只有一个,就直接把背包内的道具删除
-                                AppTools.Send<ItemBaseUI>((int)ItemEvent.RecycleItemUI, equ);
-                            }
-                        }
-                        //发送服务器计算玩家数据，这里只发送玩家数据，背包变化由另一个模块发送，这里是客户端自己计算完后发送服务端，其实安全考虑，可以改成服务端计算完成后，发给客户端同步，但同步费流量，如果网络差的话，客户体验不太好。
-                        //先用两套计算吧，最后加个关键数据核对
-                        //todo
-                        break;
-                    case ItemType.kuzi:
-                        if (cd.Kuzi > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
-                            //数据处理完毕，开始处理ui显示
-                            int tempid = equ.m_Data.id;//先缓存起来，方便交换
-                            if (equ.Num > 1) {
-                                equ.Num -= 1;
+                            break;
+                        case ItemType.kuzi:
+                            if (cd.Kuzi > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
                                 //先查找背包内有没有物品，没有的话新建一个物品到背包
-                                //这个方法里已经加过数量了,而且只有背包满了的时候，才会返回false
-                                bool state = AppTools.SendReturn<ItemDataBase, int, bool>((int)ItemEvent.AddItemUIIfNoneCreateInBag, kuziitem.m_Data, 1);
+                                //这个方法里已经加过数量了,而且只有背包满了或者网络错误或者非法数据的时候，才会返回false
+                                bool state = await AppTools.SendReturn<ItemDataBase, int, UniTask<bool>>((int)ItemEvent.AddItemUIIfNoneCreateInBag, kuziitem.m_Data, 1);
                                 if (state == false) { //背包已满，添加失败
                                     UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "背包已满，无法装备,请先清理背包！");
                                     return;
                                 }
-                                UpdateCharacterData(equ, kuziitem, cd, fp);
-                            } else { //只有一个,就直接把两个道具交换
-                                UpdateCharacterData(equ, kuziitem, cd, fp);
-                                equ.Init(kuziitem.m_Data.id, ItemPos.inBag);
+                                changtempdic = kuziitem.m_PropXiaoguoDic;
                             }
+                            kuziitem.Init(tempid, ItemPos.inEqu);
                             cd.Kuzi = (short)tempid;
                             m_EquPosDic[ItemType.kuzi] = cd.Kuzi;
-                            kuziitem.Init(tempid, ItemPos.inEqu);
-                        } else { //在选择栏或者在背包内装备栏无对应装备
-                            UpdateCharacterData(equ, null, cd, fp);
-                            kuziitem.Init(equ.m_Data.id, ItemPos.inEqu);
-                            cd.Kuzi = (short)equ.m_Data.id;
-                            m_EquPosDic[ItemType.kuzi] = cd.Kuzi;
-                            if (equ.Num > 1) {
-                                equ.Num -= 1;
-                            } else { //只有一个,就直接把背包内的道具删除
-                                AppTools.Send<ItemBaseUI>((int)ItemEvent.RecycleItemUI, equ);
-                            }
-                        }
-                        //发送服务器计算玩家数据，这里只发送玩家数据，背包变化由另一个模块发送，这里是客户端自己计算完后发送服务端，其实安全考虑，可以改成服务端计算完成后，发给客户端同步，但同步费流量，如果网络差的话，客户体验不太好。
-                        //先用两套计算吧，最后加个关键数据核对
-                        //todo
-                        break;
-                    case ItemType.wuqi:
-                        if (cd.Wuqi > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
-                            //数据处理完毕，开始处理ui显示
-                            int tempid = equ.m_Data.id;//先缓存起来，方便交换
-                            if (equ.Num > 1) {
-                                equ.Num -= 1;
+                            break;
+                        case ItemType.wuqi:
+                            if (cd.Wuqi > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
                                 //先查找背包内有没有物品，没有的话新建一个物品到背包
-                                //这个方法里已经加过数量了,而且只有背包满了的时候，才会返回false
-                                bool state = AppTools.SendReturn<ItemDataBase, int, bool>((int)ItemEvent.AddItemUIIfNoneCreateInBag, wuqiitem.m_Data, 1);
+                                //这个方法里已经加过数量了,而且只有背包满了或者网络错误或者非法数据的时候，才会返回false
+                                bool state = await AppTools.SendReturn<ItemDataBase, int, UniTask<bool>>((int)ItemEvent.AddItemUIIfNoneCreateInBag, wuqiitem.m_Data, 1);
                                 if (state == false) { //背包已满，添加失败
                                     UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "背包已满，无法装备,请先清理背包！");
                                     return;
                                 }
-                                UpdateCharacterData(equ, wuqiitem, cd, fp);
-                            } else { //只有一个,就直接把两个道具交换
-                                UpdateCharacterData(equ, wuqiitem, cd, fp);
-                                equ.Init(wuqiitem.m_Data.id, ItemPos.inBag);
-                            }
+                                changtempdic = wuqiitem.m_PropXiaoguoDic;
+                            } 
+                            wuqiitem.Init(tempid, ItemPos.inEqu);
                             cd.Wuqi = (short)tempid;
                             m_EquPosDic[ItemType.wuqi] = cd.Wuqi;
-                            wuqiitem.Init(tempid, ItemPos.inEqu);
-                        } else { //在选择栏或者在背包内装备栏无对应装备
-                            UpdateCharacterData(equ, null, cd, fp);
-                            wuqiitem.Init(equ.m_Data.id, ItemPos.inEqu);
-                            cd.Wuqi = (short)equ.m_Data.id;
-                            m_EquPosDic[ItemType.wuqi] = cd.Wuqi;
-                            if (equ.Num > 1) {
-                                equ.Num -= 1;
-                            } else { //只有一个,就直接把背包内的道具删除
-                                AppTools.Send<ItemBaseUI>((int)ItemEvent.RecycleItemUI, equ);
-                            }
-                        }
-                        //发送服务器计算玩家数据，这里只发送玩家数据，背包变化由另一个模块发送，这里是客户端自己计算完后发送服务端，其实安全考虑，可以改成服务端计算完成后，发给客户端同步，但同步费流量，如果网络差的话，客户体验不太好。
-                        //先用两套计算吧，最后加个关键数据核对
-                        //todo
-                        break;
-                    case ItemType.xianglian:
-                        if (cd.Xianglian > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
-                            //数据处理完毕，开始处理ui显示
-                            int tempid = equ.m_Data.id;//先缓存起来，方便交换
-                            if (equ.Num > 1) {
-                                equ.Num -= 1;
+                            break;
+                        case ItemType.xianglian:
+                            if (cd.Xianglian > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
                                 //先查找背包内有没有物品，没有的话新建一个物品到背包
-                                //这个方法里已经加过数量了,而且只有背包满了的时候，才会返回false
-                                bool state = AppTools.SendReturn<ItemDataBase, int, bool>((int)ItemEvent.AddItemUIIfNoneCreateInBag, xianglianitem.m_Data, 1);
+                                //这个方法里已经加过数量了,而且只有背包满了或者网络错误或者非法数据的时候，才会返回false
+                                bool state = await AppTools.SendReturn<ItemDataBase, int, UniTask<bool>>((int)ItemEvent.AddItemUIIfNoneCreateInBag, xianglianitem.m_Data, 1);
                                 if (state == false) { //背包已满，添加失败
                                     UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "背包已满，无法装备,请先清理背包！");
                                     return;
                                 }
-                                UpdateCharacterData(equ, xianglianitem, cd, fp);
-                            } else { //只有一个,就直接把两个道具交换
-                                UpdateCharacterData(equ, xianglianitem, cd, fp);
-                                equ.Init(xianglianitem.m_Data.id, ItemPos.inBag);
+                                changtempdic = xianglianitem.m_PropXiaoguoDic;
                             }
+                            xianglianitem.Init(tempid, ItemPos.inEqu);
                             cd.Xianglian = (short)tempid;
                             m_EquPosDic[ItemType.xianglian] = cd.Xianglian;
-                            xianglianitem.Init(tempid, ItemPos.inEqu);
-                        } else { //在选择栏或者在背包内装备栏无对应装备
-                            UpdateCharacterData(equ, null, cd, fp);
-                            xianglianitem.Init(equ.m_Data.id, ItemPos.inEqu);
-                            cd.Xianglian = (short)equ.m_Data.id;
-                            m_EquPosDic[ItemType.xianglian] = cd.Xianglian;
-                            if (equ.Num > 1) {
-                                equ.Num -= 1;
-                            } else { //只有一个,就直接把背包内的道具删除
-                                AppTools.Send<ItemBaseUI>((int)ItemEvent.RecycleItemUI, equ);
-                            }
-                        }
-                        //发送服务器计算玩家数据，这里只发送玩家数据，背包变化由另一个模块发送，这里是客户端自己计算完后发送服务端，其实安全考虑，可以改成服务端计算完成后，发给客户端同步，但同步费流量，如果网络差的话，客户体验不太好。
-                        //先用两套计算吧，最后加个关键数据核对
-                        //todo
-                        break;
-                    case ItemType.jiezi:
-                        if (cd.Jiezi > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
-                            //数据处理完毕，开始处理ui显示
-                            int tempid = equ.m_Data.id;//先缓存起来，方便交换
-                            if (equ.Num > 1) {
-                                equ.Num -= 1;
+                            break;
+                        case ItemType.jiezi:
+                            if (cd.Jiezi > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
                                 //先查找背包内有没有物品，没有的话新建一个物品到背包
-                                //这个方法里已经加过数量了,而且只有背包满了的时候，才会返回false
-                                bool state = AppTools.SendReturn<ItemDataBase, int, bool>((int)ItemEvent.AddItemUIIfNoneCreateInBag, jieziitem.m_Data, 1);
+                                //这个方法里已经加过数量了,而且只有背包满了或者网络错误或者非法数据的时候，才会返回false
+                                bool state = await AppTools.SendReturn<ItemDataBase, int, UniTask<bool>>((int)ItemEvent.AddItemUIIfNoneCreateInBag, jieziitem.m_Data, 1);
                                 if (state == false) { //背包已满，添加失败
                                     UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "背包已满，无法装备,请先清理背包！");
                                     return;
                                 }
-                                UpdateCharacterData(equ, jieziitem, cd, fp);
-                            } else { //只有一个,就直接把两个道具交换
-                                UpdateCharacterData(equ, jieziitem, cd, fp);
-                                equ.Init(jieziitem.m_Data.id, ItemPos.inBag);
+                                changtempdic = jieziitem.m_PropXiaoguoDic;
                             }
+                            jieziitem.Init(tempid, ItemPos.inEqu);
                             cd.Jiezi = (short)tempid;
                             m_EquPosDic[ItemType.jiezi] = cd.Jiezi;
-                            jieziitem.Init(tempid, ItemPos.inEqu);
-                        } else { //在选择栏或者在背包内装备栏无对应装备
-                            UpdateCharacterData(equ, null, cd, fp);
-                            jieziitem.Init(equ.m_Data.id, ItemPos.inEqu);
-                            cd.Jiezi = (short)equ.m_Data.id;
-                            m_EquPosDic[ItemType.jiezi] = cd.Jiezi;
-                            if (equ.Num > 1) {
-                                equ.Num -= 1;
-                            } else { //只有一个,就直接把背包内的道具删除
-                                AppTools.Send<ItemBaseUI>((int)ItemEvent.RecycleItemUI, equ);
-                            }
-                        }
-                        //发送服务器计算玩家数据，这里只发送玩家数据，背包变化由另一个模块发送，这里是客户端自己计算完后发送服务端，其实安全考虑，可以改成服务端计算完成后，发给客户端同步，但同步费流量，如果网络差的话，客户体验不太好。
-                        //先用两套计算吧，最后加个关键数据核对
-                        //todo
-                        break;
-                    case ItemType.xiezi:
-                        if (cd.Xiezi > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
-                            //数据处理完毕，开始处理ui显示
-                            int tempid = equ.m_Data.id;//先缓存起来，方便交换
-                            if (equ.Num > 1) {
-                                equ.Num -= 1;
+                            break;
+                        case ItemType.xiezi:
+                            if (cd.Xiezi > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
                                 //先查找背包内有没有物品，没有的话新建一个物品到背包
-                                //这个方法里已经加过数量了,而且只有背包满了的时候，才会返回false
-                                bool state = AppTools.SendReturn<ItemDataBase, int, bool>((int)ItemEvent.AddItemUIIfNoneCreateInBag, xieziitem.m_Data, 1);
+                                //这个方法里已经加过数量了,而且只有背包满了或者网络错误或者非法数据的时候，才会返回false
+                                bool state = await AppTools.SendReturn<ItemDataBase, int, UniTask<bool>>((int)ItemEvent.AddItemUIIfNoneCreateInBag, xieziitem.m_Data, 1);
                                 if (state == false) { //背包已满，添加失败
                                     UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "背包已满，无法装备,请先清理背包！");
                                     return;
                                 }
-                                UpdateCharacterData(equ, xieziitem, cd, fp);
-                            } else { //只有一个,就直接把两个道具交换
-                                UpdateCharacterData(equ, xieziitem, cd, fp);
-                                equ.Init(xieziitem.m_Data.id, ItemPos.inBag);
+                                changtempdic = xieziitem.m_PropXiaoguoDic;
                             }
+                            xieziitem.Init(tempid, ItemPos.inEqu);
                             cd.Xiezi = (short)tempid;
                             m_EquPosDic[ItemType.xiezi] = cd.Xiezi;
-                            xieziitem.Init(tempid, ItemPos.inEqu);
-                        } else { //在选择栏或者在背包内装备栏无对应装备
-                            UpdateCharacterData(equ, null, cd, fp);
-                            xieziitem.Init(equ.m_Data.id, ItemPos.inEqu);
-                            cd.Xiezi = (short)equ.m_Data.id;
-                            m_EquPosDic[ItemType.xiezi] = cd.Xiezi;
-                            if (equ.Num > 1) {
-                                equ.Num -= 1;
-                            } else { //只有一个,就直接把背包内的道具删除
-                                AppTools.Send<ItemBaseUI>((int)ItemEvent.RecycleItemUI, equ);
+                            break;
+                        default:
+                            Debuger.LogError("卸下的装备类型错误，请检查");
+                            break;
+                    }
+                    //发送服务器计算玩家数据，这里只发送玩家数据，背包变化由另一个模块发送，这里是客户端自己计算完后发送服务端，其实安全考虑，可以改成服务端计算完成后，发给客户端同步，但同步费流量，如果网络差的话，客户体验不太好。
+                    //先用两套计算吧，最后加个关键数据核对
+                    //其实这里的复杂操作，根本原因是因为角色属性设计问题，这个游戏中，我设计数据库为最终数据存储，所以所有装备导致的属性变化，都会存入数据库，这样取用的时候是方便了，但读取或者更换装备的时候尤其的麻烦，
+                    //正常情况应该是数据库只记录玩家基本属性，装备的附加属性，每次读取时，实时计算附加到玩家身上，这样取用虽然麻烦点，但无论是装备数据读取还是变更都简单了不少，而且还减少了数据库读写以及带宽
+                    //不想改了，先按照麻烦的来吧，以后开了新坑再改
+                    var task = await ClientBase.Instance.Call((ushort)ProtoType.ChangeEqu, timeoutMilliseconds: 0, tempid, itemtype);
+                    if (task.IsCompleted) {
+                        int code = task.model.AsInt;
+                        if (code == 0) {
+                            if (changtempdic == null) {//原本没装备
+                                UpdateCharacterData(equtempdic, null, cd, fp);
+                            } else {//原本有装备
+                                UpdateCharacterData(equtempdic, changtempdic, cd, fp);
                             }
                         }
-                        //发送服务器计算玩家数据，这里只发送玩家数据，背包变化由另一个模块发送，这里是客户端自己计算完后发送服务端，其实安全考虑，可以改成服务端计算完成后，发给客户端同步，但同步费流量，如果网络差的话，客户体验不太好。
-                        //先用两套计算吧，最后加个关键数据核对
+                    } else {
+                        UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "网络错误，请检查网络连接！");
+                        //需要将背包数据恢复回来
+                        //这里也是设计问题，应该全部判定结束后，统一发送服务器修改，而不是一步一步来
+                        //也能用，先不改了
                         //todo
-                        break;
-                    default:
-                        Debuger.LogError("卸下的装备类型错误，请检查");
-                        break;
+                    }
                 }
             }
         }
@@ -529,90 +443,102 @@ namespace GF.MainGame.UI {
         /// 卸下某个装备，这里itemui传递的就是卸下的装备
         /// </summary>
         /// <param name="itemui"></param>
-        public bool XiexiaItem(ItemBaseUI itemui) {
+        public async UniTask<bool> XiexiaItem(ItemBaseUI itemui) {
             //先查找背包内有没有物品，没有的话新建一个物品到背包
             //这个方法里已经加过数量了,而且只有背包满了的时候，才会返回false
-            bool state = AppTools.SendReturn<ItemDataBase, int, bool>((int)ItemEvent.AddItemUIIfNoneCreateInBag, itemui.m_Data, 1);
+            bool state = await AppTools.SendReturn<ItemDataBase, int, UniTask<bool>>((int)ItemEvent.AddItemUIIfNoneCreateInBag, itemui.m_Data, 1);
             if (state == false) { //背包已满，添加失败
                 UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "背包已满，无法装备,请先清理背包！");
                 return false;
             } else {
-                UpdateCharacterData(null, itemui);
+                CharactersData cd = UserService.GetInstance.m_CurrentChar;
+                switch ((ItemType)itemui.m_Data.itemtype) {
+                    case ItemType.yifu:
+                        cd.Yifu = -1;
+                        break;
+                    case ItemType.kuzi:
+                        cd.Kuzi = -1;
+                        break;
+                    case ItemType.wuqi:
+                        cd.Wuqi = -1;
+                        break;
+                    case ItemType.xianglian:
+                        cd.Xianglian = -1;
+                        break;
+                    case ItemType.jiezi:
+                        cd.Jiezi = -1;
+                        break;
+                    case ItemType.xiezi:
+                        cd.Xiezi = -1;
+                        break;
+                    default:
+                        Debuger.LogError("装备类型错误，请检查数据表数据！");
+                        break;
+                }
+                UpdateCharacterData(null, itemui.m_PropXiaoguoDic);
                 m_EquPosDic[(ItemType)itemui.m_Data.itemtype] = -1;
                 return true;
             }
         }
+        
         /// <summary>
         /// 处理玩家数据，m1永远为需要装备的，m2永远为需要卸下的
         /// </summary>
-        /// <param name="m1">需要装备的道具</param>
-        /// <param name="m2">需要卸下的道具</param>
-        private void UpdateCharacterData(ItemBaseUI m1=null, ItemBaseUI m2 = null, CharactersData cd = null, FightProp fp = null) {
+        /// <param name="m1">需要装备的道具的效果字典</param>
+        /// <param name="m2">需要卸下的道具效果字典</param>
+        private void UpdateCharacterData(Dictionary<XiaoGuo, Dictionary<string, EffArgs>> m1 = null, Dictionary<XiaoGuo, Dictionary<string, EffArgs>> m2 = null, CharactersData cd = null, FightProp fp = null) {
             if (cd == null) {
                 cd = UserService.GetInstance.m_CurrentChar;
                 fp = UserService.GetInstance.m_CurrentPlayer.FP;
             }
             //减去旧的数据
             if (m2 != null) {
-                if (m2.m_PropXiaoguoDic.Count > 0) {//有属性类的需求
-                    foreach (KeyValuePair<XiaoGuo, Dictionary<string, EffArgs>> xiaoguo in m2.m_PropXiaoguoDic) {
-                        if (xiaoguo.Value.Count > 0) {
-                            foreach (KeyValuePair<string, EffArgs> xg in xiaoguo.Value) {
-                                switch (xg.Key) {
-                                    case "liliang":
-                                        cd.Liliang -= (short)xg.Value.ivalue;
-                                        break;
-                                    case "tizhi":
-                                        cd.Tizhi -= (short)xg.Value.ivalue;
-                                        break;
-                                    case "minjie":
-                                        cd.Minjie -= (short)xg.Value.ivalue;
-                                        break;
-                                    case "moli":
-                                        cd.Moli -= (short)xg.Value.ivalue;
-                                        break;
-                                    case "xingyun":
-                                        cd.Xingyun -= (short)xg.Value.ivalue;
-                                        break;
-                                    case "meili":
-                                        cd.Meili -= (short)xg.Value.ivalue;
-                                        break;
-                                    case "maxhp":
-                                        fp.FightMaxHp -= (short)xg.Value.ivalue;
-                                        fp.FightHP -= (short)xg.Value.ivalue;
-                                        if (fp.FightHP<=0) {
-                                            fp.FightHP = 1;
-                                        }
-                                        break;
-                                    case "maxmagic":
-                                        fp.FightMaxMagic -= (short)xg.Value.ivalue;
-                                        fp.FightMagic -= (short)xg.Value.ivalue;
-                                        if (fp.FightMagic < 0) {
-                                            fp.FightMagic = 0;
-                                        }
-                                        break;
-                                    case "gongji":
-                                        fp.Attack -= (short)xg.Value.ivalue;
-                                        break;
-                                    case "fangyu":
-                                        fp.Defense -= (short)xg.Value.ivalue;
-                                        break;
-                                    case "shanbi":
-                                        fp.Dodge -= xg.Value.fvalue;
-                                        break;
-                                    case "baoji":
-                                        fp.Crit -= xg.Value.fvalue;
-                                        break;
-                                    case "lianjin":
-                                        cd.Lianjin -= (short)xg.Value.ivalue;
-                                        break;
-                                    case "duanzao":
-                                        cd.Duanzao -= (short)xg.Value.ivalue;
-                                        break;
-                                    default:
-                                        Debuger.LogError($"未知属性{xg.Key}，无法匹配计算，请检查数据表");
-                                        break;
-                                }
+                foreach (KeyValuePair<XiaoGuo, Dictionary<string, EffArgs>> xiaoguo in m2) {
+                    if (xiaoguo.Value.Count > 0) {
+                        foreach (KeyValuePair<string, EffArgs> xg in xiaoguo.Value) {
+                            switch (xg.Key) {
+                                case "liliang":
+                                    cd.Liliang -= (short)xg.Value.ivalue;
+                                    break;
+                                case "tizhi":
+                                    cd.Tizhi -= (short)xg.Value.ivalue;
+                                    break;
+                                case "minjie":
+                                    cd.Minjie -= (short)xg.Value.ivalue;
+                                    break;
+                                case "moli":
+                                    cd.Moli -= (short)xg.Value.ivalue;
+                                    break;
+                                case "xingyun":
+                                    cd.Xingyun -= (short)xg.Value.ivalue;
+                                    break;
+                                case "meili":
+                                    cd.Meili -= (short)xg.Value.ivalue;
+                                    break;
+                                case "maxhp":
+                                    //基础生命去加减
+                                    cd.Shengming -= (short)xg.Value.ivalue;
+                                    fp.FightHP -= (short)xg.Value.ivalue;
+                                    if (fp.FightHP <= 0) {
+                                        fp.FightHP = 1;
+                                    }
+                                    break;
+                                case "maxmagic":
+                                    //基础法力去加减
+                                    cd.Fali -= (short)xg.Value.ivalue;
+                                    fp.FightMagic -= (short)xg.Value.ivalue;
+                                    if (fp.FightMagic < 0) {
+                                        fp.FightMagic = 0;
+                                    }
+                                    break;
+                                
+                                case "lianjin":
+                                    cd.Lianjin -= (short)xg.Value.ivalue;
+                                    break;
+                                case "duanzao":
+                                    cd.Duanzao -= (short)xg.Value.ivalue;
+                                    break;
+                                
                             }
                         }
                     }
@@ -620,68 +546,54 @@ namespace GF.MainGame.UI {
             }
             //加上新的数据
             if (m1 != null) {
-                Debuger.Log(m1.m_PropXiaoguoDic.Count);
-                if (m1.m_PropXiaoguoDic.Count > 0) {//有属性类的需求
-                    foreach (KeyValuePair<XiaoGuo, Dictionary<string, EffArgs>> xiaoguo in m1.m_PropXiaoguoDic) {
-                        if (xiaoguo.Value.Count > 0) {
-                            foreach (KeyValuePair<string, EffArgs> xg in xiaoguo.Value) {
-                                switch (xg.Key) {
-                                    case "liliang":
-                                        cd.Liliang += (short)xg.Value.ivalue;
-                                        break;
-                                    case "tizhi":
-                                        cd.Tizhi += (short)xg.Value.ivalue;
-                                        break;
-                                    case "minjie":
-                                        cd.Minjie += (short)xg.Value.ivalue;
-                                        break;
-                                    case "moli":
-                                        cd.Moli += (short)xg.Value.ivalue;
-                                        break;
-                                    case "xingyun":
-                                        cd.Xingyun += (short)xg.Value.ivalue;
-                                        break;
-                                    case "meili":
-                                        cd.Meili += (short)xg.Value.ivalue;
-                                        break;
-                                    case "maxhp":
-                                        fp.FightMaxHp += (short)xg.Value.ivalue;
-                                        fp.FightHP += (short)xg.Value.ivalue;
-                                        break;
-                                    case "maxmagic":
-                                        fp.FightMaxMagic += (short)xg.Value.ivalue;
-                                        fp.FightMagic += (short)xg.Value.ivalue;
-                                        break;
-                                    case "gongji":
-                                        fp.Attack += (short)xg.Value.ivalue;
-                                        break;
-                                    case "fangyu":
-                                        fp.Defense += (short)xg.Value.ivalue;
-                                        break;
-                                    case "shanbi":
-                                        fp.Dodge += xg.Value.fvalue;
-                                        break;
-                                    case "baoji":
-                                        fp.Crit += xg.Value.fvalue;
-                                        break;
-                                    case "lianjin":
-                                        cd.Lianjin += (short)xg.Value.ivalue;
-                                        break;
-                                    case "duanzao":
-                                        cd.Duanzao += (short)xg.Value.ivalue;
-                                        break;
-                                    default:
-                                        Debuger.LogError($"未知属性{xg.Key}，无法匹配计算，请检查数据表");
-                                        break;
-                                }
+                foreach (KeyValuePair<XiaoGuo, Dictionary<string, EffArgs>> xiaoguo in m1) {
+                    if (xiaoguo.Value.Count > 0) {
+                        foreach (KeyValuePair<string, EffArgs> xg in xiaoguo.Value) {
+                            switch (xg.Key) {
+                                case "liliang":
+                                    cd.Liliang += (short)xg.Value.ivalue;
+                                    break;
+                                case "tizhi":
+                                    cd.Tizhi += (short)xg.Value.ivalue;
+                                    break;
+                                case "minjie":
+                                    cd.Minjie += (short)xg.Value.ivalue;
+                                    break;
+                                case "moli":
+                                    cd.Moli += (short)xg.Value.ivalue;
+                                    break;
+                                case "xingyun":
+                                    cd.Xingyun += (short)xg.Value.ivalue;
+                                    break;
+                                case "meili":
+                                    cd.Meili += (short)xg.Value.ivalue;
+                                    break;
+                                case "maxhp":
+                                    cd.Shengming += (short)xg.Value.ivalue;
+                                    fp.FightHP += (short)xg.Value.ivalue;
+                                    break;
+                                case "maxmagic":
+                                    cd.Fali += (short)xg.Value.ivalue;
+                                    fp.FightMagic += (short)xg.Value.ivalue;
+                                    break;
+                                case "lianjin":
+                                    cd.Lianjin += (short)xg.Value.ivalue;
+                                    break;
+                                case "duanzao":
+                                    cd.Duanzao += (short)xg.Value.ivalue;
+                                    break;
+                                
                             }
                         }
                     }
                 }
             }
+            //添加完属性，更新一下运行时属性,装备附加的运行时属性也会在此处添加上
+            UserService.GetInstance.m_CurrentPlayer.UpdateFightProps(true);
             //更新数据到ui
             DataToUI();
         }
+        
         public override void Close(bool bClear = false, object arg = null) {
              base.Close(bClear, arg);
              m_ModelShow.gameObject.SetActive(false);

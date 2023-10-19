@@ -111,7 +111,7 @@ namespace GDServer {
         public string xuqiu1zhi { get; set; }
 
         [XmlAttribute("需求2")]
-         public int xuqiu2 { get; set; }
+        public int xuqiu2 { get; set; }
 
         [XmlAttribute("需求值2")]
         public string xuqiu2zhi { get; set; }
@@ -132,6 +132,7 @@ namespace GDServer {
         addjinbi,//添加金币
         addzhuanshi,//添加钻石
         additem,//添加物品，例如宝箱
+        addexp,//增加经验
     }
     public enum ItemType { 
         yaopin=1,//药品
@@ -150,13 +151,14 @@ namespace GDServer {
         prop,//需要基本属性
         level,//需要等级
         item,//需要某个物品
+        zhiye,//需求某个职业
     }
     public enum Pinzhi { 
-        bai = 1,//白
-        lv,//绿
-        lan,//蓝
-        zi,//紫
-        cheng,//橙
+        bai = 1,//白,普通
+        lv,//绿，精良
+        lan,//蓝，卓越
+        zi,//紫，传奇
+        cheng,//橙，史诗
     }
     public enum ItemPos {
         inBag = 0,//在背包内

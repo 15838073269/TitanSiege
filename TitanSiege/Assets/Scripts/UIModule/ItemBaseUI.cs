@@ -6,6 +6,7 @@
 	功能：Nothing
 *****************************************************/
 
+using Cysharp.Threading.Tasks;
 using GF.ConfigTable;
 using GF.MainGame.Data;
 using GF.MainGame.Module;
@@ -39,7 +40,7 @@ namespace GF.MainGame.UI {
                 if (m_Num == 1) {
                     m_ItemNum.gameObject.SetActive(false);
                 } else if (m_Num ==0) {
-                    AppTools.Send<ItemBaseUI>((int)ItemEvent.RecycleItemUI,this);
+                   _= AppTools.SendReturn<ItemBaseUI, UniTask<bool>>((int)ItemEvent.RecycleItemUI,this);
                 } else {
                     if (!m_ItemNum.gameObject.activeSelf) {
                         m_ItemNum.gameObject.SetActive(true);

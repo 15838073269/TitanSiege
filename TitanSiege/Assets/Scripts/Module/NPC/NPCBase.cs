@@ -37,7 +37,7 @@ namespace GF.MainGame.Module.NPC {
         public StateManager m_State;//GDnet的状态机
         public List<int> m_SkillId;//本角色的技能id
         public Dictionary<string, int> m_AllStateID;//GDNet状态机所有的状态标识
-        protected NPCDataBase m_Data;//数据值
+        protected NPCDataBase m_Data;//配置表的数据值
         protected LevelUpDataBase m_LevelData;//升级系数
         public int m_CurrentSkillId = -1;//当前正在施展的技能的id
         protected bool m_IsFight = false;
@@ -204,6 +204,31 @@ namespace GF.MainGame.Module.NPC {
                     FP.FightMaxHp = FP.FightHP;//战斗时最大生命
                     FP.FightMagic = cd.Fali + cd.Moli * 10;
                     FP.FightMaxMagic = FP.FightMagic;//战斗最大法力
+                    //添加装备附加的运行时属性
+                    if (cd.Yifu > 0) {
+                        ItemBase m = AppTools.SendReturn<int, ItemBase>((int)ItemEvent.GetItemProp, cd.Yifu);
+                        AddEquFPProp(m.m_PropXiaoguoDic);
+                    }
+                    if (cd.Kuzi > 0) {
+                        ItemBase m = AppTools.SendReturn<int, ItemBase>((int)ItemEvent.GetItemProp, cd.Kuzi);
+                        AddEquFPProp(m.m_PropXiaoguoDic);
+                    }
+                    if (cd.Wuqi > 0) {
+                        ItemBase m = AppTools.SendReturn<int, ItemBase>((int)ItemEvent.GetItemProp, cd.Wuqi);
+                        AddEquFPProp(m.m_PropXiaoguoDic);
+                    }
+                    if (cd.Xianglian > 0) {
+                        ItemBase m = AppTools.SendReturn<int, ItemBase>((int)ItemEvent.GetItemProp, cd.Xianglian);
+                        AddEquFPProp(m.m_PropXiaoguoDic);
+                    }
+                    if (cd.Jiezi > 0) {
+                        ItemBase m = AppTools.SendReturn<int, ItemBase>((int)ItemEvent.GetItemProp, cd.Jiezi);
+                        AddEquFPProp(m.m_PropXiaoguoDic);
+                    }
+                    if (cd.Xiezi > 0) {
+                        ItemBase m = AppTools.SendReturn<int, ItemBase>((int)ItemEvent.GetItemProp, cd.Xiezi);
+                        AddEquFPProp(m.m_PropXiaoguoDic);
+                    }
                 } else { //非本机玩家，ClientSceneManager中创建对象时，或从服务器获取战斗属性，此处无需处理
 
                 }
@@ -240,6 +265,37 @@ namespace GF.MainGame.Module.NPC {
             } else {
                 if ((NpcType.player == m_NpcType && m_GDID == ClientBase.Instance.UID) || m_NpcType == NpcType.monster) {
                     AppTools.Send<NPCBase>((int)HPEvent.CreateHPUI, this);
+                }
+            }
+        }
+        /// <summary>
+        /// 处理玩家数据，加上运行时的装备属性
+        /// </summary>
+        /// <param name="m1">需要装备的道具的效果字典</param>
+        /// <param name="m2">需要卸下的道具效果字典</param>
+        private void AddEquFPProp(Dictionary<XiaoGuo, Dictionary<string, EffArgs>> m1 = null) {
+            FightProp fp = UserService.GetInstance.m_CurrentPlayer.FP;
+            //加上新的数据
+            if (m1 != null) {
+                foreach (KeyValuePair<XiaoGuo, Dictionary<string, EffArgs>> xiaoguo in m1) {
+                    if (xiaoguo.Value.Count > 0) {
+                        foreach (KeyValuePair<string, EffArgs> xg in xiaoguo.Value) {
+                            switch (xg.Key) {
+                                case "gongji":
+                                    fp.Attack += (short)xg.Value.ivalue;
+                                    break;
+                                case "fangyu":
+                                    fp.Defense += (short)xg.Value.ivalue;
+                                    break;
+                                case "shanbi":
+                                    fp.Dodge += xg.Value.fvalue;
+                                    break;
+                                case "baoji":
+                                    fp.Crit += xg.Value.fvalue;
+                                    break;
+                            }
+                        }
+                    }
                 }
             }
         }

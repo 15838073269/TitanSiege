@@ -10,6 +10,9 @@ namespace cmd {
         addzuanshi = 410,
         TodoItemNum = 411,
         DestroyItem = 412,
+        CreateItemToBag = 413,
+        ChangeEqu = 414,
+        XiexiaItem = 415,
     }
 }
 

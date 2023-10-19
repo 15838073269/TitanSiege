@@ -99,6 +99,7 @@ namespace GF.MainGame {
         RecycleItemUI,
         ToDoItemNum,
         AddJinbiOrZuanshi,
+        GetItemProp,
     }
 }
 

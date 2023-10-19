@@ -11,6 +11,7 @@ using GF.Unity.UI;
 using GF.Service;
 using GF.MainGame.UI;
 using Titansiege;
+using Cysharp.Threading.Tasks;
 
 namespace GF.MainGame.Module {
     public class MainUIModule : GeneralModule {
@@ -25,7 +26,7 @@ namespace GF.MainGame.Module {
             Show();
             AppTools.Regist((int)MainUIEvent.UpdateHpMp, UpdateHpMp);
             AppTools.Regist<ItemBaseUI>((int)MainUIEvent.ChangeEquItem, ChangeEquItem);
-            AppTools.Regist<ItemBaseUI,bool>((int)MainUIEvent.XiexiaItem, XiexiaItem);
+            AppTools.Regist<ItemBaseUI, UniTask<bool>>((int)MainUIEvent.XiexiaItem, XiexiaItem);
         } 
         public override void Release() {
             base.Release();
@@ -91,8 +92,8 @@ namespace GF.MainGame.Module {
         private void ChangeEquItem(ItemBaseUI itemui) {
             m_Info.ChangeEquItem(itemui);
         }
-        private bool XiexiaItem(ItemBaseUI itemui) {
-           return m_Info.XiexiaItem(itemui);
+        private async UniTask<bool> XiexiaItem(ItemBaseUI itemui) {
+           return await m_Info.XiexiaItem(itemui);
         }
     }
 }

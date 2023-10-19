@@ -1,4 +1,5 @@
 ﻿using GDServer.Tools;
+using MySqlX.XDevAPI;
 using Net.Event;
 using Net.Share;
 using System;
@@ -136,5 +137,118 @@ namespace GDServer.Services
 
         }
 
+
+        /// <summary>
+        /// 处理玩家数据，m1永远为需要装备的，m2永远为需要卸下的
+        /// </summary>
+        /// <param name="m1">需要装备的道具的效果字典</param>
+        /// <param name="m2">需要卸下的道具效果字典</param>
+        public void UpdateCharacterData(CharactersData cd, FightProp fp,GDClient client,Dictionary<XiaoGuo, Dictionary<string, EffArgs>> m1 = null, Dictionary<XiaoGuo, Dictionary<string, EffArgs>> m2 = null) {
+            //减去旧的数据
+            if (m2 != null) {
+                foreach (KeyValuePair<XiaoGuo, Dictionary<string, EffArgs>> xiaoguo in m2) {
+                    if (xiaoguo.Value.Count > 0) {
+                        foreach (KeyValuePair<string, EffArgs> xg in xiaoguo.Value) {
+                            switch (xg.Key) {
+                                case "liliang":
+                                    cd.Liliang -= (short)xg.Value.ivalue;
+                                    break;
+                                case "tizhi":
+                                    cd.Tizhi -= (short)xg.Value.ivalue;
+                                    break;
+                                case "minjie":
+                                    cd.Minjie -= (short)xg.Value.ivalue;
+                                    break;
+                                case "moli":
+                                    cd.Moli -= (short)xg.Value.ivalue;
+                                    break;
+                                case "xingyun":
+                                    cd.Xingyun -= (short)xg.Value.ivalue;
+                                    break;
+                                case "meili":
+                                    cd.Meili -= (short)xg.Value.ivalue;
+                                    break;
+                                case "maxhp":
+                                    //基础生命去加减
+                                    cd.Shengming -= (short)xg.Value.ivalue;
+                                    fp.FightHP -= (short)xg.Value.ivalue;
+                                    if (fp.FightHP <= 0) {
+                                        fp.FightHP = 1;
+                                    }
+                                    break;
+                                case "maxmagic":
+                                    //基础法力去加减
+                                    cd.Fali -= (short)xg.Value.ivalue;
+                                    fp.FightMagic -= (short)xg.Value.ivalue;
+                                    if (fp.FightMagic < 0) {
+                                        fp.FightMagic = 0;
+                                    }
+                                    break;
+
+                                case "lianjin":
+                                    cd.Lianjin -= (short)xg.Value.ivalue;
+                                    break;
+                                case "duanzao":
+                                    cd.Duanzao -= (short)xg.Value.ivalue;
+                                    break;
+                                
+                            }
+                        }
+                    }
+                }
+            }
+            //加上新的数据
+            if (m1 != null) {
+                foreach (KeyValuePair<XiaoGuo, Dictionary<string, EffArgs>> xiaoguo in m1) {
+                    if (xiaoguo.Value.Count > 0) {
+                        foreach (KeyValuePair<string, EffArgs> xg in xiaoguo.Value) {
+                            switch (xg.Key) {
+                                case "liliang":
+                                    cd.Liliang += (short)xg.Value.ivalue;
+                                    break;
+                                case "tizhi":
+                                    cd.Tizhi += (short)xg.Value.ivalue;
+                                    break;
+                                case "minjie":
+                                    cd.Minjie += (short)xg.Value.ivalue;
+                                    break;
+                                case "moli":
+                                    cd.Moli += (short)xg.Value.ivalue;
+                                    break;
+                                case "xingyun":
+                                    cd.Xingyun += (short)xg.Value.ivalue;
+                                    break;
+                                case "meili":
+                                    cd.Meili += (short)xg.Value.ivalue;
+                                    break;
+                                case "maxhp":
+                                    cd.Shengming += (short)xg.Value.ivalue;
+                                    fp.FightHP += (short)xg.Value.ivalue;
+                                    break;
+                                case "maxmagic":
+                                    cd.Fali += (short)xg.Value.ivalue;
+                                    fp.FightMagic += (short)xg.Value.ivalue;
+                                    break;
+                                case "lianjin":
+                                    cd.Lianjin += (short)xg.Value.ivalue;
+                                    break;
+                                case "duanzao":
+                                    cd.Duanzao += (short)xg.Value.ivalue;
+                                    break;
+                               
+                            }
+                        }
+                    }
+                }
+            }
+            //添加完属性，更新一下运行时属性,服务端更新运行时属性时，会重复将运行时的装备属性添加上去
+            client.UpdateFightProps();
+            
+        }
+    }
+    public class EffArgs {
+        public string effname;//效果或者需求名称,用来匹配
+        public float fvalue;//flaot的效果值
+        public int ivalue;//int类型的效果至
     }
 }

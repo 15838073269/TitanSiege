@@ -658,39 +658,25 @@ namespace GF.MainGame.UI {
         /// <summary>
         /// 点击卸载按钮
         /// </summary>
-        public void OnXiexia() {
+        public async void OnXiexia() {
             if (m_CurrenItem!=null) {
-                switch ((ItemType)m_CurrenItem.m_Data.itemtype) {
-                    case ItemType.yifu:
-                        cd.Yifu = -1;
-                        break;
-                    case ItemType.kuzi:
-                        cd.Kuzi = -1;
-                        break;
-                    case ItemType.wuqi:
-                        cd .Wuqi = -1;
-                        break;
-                    case ItemType.xianglian:
-                        cd.Xianglian = -1;
-                        break;
-                    case ItemType.jiezi:
-                        cd.Jiezi = -1;
-                        break;
-                    case ItemType.xiezi:
-                        cd.Xiezi = -1;
-                        break;
-                    default:
-                        Debuger.LogError("装备类型错误，请检查数据表数据！");
-                        break;
-                }
-                bool isxiexia = AppTools.SendReturn<ItemBaseUI,bool>((int)MainUIEvent.XiexiaItem,m_CurrenItem);
-                if (isxiexia && m_CurrenItem.m_Pos == ItemPos.inEqu) {//如果是在装备栏上，要实时显示装备卸下的效果，其实只有装备栏上才会显示卸下，也不会有其他情况
-                    //这里隐藏就好，新装备时，会把原本ui数据替换掉
-                    m_CurrenItem.gameObject.SetActive(false);
+                //发送服务器，让服务器计算卸下后的玩家数据
+                var task = await ClientBase.Instance.Call((ushort)ProtoType.XiexiaItem, timeoutMilliseconds: 0, m_CurrenItem.m_Data.id, m_CurrenItem.m_Data.itemtype);
+                if (task.IsCompleted) {
+                    int code = task.model.AsInt;
+                    if (code == 0) {
+                        bool isxiexia = await AppTools.SendReturn<ItemBaseUI, UniTask<bool>>((int)MainUIEvent.XiexiaItem, m_CurrenItem);
+                        if (isxiexia) {
+                            if (m_CurrenItem.m_Pos == ItemPos.inEqu) {//如果是在装备栏上，要实时显示装备卸下的效果，其实只有装备栏上才会显示卸下，也不会有其他情况
+                                //这里隐藏就好，新装备时，会把原本ui数据替换掉
+                                m_CurrenItem.gameObject.SetActive(false);
+                            }
+                        }
+                    }
+                } else {
+                    UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips,"网络超时，请检查网络连接！");
                 }
                 Close();
-                //发送服务器，让服务器计算卸下后的玩家数据
-                //todo
             }
         }
         /// <summary>
@@ -726,7 +712,7 @@ namespace GF.MainGame.UI {
         private void IsDiuqi(object args = null) {
             ushort btnindex = ushort.Parse(args.ToString());
             if (btnindex == 0) {//点击第一个按钮，也就是确认
-                AppTools.Send<ItemBaseUI>((int)ItemEvent.RecycleItemUI, m_DiuqiItem);
+               _= AppTools.SendReturn<ItemBaseUI,UniTask<bool>>((int)ItemEvent.RecycleItemUI, m_DiuqiItem);
             } else { //点击取消，什么都不用做，基类已经处理了
             }
             m_DiuqiItem = null;

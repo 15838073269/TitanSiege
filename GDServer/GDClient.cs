@@ -143,6 +143,25 @@ namespace GDServer {
             FP.FightMaxHp = FP.FightHP;
             FP.FightMaxMagic = FP.FightMagic;
             FP.PlayerName = current.Name;
+            //添加装备附加的运行时属性
+            if (current.Yifu>0) {
+                AddEquFPProp(ItemService.GetInstance.GetItem(current.Yifu).m_PropXiaoguoDic);
+            }
+            if (current.Kuzi > 0) {
+                AddEquFPProp(ItemService.GetInstance.GetItem(current.Kuzi).m_PropXiaoguoDic);
+            }
+            if (current.Wuqi > 0) {
+                AddEquFPProp(ItemService.GetInstance.GetItem(current.Wuqi).m_PropXiaoguoDic);
+            }
+            if (current.Xianglian > 0) {
+                AddEquFPProp(ItemService.GetInstance.GetItem(current.Xianglian).m_PropXiaoguoDic);
+            }
+            if (current.Jiezi > 0) {
+                AddEquFPProp(ItemService.GetInstance.GetItem(current.Jiezi).m_PropXiaoguoDic);
+            }
+            if (current.Xiezi > 0) {
+                AddEquFPProp(ItemService.GetInstance.GetItem(current.Xiezi).m_PropXiaoguoDic);
+            }
             //Debuger.Log($"更新玩家{UserID}属性，同步客户端");
             ////发给服务端更新属性
             ////这里和怪的数据一样，先这么办吧，最合适的做法应该还是服务端同步数据，客户端计算
@@ -154,6 +173,36 @@ namespace GDServer {
             //    index2 = FP.FightMaxHp,
             //    index3 = FP.FightMaxMagic,
             //});
+        }
+        /// <summary>
+        /// 处理玩家数据，加上运行时的装备属性
+        /// </summary>
+        /// <param name="m1">需要装备的道具的效果字典</param>
+        /// <param name="m2">需要卸下的道具效果字典</param>
+        private void AddEquFPProp(Dictionary<XiaoGuo, Dictionary<string, EffArgs>> m1 = null) {
+            //加上新的数据
+            if (m1 != null) {
+                foreach (KeyValuePair<XiaoGuo, Dictionary<string, EffArgs>> xiaoguo in m1) {
+                    if (xiaoguo.Value.Count > 0) {
+                        foreach (KeyValuePair<string, EffArgs> xg in xiaoguo.Value) {
+                            switch (xg.Key) {
+                                case "gongji":
+                                    FP.Attack += (short)xg.Value.ivalue;
+                                    break;
+                                case "fangyu":
+                                    FP.Defense += (short)xg.Value.ivalue;
+                                    break;
+                                case "shanbi":
+                                    FP.Dodge += xg.Value.fvalue;
+                                    break;
+                                case "baoji":
+                                    FP.Crit += xg.Value.fvalue;
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
         }
         /// <summary>
         /// 增加经验

@@ -6,11 +6,6 @@ using Net.Event;
 using Titansiege;
 using Net.MMORPG;
 using cmd;
-using System.IO;
-using System.Data;
-using System.Security.Principal;
-using MySqlX.XDevAPI;
-using static System.Reflection.Metadata.BlobBuilder;
 
 //文件最好与服务器端VisualStudio项目的MyCommand.cs同名且代码一样
 namespace GDServer.Services
@@ -73,7 +68,7 @@ namespace GDServer.Services
                         unClient.User = data;
                         LoginHandler(unClient);//这一句和return true效果是一样的
                         Debuger.Log($"玩家{username}[{unClient.UserID}]断线重连登陆成功");
-                        TServer.Instance.SendRT(unClient, (ushort)ProtoType.relogin, 1);
+                        SendRT(unClient, (ushort)ProtoType.relogin, 1);
                     }
                     break;
             }
@@ -144,9 +139,9 @@ namespace GDServer.Services
                     Debuger.Log(uid + "发送获取玩家数据");
                     if (fp != null) {
                         //返回玩家属性数据
-                        TServer.Instance.SendRT(client, (ushort)ProtoType.playerupdateprop, 1, fp);
+                        SendRT(client, (ushort)ProtoType.playerupdateprop, 1, fp);
                     } else {
-                        TServer.Instance.SendRT(client, (ushort)ProtoType.playerupdateprop, 0);
+                        SendRT(client, (ushort)ProtoType.playerupdateprop, 0);
                     }
                     break;
                 case (ushort)ProtoType.reenterscene://重新进入场景，一般是断线重连后重新登录成功后使用的
@@ -157,25 +152,25 @@ namespace GDServer.Services
                     int jinbi = (int)model.pars[0];
                     if (jinbi < 0) {//减少数量，首先先判断一下现有的,数量不足就返回false
                         if (client.current.Jinbi < jinbi) {
-                            TServer.Instance.SendRT(client, (ushort)ProtoType.addjinbi, -1);
+                            SendRT(client, (ushort)ProtoType.addjinbi, -1);
                             return;
                         }
                     }
                     client.current.Jinbi += jinbi;
                     //返回玩家属性数据
-                    TServer.Instance.SendRT(client, (ushort)ProtoType.addjinbi, client.current.Jinbi);
+                    SendRT(client, (ushort)ProtoType.addjinbi, client.current.Jinbi);
                     break;
                 case (ushort)ProtoType.addzuanshi://添加金币或者钻石，只添加一样，另一样0
                     int zuanshi = (int)model.pars[0];
                     if (zuanshi < 0) {//减少数量，首先先判断一下现有的,数量不足就返回false
                         if (client.current.Zuanshi < zuanshi) {
-                            TServer.Instance.SendRT(client, (ushort)ProtoType.addzuanshi, -1);
+                            SendRT(client, (ushort)ProtoType.addzuanshi, -1);
                             return;
                         }
                     }
                     client.current.Zuanshi += zuanshi;
                     //返回玩家属性数据
-                    TServer.Instance.SendRT(client, (ushort)ProtoType.addzuanshi, client.current.Zuanshi);
+                    SendRT(client, (ushort)ProtoType.addzuanshi, client.current.Zuanshi);
                     break;
                 case (ushort)ProtoType.TodoItemNum://添加或减少道具
                     int id = (int)model.pars[0];
@@ -183,29 +178,134 @@ namespace GDServer.Services
                     if (client.m_UserItem.TryGetValue(id, out int ordernum)) {
                         if (num < 0) {//减少数量，首先先判断一下现有的,数量不足就返回false
                             if (ordernum < num) {
-                                TServer.Instance.SendRT(client, (ushort)ProtoType.TodoItemNum, -1);
+                                SendRT(client, (ushort)ProtoType.TodoItemNum, -1);
                                 return;
                             }
                         }
                         client.m_UserItem[id] += num;
                         Debuger.Log($"玩家{client.UserID}的道具{id}数量{num},总数{client.m_UserItem[id]}");
+                        if (client.m_UserItem[id] == 0) {
+                            client.m_UserItem.Remove(id);
+                        }
                         //将背包数据写入字符串
                         client.UserItemToStr();
-                        TServer.Instance.SendRT(client, (ushort)ProtoType.TodoItemNum, 0);
+                       SendRT(client, (ushort)ProtoType.TodoItemNum, 0);
                     } else {
                         //背包没有此道具，客户端非法修改，返回客户端删除道具并警告
-                        TServer.Instance.SendRT(client, (ushort)ProtoType.TodoItemNum, -2);
+                        SendRT(client, (ushort)ProtoType.TodoItemNum, -2);
                     }
                     break;
                 case (ushort)ProtoType.DestroyItem://删除道具
                     int itemid = (int)model.pars[0];
                     if (client.m_UserItem.ContainsKey(itemid)) {
                         client.m_UserItem[itemid] = 0;
+                        client.m_UserItem.Remove(itemid);
                         Debuger.Log($"玩家{client.UserID}的道具{itemid}被销毁");
                         //将背包数据写入字符串
                         client.UserItemToStr();
-                        TServer.Instance.SendRT(client, (ushort)ProtoType.DestroyItem, 0);
+                        SendRT(client, (ushort)ProtoType.DestroyItem, 0);
+                    } else {
+                        //背包中没有这个物品，可能是因为处理数量为0时删除了
+                        SendRT(client, (ushort)ProtoType.DestroyItem, -1);
                     }
+                    break;
+                case (ushort)ProtoType.CreateItemToBag://添加道具
+                    int itemid1 = (int)model.pars[0];
+                    int num1 = (int)model.pars[1];
+                    if (client.m_UserItem.ContainsKey(itemid1)) {
+                        //道具已存在
+                        SendRT(client, (ushort)ProtoType.CreateItemToBag, -1);
+                        return;
+                    } else {//正常创建
+                        client.m_UserItem.Add(itemid1,num1);
+                        Debuger.Log($"玩家{client.UserID}的添加道具{itemid1}，添加数量{num1}");
+                        //将背包数据写入字符串
+                        client.UserItemToStr();
+                        SendRT(client, (ushort)ProtoType.CreateItemToBag, 0);
+                    }
+                    break;
+                case (ushort)ProtoType.ChangeEqu://装备道具
+                    int equid = (int)model.pars[0];
+                    int itemtypenum = (int)model.pars[1];
+                    ItemType itemtype = (ItemType)itemtypenum;
+                    //获取需要装备的id和数据
+                    ItemBase equ =ItemService.GetInstance.GetItem(equid);
+                    ItemBase changeitem = null;//已装备的
+                    switch (itemtype) {
+                        case ItemType.yifu:
+                            if (client.current.Yifu>0) {
+                                changeitem = ItemService.GetInstance.GetItem(client.current.Yifu);
+                            }
+                            client.current.Yifu = (short)equid;
+                            break;
+                        case ItemType.kuzi:
+                            if (client.current.Kuzi > 0)
+                                changeitem = ItemService.GetInstance.GetItem(client.current.Kuzi);
+                            client.current.Kuzi = (short)equid;
+                            break;
+                        case ItemType.wuqi:
+                            if (client.current.Wuqi > 0)
+                                changeitem = ItemService.GetInstance.GetItem(client.current.Wuqi);
+                            client.current.Wuqi = (short)equid;
+                            break;
+                        case ItemType.xianglian:
+                            if (client.current.Xianglian > 0)
+                                changeitem = ItemService.GetInstance.GetItem(client.current.Xianglian);
+                            client.current.Xianglian = (short)equid;
+                            break;
+                        case ItemType.jiezi:
+                            if (client.current.Jiezi > 0)
+                                changeitem = ItemService.GetInstance.GetItem(client.current.Jiezi);
+                            client.current.Jiezi = (short)equid;
+                            break;
+                        case ItemType.xiezi:
+                            if (client.current.Xiezi > 0)
+                                changeitem = ItemService.GetInstance.GetItem(client.current.Xiezi);
+                            client.current.Xiezi = (short)equid;
+                            break;
+                        default:
+                            Debuger.Log($"玩家{client.UserID}传输未知装备类型，装备id{equid}，请检查数据！");
+                            break;
+                    }
+                    if (changeitem == null) { //原本没有装备
+                        UserService.GetInstance.UpdateCharacterData(client.current,client.FP,client,equ.m_PropXiaoguoDic,null);
+                    } else { //原本有装备
+                        UserService.GetInstance.UpdateCharacterData(client.current, client.FP, client,equ.m_PropXiaoguoDic, changeitem.m_PropXiaoguoDic);
+                    }
+                    //client.current.Update();
+                    SendRT(client, (ushort)ProtoType.ChangeEqu, 0);
+                    break;
+                case (ushort)ProtoType.XiexiaItem://卸下道具
+                    int equid1 = (int)model.pars[0];
+                    int itemtypenum1 = (int)model.pars[1];
+                    ItemType itemtype1 = (ItemType)itemtypenum1;
+                    //获取需要装备的id和数据
+                    ItemBase equ1 = ItemService.GetInstance.GetItem(equid1);
+                    switch (itemtype1) {
+                        case ItemType.yifu:
+                            client.current.Yifu = -1;
+                            break;
+                        case ItemType.kuzi:
+                            client.current.Kuzi = -1;
+                            break;
+                        case ItemType.wuqi:
+                            client.current.Wuqi = -1;
+                            break;
+                        case ItemType.xianglian:
+                            client.current.Xianglian = -1;
+                            break;
+                        case ItemType.jiezi:
+                            client.current.Jiezi = -1;
+                            break;
+                        case ItemType.xiezi:
+                            client.current.Xiezi = -1;
+                            break;
+                        default:
+                            Debuger.Log($"玩家{client.UserID}传输未知装备类型，装备id{equid1}，请检查数据！");
+                            break;
+                    }
+                    UserService.GetInstance.UpdateCharacterData(client.current, client.FP, client, null, equ1.m_PropXiaoguoDic);
+                    SendRT(client, (ushort)ProtoType.XiexiaItem, 0);
                     break;
                 case (ushort)ProtoType.signout://客户端主动发起退出登录
                     SignOut(client);

@@ -6,6 +6,8 @@
 	功能：配置表管理类
 *****************************************************/
 
+using GDServer.Services;
+
 namespace GDServer {
     public class ConfigerManager : Singleton<ConfigerManager> {
         public static string BinaryPath = AppDomain.CurrentDomain.BaseDirectory +"\\Data\\binary\\";
@@ -50,6 +52,7 @@ namespace GDServer {
         /// </summary>
         //public static NPCData m_NPCData;
         //public static SkillData m_SkillData;
+        public static ItemData AllItemData;
         public void InitData() {
             //获取角色数据
             //m_NPCData = ConfigerManager.GetInstance.FindData<NPCData>(CT.TABLE_NPC);
@@ -60,6 +63,14 @@ namespace GDServer {
             //if (m_SkillData == null || m_SkillData.m_AllSkillDic.Count == 0) {
             //    Debuger.LogError("加载技能数据为空，请检查！");
             //}
+            //获取所有道具数据
+            AllItemData = ConfigerManager.GetInstance.FindData<ItemData>(CT.TABLE_ITEM);
+            if (AllItemData == null || AllItemData.m_AllItemBaseDic.Count == 0) {
+                Debuger.LogError("加载道具数据为空，请检查！");
+            } else {
+                //初始化道具
+                ItemService.GetInstance.Init();
+            }
         }
 
         /// <summary>

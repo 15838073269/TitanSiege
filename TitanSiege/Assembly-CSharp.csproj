@@ -168,7 +168,7 @@
     <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenTextMeshPro.cs" />
     <Compile Include="Assets\Scripts\UIModule\DamageUIWidget.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraComponent\ImageEffects\XftRadialBlurTexAdd.cs" />
-    <Compile Include="Assets\Scripts\Module\ItemModule.cs" />
+    <Compile Include="Assets\Scripts\Module\Item\ItemModule.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Cartoon FX\Scripts\CFX_LightIntensityFade.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets02\Cartoon FX\Demo\Assets\CFX_Demo.cs" />
     <Compile Include="Assets\Scripts\Net\NetData\Bind\TitansiegeBagitemDataBind.cs" />
@@ -279,6 +279,7 @@
     <Compile Include="Assets\Scripts\UIModule\LoginUIPage.cs" />
     <Compile Include="Assets\Scripts\UIModule\ItemDescUIWidget.cs" />
     <Compile Include="Assets\Scripts\UIModule\UIBG.cs" />
+    <Compile Include="Assets\Scripts\Module\Item\ItemBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
