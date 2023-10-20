@@ -76,15 +76,9 @@ namespace GF.MainGame.UI {
             m_Zawu.onValueChanged.AddListener((bool ison) => {
                 ToggleValueChange(ison, ToggleBtnType.zawu);
             });
-            AppTools.Regist<bool>((int)ItemEvent.BagIsFull, BagIsFull);
+            
         }
-        /// <summary>
-        /// 其他模块用来判断背包是否满了
-        /// </summary>
-        /// <returns></returns>
-        public bool BagIsFull() {
-            return m_IsFull;
-        }
+        
         /// <summary>
         /// toggle变化时监听的方法
         /// </summary>
@@ -176,8 +170,6 @@ namespace GF.MainGame.UI {
         public override void Close(bool bClear = false, object arg = null) {
             base.Close(bClear, arg);
         }
-        public void OnDestroy() {
-            AppTools.Remove<bool>((int)ItemEvent.BagIsFull, BagIsFull);
-        }
+
     }
 }

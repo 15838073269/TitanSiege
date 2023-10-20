@@ -104,6 +104,7 @@
     <Compile Include="Assets\Scripts\Net\NetData\ProtoType.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraComponent\ImageEffects\XftColorInverse.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Demo\Assets\WFX_Demo_Wall.cs" />
+    <Compile Include="Assets\Scripts\UIModule\EquSelectUI.cs" />
     <Compile Include="Assets\Scripts\Module\Bulid\BulidBase.cs" />
     <Compile Include="Assets\Scripts\Module\SceneModule\SceneBase.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\XftEventComponent.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Assets\Scripts\Net\NetData\DBExt\TitanSiegeDBExt.cs" />
     <Compile Include="Assets\Scripts\Utilities\TestMonster.cs" />
     <Compile Include="Assets\Scripts\UIModule\FaceCamera.cs" />
+    <Compile Include="Assets\Scripts\Module\Item\ItemBase.cs" />
     <Compile Include="Assets\Scripts\Module\NPC\CreateroleNPC.cs" />
     <Compile Include="Assets\Scripts\Module\MoveModule\MoveModule.cs" />
     <Compile Include="Assets\Scripts\Service\UserService.cs" />
@@ -279,7 +281,6 @@
     <Compile Include="Assets\Scripts\UIModule\LoginUIPage.cs" />
     <Compile Include="Assets\Scripts\UIModule\ItemDescUIWidget.cs" />
     <Compile Include="Assets\Scripts\UIModule\UIBG.cs" />
-    <Compile Include="Assets\Scripts\Module\Item\ItemBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

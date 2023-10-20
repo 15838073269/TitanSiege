@@ -219,8 +219,8 @@ namespace GF.MainGame.UI {
                 m_DeleBtn.gameObject.SetActive(true);
                 m_XiexiaBtn.gameObject.SetActive(false);
             } else if (ui.m_Pos == ItemPos.inSelect) {//选择栏是给选择装备使用的，所以非装备，不会进入
-                m_UseBtn.gameObject.SetActive(true);
-                m_EquBtn.gameObject.SetActive(false);
+                m_UseBtn.gameObject.SetActive(false);
+                m_EquBtn.gameObject.SetActive(true);
                 m_DeleBtn.gameObject.SetActive(false);
                 m_XiexiaBtn.gameObject.SetActive(false);
             }else if (ui.m_Pos == ItemPos.inEqu) { //在装备栏上,只显示卸下和关闭
@@ -698,7 +698,7 @@ namespace GF.MainGame.UI {
         /// </summary>
         private ItemBaseUI m_DiuqiItem = null;
         public void OnDiuqi() {
-            if (m_CurrenItem!=null) {
+            if (m_CurrenItem!=null) {//选择栏上没有丢弃按钮，丢弃只可能在背包中，所以不用判断
                 UIMsgBoxArg arg = new UIMsgBoxArg();
                 arg.title = "警告";
                 arg.content = $"{m_CurrenItem.m_Data.name}丢弃无法找回，请确认是否要进行丢弃，确认后系统将永久销毁此道具！";
@@ -727,9 +727,9 @@ namespace GF.MainGame.UI {
                 UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, $"使用失败，该道具数量不足！");
                 return;
             }
-            if (m_CurrenItem.m_IntXiaoguoDic.Count>0) {
+            if (m_CurrenItem.m_Itembase.m_IntXiaoguoDic.Count>0) {
                 if (m_CurrenItem.IsCanEqu()) {
-                    foreach (KeyValuePair<XiaoGuo,int> xiaoguo in m_CurrenItem.m_IntXiaoguoDic) {
+                    foreach (KeyValuePair<XiaoGuo,int> xiaoguo in m_CurrenItem.m_Itembase.m_IntXiaoguoDic) {
                         switch (xiaoguo.Key) {
                             case XiaoGuo.addhp:
                                 int huifu = UserService.GetInstance.m_CurrentPlayer.FP.FightMaxHp - UserService.GetInstance.m_CurrentPlayer.FP.FightHP;
@@ -806,7 +806,6 @@ namespace GF.MainGame.UI {
                                 break;
                         }
                     }
-                    
                 }
             }
             Close();

@@ -198,6 +198,14 @@ namespace GDServer {
                                 case "baoji":
                                     FP.Crit += xg.Value.fvalue;
                                     break;
+                                case "maxhp":
+                                    FP.FightMaxHp += (short)xg.Value.ivalue;
+                                    FP.FightHP += (short)xg.Value.ivalue;
+                                    break;
+                                case "maxmagic":
+                                    FP.FightMaxMagic += (short)xg.Value.ivalue;
+                                    FP.FightMagic += (short)xg.Value.ivalue;
+                                    break;
                             }
                         }
                     }
@@ -258,9 +266,6 @@ namespace GDServer {
             //    index2 = FP.FightMaxHp,
             //    index3 = FP.FightMaxMagic,
             //});
-            //重新计算属性
-            
-            
         }
         /// <summary>
         /// 将数据库中的字符串道具数据初始化成字典

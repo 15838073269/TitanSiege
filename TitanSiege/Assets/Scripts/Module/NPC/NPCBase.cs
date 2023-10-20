@@ -293,6 +293,14 @@ namespace GF.MainGame.Module.NPC {
                                 case "baoji":
                                     fp.Crit += xg.Value.fvalue;
                                     break;
+                                case "maxhp":
+                                    fp.FightMaxHp += (short)xg.Value.ivalue;
+                                    fp.FightHP += (short)xg.Value.ivalue;
+                                    break;
+                                case "maxmagic":
+                                    fp.FightMaxMagic += (short)xg.Value.ivalue;
+                                    fp.FightMagic += (short)xg.Value.ivalue;
+                                    break;
                             }
                         }
                     }

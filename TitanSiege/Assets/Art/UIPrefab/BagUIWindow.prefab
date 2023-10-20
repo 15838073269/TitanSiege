@@ -4603,6 +4603,7 @@ MonoBehaviour:
   - {fileID: 2254270874305263078}
   m_Jinbi: {fileID: 5463444832404252213}
   m_Zhuanshi: {fileID: 6739820097618528160}
+  m_IsInit: 0
   m_IsFull: 0
 --- !u!1 &4469104050089584438
 GameObject:

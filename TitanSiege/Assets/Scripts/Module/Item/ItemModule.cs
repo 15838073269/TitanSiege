@@ -8,25 +8,18 @@
 
 using UnityEngine;
 using GF.Module;
-using System.Resources;
 using GF.Unity.AB;
 using GF.MainGame.Data;
 using System.Collections.Generic;
 using GF.ConfigTable;
 using GF.MainGame.UI;
 using GF.Pool;
-using UnityEngine.Analytics;
-using MoreMountains.Feedbacks;
 using GF.Unity.UI;
-using System.Text;
 using cmd;
 using GF.Service;
-using UnityEditor;
-using Unity.VisualScripting;
 using Net.Client;
 using Cysharp.Threading.Tasks;
 using Titansiege;
-using System.Threading.Tasks;
 
 namespace GF.MainGame.Module {
     public class ItemModule : GeneralModule {
@@ -41,7 +34,7 @@ namespace GF.MainGame.Module {
         /// <summary>
         /// 当前玩家的道具
         /// </summary>
-        private List<ItemBaseUI> m_CurItem;
+        public List<ItemBaseUI> m_CurItem;
         /// <summary>
         /// 对象池
         /// ui的对象池需要单独管理，objectmanger中的对象池是给gameobject物体用的，并没有针对ui，所以ui的对象池需要单独处理一下
@@ -71,12 +64,22 @@ namespace GF.MainGame.Module {
             AppTools.Regist<ItemBaseUI>((int)ItemEvent.ShowItemDesc, ShowItemDesc);
             AppTools.Regist<ItemDataBase,int, UniTask<bool>>((int)ItemEvent.AddItemUIIfNoneCreateInBag, AddItemUIIfNoneCreateInBag);
             AppTools.Regist<ItemBaseUI, UniTask<bool>>((int)ItemEvent.RecycleItemUI, RecycleItemUI);
+            AppTools.Regist<ItemBaseUI>((int)ItemEvent.RecycleItemUINoServer, RecycleItemUINoServer);
+            AppTools.Regist<ItemBaseUI>((int)ItemEvent.GetItemUI, GetItemUI);
             AppTools.Regist<int,ItemPos,int, UniTask<ItemBaseUI>>((int)ItemEvent.CreateItemUI, CreateItemUI);
             AppTools.Regist<ItemBaseUI,int, UniTask<bool>>((int)ItemEvent.ToDoItemNum, ToDoItemNum);
             AppTools.Regist<int, ushort>((int)ItemEvent.AddJinbiOrZuanshi, AddJinbiOrZuanshi);
             AppTools.Regist<int, ItemBase>((int)ItemEvent.GetItemProp, GetItemProp);
+            AppTools.Regist<bool>((int)ItemEvent.BagIsFull, BagIsFull);
             //初始化所有装备道具的效果值备用
             InitAllItemProp();
+        }
+        /// <summary>
+        /// 其他模块用来判断背包是否满了
+        /// </summary>
+        /// <returns></returns>
+        public bool BagIsFull() {
+            return m_BagUI.m_IsFull;
         }
         /// <summary>
         /// //初始化所有装备道具的效果值备用
@@ -128,12 +131,7 @@ namespace GF.MainGame.Module {
                         }
                     }
                     //处理对象池
-                    if (m_Pool.Recycle(itemui)) {
-                        itemui.transform.SetParent(AppMain.GetInstance.m_UIPoolRoot.transform);
-                        itemui.gameObject.SetActive(false);
-                    } else {
-                        Object.Destroy(itemui.gameObject);
-                    }
+                    RecycleItemUINoServer(itemui);
                     return true;
                 }
                 return false;
@@ -142,8 +140,25 @@ namespace GF.MainGame.Module {
                 return false;
             }
         }
+        /// <summary>
+        /// 不需要传输服务器的回收物品对象池
+        /// 无需背包处理，主要是选择栏用的，只要把对象回收销毁即可
+        /// </summary>
+        /// <param name="itemui"></param>
+        public void RecycleItemUINoServer(ItemBaseUI itemui) {
+            //处理对象池
+            if (m_Pool.Recycle(itemui)) {
+                itemui.transform.SetParent(AppMain.GetInstance.m_UIPoolRoot.transform);
+                itemui.gameObject.SetActive(false);
+            } else {
+                Object.Destroy(itemui.gameObject);
+            }
+        }
         public ItemBaseUI GetItemUI() {
             ItemBaseUI itemui = m_Pool.GetObj(true);
+            if (!itemui.gameObject.activeSelf) {
+                itemui.gameObject.SetActive(true);
+            }
             return itemui;
         }
         /// <summary>

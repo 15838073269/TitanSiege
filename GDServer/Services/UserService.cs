@@ -168,23 +168,6 @@ namespace GDServer.Services
                                 case "meili":
                                     cd.Meili -= (short)xg.Value.ivalue;
                                     break;
-                                case "maxhp":
-                                    //基础生命去加减
-                                    cd.Shengming -= (short)xg.Value.ivalue;
-                                    fp.FightHP -= (short)xg.Value.ivalue;
-                                    if (fp.FightHP <= 0) {
-                                        fp.FightHP = 1;
-                                    }
-                                    break;
-                                case "maxmagic":
-                                    //基础法力去加减
-                                    cd.Fali -= (short)xg.Value.ivalue;
-                                    fp.FightMagic -= (short)xg.Value.ivalue;
-                                    if (fp.FightMagic < 0) {
-                                        fp.FightMagic = 0;
-                                    }
-                                    break;
-
                                 case "lianjin":
                                     cd.Lianjin -= (short)xg.Value.ivalue;
                                     break;
@@ -221,14 +204,7 @@ namespace GDServer.Services
                                 case "meili":
                                     cd.Meili += (short)xg.Value.ivalue;
                                     break;
-                                case "maxhp":
-                                    cd.Shengming += (short)xg.Value.ivalue;
-                                    fp.FightHP += (short)xg.Value.ivalue;
-                                    break;
-                                case "maxmagic":
-                                    cd.Fali += (short)xg.Value.ivalue;
-                                    fp.FightMagic += (short)xg.Value.ivalue;
-                                    break;
+                                
                                 case "lianjin":
                                     cd.Lianjin += (short)xg.Value.ivalue;
                                     break;

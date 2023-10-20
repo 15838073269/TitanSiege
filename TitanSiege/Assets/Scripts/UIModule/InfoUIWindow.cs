@@ -74,7 +74,7 @@ namespace GF.MainGame.UI {
         /// <summary>
         /// 装备选择的界面，会自动筛选
         /// </summary>
-        public Image xuanze;
+        public EquSelectUI m_EquSelect;
         /// <summary>
         /// 显示的模型
         /// </summary>
@@ -97,23 +97,22 @@ namespace GF.MainGame.UI {
                 }
             }
             yifubtn.onClick.AddListener(() => {
-                ShowBtnOrPanel(ItemType.yifu);
+                ShowEquSelect(ItemType.yifu);
             });
-            
             kuzibtn.onClick.AddListener(() => {
-                ShowBtnOrPanel(ItemType.kuzi);
+                ShowEquSelect(ItemType.kuzi);
             });
             wuqibtn.onClick.AddListener(() => {
-                ShowBtnOrPanel(ItemType.wuqi);
+                ShowEquSelect(ItemType.wuqi);
             });
             xianglianbtn.onClick.AddListener(() => {
-                ShowBtnOrPanel(ItemType.xianglian);
+                ShowEquSelect(ItemType.xianglian);
             });
             jiezibtn.onClick.AddListener(() => {
-                ShowBtnOrPanel(ItemType.jiezi);
+                ShowEquSelect(ItemType.jiezi);
             });
             xiezibtn.onClick.AddListener(() => {
-                ShowBtnOrPanel(ItemType.xiezi);
+                ShowEquSelect(ItemType.xiezi);
             });
             //初始化装备栏
             m_EquPosDic[ItemType.wuqi] = -1;
@@ -127,67 +126,9 @@ namespace GF.MainGame.UI {
         /// <summary>
         /// 显示卸下装备按钮，或者显示选择装备面板
         /// </summary>
-        public void ShowBtnOrPanel(ItemType itemtype) {
-            CharactersData cd = UserService.GetInstance.m_CurrentChar;
-            switch (itemtype) {
-                case ItemType.yifu:
-                    if (cd.Yifu > 0) {//如果装备的id不等于0,那就说明有装备的，此时不应该响应此点击
-                        cd.Yifu = -1;
-                        //发送服务器，卸下装备，让服务器计算数值后，传递给服务端
-                    } else { //显示选择装备界面
-                        xuanze.gameObject.SetActive(true);
-                        //显示对应类型装备
-                        //todo
-                    }
-                    break;
-                case ItemType.kuzi:
-                    if (cd.Kuzi > 0) {//如果装备的id不等于0,那就说明有装备的，此时不应该响应此点击
-                        return;
-                    } else { //显示选择装备界面
-                        xuanze.gameObject.SetActive(true);
-                        //显示对应类型装备
-                        //todo
-                    }
-                    break;
-                case ItemType.wuqi:
-                    if (cd.Wuqi > 0) {//如果装备的id不等于0,那就说明有装备的，此时不应该响应此点击
-                        return;
-                    } else { //显示选择装备界面
-                        xuanze.gameObject.SetActive(true);
-                        //显示对应类型装备
-                        //todo
-                    }
-                    break;
-                case ItemType.xianglian:
-                    if (cd.Xianglian > 0) {//如果装备的id不等于0,那就说明有装备的，此时不应该响应此点击
-                        return;
-                    } else { //显示选择装备界面
-                        xuanze.gameObject.SetActive(true);
-                        //显示对应类型装备
-                        //todo
-                    }
-                    break;
-                case ItemType.jiezi:
-                    if (cd.Jiezi > 0) {//如果装备的id不等于0,那就说明有装备的，此时不应该响应此点击
-                        return;
-                    } else { //显示选择装备界面
-                        xuanze.gameObject.SetActive(true);
-                        //显示对应类型装备
-                        //todo
-                    }
-                    break;
-                case ItemType.xiezi:
-                    if (cd.Xiezi > 0) {//如果装备的id不等于0,那就说明有装备的，此时不应该响应此点击
-                        return;
-                    } else { //显示选择装备界面
-                        xuanze.gameObject.SetActive(true);
-                        //显示对应类型装备
-                        //todo
-                    }
-                    break;
-                default: 
-                    break;
-            }
+        public void ShowEquSelect(ItemType itemtype) {
+            m_EquSelect.InitEqu((int)itemtype);
+            
         }
         protected override void OnOpen(object args = null) {
             base.OnOpen(args);
@@ -219,7 +160,6 @@ namespace GF.MainGame.UI {
                     kuziitem.Init(cd.Kuzi, ItemPos.inEqu);
                 }
                 kuziitem.gameObject.SetActive(true);
-               
             } else {//有可能会等于0
                 kuziitem.gameObject.SetActive(false);
             }
@@ -240,7 +180,6 @@ namespace GF.MainGame.UI {
                     xianglianitem.Init(cd.Xianglian, ItemPos.inEqu);
                 }
                 xianglianitem.gameObject.SetActive(true);
-               
             } else {//有可能会等于0
                 xianglianitem.gameObject.SetActive(false);
             }
@@ -251,7 +190,6 @@ namespace GF.MainGame.UI {
                     jieziitem.Init(cd.Jiezi, ItemPos.inEqu); 
                 }
                 jieziitem.gameObject.SetActive(true);
-               
             } else {//有可能会等于0
                 jieziitem.gameObject.SetActive(false);
             } 
@@ -267,7 +205,7 @@ namespace GF.MainGame.UI {
             }
             #endregion
             //隐藏非必要内容
-            xuanze.gameObject.SetActive(false);
+            m_EquSelect.gameObject.SetActive(false);
         }
         private void DataToUI(CharactersData cd=null, Player p = null) {
             if (cd == null) {
@@ -306,18 +244,28 @@ namespace GF.MainGame.UI {
         /// <param name="equ"></param>
         public async void ChangeEquItem(ItemBaseUI equ) {
             if (equ != null) {
+                //如果是在选择栏上，得找到背包中对应的道具，用背包中的道具装备，否则会出现问题
+                if (equ.m_Pos == ItemPos.inSelect) {
+                    m_EquSelect.Close();
+                    List<ItemBaseUI> itemlist = AppTools.GetModule<ItemModule>(MDef.ItemModule).m_CurItem;
+                    for (int i = 0; i < itemlist.Count; i++) {
+                        if (equ.m_Data.id == itemlist[i].m_Data.id) {
+                            equ = itemlist[i];
+                            break;
+                        }
+                    }
+                } 
                 CharactersData cd = UserService.GetInstance.m_CurrentChar;
                 FightProp fp = UserService.GetInstance.m_CurrentPlayer.FP;
-                bool bagisfull = AppTools.SendReturn<bool>((int)ItemEvent.BagIsFull);
+                //bool bagisfull = AppTools.SendReturn<bool>((int)ItemEvent.BagIsFull);
 
-                var equtempdic = equ.m_PropXiaoguoDic;//先缓存起来
+                var equtempdic = equ.m_Itembase.m_PropXiaoguoDic;//先缓存起来
                 Dictionary<XiaoGuo,Dictionary<string,EffArgs>> changtempdic = null;
                 int tempid = equ.m_Data.id;
                 int itemtype = equ.m_Data.itemtype;
                 //数量-1,如果为0 此时equ会被直接删除，所以需要先记录一下数据
                 bool issuccess = await AppTools.SendReturn<ItemBaseUI, int, UniTask<bool>>((int)ItemEvent.ToDoItemNum, equ, -1);
 
-                
                 if (issuccess) {//执行成功才会开始计算装备,失败了不用管，ToDoItemNum执行过程中自己会报错
                     switch ((ItemType)itemtype) {
                         case ItemType.yifu:
@@ -329,11 +277,14 @@ namespace GF.MainGame.UI {
                                     UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "背包已满，无法装备,请先清理背包！");
                                     return;
                                 }
-                                changtempdic = yifuitem.m_PropXiaoguoDic;
+                                changtempdic = yifuitem.m_Itembase.m_PropXiaoguoDic;
                             }
                             yifuitem.Init(tempid, ItemPos.inEqu);
                             cd.Yifu = (short)tempid;
                             m_EquPosDic[ItemType.yifu] = cd.Yifu;
+                            if (!yifuitem.gameObject.activeSelf) { 
+                                yifuitem.gameObject.SetActive(true);
+                            }
                             break;
                         case ItemType.kuzi:
                             if (cd.Kuzi > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
@@ -344,11 +295,14 @@ namespace GF.MainGame.UI {
                                     UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "背包已满，无法装备,请先清理背包！");
                                     return;
                                 }
-                                changtempdic = kuziitem.m_PropXiaoguoDic;
+                                changtempdic = kuziitem.m_Itembase.m_PropXiaoguoDic;
                             }
                             kuziitem.Init(tempid, ItemPos.inEqu);
                             cd.Kuzi = (short)tempid;
                             m_EquPosDic[ItemType.kuzi] = cd.Kuzi;
+                            if (!kuziitem.gameObject.activeSelf) {
+                                kuziitem.gameObject.SetActive(true);
+                            }
                             break;
                         case ItemType.wuqi:
                             if (cd.Wuqi > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
@@ -359,11 +313,14 @@ namespace GF.MainGame.UI {
                                     UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "背包已满，无法装备,请先清理背包！");
                                     return;
                                 }
-                                changtempdic = wuqiitem.m_PropXiaoguoDic;
+                                changtempdic = wuqiitem.m_Itembase.m_PropXiaoguoDic;
                             } 
                             wuqiitem.Init(tempid, ItemPos.inEqu);
                             cd.Wuqi = (short)tempid;
                             m_EquPosDic[ItemType.wuqi] = cd.Wuqi;
+                            if (!wuqiitem.gameObject.activeSelf) {
+                                wuqiitem.gameObject.SetActive(true);
+                            }
                             break;
                         case ItemType.xianglian:
                             if (cd.Xianglian > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
@@ -374,11 +331,14 @@ namespace GF.MainGame.UI {
                                     UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "背包已满，无法装备,请先清理背包！");
                                     return;
                                 }
-                                changtempdic = xianglianitem.m_PropXiaoguoDic;
+                                changtempdic = xianglianitem.m_Itembase.m_PropXiaoguoDic;
                             }
                             xianglianitem.Init(tempid, ItemPos.inEqu);
                             cd.Xianglian = (short)tempid;
                             m_EquPosDic[ItemType.xianglian] = cd.Xianglian;
+                            if (!xianglianitem.gameObject.activeSelf) {
+                                xianglianitem.gameObject.SetActive(true);
+                            }
                             break;
                         case ItemType.jiezi:
                             if (cd.Jiezi > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
@@ -389,11 +349,14 @@ namespace GF.MainGame.UI {
                                     UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "背包已满，无法装备,请先清理背包！");
                                     return;
                                 }
-                                changtempdic = jieziitem.m_PropXiaoguoDic;
+                                changtempdic = jieziitem.m_Itembase.m_PropXiaoguoDic;
                             }
                             jieziitem.Init(tempid, ItemPos.inEqu);
                             cd.Jiezi = (short)tempid;
                             m_EquPosDic[ItemType.jiezi] = cd.Jiezi;
+                            if (!jieziitem.gameObject.activeSelf) {
+                                jieziitem.gameObject.SetActive(true);
+                            }
                             break;
                         case ItemType.xiezi:
                             if (cd.Xiezi > 0) { //这种情况下，必定是在背包中，需要两个物品交换，一个显示在背包，一个显示在装备栏
@@ -404,11 +367,14 @@ namespace GF.MainGame.UI {
                                     UIManager.GetInstance.OpenUIWidget(AppConfig.UIMsgTips, "背包已满，无法装备,请先清理背包！");
                                     return;
                                 }
-                                changtempdic = xieziitem.m_PropXiaoguoDic;
+                                changtempdic = xieziitem.m_Itembase.m_PropXiaoguoDic;
                             }
                             xieziitem.Init(tempid, ItemPos.inEqu);
                             cd.Xiezi = (short)tempid;
                             m_EquPosDic[ItemType.xiezi] = cd.Xiezi;
+                            if (!xieziitem.gameObject.activeSelf) {
+                                xieziitem.gameObject.SetActive(true);
+                            }
                             break;
                         default:
                             Debuger.LogError("卸下的装备类型错误，请检查");
@@ -475,7 +441,7 @@ namespace GF.MainGame.UI {
                         Debuger.LogError("装备类型错误，请检查数据表数据！");
                         break;
                 }
-                UpdateCharacterData(null, itemui.m_PropXiaoguoDic);
+                UpdateCharacterData(null, itemui.m_Itembase.m_PropXiaoguoDic);
                 m_EquPosDic[(ItemType)itemui.m_Data.itemtype] = -1;
                 return true;
             }
@@ -515,30 +481,12 @@ namespace GF.MainGame.UI {
                                 case "meili":
                                     cd.Meili -= (short)xg.Value.ivalue;
                                     break;
-                                case "maxhp":
-                                    //基础生命去加减
-                                    cd.Shengming -= (short)xg.Value.ivalue;
-                                    fp.FightHP -= (short)xg.Value.ivalue;
-                                    if (fp.FightHP <= 0) {
-                                        fp.FightHP = 1;
-                                    }
-                                    break;
-                                case "maxmagic":
-                                    //基础法力去加减
-                                    cd.Fali -= (short)xg.Value.ivalue;
-                                    fp.FightMagic -= (short)xg.Value.ivalue;
-                                    if (fp.FightMagic < 0) {
-                                        fp.FightMagic = 0;
-                                    }
-                                    break;
-                                
                                 case "lianjin":
                                     cd.Lianjin -= (short)xg.Value.ivalue;
                                     break;
                                 case "duanzao":
                                     cd.Duanzao -= (short)xg.Value.ivalue;
                                     break;
-                                
                             }
                         }
                     }
@@ -568,14 +516,7 @@ namespace GF.MainGame.UI {
                                 case "meili":
                                     cd.Meili += (short)xg.Value.ivalue;
                                     break;
-                                case "maxhp":
-                                    cd.Shengming += (short)xg.Value.ivalue;
-                                    fp.FightHP += (short)xg.Value.ivalue;
-                                    break;
-                                case "maxmagic":
-                                    cd.Fali += (short)xg.Value.ivalue;
-                                    fp.FightMagic += (short)xg.Value.ivalue;
-                                    break;
+                                
                                 case "lianjin":
                                     cd.Lianjin += (short)xg.Value.ivalue;
                                     break;

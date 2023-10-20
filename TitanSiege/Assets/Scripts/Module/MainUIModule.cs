@@ -12,6 +12,7 @@ using GF.Service;
 using GF.MainGame.UI;
 using Titansiege;
 using Cysharp.Threading.Tasks;
+using GF.MainGame.Data;
 
 namespace GF.MainGame.Module {
     public class MainUIModule : GeneralModule {
