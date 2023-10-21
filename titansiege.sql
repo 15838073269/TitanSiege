@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2023-09-28 05:12:41
+-- Generation Time: 2023-10-21 16:39:17
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -19,6 +19,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `titansiege`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `bagitem`
+--
+
+CREATE TABLE IF NOT EXISTS `bagitem` (
+  `id` int(11) NOT NULL COMMENT '表id',
+  `cid` int(11) NOT NULL COMMENT '角色表id',
+  `inbag` varchar(500) CHARACTER SET utf8 DEFAULT NULL COMMENT '背包内的道具及数量',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='每个玩家背包中的道具';
+
+--
+-- 转存表中的数据 `bagitem`
+--
+
+INSERT INTO `bagitem` (`id`, `cid`, `inbag`) VALUES
+(1, 1, '8|1,5|1,19|4,38|2,36|11,40|10,42|7,46|4,47|5,1|4,9|1,33|1,3|1,15|1,'),
+(2, 3, '36|5,39|5,10|1'),
+(3, 4, '36|5,39|5'),
+(4, 6, '36|5,39|5');
 
 -- --------------------------------------------------------
 
@@ -73,16 +96,12 @@ CREATE TABLE IF NOT EXISTS `characters` (
 --
 
 INSERT INTO `characters` (`ID`, `Name`, `Zhiye`, `Level`, `levelupid`, `Exp`, `Shengming`, `Fali`, `Tizhi`, `Liliang`, `Minjie`, `Moli`, `Meili`, `Xingyun`, `Lianjin`, `Duanzao`, `Jinbi`, `Zuanshi`, `Chenghao`, `Friends`, `Skills`, `Prefabpath`, `Headpath`, `Lihuipath`, `Wuqi`, `Kuzi`, `Yifu`, `Xianglian`, `Jiezi`, `Xiezi`, `MapID`, `MapPosX`, `MapPosY`, `MapPosZ`, `Uid`, `LastDate`, `DelRole`) VALUES
-(1, '天海无双', 0, 3, 1, 100, 700, 140, 16, 20, 10, 6, 1, 1, 0, 0, 500, 100, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/jianshi.prefab', 'UIRes/head/jianshi.png', 'UIRes/fight/fightlihui/1.png', -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 1, '2022-11-18 23:16:31', 0),
+(1, '天海无双', 0, 3, 1, 421, 720, 90, 18, 48, 38, 12, 5, 1, 0, 0, 500, 1600, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/jianshi.prefab', 'UIRes/head/jianshi.png', 'UIRes/fight/fightlihui/1.png', -1, -1, -1, -1, 22, -1, 0, 0, 0, 0, 1, '2022-11-18 23:16:31', 0),
 (2, '豆新雨', 2, 1, 1, 0, 300, 300, 6, 4, 8, 4, 1, 1, 0, 0, 500, 100, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/longnv.prefab', 'UIRes/head/longnv.png', 'UIRes/fight/fightlihui/1.png', -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 1, '2022-11-19 00:30:25', 0),
-(3, '沉默u', 0, 1, 1, 20, 500, 100, 8, 8, 6, 2, 1, 1, 0, 0, 500, 100, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/jianshi.prefab', 'UIRes/head/jianshi.png', 'UIRes/fight/fightlihui/1.png', -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 2, '2022-12-11 10:58:28', 0),
-(4, 'Guy', 0, 1, 1, 0, 500, 100, 8, 8, 6, 2, 0, 0, 0, 0, 500, 100, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/jianshi.prefab', 'UIRes/head/jianshi.png', 'UIRes/fight/fightlihui/1.png', 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 3, '2023-08-17 00:40:50', 0),
-(5, '康嘉淑', 0, 1, 1, 0, 500, 100, 8, 8, 6, 2, 0, 0, 0, 0, 500, 100, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/jianshi.prefab', 'UIRes/head/jianshi.png', 'UIRes/fight/fightlihui/1.png', 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 4, '2023-08-17 00:46:38', 0),
-(6, '析玉珂', 1, 1, 1, 0, 200, 400, 4, 2, 4, 8, 0, 0, 0, 0, 500, 100, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/jingling.prefab', 'UIRes/head/jingling.png', 'UIRes/fight/fightlihui/1.png', 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 4, '2023-08-17 00:46:45', 1),
-(7, '万新蕾', 0, 1, 1, 0, 500, 100, 8, 8, 6, 2, 0, 0, 0, 0, 500, 100, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/jianshi.prefab', 'UIRes/head/jianshi.png', 'UIRes/fight/fightlihui/1.png', 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 5, '2023-08-17 00:50:56', 0),
-(8, '步巧蕊', 1, 1, 1, 0, 200, 400, 4, 2, 4, 8, 0, 0, 0, 0, 500, 100, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/jingling.prefab', 'UIRes/head/jingling.png', 'UIRes/fight/fightlihui/1.png', 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 5, '2023-08-17 00:51:03', 1),
-(9, '种寒凝', 0, 1, 1, 0, 500, 100, 8, 8, 6, 2, 0, 0, 0, 0, 500, 100, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/jianshi.prefab', 'UIRes/head/jianshi.png', 'UIRes/fight/fightlihui/1.png', 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 7, '2023-08-17 01:16:55', 0),
-(10, '在景龙', 1, 1, 1, 0, 200, 400, 4, 2, 4, 8, 0, 0, 0, 0, 500, 100, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/jingling.prefab', 'UIRes/head/jingling.png', 'UIRes/fight/fightlihui/1.png', 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 7, '2023-08-17 01:17:02', 1);
+(3, '沉默u', 0, 1, 1, 60, 500, 100, 8, 8, 6, 2, 1, 1, 0, 0, 500, 100, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/jianshi.prefab', 'UIRes/head/jianshi.png', 'UIRes/fight/fightlihui/1.png', -1, -1, 1, -1, -1, -1, 0, 0, 0, 0, 2, '2022-12-11 10:58:28', 0),
+(4, 'Guy', 0, 1, 1, 0, 500, 100, 8, 8, 6, 2, 0, 0, 0, 0, 500, 100, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/jianshi.prefab', 'UIRes/head/jianshi.png', 'UIRes/fight/fightlihui/1.png', -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 1, '2023-10-06 10:42:32', 0),
+(5, '道雨南', 0, 1, 1, 0, 500, 100, 8, 8, 6, 2, 0, 0, 0, 0, 500, 100, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/jianshi.prefab', 'UIRes/head/jianshi.png', 'UIRes/fight/fightlihui/1.png', -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 2, '2023-10-06 10:49:51', 1),
+(6, '薄静雅', 0, 1, 1, 0, 500, 100, 8, 8, 6, 2, 0, 0, 0, 0, 500, 100, '无名菜鸟', '0|', '5|6|7|1|2|3|4|', 'NPCPrefab/jianshi.prefab', 'UIRes/head/jianshi.png', 'UIRes/fight/fightlihui/1.png', -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 2, '2023-10-06 10:56:47', 0);
 
 -- --------------------------------------------------------
 
@@ -97,16 +116,17 @@ CREATE TABLE IF NOT EXISTS `config` (
   `describle` varchar(200) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '表描述',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='配置表，将数据库所有数据表配置到这里面备用' AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='配置表，将数据库所有数据表配置到这里面备用' AUTO_INCREMENT=5 ;
 
 --
 -- 转存表中的数据 `config`
 --
 
 INSERT INTO `config` (`id`, `tname`, `count`, `describle`) VALUES
-(1, 'users', 7, '玩家账号信息表'),
-(2, 'characters', 10, '玩家角色信息表'),
-(3, 'npcs', 1, '怪物和npc角色信息表');
+(1, 'users', 2, '玩家账号信息表'),
+(2, 'characters', 6, '玩家角色信息表'),
+(3, 'npcs', 1, '怪物和npc角色信息表'),
+(4, 'bagitem', 4, '背包表');
 
 -- --------------------------------------------------------
 
@@ -170,12 +190,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`ID`, `Username`, `Password`, `RegisterDate`, `Email`) VALUES
 (1, '1', '1', '2022-11-18 23:11:03', '1'),
-(2, '2', '2', '2022-12-11 10:58:20', '2'),
-(3, '3', '3', '2023-08-17 00:40:31', '3'),
-(4, '4', '4', '2023-08-17 00:46:25', '4'),
-(5, '5', '5', '2023-08-17 00:50:45', '5'),
-(6, '6', '6', '2023-08-17 01:14:22', '6'),
-(7, '123', '123', '2023-08-17 01:16:44', '123');
+(2, '2', '2', '2022-12-11 10:58:20', '2');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
