@@ -1,0 +1,6 @@
+Name	Key	Frames	X	Y	Size
+{baozao}	[0]	4	0	0	0.125
+{daku}	[1]	4	0.5	0	0.125
+{huaixiao}	[2]	4	0	0.125	0.125
+{ku}	[3]	4	0.5	0.125	0.125
+{qian}	[4]	4	0	0.25	0.125

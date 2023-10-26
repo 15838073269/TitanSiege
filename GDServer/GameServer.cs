@@ -39,7 +39,7 @@ namespace GDServer
             Task.Run(() => {//开一个线程累加时间
                 while (true) {
                     Thread.Sleep(30);//休眠30毫秒后，时间累加
-                    Time.time++;//时间累加
+                    Time.time++;//时间累加  
                 }
             });
             //ThreadManager.Invoke("tick", Time.deltaTime, () => {//设置时间增加

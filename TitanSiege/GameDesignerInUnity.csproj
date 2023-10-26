@@ -56,9 +56,6 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\Fast2BuildMethod.cs">
-      <Link>Network\Binding\Fast2BuildMethod.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\MergeNullValueHandling.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\MergeNullValueHandling.cs</Link>
     </Compile>
@@ -71,17 +68,8 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JProperty.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JProperty.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonToken.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonToken.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\DateTimeUtils.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\DateTimeUtils.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Event\EventSystem.cs">
       <Link>Network\core\Event\EventSystem.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\SafeDictionary.cs">
-      <Link>Network\core\System\SafeDictionary.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonArrayAttribute.cs">
       <Link>Serialize\Newtonsoft.Json\JsonArrayAttribute.cs</Link>
@@ -91,15 +79,6 @@
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\SyncVarHelper.cs">
       <Link>Network\core\Helper\SyncVarHelper.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\EncryptHelper.cs">
-      <Link>Network\core\Helper\EncryptHelper.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\AckQueue.cs">
-      <Link>Network\core\Share\AckQueue.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\CamelCaseNamingStrategy.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\CamelCaseNamingStrategy.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Helper\UnZipHelper.cs">
       <Link>Helper\UnZipHelper.cs</Link>
@@ -116,6 +95,492 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\CustomCreationConverter.cs">
       <Link>Serialize\Newtonsoft.Json\Converters\CustomCreationConverter.cs</Link>
     </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ErrorContext.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\ErrorContext.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringReferenceExtensions.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\StringReferenceExtensions.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RevdRTBuffer.cs">
+      <Link>Network\core\Share\RevdRTBuffer.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonObjectId.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonObjectId.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonPropertyCollection.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonPropertyCollection.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonTextReader.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonTextReader.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\ReadType.cs">
+      <Link>Serialize\Newtonsoft.Json\ReadType.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\FileData.cs">
+      <Link>Network\core\Share\FileData.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\FastListSafe.cs">
+      <Link>Network\core\System\FastListSafe.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ExtensionDataSetter.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\ExtensionDataSetter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetVector2Bind.cs">
+      <Link>Network\Binding\NetVector2Bind.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector2Bind.cs">
+      <Link>Network\Binding\UnityEngineVector2Bind.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConvert.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonConvert.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\BufferStream.cs">
+      <Link>Network\core\System\BufferStream.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JToken.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JToken.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\FPExtend.cs">
+      <Link>Network\core\Tools\FPExtend.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ReflectionObject.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\ReflectionObject.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\RectExt.cs">
+      <Link>Network\core\Tools\RectExt.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ParserTimeZone.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\ParserTimeZone.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\CachedAttributeGetter.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\CachedAttributeGetter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetSystem.cs">
+      <Link>Network\core\Share\NetSystem.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Config\NetConfig.cs">
+      <Link>Network\core\Config\NetConfig.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonContainerType.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonContainerType.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\FuncData.cs">
+      <Link>Network\core\Share\FuncData.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\TypeNameHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\TypeNameHandling.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\Loop.cs">
+      <Link>Network\core\Tools\Loop.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringUtils.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\StringUtils.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonRegex.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonRegex.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonString.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonString.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Client\ClientBase.cs">
+      <Link>Network\core\Client\ClientBase.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ThreadSafeStore.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\ThreadSafeStore.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\MessageModel.cs">
+      <Link>Network\core\Share\MessageModel.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\MethodCall.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\MethodCall.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonStringContract.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonStringContract.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\DateTimeConverterBase.cs">
+      <Link>Serialize\Newtonsoft.Json\Converters\DateTimeConverterBase.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RPCModelTask.cs">
+      <Link>Network\core\Share\RPCModelTask.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\BidirectionalDictionary.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\BidirectionalDictionary.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\StackSafe.cs">
+      <Link>Network\core\System\StackSafe.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Server\NetScene.cs">
+      <Link>Network\core\Server\NetScene.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetDelegate.cs">
+      <Link>Network\core\Share\NetDelegate.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonType.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonType.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\ObjectConverter.cs">
+      <Link>Network\core\Tools\ObjectConverter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonWriter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\ThreadManager.cs">
+      <Link>Network\core\System\ThreadManager.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JConstructor.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JConstructor.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\Creator.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\Creator.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\RandomSafe.cs">
+      <Link>Network\core\System\RandomSafe.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetworkDataTraffic.cs">
+      <Link>Network\core\Share\NetworkDataTraffic.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\Extensions.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonTextWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonTextWriter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\Segment.cs">
+      <Link>Network\core\System\Segment.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IAttributeProvider.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\IAttributeProvider.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineRectBind.cs">
+      <Link>Network\Binding\UnityEngineRectBind.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\CRCHelper.cs">
+      <Link>Network\core\Helper\CRCHelper.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetQuaternionBind.cs">
+      <Link>Network\Binding\NetQuaternionBind.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IServerSendHandle.cs">
+      <Link>Network\core\Share\IServerSendHandle.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Adapter\PackageAdapter.cs">
+      <Link>Network\Adapter\PackageAdapter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Event\PlayerLoopRunner.cs">
+      <Link>Network\core\Event\PlayerLoopRunner.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvert.cs">
+      <Link>Network\core\Serialize\NetConvert.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Formatting.cs">
+      <Link>Serialize\Newtonsoft.Json\Formatting.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IReferenceResolver.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\IReferenceResolver.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Vector4.cs">
+      <Link>Network\core\Unity\Vector4.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetCmd.cs">
+      <Link>Network\core\Share\NetCmd.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\TraceJsonReader.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\TraceJsonReader.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\JavaScriptUtils.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\JavaScriptUtils.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonContainerAttribute.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonContainerAttribute.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonContractType.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonContractType.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineQuaternionBind.cs">
+      <Link>Network\Binding\UnityEngineQuaternionBind.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JTokenType.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JTokenType.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\PropertyNameTable.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\PropertyNameTable.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\ObjectCreationHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\ObjectCreationHandling.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonBinary.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonBinary.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\StringEnumConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\Converters\StringEnumConverter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConverterCollection.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonConverterCollection.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ITraceWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\ITraceWriter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\ExceptionArgument.cs">
+      <Link>Network\core\System\ExceptionArgument.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonPosition.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonPosition.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\TypeExtensions.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\TypeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\SyncVarAttribute.cs">
+      <Link>Network\core\Share\SyncVarAttribute.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector4Bind.cs">
+      <Link>Network\Binding\UnityEngineVector4Bind.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\ArraySegment.cs">
+      <Link>Network\core\System\ArraySegment.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Vector3.cs">
+      <Link>Network\core\Unity\Vector3.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Editor\DebugTools.cs">
+      <Link>Network\Editor\DebugTools.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonArray.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonArray.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\SystemManager.cs">
+      <Link>Network\core\System\SystemManager.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonReaderException.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonReaderException.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\InvokeHelperBuild.cs">
+      <Link>Network\core\Helper\InvokeHelperBuild.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonContract.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonContract.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonLoadSettings.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonLoadSettings.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JTokenReader.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JTokenReader.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Server\ServerBase.cs">
+      <Link>Network\core\Server\ServerBase.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\UnitySynchronizationContext.cs">
+      <Link>Network\core\Unity\UnitySynchronizationContext.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\MathUtils.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\MathUtils.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\MemberData.cs">
+      <Link>Network\core\Share\MemberData.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Config\InvokeHelperConfigObject.cs">
+      <Link>Network\core\Config\InvokeHelperConfigObject.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\SyncVariable.cs">
+      <Link>Network\core\Share\SyncVariable.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\PrimitiveTypeCode.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\PrimitiveTypeCode.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\BindingExtension.cs">
+      <Link>Network\Binding\BindingExtension.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\MemoryTraceWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\MemoryTraceWriter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\DefaultValueHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\DefaultValueHandling.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Rect.cs">
+      <Link>Network\core\Unity\Rect.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetShareOperationBind.cs">
+      <Link>Network\Binding\NetShareOperationBind.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RPCFun.cs">
+      <Link>Network\core\Share\RPCFun.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NonSerialized.cs">
+      <Link>Network\core\Serialize\NonSerialized.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonRequiredAttribute.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonRequiredAttribute.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector3IntBind.cs">
+      <Link>Network\Binding\UnityEngineVector3IntBind.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\IWellKnownStringEqualityComparer.cs">
+      <Link>Network\core\System\IWellKnownStringEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Server\NetPlayer.cs">
+      <Link>Network\core\Server\NetPlayer.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\HashHelpers.cs">
+      <Link>Network\core\System\HashHelpers.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonFormatterConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonFormatterConverter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerProxy.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerProxy.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\StringEscapeHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\StringEscapeHandling.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ConnectState.cs">
+      <Link>Network\core\Share\ConnectState.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineColor32Bind.cs">
+      <Link>Network\Binding\UnityEngineColor32Bind.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JValue.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JValue.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IContractResolver.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\IContractResolver.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\JPath.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\JPath.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\Segment2.cs">
+      <Link>Network\core\System\Segment2.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Helper\CloneHelper.cs">
+      <Link>Helper\CloneHelper.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultContractResolver.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\DefaultContractResolver.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\QueueSafe.cs">
+      <Link>Network\core\System\QueueSafe.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\QueryOperator.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\QueryOperator.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonDictionaryAttribute.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonDictionaryAttribute.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Helper\StringHelper.cs">
+      <Link>Helper\StringHelper.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JTokenWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JTokenWriter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonSerializer.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonSerializer.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IValueProvider.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\IValueProvider.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonReader.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonReader.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertBase.cs">
+      <Link>Network\core\Serialize\NetConvertBase.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\DateParseHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\DateParseHandling.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\LineInfoHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\Linq\LineInfoHandling.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineRectIntBind.cs">
+      <Link>Network\Binding\UnityEngineRectIntBind.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonProperty.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonProperty.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonWriter.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonWriter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\FloatParseHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\FloatParseHandling.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\INetClient.cs">
+      <Link>Network\core\Share\INetClient.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs">
+      <Link>Serialize\Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RevdDataBuffer.cs">
+      <Link>Network\core\Share\RevdDataBuffer.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\EnumUtils.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\EnumUtils.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\FloatFormatHandling.cs">
+      <Link>Serialize\Newtonsoft.Json\FloatFormatHandling.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\TypeExtend.cs">
+      <Link>Network\core\Tools\TypeExtend.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Adapter\SerializeAdapter.cs">
+      <Link>Network\Adapter\SerializeAdapter.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RTOMode.cs">
+      <Link>Network\core\Share\RTOMode.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\Fast2BuildMethod.cs">
+      <Link>Network\Binding\Fast2BuildMethod.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonToken.cs">
+      <Link>Serialize\Newtonsoft.Json\Bson\BsonToken.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\DateTimeUtils.cs">
+      <Link>Serialize\Newtonsoft.Json\Utilities\DateTimeUtils.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\SafeDictionary.cs">
+      <Link>Network\core\System\SafeDictionary.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\EncryptHelper.cs">
+      <Link>Network\core\Helper\EncryptHelper.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\AckQueue.cs">
+      <Link>Network\core\Share\AckQueue.cs</Link>
+    </Compile>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\CamelCaseNamingStrategy.cs">
+      <Link>Serialize\Newtonsoft.Json\Serialization\CamelCaseNamingStrategy.cs</Link>
+    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\MergeArrayHandling.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\MergeArrayHandling.cs</Link>
     </Compile>
@@ -125,14 +590,8 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\TraceJsonWriter.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\TraceJsonWriter.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ErrorContext.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\ErrorContext.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IAdapter.cs">
       <Link>Network\core\Share\IAdapter.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ReflectionValueProvider.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\ReflectionValueProvider.cs</Link>
@@ -140,14 +599,8 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ReflectionMember.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\ReflectionMember.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringReferenceExtensions.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\StringReferenceExtensions.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\BinaryConverter.cs">
       <Link>Serialize\Newtonsoft.Json\Converters\BinaryConverter.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RevdRTBuffer.cs">
-      <Link>Network\core\Share\RevdRTBuffer.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\IJsonLineInfo.cs">
       <Link>Serialize\Newtonsoft.Json\IJsonLineInfo.cs</Link>
@@ -173,23 +626,11 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\BufferPool.cs">
       <Link>Network\core\System\BufferPool.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonObjectId.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonObjectId.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonPropertyCollection.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonPropertyCollection.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonTypeReflector.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\JsonTypeReflector.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonTextReader.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonTextReader.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ReflectionUtils.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\ReflectionUtils.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\ReadType.cs">
-      <Link>Serialize\Newtonsoft.Json\ReadType.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringReference.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\StringReference.cs</Link>
@@ -197,71 +638,32 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Editor\InvokeHelperTools.cs">
       <Link>Network\Editor\InvokeHelperTools.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\FileData.cs">
-      <Link>Network\core\Share\FileData.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\FastListSafe.cs">
-      <Link>Network\core\System\FastListSafe.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ExtensionDataSetter.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\ExtensionDataSetter.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Editor\Fast2BuildTool.cs">
       <Link>Network\Editor\Fast2BuildTool.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetVector2Bind.cs">
-      <Link>Network\Binding\NetVector2Bind.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector2Bind.cs">
-      <Link>Network\Binding\UnityEngineVector2Bind.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConvert.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonConvert.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\BufferStream.cs">
-      <Link>Network\core\System\BufferStream.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\PreserveReferencesHandling.cs">
       <Link>Serialize\Newtonsoft.Json\PreserveReferencesHandling.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JToken.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JToken.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineColorBind.cs">
       <Link>Network\Binding\UnityEngineColorBind.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\FPExtend.cs">
-      <Link>Network\core\Tools\FPExtend.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ReflectionObject.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\ReflectionObject.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Event\NDebug.cs">
       <Link>Network\core\Event\NDebug.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\RectExt.cs">
-      <Link>Network\core\Tools\RectExt.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonMergeSettings.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JsonMergeSettings.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ParserTimeZone.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\ParserTimeZone.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JArray.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JArray.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\CachedAttributeGetter.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\CachedAttributeGetter.cs</Link>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\ObjectIDGenerator.cs">
+      <Link>Network\core\System\ObjectIDGenerator.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IGcp.cs">
       <Link>Network\core\Share\IGcp.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JEnumerable.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JEnumerable.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\ObjectIDGenerator.cs">
-      <Link>Network\core\System\ObjectIDGenerator.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Unity\SingleCase.cs">
       <Link>Unity\SingleCase.cs</Link>
@@ -271,9 +673,6 @@
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Event\TimerEvent.cs">
       <Link>Network\core\Event\TimerEvent.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetSystem.cs">
-      <Link>Network\core\Share\NetSystem.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonDictionaryContract.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\JsonDictionaryContract.cs</Link>
@@ -287,20 +686,11 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IRpcHandler.cs">
       <Link>Network\core\Share\IRpcHandler.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Config\NetConfig.cs">
-      <Link>Network\core\Config\NetConfig.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\ReferenceLoopHandling.cs">
       <Link>Serialize\Newtonsoft.Json\ReferenceLoopHandling.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Helper\AntiCheatHelper.cs">
       <Link>Helper\AntiCheatHelper.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonContainerType.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonContainerType.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JRaw.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JRaw.cs</Link>
@@ -311,20 +701,11 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Helper\PersistHelper.cs">
       <Link>Helper\PersistHelper.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\FuncData.cs">
-      <Link>Network\core\Share\FuncData.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\TypeNameHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\TypeNameHandling.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Adapter\CallSiteRpcAdapter.cs">
       <Link>Network\Adapter\CallSiteRpcAdapter.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultContractResolverState.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\DefaultContractResolverState.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\Loop.cs">
-      <Link>Network\core\Tools\Loop.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\CustomBind.cs">
       <Link>Network\Binding\CustomBind.cs</Link>
@@ -341,23 +722,14 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\CollectionWrapper.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\CollectionWrapper.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringUtils.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\StringUtils.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonWriterException.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonWriterException.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Matrix4Utils.cs">
       <Link>Network\core\Unity\Matrix4Utils.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonRegex.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonRegex.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonString.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonString.cs</Link>
+    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonWriterException.cs">
+      <Link>Serialize\Newtonsoft.Json\JsonWriterException.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonSerializationException.cs">
       <Link>Serialize\Newtonsoft.Json\JsonSerializationException.cs</Link>
@@ -368,26 +740,8 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\StringBuffer.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\StringBuffer.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Client\ClientBase.cs">
-      <Link>Network\core\Client\ClientBase.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ThreadSafeStore.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\ThreadSafeStore.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\EventHandle.cs">
       <Link>Network\core\Share\EventHandle.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\MessageModel.cs">
-      <Link>Network\core\Share\MessageModel.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\MethodCall.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\MethodCall.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonStringContract.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonStringContract.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\NamingStrategy.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\NamingStrategy.cs</Link>
@@ -401,29 +755,14 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\FastHashSet.cs">
       <Link>Network\core\System\FastHashSet.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonObject.cs">
       <Link>Serialize\Newtonsoft.Json\Bson\BsonObject.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\DateTimeConverterBase.cs">
-      <Link>Serialize\Newtonsoft.Json\Converters\DateTimeConverterBase.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonContainerContract.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\JsonContainerContract.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ReliableTemp.cs">
       <Link>Network\core\Share\ReliableTemp.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RPCModelTask.cs">
-      <Link>Network\core\Share\RPCModelTask.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\BidirectionalDictionary.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\BidirectionalDictionary.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\StackSafe.cs">
-      <Link>Network\core\System\StackSafe.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\FastList.cs">
       <Link>Network\core\System\FastList.cs</Link>
@@ -437,26 +776,14 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetColorBind.cs">
       <Link>Network\Binding\NetColorBind.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Server\NetScene.cs">
-      <Link>Network\core\Server\NetScene.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetDelegate.cs">
-      <Link>Network\core\Share\NetDelegate.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\RandomizedObjectEqualityComparer.cs">
       <Link>Network\core\System\RandomizedObjectEqualityComparer.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonType.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonType.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Quaternion.cs">
       <Link>Network\core\Unity\Quaternion.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\MemberSerialization.cs">
       <Link>Serialize\Newtonsoft.Json\MemberSerialization.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\ObjectConverter.cs">
-      <Link>Network\core\Tools\ObjectConverter.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ExtensionDataGetter.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\ExtensionDataGetter.cs</Link>
@@ -470,44 +797,14 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\TransportMode.cs">
       <Link>Network\core\Share\TransportMode.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonWriter.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\ThreadManager.cs">
-      <Link>Network\core\System\ThreadManager.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JConstructor.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JConstructor.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\Creator.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\Creator.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector3Bind.cs">
       <Link>Network\Binding\UnityEngineVector3Bind.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IDebugHandle.cs">
       <Link>Network\core\Share\IDebugHandle.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\RandomSafe.cs">
-      <Link>Network\core\System\RandomSafe.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetworkDataTraffic.cs">
-      <Link>Network\core\Share\NetworkDataTraffic.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\Extensions.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\Extensions.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonTextWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonTextWriter.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\Segment.cs">
-      <Link>Network\core\System\Segment.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\WriteState.cs">
       <Link>Serialize\Newtonsoft.Json\WriteState.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IAttributeProvider.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\IAttributeProvider.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Config\App.cs">
       <Link>Network\core\Config\App.cs</Link>
@@ -515,29 +812,14 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\MiscellaneousUtils.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\MiscellaneousUtils.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineRectBind.cs">
-      <Link>Network\Binding\UnityEngineRectBind.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\CRCHelper.cs">
-      <Link>Network\core\Helper\CRCHelper.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineRectOffsetBind.cs">
       <Link>Network\Binding\UnityEngineRectOffsetBind.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetQuaternionBind.cs">
-      <Link>Network\Binding\NetQuaternionBind.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IServerSendHandle.cs">
-      <Link>Network\core\Share\IServerSendHandle.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonBinaryWriter.cs">
       <Link>Serialize\Newtonsoft.Json\Bson\BsonBinaryWriter.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector2IntBind.cs">
       <Link>Network\Binding\UnityEngineVector2IntBind.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Adapter\PackageAdapter.cs">
-      <Link>Network\Adapter\PackageAdapter.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonISerializableContract.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\JsonISerializableContract.cs</Link>
@@ -548,23 +830,14 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JPropertyDescriptor.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JPropertyDescriptor.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Event\PlayerLoopRunner.cs">
-      <Link>Network\core\Event\PlayerLoopRunner.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConverter.cs">
       <Link>Serialize\Newtonsoft.Json\JsonConverter.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvert.cs">
-      <Link>Network\core\Serialize\NetConvert.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetVector3Bind.cs">
       <Link>Network\Binding\NetVector3Bind.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ObjectConstructor.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\ObjectConstructor.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Formatting.cs">
-      <Link>Serialize\Newtonsoft.Json\Formatting.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\OtherExtend.cs">
       <Link>Network\core\Tools\OtherExtend.cs</Link>
@@ -575,35 +848,14 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\IWrappedCollection.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\IWrappedCollection.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IReferenceResolver.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\IReferenceResolver.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertBinary.cs">
       <Link>Network\core\Serialize\NetConvertBinary.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Vector4.cs">
-      <Link>Network\core\Unity\Vector4.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JContainer.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JContainer.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetCmd.cs">
-      <Link>Network\core\Share\NetCmd.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\TraceJsonReader.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\TraceJsonReader.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\JavaScriptUtils.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\JavaScriptUtils.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonContainerAttribute.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonContainerAttribute.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonProperty.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\JsonProperty.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\RegexConverter.cs">
       <Link>Serialize\Newtonsoft.Json\Converters\RegexConverter.cs</Link>
@@ -620,9 +872,6 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\DataModel.cs">
       <Link>Network\core\Share\DataModel.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonContractType.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonContractType.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\ExceptionResource.cs">
       <Link>Network\core\System\ExceptionResource.cs</Link>
     </Compile>
@@ -635,74 +884,26 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Helper\ByteHelper.cs">
       <Link>Helper\ByteHelper.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineQuaternionBind.cs">
-      <Link>Network\Binding\UnityEngineQuaternionBind.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JTokenType.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JTokenType.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetState.cs">
       <Link>Network\core\Share\NetState.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\EnumValue.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\EnumValue.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\PropertyNameTable.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\PropertyNameTable.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ReceiveBuffer.cs">
       <Link>Network\core\Share\ReceiveBuffer.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\ObjectCreationHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\ObjectCreationHandling.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonBinary.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonBinary.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\StringEnumConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\Converters\StringEnumConverter.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetRectBind.cs">
       <Link>Network\Binding\NetRectBind.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConverterCollection.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonConverterCollection.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ITraceWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\ITraceWriter.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IServerHandle.cs">
       <Link>Network\core\Share\IServerHandle.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\ExceptionArgument.cs">
-      <Link>Network\core\System\ExceptionArgument.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonPosition.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonPosition.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\TypeExtensions.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\TypeExtensions.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\SyncVarAttribute.cs">
-      <Link>Network\core\Share\SyncVarAttribute.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector4Bind.cs">
-      <Link>Network\Binding\UnityEngineVector4Bind.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\ISegment.cs">
       <Link>Network\core\System\ISegment.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\ArraySegment.cs">
-      <Link>Network\core\System\ArraySegment.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Vector3.cs">
-      <Link>Network\core\Unity\Vector3.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Editor\DebugTools.cs">
-      <Link>Network\Editor\DebugTools.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonException.cs">
       <Link>Serialize\Newtonsoft.Json\JsonException.cs</Link>
@@ -719,20 +920,11 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\IDataConfig.cs">
       <Link>Network\core\Share\IDataConfig.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonArray.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonArray.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RPCData.cs">
       <Link>Network\core\Share\RPCData.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Matrix4x4.cs">
       <Link>Network\core\Unity\Matrix4x4.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\SystemManager.cs">
-      <Link>Network\core\System\SystemManager.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonReaderException.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonReaderException.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\ArrayExtend.cs">
       <Link>Network\core\Tools\ArrayExtend.cs</Link>
@@ -743,9 +935,6 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ErrorEventArgs.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\ErrorEventArgs.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Helper\InvokeHelperBuild.cs">
-      <Link>Network\core\Helper\InvokeHelperBuild.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Adapter\ListenerAdapter.cs">
       <Link>Network\Adapter\ListenerAdapter.cs</Link>
     </Compile>
@@ -754,15 +943,6 @@
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\ReflectionAttributeProvider.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\ReflectionAttributeProvider.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonContract.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonContract.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonLoadSettings.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonLoadSettings.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JTokenReader.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JTokenReader.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ThreadGroup.cs">
       <Link>Network\core\Share\ThreadGroup.cs</Link>
@@ -779,38 +959,17 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\Base64Encoder.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\Base64Encoder.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Server\ServerBase.cs">
-      <Link>Network\core\Server\ServerBase.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\OperationList.cs">
       <Link>Network\core\Share\OperationList.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\UnitySynchronizationContext.cs">
-      <Link>Network\core\Unity\UnitySynchronizationContext.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\MathUtils.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\MathUtils.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConstructorAttribute.cs">
       <Link>Serialize\Newtonsoft.Json\JsonConstructorAttribute.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\MemberData.cs">
-      <Link>Network\core\Share\MemberData.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Config\InvokeHelperConfigObject.cs">
-      <Link>Network\core\Config\InvokeHelperConfigObject.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\MissingMemberHandling.cs">
       <Link>Serialize\Newtonsoft.Json\MissingMemberHandling.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\CamelCasePropertyNamesContractResolver.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\CamelCasePropertyNamesContractResolver.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\SyncVariable.cs">
-      <Link>Network\core\Share\SyncVariable.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\PrimitiveTypeCode.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\PrimitiveTypeCode.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertHelper.cs">
       <Link>Network\core\Serialize\NetConvertHelper.cs</Link>
@@ -824,50 +983,17 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\Constituency.cs">
       <Link>Network\core\Share\Constituency.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\BindingExtension.cs">
-      <Link>Network\Binding\BindingExtension.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\MemoryTraceWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\MemoryTraceWriter.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\LateBoundReflectionDelegateFactory.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\LateBoundReflectionDelegateFactory.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonBinaryType.cs">
       <Link>Serialize\Newtonsoft.Json\Bson\BsonBinaryType.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\DefaultValueHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\DefaultValueHandling.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Rect.cs">
-      <Link>Network\core\Unity\Rect.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetShareOperationBind.cs">
-      <Link>Network\Binding\NetShareOperationBind.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RPCFun.cs">
-      <Link>Network\core\Share\RPCFun.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonConverterAttribute.cs">
       <Link>Serialize\Newtonsoft.Json\JsonConverterAttribute.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NonSerialized.cs">
-      <Link>Network\core\Serialize\NonSerialized.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Mathf.cs">
       <Link>Network\core\Unity\Mathf.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonRequiredAttribute.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonRequiredAttribute.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineVector3IntBind.cs">
-      <Link>Network\Binding\UnityEngineVector3IntBind.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\INetworkHandle.cs">
       <Link>Network\core\Share\INetworkHandle.cs</Link>
@@ -875,35 +1001,8 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\NullValueHandling.cs">
       <Link>Serialize\Newtonsoft.Json\NullValueHandling.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\IWellKnownStringEqualityComparer.cs">
-      <Link>Network\core\System\IWellKnownStringEqualityComparer.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Server\NetPlayer.cs">
-      <Link>Network\core\Server\NetPlayer.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonFormatterConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonFormatterConverter.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Import\Editor\ImportSetting.cs">
       <Link>Import\Editor\ImportSetting.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\HashHelpers.cs">
-      <Link>Network\core\System\HashHelpers.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerProxy.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerProxy.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\StringEscapeHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\StringEscapeHandling.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\ConnectState.cs">
-      <Link>Network\core\Share\ConnectState.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonValue.cs">
       <Link>Serialize\Newtonsoft.Json\Bson\BsonValue.cs</Link>
@@ -917,23 +1016,11 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\INetConvert.cs">
       <Link>Network\core\Share\INetConvert.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineColor32Bind.cs">
-      <Link>Network\Binding\UnityEngineColor32Bind.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JValue.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JValue.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IContractResolver.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\IContractResolver.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Config\TableConfig.cs">
       <Link>Network\core\Config\TableConfig.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetVector4Bind.cs">
       <Link>Network\Binding\NetVector4Bind.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\JPath.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\JPath.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonObjectContract.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\JsonObjectContract.cs</Link>
@@ -947,56 +1034,23 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\KeyValuePairConverter.cs">
       <Link>Serialize\Newtonsoft.Json\Converters\KeyValuePairConverter.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\Segment2.cs">
-      <Link>Network\core\System\Segment2.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Helper\CloneHelper.cs">
-      <Link>Helper\CloneHelper.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertFast2.cs">
       <Link>Network\core\Serialize\NetConvertFast2.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\DefaultContractResolver.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\DefaultContractResolver.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\System\QueueSafe.cs">
-      <Link>Network\core\System\QueueSafe.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalReader.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\JsonSerializerInternalReader.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\QueryOperator.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\QueryOperator.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Helper\RandomHelper.cs">
       <Link>Helper\RandomHelper.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonDictionaryAttribute.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonDictionaryAttribute.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\NetPort.cs">
       <Link>Network\core\Share\NetPort.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Helper\StringHelper.cs">
-      <Link>Helper\StringHelper.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\IArrayPool.cs">
       <Link>Serialize\Newtonsoft.Json\IArrayPool.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JTokenWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JTokenWriter.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonSerializer.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonSerializer.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\VersionConverter.cs">
       <Link>Serialize\Newtonsoft.Json\Converters\VersionConverter.cs</Link>
@@ -1016,17 +1070,8 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\AotHelper.cs">
       <Link>Serialize\Newtonsoft.Json\Utilities\AotHelper.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\IValueProvider.cs">
-      <Link>Serialize\Newtonsoft.Json\Serialization\IValueProvider.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\BsonObjectIdConverter.cs">
       <Link>Serialize\Newtonsoft.Json\Converters\BsonObjectIdConverter.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonReader.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonReader.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs</Link>
@@ -1034,17 +1079,11 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\NetShareOperationListBind.cs">
       <Link>Network\Binding\NetShareOperationListBind.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Serialize\NetConvertBase.cs">
-      <Link>Network\core\Serialize\NetConvertBase.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Helper\FilterTextHelper.cs">
       <Link>Helper\FilterTextHelper.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Import\Editor\ConfigSetting.cs">
       <Link>Import\Editor\ConfigSetting.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\DateParseHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\DateParseHandling.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Import\Editor\ImportSettingWindow.cs">
       <Link>Import\Editor\ImportSettingWindow.cs</Link>
@@ -1052,56 +1091,17 @@
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\SyncVarInfo.cs">
       <Link>Network\core\Share\SyncVarInfo.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\LineInfoHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\Linq\LineInfoHandling.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Serialization\SerializationCallback.cs">
       <Link>Serialize\Newtonsoft.Json\Serialization\SerializationCallback.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Binding\UnityEngineRectIntBind.cs">
-      <Link>Network\Binding\UnityEngineRectIntBind.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Bson\BsonProperty.cs">
-      <Link>Serialize\Newtonsoft.Json\Bson\BsonProperty.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonWriter.cs">
-      <Link>Serialize\Newtonsoft.Json\JsonWriter.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\JsonExtensionDataAttribute.cs">
       <Link>Serialize\Newtonsoft.Json\JsonExtensionDataAttribute.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\FloatParseHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\FloatParseHandling.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\INetClient.cs">
-      <Link>Network\core\Share\INetClient.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs">
-      <Link>Serialize\Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RevdDataBuffer.cs">
-      <Link>Network\core\Share\RevdDataBuffer.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\Operation.cs">
       <Link>Network\core\Share\Operation.cs</Link>
     </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Utilities\EnumUtils.cs">
-      <Link>Serialize\Newtonsoft.Json\Utilities\EnumUtils.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\FloatFormatHandling.cs">
-      <Link>Serialize\Newtonsoft.Json\FloatFormatHandling.cs</Link>
-    </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Serialize\Newtonsoft.Json\Linq\CommentHandling.cs">
       <Link>Serialize\Newtonsoft.Json\Linq\CommentHandling.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Tools\TypeExtend.cs">
-      <Link>Network\core\Tools\TypeExtend.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\Adapter\SerializeAdapter.cs">
-      <Link>Network\Adapter\SerializeAdapter.cs</Link>
-    </Compile>
-    <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Share\RTOMode.cs">
-      <Link>Network\core\Share\RTOMode.cs</Link>
     </Compile>
     <Compile Include="D:\project\Titansiege\GameDesigner\GameDesigner\Network\core\Unity\Color.cs">
       <Link>Network\core\Unity\Color.cs</Link>
@@ -1126,301 +1126,277 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.AIModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.AIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ARModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ARModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ARModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AccessibilityModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.AccessibilityModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.AccessibilityModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AndroidJNIModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.AndroidJNIModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.AndroidJNIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.AnimationModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AudioModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.AudioModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.AudioModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClothModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ClothModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ClothModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClusterInputModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ClusterInputModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ClusterInputModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClusterRendererModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ClusterRendererModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ClusterRendererModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CrashReportingModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.CrashReportingModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.CrashReportingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.DSPGraphModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.DSPGraphModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.DSPGraphModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.DirectorModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.DirectorModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.DirectorModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.GIModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.GIModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.GIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.GameCenterModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.GameCenterModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.GameCenterModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.GridModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.GridModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.GridModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.HotReloadModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.HotReloadModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.HotReloadModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ImageConversionModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ImageConversionModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.InputModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.InputModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.InputModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.InputLegacyModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.InputLegacyModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.InputLegacyModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.JSONSerializeModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.JSONSerializeModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.JSONSerializeModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.LocalizationModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.LocalizationModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.LocalizationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ParticleSystemModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PerformanceReportingModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.PerformanceReportingModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.PerformanceReportingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Physics2DModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.Physics2DModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.Physics2DModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ProfilerModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ProfilerModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ProfilerModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ScreenCaptureModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ScreenCaptureModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.ScreenCaptureModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SharedInternalsModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.SharedInternalsModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.SharedInternalsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpriteMaskModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.SpriteMaskModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.SpriteMaskModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpriteShapeModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.SpriteShapeModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.SpriteShapeModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StreamingModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.StreamingModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.StreamingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SubstanceModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.SubstanceModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.SubstanceModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SubsystemsModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.SubsystemsModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.SubsystemsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TLSModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.TLSModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.TLSModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TerrainModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.TerrainModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.TerrainModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TerrainPhysicsModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.TerrainPhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextCoreFontEngineModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextCoreTextEngineModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TilemapModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.TilemapModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.TilemapModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UIModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIElementsModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UIElementsModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UIElementsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIElementsNativeModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UIElementsNativeModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UIElementsNativeModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIWidgetsModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UIWidgetsModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UIWidgetsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UNETModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UNETModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UNETModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UmbraModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UmbraModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UmbraModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityAnalyticsModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityAnalyticsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityConnectModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityConnectModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityConnectModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityCurlModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityCurlModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityCurlModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityTestProtocolModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityTestProtocolModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityTestProtocolModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestAudioModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestTextureModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestWWWModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VFXModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.VFXModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.VFXModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VRModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.VRModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.VRModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VehiclesModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.VehiclesModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.VehiclesModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VideoModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.VideoModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.VideoModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VirtualTexturingModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.VirtualTexturingModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.VirtualTexturingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.WindModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.WindModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.WindModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.XRModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.XRModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEngine.XRModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.CoreModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.CoreModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.DeviceSimulatorModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.DeviceSimulatorModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.DeviceSimulatorModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.DiagnosticsModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.DiagnosticsModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.DiagnosticsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.GraphViewModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.GraphViewModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.GraphViewModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.PackageManagerUIModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.PackageManagerUIModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.PackageManagerUIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.QuickSearchModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.QuickSearchModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.QuickSearchModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.SceneTemplateModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.SceneTemplateModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.SceneTemplateModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.TextCoreFontEngineModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.TextCoreFontEngineModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.TextCoreFontEngineModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.TextCoreTextEngineModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.TextCoreTextEngineModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.TextCoreTextEngineModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UIBuilderModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.UIBuilderModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.UIBuilderModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UIElementsModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.UIElementsModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.UIElementsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UIElementsSamplesModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.UIElementsSamplesModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.UIElementsSamplesModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UIServiceModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.UIServiceModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.UIServiceModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UnityConnectModule">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Graphs">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.WebGL.Extensions">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\WebGLSupport\UnityEditor.WebGL.Extensions.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\WebGLSupport\UnityEditor.WebGL.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Android.Extensions">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\AndroidPlayer\UnityEditor.Android.Extensions.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\AndroidPlayer\UnityEditor.Android.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UWP.Extensions">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\MetroSupport\UnityEditor.UWP.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Plastic.Newtonsoft.Json">
-      <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\MetroSupport\UnityEditor.UWP.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="GFUnity">
       <HintPath>Assets\Plugins\ManagedLib\GFUnity.dll</HintPath>
     </Reference>
-    <Reference Include="DemiLib">
-      <HintPath>Assets\Demigiant\DemiLib\Core\DemiLib.dll</HintPath>
-    </Reference>
-    <Reference Include="GFCore">
-      <HintPath>Assets\Plugins\ManagedLib\GFCore.dll</HintPath>
+    <Reference Include="Unity.Analytics.StandardEvents">
+      <HintPath>Library\PackageCache\com.unity.analytics@3.5.3\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="dnlib">
       <HintPath>D:\project\Titansiege\GameDesigner\GameDesigner\Network\Library\dnlib.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Plastic.Antlr3.Runtime">
-      <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.YamlDotNet">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>D:\project\Titansiege\GameDesigner\GameDesigner\Network\Library\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTweenProEditor">
-      <HintPath>Assets\Demigiant\DOTweenPro\Editor\DOTweenProEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTweenEditor">
-      <HintPath>Assets\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
-    </Reference>
     <Reference Include="DemiEditor">
       <HintPath>Assets\Demigiant\DemiLib\Core\Editor\DemiEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.TextureAssets">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.IonicZip">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
@@ -1437,416 +1413,452 @@
     <Reference Include="Pathfinding.ClipperLib">
       <HintPath>Assets\AstarPathfindingProject\Plugins\Clipper\Pathfinding.ClipperLib.dll</HintPath>
     </Reference>
+    <Reference Include="JMOAssets">
+      <HintPath>Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Editor\JMOAssets.dll</HintPath>
+    </Reference>
     <Reference Include="GFDebuger">
       <HintPath>Assets\Plugins\ManagedLib\GFDebuger.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus">
       <HintPath>Assets\Plugins\Editor\EPPlus.dll</HintPath>
     </Reference>
-    <Reference Include="RecastNet">
-      <HintPath>Assets\Plugins\GameDesigner\Recast\Library\RecastNet.dll</HintPath>
+    <Reference Include="ReportGeneratorMerged">
+      <HintPath>Library\PackageCache\com.unity.testtools.codecoverage@1.0.0\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Pathfinding.Poly2Tri">
-      <HintPath>Assets\AstarPathfindingProject\Plugins\Poly2Tri\Pathfinding.Poly2Tri.dll</HintPath>
+    <Reference Include="DOTweenPro">
+      <HintPath>Assets\Demigiant\DOTweenPro\DOTweenPro.dll</HintPath>
     </Reference>
     <Reference Include="AmazingAssets.TerrainToMesh">
       <HintPath>Assets\Plugins\GameDesigner\Recast\Library\AmazingAssets.TerrainToMesh.dll</HintPath>
     </Reference>
-    <Reference Include="DOTweenPro">
-      <HintPath>Assets\Demigiant\DOTweenPro\DOTweenPro.dll</HintPath>
+    <Reference Include="Unity.Plastic.Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="DemiLib">
+      <HintPath>Assets\Demigiant\DemiLib\Core\DemiLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.Editor">
+      <HintPath>Library\PackageCache\com.unity.analytics@3.5.3\Unity.Analytics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="GFCore">
+      <HintPath>Assets\Plugins\ManagedLib\GFCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Plastic.Antlr3.Runtime">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.YamlDotNet">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>D:\project\Titansiege\GameDesigner\GameDesigner\Network\Library\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>Assets\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenProEditor">
+      <HintPath>Assets\Demigiant\DOTweenPro\Editor\DOTweenProEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.TextureAssets">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.Tracker">
+      <HintPath>Library\PackageCache\com.unity.analytics@3.5.3\Unity.Analytics.Tracker.dll</HintPath>
+    </Reference>
+    <Reference Include="RecastNet">
+      <HintPath>Assets\Plugins\GameDesigner\Recast\Library\RecastNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Pathfinding.Poly2Tri">
+      <HintPath>Assets\AstarPathfindingProject\Plugins\Poly2Tri\Pathfinding.Poly2Tri.dll</HintPath>
     </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.17.2\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
     </Reference>
-    <Reference Include="JMOAssets">
-      <HintPath>Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Editor\JMOAssets.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Android.Types">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Android.Gradle">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\mscorlib.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\mscorlib.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Core">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Core.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Runtime.Serialization.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Runtime.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Xml.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Xml.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Xml.Linq.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Xml.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Numerics.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics.Vectors">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Numerics.Vectors.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Numerics.Vectors.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Net.Http.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Net.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.IO.Compression.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.IO.Compression.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Microsoft.CSharp.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Microsoft.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="System.Data">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Data.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Data.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Data.DataSetExtensions.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Data.DataSetExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Drawing.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Drawing.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression.FileSystem">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.IO.Compression.FileSystem.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.IO.Compression.FileSystem.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.ComponentModel.Composition.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.ComponentModel.Composition.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Transactions.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.Transactions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Win32.Primitives">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\Microsoft.Win32.Primitives.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\netstandard.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\netstandard.dll</HintPath>
     </Reference>
     <Reference Include="System.AppContext">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.AppContext.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.AppContext.dll</HintPath>
     </Reference>
     <Reference Include="System.Buffers">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Buffers.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Collections.Concurrent">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Collections.Concurrent.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Collections.Concurrent.dll</HintPath>
     </Reference>
     <Reference Include="System.Collections">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Collections.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Collections.dll</HintPath>
     </Reference>
     <Reference Include="System.Collections.NonGeneric">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Collections.NonGeneric.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Collections.NonGeneric.dll</HintPath>
     </Reference>
     <Reference Include="System.Collections.Specialized">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Collections.Specialized.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Collections.Specialized.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Annotations">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.Annotations.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.EventBasedAsync">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.EventBasedAsync.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.EventBasedAsync.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Primitives">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.Primitives.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.TypeConverter">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.TypeConverter.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ComponentModel.TypeConverter.dll</HintPath>
     </Reference>
     <Reference Include="System.Console">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Console.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Console.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Common">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Data.Common.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Data.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.Contracts">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.Contracts.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.Contracts.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.Debug">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.Debug.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.Debug.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.FileVersionInfo">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.FileVersionInfo.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.FileVersionInfo.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.Process">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.Process.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.Process.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.StackTrace">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.StackTrace.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.StackTrace.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.TextWriterTraceListener">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.TextWriterTraceListener.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.TextWriterTraceListener.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.Tools">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.Tools.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.Tools.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.TraceSource">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.TraceSource.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Diagnostics.TraceSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing.Primitives">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Drawing.Primitives.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Drawing.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Dynamic.Runtime">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Dynamic.Runtime.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Dynamic.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="System.Globalization.Calendars">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Globalization.Calendars.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Globalization.Calendars.dll</HintPath>
     </Reference>
     <Reference Include="System.Globalization">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Globalization.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Globalization.dll</HintPath>
     </Reference>
     <Reference Include="System.Globalization.Extensions">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Globalization.Extensions.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Globalization.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression.ZipFile">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.Compression.ZipFile.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.Compression.ZipFile.dll</HintPath>
     </Reference>
     <Reference Include="System.IO">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.FileSystem">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.FileSystem.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.FileSystem.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.FileSystem.DriveInfo">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.FileSystem.DriveInfo.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.FileSystem.DriveInfo.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.FileSystem.Primitives">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.FileSystem.Primitives.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.FileSystem.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.FileSystem.Watcher">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.FileSystem.Watcher.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.FileSystem.Watcher.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.IsolatedStorage">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.IsolatedStorage.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.IsolatedStorage.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.MemoryMappedFiles">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.MemoryMappedFiles.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.MemoryMappedFiles.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Pipes">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.Pipes.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.Pipes.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.UnmanagedMemoryStream">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.UnmanagedMemoryStream.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.IO.UnmanagedMemoryStream.dll</HintPath>
     </Reference>
     <Reference Include="System.Linq">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Linq.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Linq.Expressions">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Linq.Expressions.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Linq.Expressions.dll</HintPath>
     </Reference>
     <Reference Include="System.Linq.Parallel">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Linq.Parallel.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Linq.Parallel.dll</HintPath>
     </Reference>
     <Reference Include="System.Linq.Queryable">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Linq.Queryable.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Linq.Queryable.dll</HintPath>
     </Reference>
     <Reference Include="System.Memory">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Memory.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Rtc">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Http.Rtc.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Http.Rtc.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.NameResolution">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.NameResolution.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.NameResolution.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.NetworkInformation">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.NetworkInformation.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.NetworkInformation.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Ping">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Ping.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Ping.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Primitives">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Primitives.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Requests">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Requests.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Requests.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Security">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Security.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Security.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Sockets">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Sockets.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.Sockets.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.WebHeaderCollection">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.WebHeaderCollection.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.WebHeaderCollection.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.WebSockets.Client">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.WebSockets.Client.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.WebSockets.Client.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.WebSockets">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.WebSockets.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Net.WebSockets.dll</HintPath>
     </Reference>
     <Reference Include="System.ObjectModel">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ObjectModel.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ObjectModel.dll</HintPath>
     </Reference>
     <Reference Include="System.Reflection.DispatchProxy">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.DispatchProxy.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.DispatchProxy.dll</HintPath>
     </Reference>
     <Reference Include="System.Reflection">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.dll</HintPath>
     </Reference>
     <Reference Include="System.Reflection.Emit">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Emit.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Emit.dll</HintPath>
     </Reference>
     <Reference Include="System.Reflection.Emit.ILGeneration">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Emit.ILGeneration.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Emit.ILGeneration.dll</HintPath>
     </Reference>
     <Reference Include="System.Reflection.Emit.Lightweight">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Emit.Lightweight.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Emit.Lightweight.dll</HintPath>
     </Reference>
     <Reference Include="System.Reflection.Extensions">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Extensions.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Reflection.Primitives">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Primitives.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Reflection.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Resources.Reader">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Resources.Reader.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Resources.Reader.dll</HintPath>
     </Reference>
     <Reference Include="System.Resources.ResourceManager">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Resources.ResourceManager.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Resources.ResourceManager.dll</HintPath>
     </Reference>
     <Reference Include="System.Resources.Writer">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Resources.Writer.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Resources.Writer.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.VisualC">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.CompilerServices.VisualC.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.CompilerServices.VisualC.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Extensions">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Extensions.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Handles">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Handles.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Handles.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.InteropServices">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.InteropServices.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.InteropServices.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.InteropServices.WindowsRuntime">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.InteropServices.WindowsRuntime.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.InteropServices.WindowsRuntime.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Numerics">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Numerics.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization.Formatters">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Serialization.Formatters.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Serialization.Formatters.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization.Json">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Serialization.Json.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Serialization.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization.Primitives">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Serialization.Primitives.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Serialization.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization.Xml">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Serialization.Xml.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.Serialization.Xml.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Claims">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Claims.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Claims.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Cryptography.Algorithms">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.Algorithms.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Cryptography.Csp">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.Csp.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.Csp.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Cryptography.Encoding">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.Encoding.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.Encoding.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Cryptography.Primitives">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.Primitives.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Cryptography.X509Certificates">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Cryptography.X509Certificates.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Principal">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Principal.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.Principal.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.SecureString">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.SecureString.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Security.SecureString.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel.Duplex">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.Duplex.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.Duplex.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel.Http">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.Http.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel.NetTcp">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.NetTcp.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.NetTcp.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel.Primitives">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.Primitives.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel.Security">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.Security.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ServiceModel.Security.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.Encoding">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Text.Encoding.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Text.Encoding.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.Encoding.Extensions">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Text.Encoding.Extensions.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Text.Encoding.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.RegularExpressions">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Text.RegularExpressions.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Text.RegularExpressions.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Overlapped">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Overlapped.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Overlapped.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Tasks.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Tasks.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Tasks.Extensions.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Parallel">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Tasks.Parallel.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Tasks.Parallel.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Thread">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Thread.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Thread.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.ThreadPool">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.ThreadPool.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.ThreadPool.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Timer">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Timer.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Threading.Timer.dll</HintPath>
     </Reference>
     <Reference Include="System.ValueTuple">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ValueTuple.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.ReaderWriter">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.ReaderWriter.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.ReaderWriter.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.XDocument">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XDocument.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XDocument.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.XmlDocument">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XmlDocument.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XmlDocument.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.XmlSerializer">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XmlSerializer.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XmlSerializer.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.XPath">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.XPath.XDocument">
-      <HintPath>G:\ProgramFile\Unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
+      <HintPath>E:\ProgramFile\unity\2021.3.11f1c2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>

@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using Titansiege;
 using UnityEngine;
 namespace GF.MainGame.Module {
-    public class ItemBase : MonoBehaviour {
+    public class ItemBase {
         public ItemDataBase m_Data;
         /// <summary>
         /// 效果值的存储，属性类效果值，一般是装备上使用，需要大量字符串匹配
