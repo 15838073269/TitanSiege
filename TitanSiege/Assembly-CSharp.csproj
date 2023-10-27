@@ -138,6 +138,7 @@
     <Compile Include="Assets\Scripts\Module\NPC\NPCBase.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Component\XffectCache.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets01\Cartoon FX\Scripts\CFX2_AutoRotate.cs" />
+    <Compile Include="Assets\Scripts\Module\TalkModule.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Affectors\Affector.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraEffects\RadialBlurEvent.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets02\Cartoon FX\Demo\Assets\CFX_Demo_RandomDirectionTranslate.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Assets\Scripts\Module\NPC\Monster.cs" />
     <Compile Include="Assets\Scripts\Module\BulidModule.cs" />
     <Compile Include="Assets\Scripts\Utilities\TestScene.cs" />
+    <Compile Include="Assets\Scripts\UIModule\EmojiUI.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Emitter.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Affectors\AirFieldAffector.cs" />
     <Compile Include="Assets\Scripts\Game\AppConfig.cs" />
@@ -273,6 +275,7 @@
     <Compile Include="Assets\Scripts\Module\Fight\State\FightRun.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\Events\CameraEffectEvent.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
+    <Compile Include="Assets\Scripts\UIModule\OneTalkUI.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\SpriteMaker\SpriteMaker.cs" />
     <Compile Include="Assets\Scripts\Module\SceneModule\CreateRoleScene.cs" />
     <Compile Include="Assets\Scripts\Module\NPC\Skill\PSkillAction.cs" />
@@ -280,6 +283,7 @@
     <Compile Include="Assets\Scripts\UIModule\TextSizeFitter.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
     <Compile Include="Assets\Scripts\Module\LoginModule.cs" />
+    <Compile Include="Assets\Scripts\UIModule\TalkUI.cs" />
     <Compile Include="Assets\Scripts\UIModule\LoginUIPage.cs" />
     <Compile Include="Assets\Scripts\UIModule\ItemDescUIWidget.cs" />
     <Compile Include="Assets\Scripts\UIModule\UIBG.cs" />
@@ -378,6 +382,7 @@
     <None Include="Assets\Ultimate 10 Plus Shaders\Shaders\Simple Sine Wave.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\Art\UIRes\Emoji\Input\说明：emoji表情需要设置成texture类型，才能进行emojibulider打包.txt" />
     <None Include="Assets\AssetBundleConfig.xml" />
     <None Include="Assets\Hovl Studio\Sword slash VFX\Shaders\Explosion.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />

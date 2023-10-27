@@ -23,5 +23,6 @@
         HPModule = AppConfig.ScriptSpan * 13,
         DieUIModule = AppConfig.ScriptSpan * 14,
         ItemModule = AppConfig.ScriptSpan * 15,
+        TalkModule = AppConfig.ScriptSpan * 16,
     }
 }

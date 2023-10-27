@@ -10,4 +10,5 @@ public class Command : Net.Component.Command {
     public const byte PlayerUpdateProp = 157;//玩家重新计算属性的命令，为了节省带宽，不传递具体属性，只传递升级更新命令
     public const byte addrexp = 158;//吃经验书
     public const byte AddHpOrMp = 159;//回血或者回蓝
+    public const byte CurrentTalk = 160;//当前场景的聊天
 }

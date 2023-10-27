@@ -70,6 +70,7 @@ namespace GF.MainGame {
         public const string BagUIWindow = "BagUIWindow";
         //注意通过objectmager加载的ui路径和UImanager加载的不同
         public const string ItemBaseUI = "UIPrefab/ItemBaseUI.prefab";
+        public const string OneTalkUI= "UIPrefab/OneTalkUI.prefab";
         public const string ItemDescUIWidget = "ItemDescUIWidget";
         /// <summary>
         /// 各个场景的名称

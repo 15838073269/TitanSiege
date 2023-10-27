@@ -136,3 +136,9 @@ public enum Zhiye {
     法师 = 1,
     游侠 = 2,
 }
+
+public enum TalkType { 
+    世界 = 0,
+    当前 = 1,
+    队伍 = 2,
+}

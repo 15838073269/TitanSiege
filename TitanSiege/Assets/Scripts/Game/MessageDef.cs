@@ -103,5 +103,11 @@ namespace GF.MainGame {
         RecycleItemUINoServer,
         GetItemUI,
     }
+    public enum TalkEvent {
+        AddEmoji = (int)MDef.TalkModule + 1,
+        GetTalkUI,
+        RecycleTalkUI,
+        AddOneTalk,
+    }
 }
 

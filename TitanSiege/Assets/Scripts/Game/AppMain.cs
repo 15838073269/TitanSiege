@@ -201,6 +201,7 @@ namespace GF.MainGame {
             AppTools.CreateModule<NPCModule>(MDef.NPCModule);
             AppTools.CreateModule<DieUIModule>(MDef.DieUIModule);
             AppTools.CreateModule<ItemModule>(MDef.ItemModule);
+            
         }
 
         /// <summary>

@@ -21,8 +21,6 @@ namespace GF.MainGame.UI {
         public Animation listani;
         public Button zhankaibtn;
         public Button bagbtn;
-        public Button skillbtn;
-        public Button ronglubtn;
         public Button renwubtn;
         public Button shezhibtn;
         public Button renwuhiden;
@@ -52,12 +50,6 @@ namespace GF.MainGame.UI {
             });
             bagbtn.onClick.AddListener(() => {
                 BtnClick("bag");
-            });
-            skillbtn.onClick.AddListener(() => {
-                BtnClick("skill");
-            });
-            ronglubtn.onClick.AddListener(() => {
-                BtnClick("tianfu");
             });
             shezhibtn.onClick.AddListener(() => {
                 BtnClick("shezhi");

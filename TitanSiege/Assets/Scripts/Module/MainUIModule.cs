@@ -13,6 +13,7 @@ using GF.MainGame.UI;
 using Titansiege;
 using Cysharp.Threading.Tasks;
 using GF.MainGame.Data;
+using Unity.VisualScripting;
 
 namespace GF.MainGame.Module {
     public class MainUIModule : GeneralModule {
@@ -47,6 +48,9 @@ namespace GF.MainGame.Module {
             if (!AppTools.HasModule(MDef.HPModule)) {
                 AppTools.CreateModule<HPModule>(MDef.HPModule);
             }
+            //创建聊天模块
+            TalkModule t = AppTools.CreateModule<TalkModule>(MDef.TalkModule);
+            t.m_TalkUI = m_Ui.transform.Find("TalkUI").GetComponent<TalkUI>();//初始化聊天模块ui
             InitUI();
         }
         public void InitUI() {
