@@ -108,6 +108,7 @@ namespace GF.MainGame {
         GetTalkUI,
         RecycleTalkUI,
         AddOneTalk,
+        TalkToggleChange,
     }
 }
 

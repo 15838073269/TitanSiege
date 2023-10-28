@@ -13,6 +13,7 @@ namespace cmd {
         CreateItemToBag = 413,
         ChangeEqu = 414,
         XiexiaItem = 415,
+        SendTalk = 416,
     }
 }
 

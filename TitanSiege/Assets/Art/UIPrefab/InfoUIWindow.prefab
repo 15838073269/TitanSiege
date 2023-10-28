@@ -2580,10 +2580,10 @@ RectTransform:
   m_Father: {fileID: 4188220448365344703}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 677.7, y: 355.8916}
-  m_SizeDelta: {x: -2308.52, y: -999.9033}
+  m_AnchoredPosition: {x: -522.3, y: -184.1084}
+  m_SizeDelta: {x: 91.47998, y: 80.09668}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4188220448270499850
 CanvasRenderer:
@@ -6533,7 +6533,6 @@ MonoBehaviour:
   m_ItemColor: {fileID: 9020527445657173591}
   m_ItemBtn: {fileID: 3825774234354164345}
   m_ItemNum: {fileID: 2178998648656881123}
-  m_Itembase: {fileID: 0}
   m_Pos: 1
 --- !u!114 &9020527445657173591 stripped
 MonoBehaviour:
@@ -6729,7 +6728,6 @@ MonoBehaviour:
   m_ItemColor: {fileID: 8082927462360848695}
   m_ItemBtn: {fileID: 4041113415497778457}
   m_ItemNum: {fileID: 1386635762312004227}
-  m_Itembase: {fileID: 0}
   m_Pos: 1
 --- !u!114 &8082927462360848695 stripped
 MonoBehaviour:
@@ -6937,7 +6935,6 @@ MonoBehaviour:
   m_ItemColor: {fileID: 6657551818868070190}
   m_ItemBtn: {fileID: 1467285713445194496}
   m_ItemNum: {fileID: 4572950539516660890}
-  m_Itembase: {fileID: 0}
   m_Pos: 1
 --- !u!1001 &3316547568365221238
 PrefabInstance:
@@ -7139,7 +7136,6 @@ MonoBehaviour:
   m_ItemColor: {fileID: 6042295560993420091}
   m_ItemBtn: {fileID: 2009224745213865749}
   m_ItemNum: {fileID: 3515210821848262799}
-  m_Itembase: {fileID: 0}
   m_Pos: 1
 --- !u!1001 &4205044738530263063
 PrefabInstance:
@@ -7335,7 +7331,6 @@ MonoBehaviour:
   m_ItemColor: {fileID: 5154198612658243162}
   m_ItemBtn: {fileID: 1134868462964136564}
   m_ItemNum: {fileID: 2636125333513772526}
-  m_Itembase: {fileID: 0}
   m_Pos: 1
 --- !u!1001 &7929503994243201846
 PrefabInstance:
@@ -9078,7 +9073,6 @@ MonoBehaviour:
   m_ItemColor: {fileID: 1014021845545823517}
   m_ItemBtn: {fileID: 5055923835102409011}
   m_ItemNum: {fileID: 7854424175703750313}
-  m_Itembase: {fileID: 0}
   m_Pos: 1
 --- !u!114 &5055923835102409011 stripped
 MonoBehaviour:

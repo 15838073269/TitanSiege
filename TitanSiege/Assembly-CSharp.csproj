@@ -72,7 +72,6 @@
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\WarFX\Demo\Assets\WFX_Demo.cs" />
     <Compile Include="Assets\Scripts\Module\SceneModule\SceneModule.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets03\Cartoon FX\Demo\Assets\CFX3_AutoStopLoopedEffect.cs" />
-    <Compile Include="Assets\Scripts\Module\Fight\FightScene.cs" />
     <Compile Include="Assets\Scripts\Data\NameData.cs" />
     <Compile Include="Assets\Scripts\Net\NetData\Model\FightProp.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\JMO Assets02\Cartoon FX\Scripts\CFX_AutoRotate.cs" />
@@ -131,7 +130,7 @@
     <Compile Include="Assets\Scripts\Net\NetData\DB\TitansiegeDBEvent.cs" />
     <Compile Include="Assets\Scripts\Const\Enums.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Tutorial\RopeRenderer\XftRopeDemo.cs" />
-    <Compile Include="Assets\Scripts\Utilities\MyAcitonCore.cs" />
+    <Compile Include="Assets\Scripts\Module\Fight\MyAcitonCore.cs" />
     <Compile Include="Assets\Scripts\Data\TaskData.cs" />
     <Compile Include="Assets\Scripts\Module\MoveModule\CameraController.cs" />
     <Compile Include="Assets\IGSoft_Resources\aFX_Bao\Xffect_free\Script\RibbonTrail.cs" />

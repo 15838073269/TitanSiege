@@ -141,6 +141,14 @@ namespace GF.Service {
             }
         }
         /// <summary>
+        /// 接收服务器发送而来的消息，用于世界消息和队伍消息，当前消息由服务端场景同步发送
+        /// 使用rpc，如果不生效，检查是否adddRPC
+        /// </summary>
+        [Net.Share.RPC(hash = (ushort)ProtoType.SendTalk)]
+        private void ReciveTalk(string talkstr,int talktypenum) {
+            AppTools.Send<string, TalkType>((int)TalkEvent.AddOneTalk,talkstr,(TalkType)talktypenum);
+        }
+        /// <summary>
         /// 将现有道具转换成字符串，数据库写入使用
         /// </summary>
         /// <returns></returns>

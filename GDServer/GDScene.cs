@@ -145,6 +145,7 @@ namespace GDServer {
                         AddOperation(opt);
                         break;
                     default://这里默认，要原路返回客户端
+                        //当前频道的聊天信息也在这里发送，不单独写了
                         AddOperation(opt);
                         break;
                 }

@@ -14,7 +14,7 @@ namespace GF.MainGame.UI {
         public TalkType m_TalkType;
         public EmojiText m_EmojiText;
         public Outline m_Outline;
-        public Color m_TextColor;
+
         /// <summary>
         /// 初始化
         /// </summary>
@@ -24,8 +24,7 @@ namespace GF.MainGame.UI {
         public void Init(TalkType talktype,string content,Color color) {
             m_TalkType = talktype;
             m_EmojiText.text = content;
-            m_TextColor = color;
-            m_Outline.effectColor = m_TextColor;
+            m_Outline.effectColor = color;
         }
     }
 }

@@ -310,6 +310,18 @@ namespace GDServer.Services
                 case (ushort)ProtoType.signout://客户端主动发起退出登录
                     SignOut(client);
                     break;
+                case (ushort)ProtoType.SendTalk://给全服玩家发送消息
+                    string str = (string)model.pars[0];    
+                    int talktypenum = (int)model.pars[1];
+                    TalkType talktype = (TalkType)talktypenum;
+                    if (TalkType.世界 == talktype) {//通过服务器发送全服玩家
+                        Multicast(Clients, (ushort)ProtoType.SendTalk, str, talktypenum);
+                    } else if (TalkType.队伍 == talktype) {//通过服务器发送队伍的玩家，需要队伍模块开发完成  todo
+
+                    } else if (TalkType.系统 == talktype) { //这里是客户端自己发给服务器的，主要是为了告诉服务器，自己聊天模块加载完成了
+                        SendRT(client, (ushort)ProtoType.SendTalk, "【系统】：欢迎来到神话纪元[2]，个人游戏demo，已开源，[3]详细源码请参考gitee仓库:https://gitee.com/xixin32/Titansiege", talktypenum);
+                    }
+                    break;
                 default:
                     base.OnRpcExecute(client, model);//反射调用rpc
                     break;

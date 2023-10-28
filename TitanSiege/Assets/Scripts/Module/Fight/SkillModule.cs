@@ -30,9 +30,7 @@ namespace GF.MainGame.Module {
             AppTools.Regist<ushort>((int)SkillEvent.ManzuXuqiudengji, ManzuXuqiudengji);
             AppTools.Regist<SkillDataBase, NPCBase,List<NPCBase>>((int)SkillEvent.CountSkillHurt, CountSkillHurt);
             AppTools.Regist<SkillDataBase, Player, Monster>((int)SkillEvent.CountSkillHurtWithOne, CountSkillHurtWithOne);
-            //AppTools.Regist<DamageArg>((int)SkillEvent.ShowDamage, ShowDamage);
-            ///获取所有技能配置表数据
-            ///todo
+            
         }
 
         public override void Release() {
@@ -54,10 +52,7 @@ namespace GF.MainGame.Module {
         //此处默认连击最多三段
         public void ClickSkill(int skillposid, NPCBase npc) {
             //根据技能连击等待时间做一个计数器，计算是否触发连击动画，目前系统共用一个连击等待时间，设置为2s,2秒内再次触发技能，就会有连击动画，这个功能只会是普攻技能触发，需要判定一下
-            //if(sb.skilltype==普攻){
-            //开一个协程，或者task处理
-            //}
-            //toodo
+            
             //如果不是战斗状态，先切换成战斗状态，再切换技能状态
             if (npc.IsFight == false) {
                 npc.SetFight(true);

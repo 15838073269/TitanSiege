@@ -197,6 +197,10 @@ namespace GF.NetWork {
                         p.Fuhuo();
                     }
                     break;
+                case Command.CurrentTalk://当前频道的聊天
+                    //当前场景的玩家都能收到这个消息
+                    AppTools.Send<string, TalkType>((int)TalkEvent.AddOneTalk, opt.name, (TalkType)opt.index);
+                    break;
             }
         }
      
